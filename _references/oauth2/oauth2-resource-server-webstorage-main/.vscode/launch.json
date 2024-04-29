@@ -1,0 +1,15 @@
+{
+  "COMMAND_LINE": "export SPRING_PROFILES_ACTIVE=auth0|cognito && env-cmd -f .env ./gradlew bootRun",
+  
+  "configurations": [
+    {
+      "type": "java",
+      "name": "OAUTH2-ResourceServerWEBSTORAGE",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.aadityadesigners.tutorials.App",
+      "projectName": "app",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

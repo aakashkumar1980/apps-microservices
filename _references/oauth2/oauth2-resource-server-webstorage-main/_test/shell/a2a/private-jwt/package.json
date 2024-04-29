@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "properties-parser": "^0.6.0",
+    "uuid": "^9.0.1"
+  }
+}
