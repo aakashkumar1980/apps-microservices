@@ -13,7 +13,7 @@ java {
 
 group = "com.example.tutorial"
 version = "0.0.1"
-description = "Spring Boot API"
+description = "Spring Boot REST API"
 
 val springBootVersion = "3.5.0"
 val ioUtilsVersion = "2.19.0"

@@ -10,4 +10,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "springboot-api"
+rootProject.name = "springboot-restapi"
