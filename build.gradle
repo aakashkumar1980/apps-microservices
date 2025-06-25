@@ -1,52 +1,88 @@
+/**
+ * Gradle build configuration for a Spring Boot REST API using Java 21.
+ * Plugins are used to add support for Spring Boot, dependency management, Java toolchain, and publishing.
+ */
 plugins {
+  /**
+   * Adds support for writing Java libraries.
+   * Useful if you want to publish parts of this project as reusable JARs.
+   */
   id 'java-library'
+
+  /**
+   * Enables publishing artifacts (like JARs) to a Maven repository.
+   */
   id 'maven-publish'
+
+  /**
+   * Integrates Spring Boot features such as auto-configuration and bootJar.
+   */
   id 'org.springframework.boot' version '3.5.0'
+
+  /**
+   * Allows you to manage dependency versions without declaring them redundantly.
+   * Works well with Spring Boot's BOM (Bill of Materials).
+   */
   id 'io.spring.dependency-management' version '1.1.5'
 }
 
 java {
   toolchain {
-    languageVersion = JavaLanguageVersion.of(21)
+    /**
+     * Sets the Java language version to 21.
+     */
+    languageVersion = JavaLanguageVersion.of(24)
   }
 }
 
+// Project metadata
 group = 'com.example.tutorial'
 version = '0.0.1'
 description = 'Spring Boot REST API'
 
+// Define reusable dependency versions
 def springBootVersion = '3.5.0'
 def ioUtilsVersion = '2.19.0'
 def commonsLangVersion = '3.17.0'
 
 repositories {
+  /**
+   * Main repository for Java libraries.
+   */
   mavenCentral()
 
-  // Placeholder for company-provided (in-house Artifactory) repository
-  /** maven {
-  url = uri("<company-artifactory-url>")
-  // Authentication should be handled via SSO, do not add username/password here
-  } **/
+  // Optional: Company-provided Artifactory repository
+  // maven {
+  //     url = uri("<company-artifactory-url>")
+  // }
 }
 
 dependencies {
+  /** SPRING BOOT **/
+  /**
+   * Spring Boot starter for building RESTful APIs.
+   */
   implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+
+
+  /** UTILITIES **/
+  /**
+   * Apache Commons Lang — utility functions for Strings, Numbers, etc.
+   */
   implementation("org.apache.commons:commons-lang3:${commonsLangVersion}") {
-    exclude group: "org.slf4j"
+    exclude group: "org.slf4j" // Avoid duplicate logging libraries
   }
+
+  /**
+   * Commons IO — file handling utilities.
+   */
   implementation "commons-io:commons-io:${ioUtilsVersion}"
 }
 
 tasks.named('bootJar', org.springframework.boot.gradle.tasks.bundling.BootJar) {
-  archiveFileName = "${rootProject.name}-${version}.jar"
+  /**
+   * Specify the main class for the bootJar task.
+   * Replace with your actual entry-point class.
+   */
+  mainClass.set('com.example.tutorial.Application')
 }
-
-tasks.named('build') {
-  dependsOn 'bootJar'
-}
-
-test {
-  useJUnitPlatform()
-}
-
-
