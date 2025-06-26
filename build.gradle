@@ -40,11 +40,6 @@ group = 'com.example.tutorial'
 version = '0.0.1'
 description = 'Spring Boot REST API'
 
-// Define reusable dependency versions
-def springBootVersion = '3.5.0'
-def ioUtilsVersion = '2.19.0'
-def commonsLangVersion = '3.17.0'
-
 repositories {
   /**
    * Main repository for Java libraries.
@@ -56,6 +51,13 @@ repositories {
   //     url = uri("<company-artifactory-url>")
   // }
 }
+
+/** ******************* **/
+/** [START] DEVELOPMENT **/
+/** ******************* **/
+def springBootVersion = '3.5.0'
+def ioUtilsVersion = '2.19.0'
+def commonsLangVersion = '3.17.0'
 
 dependencies {
   /** SPRING BOOT **/
@@ -78,6 +80,9 @@ dependencies {
    */
   implementation "commons-io:commons-io:${ioUtilsVersion}"
 }
+/** ***************** **/
+/** [END] DEVELOPMENT **/
+/** ***************** **/
 
 tasks.named('bootJar', org.springframework.boot.gradle.tasks.bundling.BootJar) {
   /**
