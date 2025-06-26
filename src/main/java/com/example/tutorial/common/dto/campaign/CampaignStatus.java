@@ -7,10 +7,10 @@ public enum CampaignStatus {
   ACTIVE,
   @JsonProperty("INACTIVE")
   INACTIVE,
-  @JsonProperty("PAUSED")
-  PAUSED,
+  @JsonProperty("PLANNED")
+  PLANNED,
+  @JsonProperty("DRAFT")
+  DRAFT,
   @JsonProperty("COMPLETED")
-  COMPLETED,
-  @JsonProperty("CANCELLED")
-  CANCELLED
+  COMPLETED
 }
