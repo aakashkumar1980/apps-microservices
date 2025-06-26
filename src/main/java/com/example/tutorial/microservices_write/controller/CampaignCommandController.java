@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices_write.controller;
 
 import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.microservices_write.controller.service.CampaignCommandService;
+import com.example.tutorial.microservices_write.service.CampaignCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
