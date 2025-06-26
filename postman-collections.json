@@ -1,0 +1,98 @@
+{
+  "info": {
+    "name": "Campaign API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for Campaign CRUD operations"
+  },
+  "item": [
+    {
+      "name": "Create Campaign",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test Campaign\",\n  \"description\": \"A test campaign\",\n  \"status\": \"ACTIVE\",\n  \"start_date\": \"2024-06-01T00:00:00\",\n  \"end_date\": \"2024-06-30T23:59:59\",\n  \"budget\": 1000.0\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/campaigns",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "campaigns"]
+        }
+      }
+    },
+    {
+      "name": "Get All Campaigns",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/campaigns",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "campaigns"]
+        }
+      }
+    },
+    {
+      "name": "Get Campaign By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "campaigns", "{{campaignId}}"]
+        }
+      }
+    },
+    {
+      "name": "Update Campaign",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Campaign\",\n  \"description\": \"Updated description\",\n  \"status\": \"INACTIVE\",\n  \"start_date\": \"2024-06-01T00:00:00\",\n  \"end_date\": \"2024-06-30T23:59:59\",\n  \"budget\": 2000.0\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "campaigns", "{{campaignId}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Campaign",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "campaigns", "{{campaignId}}"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "campaignId",
+      "value": "1"
+    }
+  ]
+}
+
