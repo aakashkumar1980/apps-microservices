@@ -1,4 +1,4 @@
-package com.example.tutorial.common.dto.campaign.utils;
+package com.example.tutorial.common.utils;
 
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
