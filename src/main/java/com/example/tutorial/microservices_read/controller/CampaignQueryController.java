@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices_read.controller;
 
 import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.microservices_read.controller.service.CampaignQueryService;
+import com.example.tutorial.microservices_read.service.CampaignQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
