@@ -33,23 +33,23 @@ public class CampaignCommandService {
   public void updateCampaign(Long id, Campaign campaign) {
     List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
     // Find the campaign with the given ID
-    Optional<Campaign> existing = Optional.empty();
+    Optional<Campaign> existingCampaign = Optional.empty();
     for (Campaign c : campaigns) {
         if (c.getId().equals(id)) {
-            existing = Optional.of(c);
+            existingCampaign = Optional.of(c);
             break;
         }
     }
 
     // If the campaign exists, update its fields
-    if (existing.isPresent()) {
-      Campaign toUpdate = existing.get();
-      toUpdate.setName(campaign.getName());
-      toUpdate.setDescription(campaign.getDescription());
-      toUpdate.setStatus(campaign.getStatus());
-      toUpdate.setStartDate(campaign.getStartDate());
-      toUpdate.setEndDate(campaign.getEndDate());
-      toUpdate.setBudget(campaign.getBudget());
+    if (existingCampaign.isPresent()) {
+      Campaign exCampaign = existingCampaign.get();
+      exCampaign.setName(campaign.getName());
+      exCampaign.setDescription(campaign.getDescription());
+      exCampaign.setStatus(campaign.getStatus());
+      exCampaign.setStartDate(campaign.getStartDate());
+      exCampaign.setEndDate(campaign.getEndDate());
+      exCampaign.setBudget(campaign.getBudget());
     }
   }
 
