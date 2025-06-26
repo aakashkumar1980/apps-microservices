@@ -1,4 +1,4 @@
-package com.example.tutorial.microservices_write.controller.service;
+package com.example.tutorial.microservices_write.service;
 
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.utils.MockDataUtil;
