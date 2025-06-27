@@ -59,6 +59,9 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(String.format("Application functional error occurred: %s", ex.getMessage()), status);
   }
 
+  /** ********************* **/
+  /** VALIDATION EXCEPTIONS **/
+  /** ********************* **/
   /**
    * Handles ApiValidationException specifically, allowing for custom handling of API validation errors.
    * This method will log the exception and return a specific error response.
