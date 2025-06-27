@@ -1,4 +1,4 @@
-package com.example.tutorial.common.errors.core;
+package com.example.tutorial.common.exceptions.core;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
