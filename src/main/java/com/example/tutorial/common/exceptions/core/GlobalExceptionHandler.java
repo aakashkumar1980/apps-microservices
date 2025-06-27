@@ -1,7 +1,5 @@
-package com.example.tutorial.common.errors.core;
+package com.example.tutorial.common.exceptions.core;
 
-import com.example.tutorial.common.utils.ApplicationUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,9 +12,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class GlobalExceptionHandler {
 
   private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
-  @Autowired
-  ApplicationUtils applicationUtils;
 
   /**
    * Handles all exceptions that are not specifically handled by other exception handlers.
@@ -39,14 +34,14 @@ public class GlobalExceptionHandler {
   }
 
   /**
-   * Handles ApiFunctionalException specifically, allowing for custom handling of API-related errors.
+   * Handles ApplicationFunctionalException specifically, allowing for custom handling of API-related errors.
    * This method will log the exception and return a specific error response.
    *
-   * @param ex the ApiFunctionalException that was thrown
+   * @param ex the ApplicationFunctionalException that was thrown
    * @return a ResponseEntity with a specific error message and HTTP status
    */
-  @ExceptionHandler(ApiFunctionalException.class)
-  public ResponseEntity<String> handleApiFunctionalException(ApiFunctionalException ex) {
+  @ExceptionHandler(ApplicationFunctionalException.class)
+  public ResponseEntity<String> handleApiFunctionalException(ApplicationFunctionalException ex) {
     // Determine the HTTP status based on the exception type
     HttpStatus status = HttpStatus.BAD_REQUEST; // default status
     if (ex.getClass().isAnnotationPresent(ResponseStatus.class)) {
@@ -54,8 +49,8 @@ public class GlobalExceptionHandler {
       status = responseStatus.value();
     }
 
-    logger.warn("ApiFunctionalException caught: {}", ex.getMessage(), ex);
-    return new ResponseEntity<>(String.format("API functional error occurred: %s", ex.getMessage()), status);
+    logger.warn("ApplicationFunctionalException caught: {}", ex.getMessage(), ex);
+    return new ResponseEntity<>(String.format("Application functional error occurred: %s", ex.getMessage()), status);
   }
 
 }
