@@ -1,6 +1,7 @@
 package com.example.tutorial.microservices_write.service;
 
 import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.errors.core.ApiFunctionalException;
 import com.example.tutorial.common.utils.MockDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class CampaignCommandService {
    * Update an existing campaign.
    * @param id the ID of the campaign
    * @param campaign the campaign with updated fields
+   * @throws ApiFunctionalException if the campaign with the given ID does not exist
    */
   public void updateCampaign(Long id, Campaign campaign) {
     List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
@@ -50,6 +52,9 @@ public class CampaignCommandService {
       exCampaign.setStartDate(campaign.getStartDate());
       exCampaign.setEndDate(campaign.getEndDate());
       exCampaign.setBudget(campaign.getBudget());
+
+    } else {
+      throw new ApiFunctionalException(String.format("Campaign with ID %d not found", id));
     }
   }
 
