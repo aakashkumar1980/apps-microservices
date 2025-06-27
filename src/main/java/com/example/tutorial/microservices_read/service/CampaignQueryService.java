@@ -26,19 +26,11 @@ public class CampaignQueryService {
    * Returns a campaign by its ID.
    * @param id Campaign ID
    * @return Optional containing the Campaign if found, otherwise empty
-   *
-   * NOTE: Optional is used to handle cases where the campaign might not exist.
-   * It helps avoid null checks and makes the code cleaner. The general syntax are:
-   * Optional<Type> optionalVariable = Optional.ofNullable(value) returns an empty Optional if value is null.
-   * Optional<Type> optionalVariable = Optional.of(value) throws a NullPointerException if value is null, so use when you are sure the value is never null;
-   * Optional<Type> optionalVariable = Optional.empty();
    */
   public Optional<Campaign> getCampaignById(Long id) {
-    for (Campaign c : mockDataUtil.campaignSupplier.get()) {
-      if (c.getId().equals(id)) {
-        return Optional.of(c);
-      }
-    }
-    return Optional.empty();
+    return mockDataUtil.campaignSupplier.get()
+        .stream()
+        .filter(c -> c.getId().equals(id))
+        .findFirst();
   }
 }

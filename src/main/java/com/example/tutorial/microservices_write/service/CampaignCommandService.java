@@ -34,14 +34,10 @@ public class CampaignCommandService {
    */
   public void updateCampaign(Long id, Campaign campaign) {
     List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
-    // Find the campaign with the given ID
-    Optional<Campaign> existingCampaign = Optional.empty();
-    for (Campaign c : campaigns) {
-        if (c.getId().equals(id)) {
-            existingCampaign = Optional.of(c);
-            break;
-        }
-    }
+    // Use streams to find the campaign with the given ID
+    Optional<Campaign> existingCampaign = campaigns.stream()
+        .filter(c -> c.getId().equals(id))
+        .findFirst();
 
     // If the campaign exists, update its fields
     if (existingCampaign.isPresent()) {
@@ -52,7 +48,6 @@ public class CampaignCommandService {
       exCampaign.setStartDate(campaign.getStartDate());
       exCampaign.setEndDate(campaign.getEndDate());
       exCampaign.setBudget(campaign.getBudget());
-
     } else {
       throw new ApiFunctionalException(String.format("Campaign with ID %d not found", id));
     }
@@ -64,12 +59,7 @@ public class CampaignCommandService {
    */
   public void deleteCampaign(Long id) {
     List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
-    // Find and remove the campaign with the given ID
-    for (int i = 0; i < campaigns.size(); i++) {
-      if (campaigns.get(i).getId().equals(id)) {
-        campaigns.remove(i);
-        break;
-      }
-    }
+    // Use removeIf with streams for concise removal
+    campaigns.removeIf(c -> c.getId().equals(id));
   }
 }
