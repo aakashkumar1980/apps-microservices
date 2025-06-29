@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "8b4f8455-47a9-4a0a-94ae-1ee9c0161a55",
-		"name": "Campaign API CollectionV2",
+		"name": "Campaign API CollectionV2.1",
 		"description": "Postman collection for Campaign CRUD operations",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25453210"
@@ -90,6 +90,35 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n  \"name\": \"Tc\",\n  \"description\": \"\",\n  \"status\": \"ACTIVE\",\n  \"start_date\": \"2024-06-01T00:00:00\",\n  \"end_date\": \"2024-06-30T23:59:59\",\n  \"budget\": 10.00\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Campaign - ERROR_RequestBodyValidationErrorAdvanced",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Tc\",\n  \"description\": \"\",\n  \"status\": \"ACTIVE\",\n  \"start_date\": \"2027-06-01T00:00:00\",\n  \"end_date\": \"2026-06-30T23:59:59\",\n  \"budget\": 10.00\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/campaigns",
