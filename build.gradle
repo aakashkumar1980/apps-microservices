@@ -66,6 +66,11 @@ dependencies {
    */
   implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 
+  /**
+   * Spring Boot starter for validation.
+   */
+  implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 
   /** UTILITIES **/
   /**

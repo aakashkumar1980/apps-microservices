@@ -1,23 +1,22 @@
 package com.example.tutorial.common.exceptions.core;
 
-import com.example.tutorial.common.exceptions.ApiValidationException;
-import com.example.tutorial.common.utils.ApplicationUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
   private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
-  @Autowired
-  ApplicationUtils applicationUtils;
 
   /**
    * Handles all exceptions that are not specifically handled by other exception handlers.
@@ -63,26 +62,38 @@ public class GlobalExceptionHandler {
   /** VALIDATION EXCEPTIONS **/
   /** ********************* **/
   /**
-   * Handles ApiValidationException specifically, allowing for custom handling of API validation errors.
-   * This method will log the exception and return a specific error response.
+   * Handles when the request body is not readable.
+   * This typically happens when the JSON format is incorrect or required fields are missing.
    *
-   * @param ex the ApiValidationException that was thrown
-   * @return a ResponseEntity with a specific error message and HTTP status
+   * @param ex the HttpMessageNotReadableException that was thrown
+   * @return a ResponseEntity with an error message and HTTP status 400
    */
-  @ExceptionHandler(ApiValidationException.class)
-  public ResponseEntity<String> handleApiValidationException(ApiValidationException ex) {
-    // Determine the HTTP status based on the exception type
-    HttpStatus status = HttpStatus.BAD_REQUEST; // default status
-    if (ex.getClass().isAnnotationPresent(ResponseStatus.class)) {
-      ResponseStatus responseStatus = ex.getClass().getAnnotation(ResponseStatus.class);
-      status = responseStatus.value();
-    }
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public ResponseEntity<ValidationExceptionResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+    logger.error("HttpMessageNotReadableException caught: {}", ex.getMessage(), ex);
+    return ResponseEntity.badRequest().body(new ValidationExceptionResponse(
+        "Request body is not readable or is malformed",
+        Map.of("error", ex.getMessage())
+    ));
+  }
 
-    logger.warn("ApiValidationException caught: {}", applicationUtils.convertToJson(ex.getValidationErrors()), ex);
-    return new ResponseEntity<>(
-        String.format("API validation error occurred: %s", applicationUtils.convertToJson(ex.getValidationErrors())),
-        status
-    );
+  /**
+   * Handles validation errors that occur when request body is of correct format but validation rules fails.
+   * This method will extract the validation errors and return them in a structured format.
+   *
+   * @param ex the MethodArgumentNotValidException that was thrown
+   * @return a ResponseEntity with validation error messages and HTTP status 400
+   */
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<ValidationExceptionResponse> handleValidationErrors(MethodArgumentNotValidException ex) {
+    Map<String, String> errors = new HashMap<>();
+    ex.getBindingResult().getFieldErrors().forEach(error ->
+        errors.put(error.getField(), error.getDefaultMessage()));
+
+    return ResponseEntity.badRequest().body(new ValidationExceptionResponse(
+        "Api request validation failed",
+        errors
+    ));
   }
 
 }

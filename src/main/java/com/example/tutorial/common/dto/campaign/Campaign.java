@@ -1,6 +1,8 @@
 package com.example.tutorial.common.dto.campaign;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDateTime;
 
 public class Campaign {
@@ -8,21 +10,30 @@ public class Campaign {
   private Long id;
 
   @JsonProperty("name")
+  @NotBlank(message = "Campaign name is required")
+  @Size(min = 3, max = 100, message = "Campaign name must be between 3 and 100 characters")
   private String name;
 
   @JsonProperty("description")
+  @NotBlank(message = "Description is required")
   private String description;
 
   @JsonProperty("status")
   private CampaignStatus status;
 
   @JsonProperty("start_date")
+  @FutureOrPresent(message = "Start date must be in the future or present")
+  @NotNull(message = "Start date is required")
   private LocalDateTime startDate;
 
   @JsonProperty("end_date")
+  @NotNull(message = "End date is required")
+  @Future(message = "End date must be in the future")
   private LocalDateTime endDate;
 
   @JsonProperty("budget")
+  @NotNull(message = "Budget is required")
+  @DecimalMin(value = "100.00", message = "Budget must be greater than $100.00")
   private Double budget;
 
   // Getters and Setters
