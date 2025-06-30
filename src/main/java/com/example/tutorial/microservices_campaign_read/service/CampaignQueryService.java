@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices_campaign_read.service;
 
 import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.common.utils.MockDataUtil;
+import com.example.tutorial.microservices_campaign_read.repository.CampaignQueryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +12,14 @@ import java.util.Optional;
 public class CampaignQueryService {
 
   @Autowired
-  private MockDataUtil mockDataUtil;
+  private CampaignQueryRepository campaignQueryRepository;
 
   /**
    * Returns all campaigns.
    * @return List of Campaigns
    */
   public List<Campaign> getAllCampaigns() {
-    return mockDataUtil.campaignSupplier.get();
+    return campaignQueryRepository.findAll();
   }
 
   /**
@@ -27,10 +27,7 @@ public class CampaignQueryService {
    * @param id Campaign ID
    * @return Optional containing the Campaign if found, otherwise empty
    */
-  public Optional<Campaign> getCampaignById(Long id) {
-    return mockDataUtil.campaignSupplier.get()
-        .stream()
-        .filter(c -> c.getId().equals(id))
-        .findFirst();
+  public Optional<Campaign> getCampaignById(String id) {
+    return campaignQueryRepository.findById(id);
   }
 }

@@ -37,7 +37,7 @@ public class MockDataUtil {
     List<Campaign> campaigns = new ArrayList<>();
 
     Campaign c1 = new Campaign();
-    c1.setId(1L);
+    c1.setId("Camapign::1");
     c1.setName("Summer Sale 2024");
     c1.setDescription("Discounts on summer clothing and accessories.");
     c1.setStatus(CampaignStatus.valueOf("ACTIVE"));
@@ -47,7 +47,7 @@ public class MockDataUtil {
     campaigns.add(c1);
 
     Campaign c2 = new Campaign();
-    c2.setId(2L);
+    c2.setId("Camapign::2");
     c2.setName("Back to School");
     c2.setDescription("Promotions for school supplies and backpacks.");
     c2.setStatus(CampaignStatus.valueOf("PLANNED"));
@@ -57,7 +57,7 @@ public class MockDataUtil {
     campaigns.add(c2);
 
     Campaign c3 = new Campaign();
-    c3.setId(3L);
+    c3.setId("Camapign::3");
     c3.setName("Black Friday Blast");
     c3.setDescription("Biggest deals of the year on electronics.");
     c3.setStatus(CampaignStatus.valueOf("PLANNED"));
@@ -67,7 +67,7 @@ public class MockDataUtil {
     campaigns.add(c3);
 
     Campaign c4 = new Campaign();
-    c4.setId(4L);
+    c4.setId("Camapign::4");
     c4.setName("Holiday Cheer");
     c4.setDescription("Seasonal offers for the holidays.");
     c4.setStatus(CampaignStatus.valueOf("ACTIVE"));
@@ -77,7 +77,7 @@ public class MockDataUtil {
     campaigns.add(c4);
 
     Campaign c5 = new Campaign();
-    c5.setId(5L);
+    c5.setId("Camapign::5");
     c5.setName("New Year Kickoff");
     c5.setDescription("Start the year with exclusive deals.");
     c5.setStatus(CampaignStatus.valueOf("DRAFT"));
@@ -87,7 +87,7 @@ public class MockDataUtil {
     campaigns.add(c5);
 
     Campaign c6 = new Campaign();
-    c6.setId(6L);
+    c6.setId("Camapign::6");
     c6.setName("Spring Collection Launch");
     c6.setDescription("Introducing the new spring collection.");
     c6.setStatus(CampaignStatus.valueOf("ACTIVE"));
@@ -97,7 +97,7 @@ public class MockDataUtil {
     campaigns.add(c6);
 
     Campaign c7 = new Campaign();
-    c7.setId(7L);
+    c7.setId("Camapign::7");
     c7.setName("Tech Expo 2024");
     c7.setDescription("Showcasing the latest in tech gadgets.");
     c7.setStatus(CampaignStatus.valueOf("COMPLETED"));
@@ -107,7 +107,7 @@ public class MockDataUtil {
     campaigns.add(c7);
 
     Campaign c8 = new Campaign();
-    c8.setId(8L);
+    c8.setId("Camapign::8");
     c8.setName("Fitness Frenzy");
     c8.setDescription("Special offers on fitness equipment.");
     c8.setStatus(CampaignStatus.valueOf("ACTIVE"));
@@ -117,7 +117,7 @@ public class MockDataUtil {
     campaigns.add(c8);
 
     Campaign c9 = new Campaign();
-    c9.setId(9L);
+    c9.setId("Camapign::9");
     c9.setName("Travel Bonanza");
     c9.setDescription("Discounts on travel packages and accessories.");
     c9.setStatus(CampaignStatus.valueOf("PLANNED"));
@@ -127,7 +127,7 @@ public class MockDataUtil {
     campaigns.add(c9);
 
     Campaign c10 = new Campaign();
-    c10.setId(10L);
+    c10.setId("Camapign::10");
     c10.setName("Clearance Event");
     c10.setDescription("End of season clearance on all items.");
     c10.setStatus(CampaignStatus.valueOf("INACTIVE"));

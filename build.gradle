@@ -71,6 +71,12 @@ dependencies {
    */
   implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+  /**
+   * Spring Boot couchbase starter for integrating Couchbase as a data store.
+   */
+  implementation 'org.springframework.boot:spring-boot-starter-data-couchbase'
+  implementation 'com.couchbase.client:java-client:3.5.0'
+
 
   /** UTILITIES **/
   /**
@@ -84,6 +90,7 @@ dependencies {
    * Commons IO — file handling utilities.
    */
   implementation "commons-io:commons-io:${ioUtilsVersion}"
+
 }
 /** ***************** **/
 /** [END] DEVELOPMENT **/

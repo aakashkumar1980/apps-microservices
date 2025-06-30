@@ -32,7 +32,7 @@ public class CampaignQueryController {
    * @return the campaign with the specified ID, or 404 if not found
    */
   @GetMapping("/{id}")
-  public ResponseEntity<Campaign> getCampaignById(@PathVariable Long id) {
+  public ResponseEntity<Campaign> getCampaignById(@PathVariable String id) {
     return ResponseEntity.of(campaignQueryService.getCampaignById(id));
   }
 }

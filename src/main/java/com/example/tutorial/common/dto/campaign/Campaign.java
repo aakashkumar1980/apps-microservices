@@ -2,12 +2,16 @@ package com.example.tutorial.common.dto.campaign;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
+import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
+@Document
 public class Campaign {
+  @Id
   @JsonProperty("id")
-  private Long id;
+  private String id;
 
   @JsonProperty("name")
   @NotBlank(message = "Campaign name is required")
@@ -38,13 +42,15 @@ public class Campaign {
   private Double budget;
 
   // Getters and Setters
-  public Campaign() {}
+  public Campaign() {
+    // id will be set by the service using a Couchbase counter
+  }
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
