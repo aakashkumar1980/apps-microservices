@@ -1,4 +1,4 @@
-package com.example.tutorial.microservices_read.service;
+package com.example.tutorial.microservices_campaign_read.service;
 
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.utils.MockDataUtil;
