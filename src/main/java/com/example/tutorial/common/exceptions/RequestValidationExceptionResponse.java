@@ -1,12 +1,12 @@
-package com.example.tutorial.common.exceptions.core;
+package com.example.tutorial.common.exceptions;
 
 import java.util.Map;
 
-public class ValidationExceptionResponse {
+public class RequestValidationExceptionResponse {
   private String message;
   private Map<String, String> errors;
 
-  public ValidationExceptionResponse(String message, Map<String, String> errors) {
+  public RequestValidationExceptionResponse(String message, Map<String, String> errors) {
     this.message = message;
     this.errors = errors;
   }
