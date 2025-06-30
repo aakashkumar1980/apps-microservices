@@ -1,5 +1,8 @@
-package com.example.tutorial.common.exceptions.core;
+package com.example.tutorial.common.exceptions.handler;
 
+import com.example.tutorial.common.exceptions.ApplicationException;
+import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
+import com.example.tutorial.common.exceptions.RequestValidationExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -69,9 +72,9 @@ public class GlobalExceptionHandler {
    * @return a ResponseEntity with an error message and HTTP status 400
    */
   @ExceptionHandler(HttpMessageNotReadableException.class)
-  public ResponseEntity<ValidationExceptionResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+  public ResponseEntity<RequestValidationExceptionResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
     logger.error("HttpMessageNotReadableException caught: {}", ex.getMessage(), ex);
-    return ResponseEntity.badRequest().body(new ValidationExceptionResponse(
+    return ResponseEntity.badRequest().body(new RequestValidationExceptionResponse(
         "Request body is not readable or is malformed",
         Map.of("error", ex.getMessage())
     ));
@@ -85,12 +88,12 @@ public class GlobalExceptionHandler {
    * @return a ResponseEntity with validation error messages and HTTP status 400
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<ValidationExceptionResponse> handleValidationErrors(MethodArgumentNotValidException ex) {
+  public ResponseEntity<RequestValidationExceptionResponse> handleValidationErrors(MethodArgumentNotValidException ex) {
     Map<String, String> errors = new HashMap<>();
     ex.getBindingResult().getFieldErrors().forEach(error ->
         errors.put(error.getField(), error.getDefaultMessage()));
 
-    return ResponseEntity.badRequest().body(new ValidationExceptionResponse(
+    return ResponseEntity.badRequest().body(new RequestValidationExceptionResponse(
         "Api request validation failed",
         errors
     ));
