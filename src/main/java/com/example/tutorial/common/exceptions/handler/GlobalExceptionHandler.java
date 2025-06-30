@@ -1,5 +1,7 @@
-package com.example.tutorial.common.exceptions.core;
+package com.example.tutorial.common.exceptions.handler;
 
+import com.example.tutorial.common.exceptions.ApplicationException;
+import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
