@@ -15,7 +15,10 @@ public class DBUtils {
         .bucket(couchbaseTemplate.getBucketName())
         .defaultCollection()
         .binary()
-        .increment(counterKey, com.couchbase.client.java.kv.IncrementOptions.incrementOptions().delta(1))
+        .increment(
+            counterKey,
+            com.couchbase.client.java.kv.IncrementOptions.incrementOptions().delta(1).initial(1)
+        )
         .content();
   }
 }
