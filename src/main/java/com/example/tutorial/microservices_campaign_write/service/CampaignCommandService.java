@@ -3,7 +3,7 @@ package com.example.tutorial.microservices_campaign_write.service;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
 import com.example.tutorial.microservices_campaign_write.repository.CampaignCommandRepository;
-import com.example.tutorial.microservices_campaign_write.utils.DBUtils;
+import com.example.tutorial.common.utils.DBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;

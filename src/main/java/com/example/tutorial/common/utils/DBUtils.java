@@ -1,4 +1,4 @@
-package com.example.tutorial.microservices_campaign_write.utils;
+package com.example.tutorial.common.utils;
 
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
 
