@@ -12,11 +12,15 @@ import java.util.Properties;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.DescribeClusterResult;
 
+/** * KafkaConnectionReadyEvent
+ * This class listens for the ApplicationReadyEvent and attempts to connect to the Kafka cluster.
+ * It logs the connection status and cluster ID if successful.
+ */
 @Component
 @PropertySource("classpath:application-kafka.properties")
-public class KafkaConnectionListener {
+public class KafkaConnectionReadyEvent {
 
-  private static final Logger logger = LoggerFactory.getLogger(KafkaConnectionListener.class);
+  private static final Logger logger = LoggerFactory.getLogger(KafkaConnectionReadyEvent.class);
 
   @Value("${spring.kafka.bootstrap-servers}")
   private String bootstrapServers;
@@ -44,6 +48,11 @@ public class KafkaConnectionListener {
       props.put("sasl.jaas.config", saslJaasConfig);
     }
 
+    /**
+     * Attempt to connect to the Kafka cluster using AdminClient.
+     * If successful, log the cluster ID.
+     * If an error occurs, log the error message.
+     */
     try (AdminClient adminClient = AdminClient.create(props)) {
       DescribeClusterResult cluster = adminClient.describeCluster();
       String clusterId = cluster.clusterId().get();
