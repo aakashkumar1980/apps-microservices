@@ -77,6 +77,12 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-data-couchbase'
   implementation 'com.couchbase.client:java-client:3.5.0'
 
+  /**
+   * Spring Boot kafka starter for integrating Apache Kafka.
+   */
+  implementation 'org.apache.kafka:kafka-clients'
+  implementation 'org.springframework.kafka:spring-kafka'
+
 
   /** UTILITIES **/
   /**
