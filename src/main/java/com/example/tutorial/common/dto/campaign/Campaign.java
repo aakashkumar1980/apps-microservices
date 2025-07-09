@@ -41,11 +41,11 @@ public class Campaign {
   @DecimalMin(value = "100.00", message = "Budget must be greater than $100.00")
   private Double budget;
 
-  // Getters and Setters
   public Campaign() {
     // id will be set by the service using a Couchbase counter
   }
 
+  // Getters and Setters
   public String getId() {
     return id;
   }
