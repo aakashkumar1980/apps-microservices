@@ -1,0 +1,149 @@
+Here’s the list of all classes and their properties in a clean, readable format:
+
+---
+
+### **Customer**
+
+* customerId
+* name
+* email
+* phoneNumber
+* preferredChannel
+* enrolledOfferIds
+
+---
+
+### **CustomerPreference**
+
+* customerId
+* categories
+* preferredRewardType
+* engagementScore
+
+---
+
+### **TargetedCustomer**
+
+* customerId
+* offerId
+* targetingScore
+* eligibilityStatus
+
+---
+
+### **OfferEnrollment**
+
+* enrollmentId
+* customerId
+* offerId
+* enrolledAt
+
+---
+
+### **OfferImpression**
+
+* impressionId
+* customerId
+* offerId
+* timestamp
+* adPlatform
+
+---
+
+### **Merchant**
+
+* merchantId
+* name
+* category
+* location
+* activeOffers
+* performanceScore
+
+---
+
+### **MerchantPerformance**
+
+* merchantId
+* totalTransactions
+* totalRedemptions
+* avgTransactionValue
+
+---
+
+### **Offer**
+
+* offerId
+* offerConstructId
+* campaignId
+* merchantId
+* rewardType
+* rewardValue
+* eligibilityCriteria
+* offerStatus
+* createdAt
+
+---
+
+### **OfferConstruct**
+
+* offerConstructId
+* campaignId
+* rewardType
+* rewardValue
+* merchantId
+* eligibilityCriteria
+* maxRedemptions
+
+---
+
+### **Redemption**
+
+* redemptionId
+* customerId
+* offerId
+* transactionId
+* amountSpent
+* rewardApplied
+* timestamp
+
+---
+
+### **Reward**
+
+* rewardId
+* redemptionId
+* customerId
+* rewardType
+* rewardValue
+* rewardStatus
+* processedAt
+
+---
+
+### **Transaction**
+
+* transactionId
+* customerId
+* merchantId
+* amount
+* transactionDate
+* paymentMethod
+
+---
+
+### **Campaign**
+
+* campaignId
+* campaignName
+* campaignStatus
+* description
+* budget
+* startDate
+* endDate
+* createdBy
+* createdAt
+* offerIds
+
+---
+
+Let me know if you'd like me to generate Java class files from this or apply validation annotations.
