@@ -23,9 +23,11 @@ public class CampaignCommandService {
   @Value("${campaign.counter.key:campaign_counter}")
   private String campaignCounterKey;
 
+  @Autowired
+  private CampaignCommandEventService campaignCommandEventService;
 
   /**
-   * Create a new campaign.
+   * Create a new campaign and publish an event to the kafka event bus.
    * @param campaign the campaign to create
    * @return the ID of the created campaign
    */
@@ -36,11 +38,13 @@ public class CampaignCommandService {
       campaign.setId(id);
       Campaign saved = campaignCommandRepository.save(campaign);
 
+      // Publish the campaign created event to kafka event bus
+      campaignCommandEventService.publishCreateCampaignEvent(saved);
       return saved.getId();
     }
 
   /**
-   * Update an existing campaign.
+   * Update an existing campaign and publish an event to the kafka event bus.
    * @param id the ID of the campaign
    * @param campaign the campaign with updated fields
    * @throws ApplicationFunctionalException if the campaign with the given ID does not exist
@@ -57,16 +61,22 @@ public class CampaignCommandService {
       exCampaign.setEndDate(campaign.getEndDate());
       exCampaign.setBudget(campaign.getBudget());
       campaignCommandRepository.save(exCampaign);
+
+      // Publish the campaign created event to kafka event bus
+      campaignCommandEventService.publishUpdateCampaignEvent(exCampaign);
     } else {
       throw new ApplicationFunctionalException(String.format("Campaign with ID %s not found", id));
     }
   }
 
   /**
-   * Delete a campaign by its ID.
+   * Delete a campaign by its ID and publish an event to the kafka event bus.
    * @param id the ID of the campaign to delete
    */
   public void deleteCampaign(String id) {
     campaignCommandRepository.deleteById(id);
+
+    // Publish the campaign created event to kafka event bus
+    campaignCommandEventService.publishDeleteCampaignEvent(id);
   }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 @Document
 public class Campaign {
+
   @Id
   @JsonProperty("id")
   private String id;
@@ -35,7 +36,6 @@ public class Campaign {
   @NotNull(message = "End date is required")
   @Future(message = "End date must be in the future")
   private LocalDateTime endDate;
-  /** TODO: Add validation for endDate to be after startDate */
 
   @JsonProperty("budget")
   @NotNull(message = "Budget is required")
@@ -45,11 +45,8 @@ public class Campaign {
   @JsonProperty("offer_ids")
   private List<String> offerIds;
 
-  public Campaign() {
-    // id will be set by the service using a Couchbase counter
-  }
+  public Campaign() {}
 
-  // Getters and Setters
   public String getId() {
     return id;
   }
@@ -117,14 +114,14 @@ public class Campaign {
   @Override
   public String toString() {
     return "Campaign{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", description='" + description + '\'' +
-        ", status=" + status +
-        ", startDate=" + startDate +
-        ", endDate=" + endDate +
-        ", budget=" + budget +
-        ", offerIds=" + offerIds +
-        '}';
+    "  id='" + id +
+    ", name='" + name +
+    ", description='" + description +
+    ", status=" + status +
+    ", startDate=" + startDate +
+    ", endDate=" + endDate +
+    ", budget=" + budget +
+    ", offerIds=" + offerIds +
+    '}';
   }
 }
