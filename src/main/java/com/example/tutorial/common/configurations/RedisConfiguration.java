@@ -3,6 +3,7 @@ package com.example.tutorial.common.configurations;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -11,6 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.data.redis.core.convert.RedisCustomConversions;
 import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
@@ -54,5 +56,11 @@ public class RedisConfiguration {
     @Bean
     public RedisCacheManager cacheManager(LettuceConnectionFactory connectionFactory) {
         return RedisCacheManager.builder(connectionFactory).build();
+    }
+
+    @Bean(name = "redisCustomConversions")
+    @Primary
+    public RedisCustomConversions redisCustomConversions() {
+        return new RedisCustomConversions(java.util.Collections.emptyList());
     }
 }
