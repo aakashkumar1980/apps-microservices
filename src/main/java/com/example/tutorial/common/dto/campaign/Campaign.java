@@ -6,6 +6,7 @@ import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document
 public class Campaign {
@@ -40,6 +41,9 @@ public class Campaign {
   @NotNull(message = "Budget is required")
   @DecimalMin(value = "100.00", message = "Budget must be greater than $100.00")
   private Double budget;
+
+  @JsonProperty("offer_ids")
+  private List<String> offerIds;
 
   public Campaign() {
     // id will be set by the service using a Couchbase counter
@@ -102,6 +106,14 @@ public class Campaign {
     this.budget = budget;
   }
 
+  public List<String> getOfferIds() {
+    return offerIds;
+  }
+
+  public void setOfferIds(List<String> offerIds) {
+    this.offerIds = offerIds;
+  }
+
   @Override
   public String toString() {
     return "Campaign{" +
@@ -112,6 +124,7 @@ public class Campaign {
         ", startDate=" + startDate +
         ", endDate=" + endDate +
         ", budget=" + budget +
+        ", offerIds=" + offerIds +
         '}';
   }
 }
