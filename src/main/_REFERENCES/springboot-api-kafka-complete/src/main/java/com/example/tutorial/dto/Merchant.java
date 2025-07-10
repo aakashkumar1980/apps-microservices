@@ -1,70 +1,63 @@
-package com.example.tutorial.dto;
+package com.example.dto;
+
+import jakarta.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
+@Document
 public class Merchant {
 
-    private UUID merchantId;
+
+    @Id
+    @NotBlank
+    @JsonProperty("merchant_id")
+    @Field("merchant_id")
+    private String merchantId;
+    
+
+    @NotBlank
+    @JsonProperty("name")
+    @Field("name")
     private String name;
-    private MerchantCategory category;
+    
+
+    
+    @JsonProperty("category")
+    @Field("category")
+    private String category;
+    
+
+    
+    @JsonProperty("location")
+    @Field("location")
     private String location;
-    private List<Offer> activeOffers;
-    private BigDecimal performanceScore;
+    
 
+    
+    @JsonProperty("active_offers")
+    @Field("active_offers")
+    private List<String> activeOffers;
+    
 
-    public UUID getMerchantid() {
-        return merchantId;
-    }
-
-    public void setMerchantid(UUID merchantId) {
-        this.merchantId = merchantId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public MerchantCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(MerchantCategory category) {
-        this.category = category;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public List<Offer> getActiveoffers() {
-        return activeOffers;
-    }
-
-    public void setActiveoffers(List<Offer> activeOffers) {
-        this.activeOffers = activeOffers;
-    }
-
-    public BigDecimal getPerformancescore() {
-        return performanceScore;
-    }
-
-    public void setPerformancescore(BigDecimal performanceScore) {
-        this.performanceScore = performanceScore;
-    }
+    public String getMerchantId() { return merchantId; }
+    public void setMerchantId(String merchantId) { this.merchantId = merchantId; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
+    public List<String> getActiveOffers() { return activeOffers; }
+    public void setActiveOffers(List<String> activeOffers) { this.activeOffers = activeOffers; }
 
     @Override
     public String toString() {
-        return "Merchant{" + 
-               " + ", ".join(['merchantId=" + merchantId +', 'name=" + name +', 'category=" + category +', 'location=" + location +', 'activeOffers=" + activeOffers +', 'performanceScore=" + performanceScore +']) + "}";
+        return "Merchant{"  + ", ".join(["merchantId=" + merchantId, "name=" + name, "category=" + category, "location=" + location, "activeOffers=" + activeOffers]) + "}";
     }
 }

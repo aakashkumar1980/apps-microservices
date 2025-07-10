@@ -18,5 +18,4 @@ public class OfferCommandService {
   @Value("${offer.counter.key:offer_counter}")
   private String offerCounterKey;
 
- 
 }

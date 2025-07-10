@@ -1,46 +1,66 @@
-package com.example.tutorial.dto;
+package com.example.dto;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.*;
+import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
+@Document
 public class Campaign {
 
-    private UUID campaignId;
-    private String campaignName;
-    private CampaignStatus campaignStatus;
+    @Id
+    @JsonProperty("id")
+    private String id;
+
+    @JsonProperty("name")
+    @NotBlank(message = "Campaign name is required")
+    @Size(min = 3, max = 100, message = "Campaign name must be between 3 and 100 characters")
+    private String name;
+
+    @JsonProperty("description")
+    @NotBlank(message = "Description is required")
     private String description;
-    private BigDecimal budget;
+
+    @JsonProperty("status")
+    private CampaignStatus status;
+
+    @JsonProperty("start_date")
+    @FutureOrPresent(message = "Start date must be in the future or present")
+    @NotNull(message = "Start date is required")
     private LocalDateTime startDate;
+
+    @JsonProperty("end_date")
+    @NotNull(message = "End date is required")
+    @Future(message = "End date must be in the future")
     private LocalDateTime endDate;
-    private String createdBy;
-    private LocalDateTime createdAt;
-    private List<UUID> offerIds;
 
+    @JsonProperty("budget")
+    @NotNull(message = "Budget is required")
+    @DecimalMin(value = "100.00", message = "Budget must be greater than $100.00")
+    private Double budget;
 
-    public UUID getCampaignid() {
-        return campaignId;
+    @JsonProperty("offer_ids")
+    private List<String> offerIds;
+
+    public Campaign() {}
+
+    public String getId() {
+        return id;
     }
 
-    public void setCampaignid(UUID campaignId) {
-        this.campaignId = campaignId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getCampaignname() {
-        return campaignName;
+    public String getName() {
+        return name;
     }
 
-    public void setCampaignname(String campaignName) {
-        this.campaignName = campaignName;
-    }
-
-    public CampaignStatus getCampaignstatus() {
-        return campaignStatus;
-    }
-
-    public void setCampaignstatus(CampaignStatus campaignStatus) {
-        this.campaignStatus = campaignStatus;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -51,57 +71,57 @@ public class Campaign {
         this.description = description;
     }
 
-    public BigDecimal getBudget() {
-        return budget;
+    public CampaignStatus getStatus() {
+        return status;
     }
 
-    public void setBudget(BigDecimal budget) {
-        this.budget = budget;
+    public void setStatus(CampaignStatus status) {
+        this.status = status;
     }
 
-    public LocalDateTime getStartdate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartdate(LocalDateTime startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEnddate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEnddate(LocalDateTime endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public String getCreatedby() {
-        return createdBy;
+    public Double getBudget() {
+        return budget;
     }
 
-    public void setCreatedby(String createdBy) {
-        this.createdBy = createdBy;
+    public void setBudget(Double budget) {
+        this.budget = budget;
     }
 
-    public LocalDateTime getCreatedat() {
-        return createdAt;
-    }
-
-    public void setCreatedat(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public List<UUID> getOfferids() {
+    public List<String> getOfferIds() {
         return offerIds;
     }
 
-    public void setOfferids(List<UUID> offerIds) {
+    public void setOfferIds(List<String> offerIds) {
         this.offerIds = offerIds;
     }
 
     @Override
     public String toString() {
-        return "Campaign{" + 
-               " + ", ".join(['campaignId=" + campaignId +', 'campaignName=" + campaignName +', 'campaignStatus=" + campaignStatus +', 'description=" + description +', 'budget=" + budget +', 'startDate=" + startDate +', 'endDate=" + endDate +', 'createdBy=" + createdBy +', 'createdAt=" + createdAt +', 'offerIds=" + offerIds +']) + "}";
+        return "Campaign{" +
+                "id='" + id + ''' +
+                ", name='" + name + ''' +
+                ", description='" + description + ''' +
+                ", status=" + status +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", budget=" + budget +
+                ", offerIds=" + offerIds +
+                '}';
     }
 }

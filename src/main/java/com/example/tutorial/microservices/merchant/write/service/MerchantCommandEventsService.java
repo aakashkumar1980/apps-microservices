@@ -7,7 +7,7 @@ import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MerchantCommandService {
+public class  MerchantCommandEventsService {
 
   @Autowired
   private MerchantCommandRepository merchantCommandRepository;
@@ -18,5 +18,4 @@ public class MerchantCommandService {
   @Value("${merchant.counter.key:merchant_counter}")
   private String merchantCounterKey;
 
- 
 }

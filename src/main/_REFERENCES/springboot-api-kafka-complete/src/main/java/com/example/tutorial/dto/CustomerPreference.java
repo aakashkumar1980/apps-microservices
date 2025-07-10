@@ -1,52 +1,54 @@
-package com.example.tutorial.dto;
+package com.example.dto;
+
+import jakarta.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
+@Document
 public class CustomerPreference {
 
-    private UUID customerId;
+
+    @NotBlank
+    @JsonProperty("customer_id")
+    @Field("customer_id")
+    private String customerId;
+    
+
+    
+    @JsonProperty("categories")
+    @Field("categories")
     private List<String> categories;
-    private PreferredRewardType preferredRewardType;
+    
+
+    @NotNull
+    @JsonProperty("preferred_reward_type")
+    @Field("preferred_reward_type")
+    private RewardType preferredRewardType;
+    
+
+    
+    @JsonProperty("engagement_score")
+    @Field("engagement_score")
     private BigDecimal engagementScore;
+    
 
-
-    public UUID getCustomerid() {
-        return customerId;
-    }
-
-    public void setCustomerid(UUID customerId) {
-        this.customerId = customerId;
-    }
-
-    public List<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
-    }
-
-    public PreferredRewardType getPreferredrewardtype() {
-        return preferredRewardType;
-    }
-
-    public void setPreferredrewardtype(PreferredRewardType preferredRewardType) {
-        this.preferredRewardType = preferredRewardType;
-    }
-
-    public BigDecimal getEngagementscore() {
-        return engagementScore;
-    }
-
-    public void setEngagementscore(BigDecimal engagementScore) {
-        this.engagementScore = engagementScore;
-    }
+    public String getCustomerId() { return customerId; }
+    public void setCustomerId(String customerId) { this.customerId = customerId; }
+    public List<String> getCategories() { return categories; }
+    public void setCategories(List<String> categories) { this.categories = categories; }
+    public RewardType getPreferredRewardType() { return preferredRewardType; }
+    public void setPreferredRewardType(RewardType preferredRewardType) { this.preferredRewardType = preferredRewardType; }
+    public BigDecimal getEngagementScore() { return engagementScore; }
+    public void setEngagementScore(BigDecimal engagementScore) { this.engagementScore = engagementScore; }
 
     @Override
     public String toString() {
-        return "CustomerPreference{" + 
-               " + ", ".join(['customerId=" + customerId +', 'categories=" + categories +', 'preferredRewardType=" + preferredRewardType +', 'engagementScore=" + engagementScore +']) + "}";
+        return "CustomerPreference{"  + ", ".join(["customerId=" + customerId, "categories=" + categories, "preferredRewardType=" + preferredRewardType, "engagementScore=" + engagementScore]) + "}";
     }
 }

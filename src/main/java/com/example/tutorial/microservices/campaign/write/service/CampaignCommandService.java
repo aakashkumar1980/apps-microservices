@@ -23,6 +23,7 @@ public class CampaignCommandService {
   @Value("${campaign.counter.key:campaign_counter}")
   private String campaignCounterKey;
 
+
   /**
    * Create a new campaign.
    * @param campaign the campaign to create
@@ -34,6 +35,7 @@ public class CampaignCommandService {
       String id = "campaign::" + counter;
       campaign.setId(id);
       Campaign saved = campaignCommandRepository.save(campaign);
+
       return saved.getId();
     }
 

@@ -1,60 +1,62 @@
-package com.example.tutorial.dto;
+package com.example.dto;
 
+import jakarta.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.Field;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.List;
 
+@Document
 public class OfferImpression {
 
-    private UUID impressionId;
-    private UUID customerId;
-    private UUID offerId;
-    private LocalDateTime timestamp;
+
+    @Id
+    @JsonProperty("impression_id")
+    @Field("impression_id")
+    private String impressionId;
+    
+
+    @NotBlank
+    @JsonProperty("customer_id")
+    @Field("customer_id")
+    private String customerId;
+    
+
+    @NotBlank
+    @JsonProperty("offer_id")
+    @Field("offer_id")
+    private String offerId;
+    
+
+    @NotNull
+    @JsonProperty("impression_time")
+    @Field("impression_time")
+    private LocalDateTime impressionTime;
+    
+
+    
+    @JsonProperty("ad_platform")
+    @Field("ad_platform")
     private String adPlatform;
+    
 
-
-    public UUID getImpressionid() {
-        return impressionId;
-    }
-
-    public void setImpressionid(UUID impressionId) {
-        this.impressionId = impressionId;
-    }
-
-    public UUID getCustomerid() {
-        return customerId;
-    }
-
-    public void setCustomerid(UUID customerId) {
-        this.customerId = customerId;
-    }
-
-    public UUID getOfferid() {
-        return offerId;
-    }
-
-    public void setOfferid(UUID offerId) {
-        this.offerId = offerId;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getAdplatform() {
-        return adPlatform;
-    }
-
-    public void setAdplatform(String adPlatform) {
-        this.adPlatform = adPlatform;
-    }
+    public String getImpressionId() { return impressionId; }
+    public void setImpressionId(String impressionId) { this.impressionId = impressionId; }
+    public String getCustomerId() { return customerId; }
+    public void setCustomerId(String customerId) { this.customerId = customerId; }
+    public String getOfferId() { return offerId; }
+    public void setOfferId(String offerId) { this.offerId = offerId; }
+    public LocalDateTime getImpressionTime() { return impressionTime; }
+    public void setImpressionTime(LocalDateTime impressionTime) { this.impressionTime = impressionTime; }
+    public String getAdPlatform() { return adPlatform; }
+    public void setAdPlatform(String adPlatform) { this.adPlatform = adPlatform; }
 
     @Override
     public String toString() {
-        return "OfferImpression{" + 
-               " + ", ".join(['impressionId=" + impressionId +', 'customerId=" + customerId +', 'offerId=" + offerId +', 'timestamp=" + timestamp +', 'adPlatform=" + adPlatform +']) + "}";
+        return "OfferImpression{"  + ", ".join(["impressionId=" + impressionId, "customerId=" + customerId, "offerId=" + offerId, "impressionTime=" + impressionTime, "adPlatform=" + adPlatform]) + "}";
     }
 }
