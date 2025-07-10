@@ -32,22 +32,6 @@ public class CampaignCommandEventService {
   }
 
   /**
-   * TODO: visit the actual implementation later
-   * Publishes a campaign update event to Kafka.
-   * @param campaign the campaign that was updated
-   */
-  public void publishUpdateCampaignEvent(Campaign campaign) {
-    CampaignEvent event = new CampaignEvent(
-        campaign.getId(),
-        campaign.getStatus().name(),
-        campaign.getStartDate(),
-        campaign.getEndDate(),
-        KafkaEventType.CAMPAIGN_UPDATED
-    );
-    kafkaUtils.publishEvent(event.getKafkaEventType().name(), event.getId(), event);
-  }
-
-  /**
    * Publishes a campaign delete event to Kafka.
    * @param id the ID of the campaign that was deleted
    */

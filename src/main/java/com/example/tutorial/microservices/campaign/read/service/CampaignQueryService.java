@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CampaignQueryService {
@@ -20,14 +19,5 @@ public class CampaignQueryService {
    */
   public List<Campaign> getAllCampaigns() {
     return campaignQueryRepository.findAll();
-  }
-
-  /**
-   * Returns a campaign by its ID.
-   * @param id Campaign ID
-   * @return Optional containing the Campaign if found, otherwise empty
-   */
-  public Optional<Campaign> getCampaignById(String id) {
-    return campaignQueryRepository.findById(id);
   }
 }
