@@ -1,4 +1,4 @@
-package com.example.tutorial.microservices.campaign.write.service;
+package com.example.tutorial.microservices.campaign.write.service.events;
 
 import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * Service for publishing campaign command events to Kafka.
  */
 @Service
-public class CampaignCommandEventService {
+public class CampaignCommandEventPublisher {
 
   @Autowired
   private KafkaUtils kafkaUtils;

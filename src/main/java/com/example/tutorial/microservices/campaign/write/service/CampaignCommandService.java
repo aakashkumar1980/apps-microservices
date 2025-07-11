@@ -3,6 +3,7 @@ package com.example.tutorial.microservices.campaign.write.service;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
+import com.example.tutorial.microservices.campaign.write.service.events.CampaignCommandEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
@@ -21,7 +22,7 @@ public class CampaignCommandService {
   private String campaignCounterKey;
 
   @Autowired
-  private CampaignCommandEventService campaignCommandEventService;
+  private CampaignCommandEventPublisher campaignCommandEventPublisher;
 
   /**
    * Create a new campaign and publish an event to the kafka event bus.
@@ -36,7 +37,7 @@ public class CampaignCommandService {
       Campaign saved = campaignCommandRepository.save(campaign);
 
       // Publish the campaign created event to kafka event bus
-      campaignCommandEventService.publishCreateCampaignEvent(saved);
+      campaignCommandEventPublisher.publishCreateCampaignEvent(saved);
       return saved.getId();
     }
 
@@ -49,6 +50,6 @@ public class CampaignCommandService {
     campaignCommandRepository.deleteById(id);
 
     // Publish the campaign created event to kafka event bus
-    campaignCommandEventService.publishDeleteCampaignEvent(id);
+    campaignCommandEventPublisher.publishDeleteCampaignEvent(id);
   }
 }

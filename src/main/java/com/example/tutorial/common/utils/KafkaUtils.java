@@ -13,8 +13,8 @@ public class KafkaUtils {
   @Autowired
   private ObjectMapper objectMapper;
 
-  private final KafkaTemplate<String, Object> kafkaTemplate;
-  public KafkaUtils(KafkaTemplate<String, Object> kafkaTemplate) {
+  private final KafkaTemplate<String, String> kafkaTemplate;
+  public KafkaUtils(KafkaTemplate<String, String> kafkaTemplate) {
     this.kafkaTemplate = kafkaTemplate;
   }
 
