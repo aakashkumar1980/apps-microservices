@@ -38,7 +38,7 @@ public class CampaignCommandController {
      * @param baseDto the base DTO containing the campaign to be updated
      * @return a response entity with a success message
      */
-    @PostMapping
+    @PutMapping
     public ResponseEntity<String> updateCampaign(@Valid @RequestBody BaseDto<Campaign> baseDto) {
         log.info("Received request to update campaign: {}", baseDto);
         campaignCommandService.updateCampaign(baseDto);
