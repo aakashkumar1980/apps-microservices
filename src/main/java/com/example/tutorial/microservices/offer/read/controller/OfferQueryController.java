@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/campaigns")
+@RequestMapping("/api/offers")
 public class OfferQueryController {
 
   private static final Logger log = LoggerFactory.getLogger(OfferQueryController.class);
