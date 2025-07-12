@@ -34,8 +34,14 @@ public class OfferCommandService {
   public void deactivateOffers(String campaignId) {
     log.info("Deactivating offers for campaign ID: {}", campaignId);
 
-    List<BaseDto<Offer>> existingBaseDtoOffers = offerCommandRepository.findByDataCampaignId(campaignId);
+    // Retrieve all offers from the repository
+    List<BaseDto<Offer>> allOffers = offerCommandRepository.findAll();
+    // Filter offers that match the given campaign ID
+    List<BaseDto<Offer>> existingBaseDtoOffers = allOffers.stream()
+      .filter(baseDto -> baseDto.getData() != null && campaignId.equals(baseDto.getData().getCampaignId()))
+      .toList();
     if (existingBaseDtoOffers != null && !existingBaseDtoOffers.isEmpty()) {
+      // Iterate through the filtered offers and set their status to INACTIVE
       existingBaseDtoOffers.forEach(baseDto -> {
         baseDto.getData().setOfferStatus(OfferStatus.INACTIVE);
 
