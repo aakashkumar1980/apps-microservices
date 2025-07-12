@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CampaignQueryRepository extends CouchbaseRepository<Campaign, String> {
-    // Spring Data provides findAll, findById, etc.
 }

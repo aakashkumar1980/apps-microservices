@@ -7,6 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationUtils {
 
+  /**
+   * Converts an object to its JSON string representation.
+   *
+   * @param object the object to convert
+   * @return the JSON string representation of the object
+   */
   public String convertToJson(Object object) {
     try {
       return new ObjectMapper().writeValueAsString(object);

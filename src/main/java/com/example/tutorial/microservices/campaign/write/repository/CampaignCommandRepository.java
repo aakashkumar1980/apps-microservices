@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CampaignCommandRepository extends CouchbaseRepository<BaseDto<Campaign>, String> {
-    // Spring Data provides save, deleteById, etc.
 }

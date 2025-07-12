@@ -5,6 +5,8 @@ import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
 import com.example.tutorial.microservices.campaign.write.service.events.CampaignCommandEventPublisher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
@@ -14,6 +16,8 @@ import java.time.LocalDateTime;
 
 @Service
 public class CampaignCommandService {
+
+  private static final Logger log = LoggerFactory.getLogger(CampaignCommandService.class);
 
   @Autowired
   private CampaignCommandRepository campaignCommandRepository;
@@ -33,6 +37,8 @@ public class CampaignCommandService {
    * @return the ID of the created campaign
    */
   public String createCampaign(Campaign campaign) {
+    log.info("Creating campaign: {}", campaign);
+
     // Use DBUtils to get a unique sequential ID
     long counter = DBUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
     String id = "campaign::" + counter;
@@ -46,11 +52,13 @@ public class CampaignCommandService {
     return savedDto.getId();
   }
 
-/**
+  /**
    * Update an existing campaign and publish an event to the kafka event bus.
    * @param baseDto the BaseDto containing the campaign data to update
    */
   public void updateCampaign(BaseDto<Campaign> baseDto) {
+    log.info("Updating campaign: {}", baseDto);
+
     baseDto.setUpdatedAt(LocalDateTime.now());
     BaseDto<Campaign> updatedDto = campaignCommandRepository.save(baseDto);
 
@@ -64,6 +72,8 @@ public class CampaignCommandService {
    * @param id the ID of the campaign to delete
    */
   public void deleteCampaign(String id) {
+    log.info("Deleting campaign with ID: {}", id);
+
     campaignCommandRepository.deleteById(id);
 
     // Publish the campaign created event to kafka event bus

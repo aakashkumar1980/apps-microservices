@@ -2,12 +2,16 @@ package com.example.tutorial.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class KafkaUtils {
+
+  private static final Logger log = LoggerFactory.getLogger(KafkaUtils.class);
 
   @Autowired
   private ObjectMapper objectMapper;
@@ -24,16 +28,18 @@ public class KafkaUtils {
    * @param event the event to publish. This should be a serializable object.
    */
   public void publishEvent(String topic, String key, Object event) {
+    log.info("Publishing event to topic: {}, key: {}, event: {}", topic, key, event);
+
     try {
       String eventJson = objectMapper.writeValueAsString(event);
       kafkaTemplate.send(topic, key, eventJson)
           .whenComplete((result, ex) -> {
             if (ex != null) {
               // handle failure, e.g., log error
-              System.err.println("Failed to send event to Kafka: " + ex.getMessage());
+              log.error("Failed to send event to Kafka topic {} with key {}: {}", topic, key, ex.getMessage(), ex);
             } else {
               // handle success, e.g., log metadata
-              System.out.println("Event sent to Kafka topic " + topic + " with offset " + result.getRecordMetadata().offset());
+              log.info("Event sent to Kafka topic: {}, key: {}, offset: {}", topic, key, result.getRecordMetadata().offset());
             }
           });
     } catch (JsonProcessingException e) {

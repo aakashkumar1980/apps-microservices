@@ -3,6 +3,8 @@ package com.example.tutorial.microservices.offer.read.controller;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.offer.Offer;
 import com.example.tutorial.microservices.offer.read.service.OfferQueryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,8 @@ import java.util.List;
 @RequestMapping("/api/campaigns")
 public class OfferQueryController {
 
+  private static final Logger log = LoggerFactory.getLogger(OfferQueryController.class);
+
   @Autowired
   private OfferQueryService offerQueryService;
 
@@ -24,6 +28,7 @@ public class OfferQueryController {
    */
   @GetMapping
   public ResponseEntity<List<BaseDto<Offer>>> getAllOffers() {
+    log.info("Fetching all offers");
     return ResponseEntity.ok(offerQueryService.getAllOffers());
   }
 

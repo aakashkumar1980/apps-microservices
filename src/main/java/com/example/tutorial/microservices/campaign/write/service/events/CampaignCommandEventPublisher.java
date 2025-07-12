@@ -5,6 +5,8 @@ import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
 import com.example.tutorial.common.utils.KafkaUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CampaignCommandEventPublisher {
+
+  private static final Logger log = LoggerFactory.getLogger(CampaignCommandEventPublisher.class);
 
   @Autowired
   private KafkaUtils kafkaUtils;
@@ -29,6 +33,8 @@ public class CampaignCommandEventPublisher {
         baseDto.getData().getEndDate(),
         KafkaEventType.CAMPAIGN_CREATED
     );
+
+    log.info("Publishing campaign creation event: {}", campaignEvent);
     kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getId(), campaignEvent);
   }
 
@@ -44,6 +50,8 @@ public class CampaignCommandEventPublisher {
         baseDto.getData().getEndDate(),
         KafkaEventType.CAMPAIGN_UPDATED
     );
+
+    log.info("Publishing campaign update event: {}", campaignEvent);
     kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getId(), campaignEvent);
   }
 
@@ -56,6 +64,8 @@ public class CampaignCommandEventPublisher {
         id,
         KafkaEventType.CAMPAIGN_DELETED
     );
+
+    log.info("Publishing campaign delete event: {}", campaignEvent);
     kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getId(), campaignEvent);
   }
 }

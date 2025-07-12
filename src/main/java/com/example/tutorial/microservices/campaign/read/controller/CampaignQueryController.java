@@ -2,6 +2,8 @@ package com.example.tutorial.microservices.campaign.read.controller;
 
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.microservices.campaign.read.service.CampaignQueryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,8 @@ import java.util.List;
 @RequestMapping("/api/campaigns")
 public class CampaignQueryController {
 
+  private static final Logger log = LoggerFactory.getLogger(CampaignQueryController.class);
+
   @Autowired
   private CampaignQueryService campaignQueryService;
 
@@ -24,6 +28,7 @@ public class CampaignQueryController {
    */
   @GetMapping
   public ResponseEntity<List<Campaign>> getAllCampaigns() {
+    log.info("Fetching all campaigns");
     return ResponseEntity.ok(campaignQueryService.getAllCampaigns());
   }
 
