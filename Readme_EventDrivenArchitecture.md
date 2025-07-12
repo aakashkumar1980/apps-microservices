@@ -1,6 +1,6 @@
 # Event-Driven Architecture: Campaign Creation & Deletion Flow
 
-## Flow: `createCampaign` (Grouped by Microservices, Kafka Queue, and Redis Cache)
+## Flow: `createCampaign`
 
 ### 1. Campaign Microservice (Write)
 
@@ -47,7 +47,7 @@
 ---
 
 
-## Flow: `deleteCampaign` (Grouped by Microservices, Kafka Queue, and Redis Cache)
+## Flow: `deleteCampaign`
 
 ### 1. Campaign Microservice (Write)
 
