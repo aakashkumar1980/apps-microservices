@@ -1,6 +1,6 @@
 package com.example.tutorial.common.dto.offer;
 
-import com.example.tutorial.common.dto.RewardType;
+import com.example.tutorial.common.dto.reward.RewardType;
 import jakarta.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.couchbase.core.mapping.Field;
