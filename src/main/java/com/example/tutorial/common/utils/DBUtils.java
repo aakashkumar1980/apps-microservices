@@ -1,8 +1,12 @@
 package com.example.tutorial.common.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
 
 public class DBUtils {
+  private static final Logger log = LoggerFactory.getLogger(DBUtils.class);
+
   /**
    * Get a unique counter value from Couchbase.
    * @param couchbaseTemplate the CouchbaseTemplate
@@ -10,6 +14,7 @@ public class DBUtils {
    * @return the incremented counter value
    */
   public static long getUniqueCounter(CouchbaseTemplate couchbaseTemplate, String counterKey) {
+    log.debug("Incrementing counter for key: {}", counterKey);
     return couchbaseTemplate.getCouchbaseClientFactory()
         .getCluster()
         .bucket(couchbaseTemplate.getBucketName())

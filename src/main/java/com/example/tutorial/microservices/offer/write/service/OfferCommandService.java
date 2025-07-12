@@ -39,9 +39,12 @@ public class OfferCommandService {
       existingBaseDtoOffers.forEach(baseDto -> {
         baseDto.getData().setOfferStatus(OfferStatus.INACTIVE);
 
-        log.info("Deactivating offer with ID: {}", baseDto.getData().getOfferId());
+        log.info("Deactivating offer with ID: {}", baseDto.getId());
         offerCommandRepository.save(baseDto);
       });
+
+    } else {
+      log.warn("No offers found for campaign ID: {}", campaignId);
     }
   }
 

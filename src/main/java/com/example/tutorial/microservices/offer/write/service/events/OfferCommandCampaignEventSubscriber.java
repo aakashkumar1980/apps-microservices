@@ -26,47 +26,47 @@ public class OfferCommandCampaignEventSubscriber {
   private ObjectMapper objectMapper;
 
   /**
-   * Handles the CampaignCreated event by caching the campaign details in Redis.
+   * Handles the CampaignCreated campaignEvent by caching the campaign details in Redis.
    * It can be used later to quickly access campaign information without
    * making an REST API call to the Campaign microservice.
    *
-   * @param event the CampaignEvent containing details of the created campaign
+   * @param campaignEvent the CampaignEvent containing details of the created campaign
    */
   @KafkaListener(topics = "CAMPAIGN_CREATED", groupId = "offer-microservice")
-  public void subscribeCreateCampaignEvent(CampaignEvent event) throws JsonProcessingException {
-    String campaignId = event.getId();
-    redisTemplate.opsForValue().set(campaignId, objectMapper.writeValueAsString(event));
-    log.info("Cached campaign {} in Redis", event.getId());
+  public void subscribeCreateCampaignEvent(CampaignEvent campaignEvent) throws JsonProcessingException {
+    String campaignId = campaignEvent.getId();
+    redisTemplate.opsForValue().set(campaignId, objectMapper.writeValueAsString(campaignEvent));
+    log.info("Cached campaign {} in Redis", campaignEvent.getId());
   }
 
   /**
-   * Handles the CampaignUpdated event by updating the cached campaign details in Redis.
+   * Handles the CampaignUpdated campaignEvent by updating the cached campaign details in Redis.
    * This ensures that the latest campaign information is available for offers.
    *
-   * @param event the CampaignEvent containing details of the updated campaign
+   * @param campaignEvent the CampaignEvent containing details of the updated campaign
    */
   @KafkaListener(topics = "CAMPAIGN_UPDATED", groupId = "offer-microservice")
-  public void subscribeUpdateCampaignEvent(CampaignEvent event) throws JsonProcessingException {
-    String campaignId = event.getId();
-    redisTemplate.opsForValue().set(campaignId, objectMapper.writeValueAsString(event));
-    log.info("Updated Cached campaign {} in Redis", event.getId());
+  public void subscribeUpdateCampaignEvent(CampaignEvent campaignEvent) throws JsonProcessingException {
+    String campaignId = campaignEvent.getId();
+    redisTemplate.opsForValue().set(campaignId, objectMapper.writeValueAsString(campaignEvent));
+    log.info("Updated Cached campaign {} in Redis", campaignEvent.getId());
   }
 
   /**
-   * Handles the CampaignDeleted event by removing the campaign from Redis cache
+   * Handles the CampaignDeleted campaignEvent by removing the campaign from Redis cache
    * and deactivating associated offers.
    *
-   * @param event the CampaignEvent containing details of the deleted campaign
+   * @param campaignEvent the CampaignEvent containing details of the deleted campaign
    */
   @KafkaListener(topics = "CAMPAIGN_DELETED", groupId = "offer-microservice")
-  public void subscribeDeleteCampaignEvent(CampaignEvent event) {
-    String campaignId = event.getId();
+  public void subscribeDeleteCampaignEvent(CampaignEvent campaignEvent) {
+    String campaignId = campaignEvent.getId();
     // Remove the campaign from Redis cache
     redisTemplate.delete(campaignId);
-    log.info("Deleted campaign {} from Redis", event.getId());
+    log.info("Deleted campaign {} from Redis", campaignEvent.getId());
 
     // Deactivate all offers associated with the campaign
     offerCommandService.deactivateOffers(campaignId);
-    log.info("Deactivated offers for campaign {}", event.getId());
+    log.info("Deactivated offers for campaign {}", campaignEvent.getId());
   }
 }
