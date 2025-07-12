@@ -1,7 +1,6 @@
 package com.example.tutorial.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
@@ -23,12 +22,10 @@ public class BaseDto<T> {
   private String id;
 
   @JsonProperty("created_at")
-  @FutureOrPresent(message = "Created date must be in the future or present")
   @NotNull(message = "Created date is required")
   private LocalDateTime createdAt;
 
   @JsonProperty("updated_at")
-  @FutureOrPresent(message = "Updated date must be in the future or present")
   private LocalDateTime updatedAt;
 
   @JsonProperty("data")

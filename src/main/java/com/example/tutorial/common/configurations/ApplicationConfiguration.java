@@ -2,6 +2,7 @@ package com.example.tutorial.common.configurations;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,6 +18,9 @@ public class ApplicationConfiguration {
   @Bean
   public ObjectMapper objectMapper() {
     ObjectMapper objectMapper = new ObjectMapper();
+
+    // Register JavaTimeModule to support Java 8 date/time types
+    objectMapper.registerModule(new JavaTimeModule());
 
     // Configure the ObjectMapper as needed, e.g., set serialization inclusion
     objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

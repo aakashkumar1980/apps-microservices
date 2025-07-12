@@ -36,10 +36,10 @@ public class KafkaUtils {
           .whenComplete((result, ex) -> {
             if (ex != null) {
               // handle failure, e.g., log error
-              log.error("Failed to send event to Kafka topic {} with key {}: {}", topic, key, ex.getMessage(), ex);
+              log.error("Failed to send event {} to Kafka topic {} with key {}: {}", eventJson, topic, key, ex.getMessage(), ex);
             } else {
               // handle success, e.g., log metadata
-              log.info("Event sent to Kafka topic: {}, key: {}, offset: {}", topic, key, result.getRecordMetadata().offset());
+              log.info("Event {} sent to Kafka topic: {}, key: {}, offset: {}", eventJson, topic, key, result.getRecordMetadata().offset());
             }
           });
     } catch (JsonProcessingException e) {

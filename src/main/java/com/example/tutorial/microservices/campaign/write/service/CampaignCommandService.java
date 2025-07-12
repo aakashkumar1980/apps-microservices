@@ -4,7 +4,7 @@ import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
-import com.example.tutorial.microservices.campaign.write.service.events.CampaignCommandEventPublisher;
+import com.example.tutorial.microservices.campaign.write.service.events.publisher.CampaignEventPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class CampaignCommandService {
   private String campaignCounterKey;
 
   @Autowired
-  private CampaignCommandEventPublisher campaignCommandEventPublisher;
+  private CampaignEventPublisher campaignEventPublisher;
 
   /**
    * Create a new campaign and publish an event to the kafka event bus.
@@ -48,7 +48,7 @@ public class CampaignCommandService {
     BaseDto<Campaign> savedDto = campaignCommandRepository.save(baseDto);
 
     // Publish the campaign created event to kafka event bus
-    campaignCommandEventPublisher.publishCreateCampaignEvent(savedDto);
+    campaignEventPublisher.publishCreateCampaignEvent(savedDto);
     return savedDto.getId();
   }
 
@@ -63,7 +63,7 @@ public class CampaignCommandService {
     BaseDto<Campaign> updatedDto = campaignCommandRepository.save(baseDto);
 
     // Publish the campaign updated event to kafka event bus
-    campaignCommandEventPublisher.publishUpdateCampaignEvent(updatedDto);
+    campaignEventPublisher.publishUpdateCampaignEvent(updatedDto);
   }
 
 
@@ -77,6 +77,6 @@ public class CampaignCommandService {
     campaignCommandRepository.deleteById(id);
 
     // Publish the campaign created event to kafka event bus
-    campaignCommandEventPublisher.publishDeleteCampaignEvent(id);
+    campaignEventPublisher.publishDeleteCampaignEvent(id);
   }
 }
