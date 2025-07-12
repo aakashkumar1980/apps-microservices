@@ -3,54 +3,42 @@ package com.example.tutorial.common.dto.offer;
 import com.example.tutorial.common.dto.RewardType;
 import jakarta.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Document
 public class Offer {
-  @Id
-  @JsonProperty("offer_id")
-  @Field("offer_id")
-  private String offerId;
 
-  @NotBlank
   @JsonProperty("campaign_id")
   @Field("campaign_id")
+  @NotBlank(message = "Campaign ID is required")
   private String campaignId;
 
-  @NotBlank
   @JsonProperty("merchant_id")
   @Field("merchant_id")
+  @NotBlank(message = "Merchant ID is required")
   private String merchantId;
 
-  @NotNull
   @JsonProperty("reward_type")
   @Field("reward_type")
+  @NotNull(message = "Reward type is required")
   private RewardType rewardType;
 
-  @DecimalMin(value = "0.01")
   @JsonProperty("reward_value")
   @Field("reward_value")
+  @DecimalMin(value = "0.01", message = "Reward value must be greater than 0")
   private BigDecimal rewardValue;
 
-  @NotBlank
   @JsonProperty("eligibility_criteria")
   @Field("eligibility_criteria")
+  @NotBlank(message = "Eligibility criteria is required")
   private String eligibilityCriteria;
 
-  @NotNull
   @JsonProperty("offer_status")
   @Field("offer_status")
+  @NotNull(message = "Offer status is required")
   private OfferStatus offerStatus;
-
-  @NotNull
-  @JsonProperty("created_at")
-  @Field("created_at")
-  private LocalDateTime createdAt;
 
   @JsonProperty("valid_from")
   @Field("valid_from")
@@ -60,8 +48,6 @@ public class Offer {
   @Field("valid_to")
   private LocalDateTime validTo;
 
-  public String getOfferId() { return offerId; }
-  public void setOfferId(String offerId) { this.offerId = offerId; }
   public String getCampaignId() { return campaignId; }
   public void setCampaignId(String campaignId) { this.campaignId = campaignId; }
   public String getMerchantId() { return merchantId; }
@@ -74,8 +60,6 @@ public class Offer {
   public void setEligibilityCriteria(String eligibilityCriteria) { this.eligibilityCriteria = eligibilityCriteria; }
   public OfferStatus getOfferStatus() { return offerStatus; }
   public void setOfferStatus(OfferStatus offerStatus) { this.offerStatus = offerStatus; }
-  public LocalDateTime getCreatedAt() { return createdAt; }
-  public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
   public LocalDateTime getValidFrom() { return validFrom; }
   public void setValidFrom(LocalDateTime validFrom) { this.validFrom = validFrom; }
   public LocalDateTime getValidTo() { return validTo; }
@@ -84,14 +68,12 @@ public class Offer {
   @Override
   public String toString() {
     return "Offer{" +
-        "offerId='" + offerId + '\'' +
         ", campaignId='" + campaignId + '\'' +
         ", merchantId='" + merchantId + '\'' +
         ", rewardType=" + rewardType +
         ", rewardValue=" + rewardValue +
         ", eligibilityCriteria='" + eligibilityCriteria + '\'' +
         ", offerStatus=" + offerStatus +
-        ", createdAt=" + createdAt +
         ", validFrom=" + validFrom +
         ", validTo=" + validTo +
         '}';

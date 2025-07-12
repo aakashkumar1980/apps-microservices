@@ -1,5 +1,6 @@
 package com.example.tutorial.microservices.campaign.write.service.events;
 
+import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
@@ -18,17 +19,32 @@ public class CampaignCommandEventPublisher {
 
   /**
    * Publishes a campaign creation event to Kafka.
-   * @param campaign the campaign that was created
+   * @param baseDto the BaseDto containing the campaign data
    */
-  public void publishCreateCampaignEvent(Campaign campaign) {
-    CampaignEvent event = new CampaignEvent(
-        campaign.getId(),
-        campaign.getStatus().name(),
-        campaign.getStartDate(),
-        campaign.getEndDate(),
+  public void publishCreateCampaignEvent(BaseDto<Campaign> baseDto) {
+    CampaignEvent campaignEvent = new CampaignEvent(
+        baseDto.getId(),
+        baseDto.getData().getStatus().name(),
+        baseDto.getData().getStartDate(),
+        baseDto.getData().getEndDate(),
         KafkaEventType.CAMPAIGN_CREATED
     );
-    kafkaUtils.publishEvent(event.getKafkaEventType().name(), event.getId(), event);
+    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getId(), campaignEvent);
+  }
+
+  /**
+   * Publishes a campaign update event to Kafka.
+   * @param baseDto the BaseDto containing the updated campaign data
+   */
+  public void publishUpdateCampaignEvent(BaseDto<Campaign> baseDto) {
+    CampaignEvent campaignEvent = new CampaignEvent(
+        baseDto.getId(),
+        baseDto.getData().getStatus().name(),
+        baseDto.getData().getStartDate(),
+        baseDto.getData().getEndDate(),
+        KafkaEventType.CAMPAIGN_UPDATED
+    );
+    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getId(), campaignEvent);
   }
 
   /**
@@ -36,10 +52,10 @@ public class CampaignCommandEventPublisher {
    * @param id the ID of the campaign that was deleted
    */
   public void publishDeleteCampaignEvent(String id) {
-    CampaignEvent event = new CampaignEvent(
+    CampaignEvent campaignEvent = new CampaignEvent(
         id,
         KafkaEventType.CAMPAIGN_DELETED
     );
-    kafkaUtils.publishEvent(event.getKafkaEventType().name(), event.getId(), event);
+    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getId(), campaignEvent);
   }
 }

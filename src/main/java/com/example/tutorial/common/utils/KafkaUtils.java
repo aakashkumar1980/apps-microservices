@@ -1,6 +1,5 @@
 package com.example.tutorial.common.utils;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,6 @@ public class KafkaUtils {
    */
   public void publishEvent(String topic, String key, Object event) {
     try {
-      objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
       String eventJson = objectMapper.writeValueAsString(event);
       kafkaTemplate.send(topic, key, eventJson)
           .whenComplete((result, ex) -> {

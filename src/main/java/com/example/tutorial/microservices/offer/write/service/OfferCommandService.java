@@ -1,11 +1,11 @@
 package com.example.tutorial.microservices.offer.write.service;
 
+import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.offer.Offer;
 import com.example.tutorial.common.dto.offer.OfferStatus;
 import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +19,6 @@ public class OfferCommandService {
   @Autowired
   private OfferCommandRepository offerCommandRepository;
 
-  @Autowired
-  private CouchbaseTemplate couchbaseTemplate;
-
   @Value("${offer.counter.key:offer_counter}")
   private String offerCounterKey;
 
@@ -32,11 +29,11 @@ public class OfferCommandService {
    * @param campaignId the ID of the campaign whose offers are to be deactivated
    */
   public void deactivateOffers(String campaignId) {
-    List<Offer> existingOffers = offerCommandRepository.findByCampaignId(campaignId);
-    if (existingOffers != null && !existingOffers.isEmpty()) {
-      existingOffers.forEach(offer -> {
-        offer.setOfferStatus(OfferStatus.INACTIVE);
-        couchbaseTemplate.save(offer);
+    List<BaseDto<Offer>> existingBaseDtoOffers = offerCommandRepository.findByDataCampaignId(campaignId);
+    if (existingBaseDtoOffers != null && !existingBaseDtoOffers.isEmpty()) {
+      existingBaseDtoOffers.forEach(baseDto -> {
+        baseDto.getData().setOfferStatus(OfferStatus.INACTIVE);
+        offerCommandRepository.save(baseDto);
       });
     }
   }

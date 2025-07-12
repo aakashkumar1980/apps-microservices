@@ -2,58 +2,52 @@ package com.example.tutorial.common.dto.campaign;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
-import org.springframework.data.couchbase.core.mapping.Document;
-import org.springframework.data.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Document
 public class Campaign {
 
-  @Id
-  @JsonProperty("id")
-  private String id;
-
   @JsonProperty("name")
+  @Field("name")
   @NotBlank(message = "Campaign name is required")
   @Size(min = 3, max = 100, message = "Campaign name must be between 3 and 100 characters")
   private String name;
 
   @JsonProperty("description")
+  @Field("description")
   @NotBlank(message = "Description is required")
   private String description;
 
   @JsonProperty("status")
+  @Field("status")
   private CampaignStatus status;
 
   @JsonProperty("start_date")
+  @Field("start_date")
   @FutureOrPresent(message = "Start date must be in the future or present")
   @NotNull(message = "Start date is required")
   private LocalDateTime startDate;
 
   @JsonProperty("end_date")
+  @Field("end_date")
   @NotNull(message = "End date is required")
   @Future(message = "End date must be in the future")
   private LocalDateTime endDate;
 
   @JsonProperty("budget")
+  @Field("budget")
   @NotNull(message = "Budget is required")
   @DecimalMin(value = "100.00", message = "Budget must be greater than $100.00")
   private Double budget;
 
   @JsonProperty("offer_ids")
+  @Field("offer_ids")
   private List<String> offerIds;
 
   public Campaign() {}
 
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
 
   public String getName() {
     return name;
@@ -114,7 +108,6 @@ public class Campaign {
   @Override
   public String toString() {
     return "Campaign{" +
-    "  id='" + id +
     ", name='" + name +
     ", description='" + description +
     ", status=" + status +
