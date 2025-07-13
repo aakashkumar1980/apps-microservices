@@ -7,6 +7,8 @@ import com.example.tutorial.common.dto.offer.Offer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
@@ -30,6 +32,8 @@ import com.couchbase.client.java.kv.IncrementOptions;
 @SpringBootTest
 @ActiveProfiles("test")
 public class SpringBootStartupTestDataLoad {
+
+    private static final Logger log = LoggerFactory.getLogger(SpringBootStartupTestDataLoad.class);
 
     @Autowired
     private CouchbaseTemplate couchbaseTemplate;
@@ -59,6 +63,9 @@ public class SpringBootStartupTestDataLoad {
         List<BaseDto<Offer>> offers = readJsonArray("sample-offers.json", new TypeReference<List<BaseDto<Offer>>>() {});
         List<BaseDto<Merchant>> merchants = readJsonArray("sample-merchants.json", new TypeReference<List<BaseDto<Merchant>>>() {});
 
+        log.info("Connecting to couchbaseTemplate.getCouchbaseClientFactory bucket: {}, scope: {}",
+            couchbaseTemplate.getCouchbaseClientFactory().getBucket().name(),
+            couchbaseTemplate.getCouchbaseClientFactory().getBucket().defaultCollection().name());
         // 2. Remove all existing docs for each type (offers, merchants, campaigns)
         offers.forEach(dto -> removeIfExists(dto.getId()));
         merchants.forEach(dto -> removeIfExists(dto.getId()));

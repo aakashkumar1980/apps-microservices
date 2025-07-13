@@ -1,5 +1,6 @@
 package com.example.tutorial.microservices.campaign.read.controller;
 
+import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.microservices.campaign.read.service.CampaignQueryService;
 import org.slf4j.Logger;
@@ -24,10 +25,10 @@ public class CampaignQueryController {
   /**
    * Retrieves all campaigns.
    *
-   * @return a list of all campaigns
+   * @return a ResponseEntity containing a list of BaseDto<Campaign> objects.
    */
   @GetMapping
-  public ResponseEntity<List<Campaign>> getAllCampaigns() {
+  public ResponseEntity<List<BaseDto<Campaign>>> getAllCampaigns() {
     log.info("Fetching all campaigns");
     return ResponseEntity.ok(campaignQueryService.getAllCampaigns());
   }

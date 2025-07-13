@@ -1,5 +1,6 @@
 package com.example.tutorial.microservices.campaign.read.service;
 
+import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.microservices.campaign.read.repository.CampaignQueryRepository;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ public class CampaignQueryService {
    * Returns all campaigns.
    * @return List of Campaigns
    */
-  public List<Campaign> getAllCampaigns() {
+  public List<BaseDto<Campaign>> getAllCampaigns() {
     log.info("Fetching all campaigns from the repository");
     return campaignQueryRepository.findAll();
   }

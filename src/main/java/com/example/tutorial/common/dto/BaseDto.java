@@ -47,6 +47,7 @@ public class BaseDto<T> {
     BaseDto<T> dto = new BaseDto<>();
     dto.setData(data);
     dto.setCreatedAt(LocalDateTime.now());
+    dto.setVersion(1);
     return dto;
   }
 
