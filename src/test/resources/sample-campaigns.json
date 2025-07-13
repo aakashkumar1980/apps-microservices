@@ -1,0 +1,378 @@
+[
+  {
+    "id": "campaign::1",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Summer Electronics Bonanza",
+      "description": "Exclusive summer deals on electronics.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-15T00:00:00",
+      "end_date": "2025-08-15T23:59:59",
+      "budget": 5000.00,
+      "offer_ids": ["offer::1", "offer::2"]
+    }
+  },
+  {
+    "id": "campaign::2",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Back to School Offers",
+      "description": "Special discounts for students.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-20T00:00:00",
+      "end_date": "2025-09-01T23:59:59",
+      "budget": 3000.00,
+      "offer_ids": ["offer::3", "offer::4", "offer::5"]
+    }
+  },
+  {
+    "id": "campaign::3",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Spring Fashion Sale",
+      "description": "Latest spring collection at discounted prices.",
+      "status": "PAUSED",
+      "start_date": "2025-07-18T00:00:00",
+      "end_date": "2025-08-18T23:59:59",
+      "budget": 2500.00,
+      "offer_ids": ["offer::6"]
+    }
+  },
+  {
+    "id": "campaign::4",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Father's Day Special",
+      "description": "Celebrate Father's Day with special rewards.",
+      "status": "CLOSED",
+      "start_date": "2025-06-10T00:00:00",
+      "end_date": "2025-06-20T23:59:59",
+      "budget": 1200.00,
+      "offer_ids": ["offer::7"]
+    }
+  },
+  {
+    "id": "campaign::5",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Gift Fest",
+      "description": "Best deals on gift items.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-16T00:00:00",
+      "end_date": "2025-08-16T23:59:59",
+      "budget": 1800.00,
+      "offer_ids": ["offer::8"]
+    }
+  },
+  {
+    "id": "campaign::6",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Mother's Day Delights",
+      "description": "Special cashback for Mother's Day purchases.",
+      "status": "DRAFT",
+      "start_date": "2025-07-25T00:00:00",
+      "end_date": "2025-08-25T23:59:59",
+      "budget": 1600.00,
+      "offer_ids": ["offer::9"]
+    }
+  },
+  {
+    "id": "campaign::7",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Weekend Wellness",
+      "description": "Discounts on wellness products every weekend.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-19T00:00:00",
+      "end_date": "2025-08-19T23:59:59",
+      "budget": 2100.00,
+      "offer_ids": ["offer::10"]
+    }
+  },
+  {
+    "id": "campaign::8",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Any Purchase Points",
+      "description": "Earn points on any purchase.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-21T00:00:00",
+      "end_date": "2025-08-21T23:59:59",
+      "budget": 1400.00,
+      "offer_ids": ["offer::11"]
+    }
+  },
+  {
+    "id": "campaign::9",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Tech Lovers",
+      "description": "Vouchers for tech product purchases.",
+      "status": "PAUSED",
+      "start_date": "2025-07-22T00:00:00",
+      "end_date": "2025-08-22T23:59:59",
+      "budget": 2200.00,
+      "offer_ids": ["offer::12"]
+    }
+  },
+  {
+    "id": "campaign::10",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Gadget Cashback",
+      "description": "Cashback on gadget purchases.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-23T00:00:00",
+      "end_date": "2025-08-23T23:59:59",
+      "budget": 2700.00,
+      "offer_ids": ["offer::13"]
+    }
+  },
+  {
+    "id": "campaign::11",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Grocery Discount Days",
+      "description": "Save more on grocery shopping.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-24T00:00:00",
+      "end_date": "2025-08-24T23:59:59",
+      "budget": 1300.00,
+      "offer_ids": ["offer::14"]
+    }
+  },
+  {
+    "id": "campaign::12",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Travel Points",
+      "description": "Earn extra points on travel bookings.",
+      "status": "DRAFT",
+      "start_date": "2025-07-26T00:00:00",
+      "end_date": "2025-08-26T23:59:59",
+      "budget": 3500.00,
+      "offer_ids": ["offer::15"]
+    }
+  },
+  {
+    "id": "campaign::13",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Hotel Voucher Bonanza",
+      "description": "Exclusive hotel booking vouchers.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-27T00:00:00",
+      "end_date": "2025-08-27T23:59:59",
+      "budget": 3200.00,
+      "offer_ids": ["offer::16"]
+    }
+  },
+  {
+    "id": "campaign::14",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Fitness Cashback",
+      "description": "Cashback on fitness products.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-28T00:00:00",
+      "end_date": "2025-08-28T23:59:59",
+      "budget": 1700.00,
+      "offer_ids": ["offer::17"]
+    }
+  },
+  {
+    "id": "campaign::15",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Fashion Discount",
+      "description": "Discounts on latest fashion items.",
+      "status": "PAUSED",
+      "start_date": "2025-07-29T00:00:00",
+      "end_date": "2025-08-29T23:59:59",
+      "budget": 2600.00,
+      "offer_ids": ["offer::18"]
+    }
+  },
+  {
+    "id": "campaign::16",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Big Spender Points",
+      "description": "Points for purchases above $200.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-30T00:00:00",
+      "end_date": "2025-08-30T23:59:59",
+      "budget": 2400.00,
+      "offer_ids": ["offer::19"]
+    }
+  },
+  {
+    "id": "campaign::17",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Book Lovers Voucher",
+      "description": "Vouchers for book purchases.",
+      "status": "ACTIVE",
+      "start_date": "2025-07-31T00:00:00",
+      "end_date": "2025-08-31T23:59:59",
+      "budget": 1100.00,
+      "offer_ids": ["offer::20"]
+    }
+  },
+  {
+    "id": "campaign::18",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Pet Products Cashback",
+      "description": "Cashback on pet product purchases.",
+      "status": "DRAFT",
+      "start_date": "2025-08-01T00:00:00",
+      "end_date": "2025-09-01T23:59:59",
+      "budget": 900.00,
+      "offer_ids": ["offer::21"]
+    }
+  },
+  {
+    "id": "campaign::19",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Home Essentials Discount",
+      "description": "Discounts on home essentials.",
+      "status": "ACTIVE",
+      "start_date": "2025-08-02T00:00:00",
+      "end_date": "2025-09-02T23:59:59",
+      "budget": 2000.00,
+      "offer_ids": ["offer::22"]
+    }
+  },
+  {
+    "id": "campaign::20",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Kitchen Points",
+      "description": "Earn points on kitchen item purchases.",
+      "status": "ACTIVE",
+      "start_date": "2025-08-03T00:00:00",
+      "end_date": "2025-09-03T23:59:59",
+      "budget": 1500.00,
+      "offer_ids": ["offer::23"]
+    }
+  },
+  {
+    "id": "campaign::21",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Weekend Treats Voucher",
+      "description": "Vouchers for weekend treats.",
+      "status": "PAUSED",
+      "start_date": "2025-08-04T00:00:00",
+      "end_date": "2025-09-04T23:59:59",
+      "budget": 800.00,
+      "offer_ids": ["offer::24"]
+    }
+  },
+  {
+    "id": "campaign::22",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Mega Electronics Cashback",
+      "description": "High cashback on electronics.",
+      "status": "ACTIVE",
+      "start_date": "2025-08-05T00:00:00",
+      "end_date": "2025-09-05T23:59:59",
+      "budget": 6000.00,
+      "offer_ids": ["offer::25"]
+    }
+  },
+  {
+    "id": "campaign::23",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Foodie Fest",
+      "description": "Special offers on food items.",
+      "status": "DRAFT",
+      "start_date": "2025-08-06T00:00:00",
+      "end_date": "2025-09-06T23:59:59",
+      "budget": 1200.00,
+      "offer_ids": []
+    }
+  },
+  {
+    "id": "campaign::24",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "General Savings",
+      "description": "Save more on general merchandise.",
+      "status": "ACTIVE",
+      "start_date": "2025-08-07T00:00:00",
+      "end_date": "2025-09-07T23:59:59",
+      "budget": 2100.00,
+      "offer_ids": []
+    }
+  },
+  {
+    "id": "campaign::25",
+    "created_at": "2025-07-13T13:47:00",
+    "updated_at": "2025-07-13T13:47:00",
+    "version": 1,
+    "data": {
+      "name": "Nashville Mega Sale",
+      "description": "Mega sale event in Nashville.",
+      "status": "DRAFT",
+      "start_date": "2025-08-08T00:00:00",
+      "end_date": "2025-09-08T23:59:59",
+      "budget": 3500.00,
+      "offer_ids": []
+    }
+  }
+]
+
