@@ -29,7 +29,7 @@ plugins {
 java {
   toolchain {
     /**
-     * Sets the Java language version to 21.
+     * Sets the Java language version to 24.
      */
     languageVersion = JavaLanguageVersion.of(24)
   }
@@ -88,7 +88,6 @@ dependencies {
    */
   implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
-
   /** UTILITIES **/
   /**
    * Apache Commons Lang — utility functions for Strings, Numbers, etc.
@@ -102,6 +101,12 @@ dependencies {
    */
   implementation "commons-io:commons-io:${ioUtilsVersion}"
 
+
+  /** TESTING **/
+  /**
+   * Spring Boot starter for testing (JUnit, Mockito, etc.).
+   */
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 /** ***************** **/
 /** [END] DEVELOPMENT **/
@@ -113,4 +118,9 @@ tasks.named('bootJar', org.springframework.boot.gradle.tasks.bundling.BootJar) {
    * Replace with your actual entry-point class.
    */
   mainClass.set('com.example.tutorial.Application')
+}
+
+/** TESTING **/
+test {
+    useJUnitPlatform()
 }
