@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * Base Data Transfer Object (DTO) class that can be extended by other DTOs.
- * It includes common fields such as id, createdAt, version, and data.
+ * It includes common fields such as id, createdAt, updatedAt, version, and data.
  *
  * @param <T> the type of data contained in this DTO
  */
@@ -27,6 +27,10 @@ public class BaseDto<T> {
 
   @JsonProperty("updated_at")
   private LocalDateTime updatedAt;
+
+  @JsonProperty("version")
+  @NotNull(message = "Version is required")
+  private Integer version;
 
   @JsonProperty("data")
   @NotNull(message = "Data is required")
@@ -46,28 +50,26 @@ public class BaseDto<T> {
     return dto;
   }
 
-  // Getters and Setters
   public String getId() {
     return id;
   }
   public void setId(String id) {
     this.id = id;
   }
-
   public LocalDateTime getCreatedAt() {
     return createdAt;
   }
   public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
   }
-
   public LocalDateTime getUpdatedAt() {
     return updatedAt;
   }
   public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
-
+  public Integer getVersion() {return version;}
+  public void setVersion(Integer version) {this.version = version;}
   public T getData() {
     return data;
   }
@@ -81,6 +83,7 @@ public class BaseDto<T> {
            "id='" + id + '\'' +
            ", createdAt='" + createdAt + '\'' +
            ", updatedAt='" + updatedAt + '\'' +
+           ", version='" + version + '\'' +
            ", data=" + data +
            '}';
   }
