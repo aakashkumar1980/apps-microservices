@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CampaignQueryService {
@@ -25,5 +26,15 @@ public class CampaignQueryService {
   public List<BaseDto<Campaign>> getAllCampaigns() {
     log.info("Fetching all campaigns from the repository");
     return campaignQueryRepository.getAllCampaigns();
+  }
+
+  /**
+   * Returns a campaign by its ID.
+   * @param id the ID of the campaign
+   * @return Optional containing the BaseDto<Campaign> if found, or empty if not found
+   */
+  public Optional<BaseDto<Campaign>> getCampaignById(String id) {
+    log.info("Fetching campaign with ID: {}", id);
+    return campaignQueryRepository.getCampaignById(id);
   }
 }

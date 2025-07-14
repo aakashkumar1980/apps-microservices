@@ -15,7 +15,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
-import org.springframework.data.repository.CrudRepository;
 
 import java.io.InputStream;
 import java.util.List;
@@ -77,9 +76,9 @@ public class SpringBootStartupTestDataLoad {
     List<BaseDto<Merchant>> merchants = readJsonArray("sample-merchants.json", new TypeReference<List<BaseDto<Merchant>>>() {});
 
     // 2. Remove all existing docs for each type (offers, merchants, campaigns)
-    offers.forEach(dto -> removeIfExists(dto.getId(), offerRepository));
-    merchants.forEach(dto -> removeIfExists(dto.getId(), merchantRepository));
-    campaigns.forEach(dto -> removeIfExists(dto.getId(), campaignRepository));
+    offerRepository.deleteAll();
+    merchantRepository.deleteAll();
+    campaignRepository.deleteAll();
 
     // 3. Reset counters
     setCounterTo(campaignCounterKey, 0);
@@ -87,14 +86,17 @@ public class SpringBootStartupTestDataLoad {
     setCounterTo(merchantCounterKey, 0);
 
     // 4. Insert fresh docs
-    campaigns.forEach(dto -> save(dto, campaignRepository));
-    offers.forEach(dto -> save(dto, offerRepository));
-    merchants.forEach(dto -> save(dto, merchantRepository));
+    campaignRepository.saveAll(campaigns);
+    offerRepository.saveAll(offers);
+    merchantRepository.saveAll(merchants);
 
-    // 5. Increment counters to match number of inserted docs
+    // 5. Increment counters to the number of documents inserted
     setCounterTo(campaignCounterKey, campaigns.size());
     setCounterTo(offerCounterKey, offers.size());
     setCounterTo(merchantCounterKey, merchants.size());
+
+    log.info("Test data loaded successfully: {} campaigns, {} offers, {} merchants",
+        campaigns.size(), offers.size(), merchants.size());
   }
 
   /** PRIVATE METHODS **/
@@ -119,13 +121,4 @@ public class SpringBootStartupTestDataLoad {
     }
   }
 
-  private <T, R extends CrudRepository<BaseDto<T>, String>> void removeIfExists(String id, R repository) {
-    if (repository.existsById(id)) {
-      repository.deleteById(id);
-    }
-  }
-
-  private <T, R extends CrudRepository<BaseDto<T>, String>> void save(BaseDto<T> dto, R repository) {
-    repository.save(dto);
-  }
 }
