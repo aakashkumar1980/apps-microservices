@@ -1,5 +1,8 @@
 # Event-Driven Architecture: Campaign Creation & Deletion Flow
 
+### Architecture Diagram
+![event-driven-architecture-campaign.svg](_readme_assets/event-driven-architecture-campaign.svg)
+
 ## Flow: `createCampaign`
 
 ### 1. Campaign Microservice (Write)
