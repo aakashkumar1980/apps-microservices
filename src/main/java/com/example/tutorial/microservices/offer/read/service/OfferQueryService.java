@@ -25,6 +25,6 @@ public class OfferQueryService {
    */
   public List<BaseDto<Offer>> getAllOffers() {
     log.info("Fetching all offers from the repository");
-    return offerQueryRepository.findAll();
+    return offerQueryRepository.getAllOffers();
   }
 }

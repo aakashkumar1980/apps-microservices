@@ -24,6 +24,6 @@ public class CampaignQueryService {
    */
   public List<BaseDto<Campaign>> getAllCampaigns() {
     log.info("Fetching all campaigns from the repository");
-    return campaignQueryRepository.findAll();
+    return campaignQueryRepository.getAllCampaigns();
   }
 }

@@ -25,6 +25,6 @@ public class MerchantQueryService {
    */
   public List<BaseDto<Merchant>> getAllMerchants() {
     log.info("Fetching all merchants from the repository");
-    return merchantQueryRepository.findAll();
+    return merchantQueryRepository.getAllMerchants();
   }
 }
