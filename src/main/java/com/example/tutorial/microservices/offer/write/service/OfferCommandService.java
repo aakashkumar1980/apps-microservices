@@ -28,6 +28,7 @@ public class OfferCommandService {
 
   /**
    * Deactivates all offers associated with a given campaign ID.
+   * TODO: Implement @Retry as this is an internal service call
    *
    * @param campaignId the ID of the campaign whose offers are to be deactivated
    */

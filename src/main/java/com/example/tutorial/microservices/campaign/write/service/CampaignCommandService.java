@@ -43,6 +43,8 @@ public class CampaignCommandService {
 
   /**
    * Create a new campaign and publish an event to the kafka event bus.
+   * TODO: Implement @Retry as this is an internal service call
+   *
    * @param campaign the campaign to create
    * @return the ID of the created campaign
    */
@@ -64,12 +66,15 @@ public class CampaignCommandService {
 
   /**
    * Update an existing campaign and publish an event to the kafka event bus.
+   * TODO: Implement @Retry as this is an internal service call
+   *
    * @param baseDto the BaseDto containing the campaign data to update
    */
   public void updateCampaign(BaseDto<Campaign> baseDto) throws JsonProcessingException {
     log.info("Updating campaign: {}", baseDto);
 
-    /** DATA VALIDATION: override offer ids by keeping the original as it shouldn't be changed once assigned **/
+    /** DATA VALIDATION: override offer ids by keeping the original as it shouldn't be changed once assigned
+     * TODO: Implement via. CircuitBreaker as it's an external service call **/
     String originalCampaignString = restTemplate.getForObject(
         String.format("http://localhost:8080/api/campaigns/%s", baseDto.getId()), String.class);
     BaseDto<Campaign> originalCampaign = objectMapper.readValue(
@@ -88,6 +93,8 @@ public class CampaignCommandService {
 
   /**
    * Delete a campaign by its ID and publish an event to the kafka event bus.
+   * TODO: Implement @Retry as this is an internal service call
+   *
    * @param id the ID of the campaign to delete
    */
   public void deleteCampaign(String id) {
