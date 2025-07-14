@@ -5,12 +5,16 @@ import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
 import com.example.tutorial.microservices.campaign.write.service.events.publisher.CampaignEventPublisher;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 
@@ -30,6 +34,12 @@ public class CampaignCommandService {
 
   @Autowired
   private CampaignEventPublisher campaignEventPublisher;
+
+  @Autowired
+  private RestTemplate restTemplate;
+
+  @Autowired
+  private ObjectMapper objectMapper;
 
   /**
    * Create a new campaign and publish an event to the kafka event bus.
@@ -56,8 +66,17 @@ public class CampaignCommandService {
    * Update an existing campaign and publish an event to the kafka event bus.
    * @param baseDto the BaseDto containing the campaign data to update
    */
-  public void updateCampaign(BaseDto<Campaign> baseDto) {
+  public void updateCampaign(BaseDto<Campaign> baseDto) throws JsonProcessingException {
     log.info("Updating campaign: {}", baseDto);
+
+    /** DATA VALIDATION: override offer ids by keeping the original as it shouldn't be changed once assigned **/
+    String originalCampaignString = restTemplate.getForObject(
+        String.format("http://localhost:8080/api/campaigns/%s", baseDto.getId()), String.class);
+    BaseDto<Campaign> originalCampaign = objectMapper.readValue(
+        originalCampaignString, new TypeReference<BaseDto<Campaign>>() {});
+    log.warn("Overriding provided offer IDs: {} with the original offer IDs: {}",
+        baseDto.getData().getOfferIds(), originalCampaign.getData().getOfferIds());
+    baseDto.getData().setOfferIds(originalCampaign.getData().getOfferIds());
 
     baseDto.setUpdatedAt(LocalDateTime.now());
     BaseDto<Campaign> updatedDto = campaignCommandRepository.save(baseDto);
