@@ -52,10 +52,10 @@ public class CampaignCommandService {
 
     // generate a unique ID for the campaign
     String id = "campaign::" + DBUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
-
-    // Save the campaign to the repository
+    // build the BaseDto for the campaign with default values
     BaseDto<Campaign> baseDto = BaseDto.build(campaign);
     baseDto.setId(id);
+    // Save the campaign to the repository
     BaseDto<Campaign> savedDto = campaignCommandRepository.save(baseDto);
 
     // Publish the campaign created event to kafka event bus

@@ -45,18 +45,12 @@ public class OfferCommandService {
   public String createOffer(Offer offer) {
     log.info("Creating offer: {}", offer);
 
-    /** DATA VALIDATION
-     * Ensure that the offer has a valid campaign ID.
-     */
-    String campaignEventString = redisTemplate.opsForValue().get(offer.getCampaignId());
-
-
-    // Use DBUtils to get a unique sequential ID
-    long counter = DBUtils.getUniqueCounter(couchbaseTemplate, offerCounterKey);
-    String id = "offer::" + counter;
-
+    // generate a unique ID for the offer using a counter
+    String id = "offer::" + DBUtils.getUniqueCounter(couchbaseTemplate, offerCounterKey);
+    // build the BaseDto for the offer with default values
     BaseDto<Offer> baseDto = BaseDto.build(offer);
     baseDto.setId(id);
+    // Save the offer to the repository
     BaseDto<Offer> savedDto = offerCommandRepository.save(baseDto);
 
     return savedDto.getId();
