@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,7 +41,7 @@ public class OfferQueryController {
    * @return ResponseEntity containing the BaseDto<Offer> object if found, or a 404 Not Found status if not found.
    */
   @GetMapping("/{id}")
-  public ResponseEntity<BaseDto<Offer>> getOfferById(String id) {
+  public ResponseEntity<BaseDto<Offer>> getOfferById(@PathVariable String id) {
     log.info("Fetching offer with ID: {}", id);
     Optional<BaseDto<Offer>> offer = offerQueryService.getOfferById(id);
     if (offer.isPresent()) {
