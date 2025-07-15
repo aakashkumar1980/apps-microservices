@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OfferQueryService {
@@ -26,5 +27,16 @@ public class OfferQueryService {
   public List<BaseDto<Offer>> getAllOffers() {
     log.info("Fetching all offers from the repository");
     return offerQueryRepository.getAllOffers();
+  }
+
+  /**
+   * Retrieves an offer by its ID from the repository.
+   *
+   * @param id the ID of the offer to retrieve.
+   * @return a BaseDto containing the Offer object if found, or null if not found.
+   */
+  public Optional<BaseDto<Offer>> getOfferById(String id) {
+    log.info("Fetching offer with ID: {}", id);
+    return offerQueryRepository.getOfferById(id);
   }
 }

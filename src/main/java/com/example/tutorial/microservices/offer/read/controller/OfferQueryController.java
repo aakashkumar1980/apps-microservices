@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/offers")
@@ -30,6 +31,24 @@ public class OfferQueryController {
   public ResponseEntity<List<BaseDto<Offer>>> getAllOffers() {
     log.info("Fetching all offers");
     return ResponseEntity.ok(offerQueryService.getAllOffers());
+  }
+
+  /**
+   * Fetches an offer by its ID.
+   *
+   * @param id the ID of the offer to retrieve.
+   * @return ResponseEntity containing the BaseDto<Offer> object if found, or a 404 Not Found status if not found.
+   */
+  @GetMapping("/{id}")
+  public ResponseEntity<BaseDto<Offer>> getOfferById(String id) {
+    log.info("Fetching offer with ID: {}", id);
+    Optional<BaseDto<Offer>> offer = offerQueryService.getOfferById(id);
+    if (offer.isPresent()) {
+      return ResponseEntity.ok(offer.get());
+    } else {
+      log.warn("Offer with ID: {} not found", id);
+      return ResponseEntity.notFound().build();
+    }
   }
 
 }
