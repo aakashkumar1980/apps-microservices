@@ -2,9 +2,11 @@ package com.example.tutorial.common.dto.campaign.events;
 
 import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CampaignEvent {
   private String id;
   private CampaignStatus status;

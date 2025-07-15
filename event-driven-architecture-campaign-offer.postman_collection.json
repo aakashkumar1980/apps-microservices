@@ -74,7 +74,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/campaigns/{{campaign_id}}}}",
+									"raw": "http://localhost:8080/api/campaigns/{{campaign_id}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -83,7 +83,7 @@
 									"path": [
 										"api",
 										"campaigns",
-										"{{campaign_id}}}}"
+										"{{campaign_id}}"
 									]
 								}
 							},
@@ -95,7 +95,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/offers/campaigns/{{campaign_id}}}}",
+									"raw": "http://localhost:8080/api/offers/campaigns/{{campaign_id}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -105,7 +105,7 @@
 										"api",
 										"offers",
 										"campaigns",
-										"{{campaign_id}}}}"
+										"{{campaign_id}}"
 									]
 								}
 							},
