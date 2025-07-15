@@ -23,7 +23,6 @@ import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.kv.IncrementOptions;
 import com.example.tutorial.microservices.campaign.read.repository.CampaignQueryRepository;
 import com.example.tutorial.microservices.offer.read.repository.OfferQueryRepository;
-import com.example.tutorial.microservices.merchant.read.repository.MerchantQueryRepository;
 
 /**
  * This test class is responsible for loading initial test data into Couchbase
@@ -59,9 +58,6 @@ public class SpringBootStartupTestDataLoad {
   @Autowired
   private OfferQueryRepository offerRepository;
 
-  @Autowired
-  private MerchantQueryRepository merchantRepository;
-
   /**
    * This method is executed after the Spring Boot application context is loaded.
    *
@@ -77,26 +73,22 @@ public class SpringBootStartupTestDataLoad {
 
     // 2. Remove all existing docs for each type (offers, merchants, campaigns)
     offerRepository.deleteAll();
-    merchantRepository.deleteAll();
     campaignRepository.deleteAll();
 
     // 3. Reset counters
     setCounterTo(campaignCounterKey, 0);
     setCounterTo(offerCounterKey, 0);
-    setCounterTo(merchantCounterKey, 0);
 
     // 4. Insert fresh docs
     campaignRepository.saveAll(campaigns);
     offerRepository.saveAll(offers);
-    merchantRepository.saveAll(merchants);
 
     // 5. Increment counters to the number of documents inserted
     setCounterTo(campaignCounterKey, campaigns.size());
     setCounterTo(offerCounterKey, offers.size());
-    setCounterTo(merchantCounterKey, merchants.size());
 
-    log.info("Test data loaded successfully: {} campaigns, {} offers, {} merchants",
-        campaigns.size(), offers.size(), merchants.size());
+    log.info("Test data loaded successfully: {} campaigns, {} offers",
+        campaigns.size(), offers.size());
   }
 
   /** PRIVATE METHODS **/
