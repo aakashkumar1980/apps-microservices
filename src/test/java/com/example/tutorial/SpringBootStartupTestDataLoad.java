@@ -2,7 +2,6 @@ package com.example.tutorial;
 
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.common.dto.merchant.Merchant;
 import com.example.tutorial.common.dto.offer.Offer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,7 +68,6 @@ public class SpringBootStartupTestDataLoad {
     // 1. Load sample data from resources as BaseDto lists
     List<BaseDto<Campaign>> campaigns = readJsonArray("sample-campaigns.json", new TypeReference<List<BaseDto<Campaign>>>() {});
     List<BaseDto<Offer>> offers = readJsonArray("sample-offers.json", new TypeReference<List<BaseDto<Offer>>>() {});
-    List<BaseDto<Merchant>> merchants = readJsonArray("sample-merchants.json", new TypeReference<List<BaseDto<Merchant>>>() {});
 
     // 2. Remove all existing docs for each type (offers, merchants, campaigns)
     offerRepository.deleteAll();
