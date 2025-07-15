@@ -37,7 +37,7 @@ public class CampaignCommandService {
   @Autowired
   private APIUtils apiUtils;
 
-  @Value("${campaigns.api.url:http://localhost:8080/api/campaigns}")
+  @Value("${campaigns.api.url}")
   String campaignsApiUrl;
 
   /**
