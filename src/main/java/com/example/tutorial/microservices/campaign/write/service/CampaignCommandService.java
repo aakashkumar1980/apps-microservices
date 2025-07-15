@@ -50,10 +50,10 @@ public class CampaignCommandService {
   public String createCampaign(Campaign campaign) {
     log.info("Creating campaign: {}", campaign);
 
-    // Use DBUtils to get a unique sequential ID
-    long counter = DBUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
-    String id = "campaign::" + counter;
+    // generate a unique ID for the campaign
+    String id = "campaign::" + DBUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
 
+    // Save the campaign to the repository
     BaseDto<Campaign> baseDto = BaseDto.build(campaign);
     baseDto.setId(id);
     BaseDto<Campaign> savedDto = campaignCommandRepository.save(baseDto);
@@ -77,6 +77,7 @@ public class CampaignCommandService {
         campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {});
     baseDto.getData().setOfferIds(originalCampaign.getData().getOfferIds());
 
+    // Update the updated campaign to the repository
     baseDto.setUpdatedAt(LocalDateTime.now());
     BaseDto<Campaign> updatedDto = campaignCommandRepository.save(baseDto);
 
@@ -93,6 +94,7 @@ public class CampaignCommandService {
   public void deleteCampaign(String id) {
     log.info("Deleting campaign with ID: {}", id);
 
+    // Delete the campaign from the repository
     campaignCommandRepository.deleteById(id);
 
     // Publish the campaign created event to kafka event bus
