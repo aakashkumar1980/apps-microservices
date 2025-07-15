@@ -28,7 +28,7 @@ public class CampaignEventPublisher {
   public void publishCreateCampaignEvent(BaseDto<Campaign> baseDto) {
     CampaignEvent campaignEvent = new CampaignEvent(
         baseDto.getId(),
-        baseDto.getData().getStatus().name(),
+        baseDto.getData().getStatus(),
         baseDto.getData().getStartDate(),
         baseDto.getData().getEndDate(),
         KafkaEventType.CAMPAIGN_CREATED
@@ -45,7 +45,7 @@ public class CampaignEventPublisher {
   public void publishUpdateCampaignEvent(BaseDto<Campaign> baseDto) {
     CampaignEvent campaignEvent = new CampaignEvent(
         baseDto.getId(),
-        baseDto.getData().getStatus().name(),
+        baseDto.getData().getStatus(),
         baseDto.getData().getStartDate(),
         baseDto.getData().getEndDate(),
         KafkaEventType.CAMPAIGN_UPDATED

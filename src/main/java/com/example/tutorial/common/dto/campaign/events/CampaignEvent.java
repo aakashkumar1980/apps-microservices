@@ -1,12 +1,13 @@
 package com.example.tutorial.common.dto.campaign.events;
 
 import com.example.tutorial.common.dto.KafkaEventType;
+import com.example.tutorial.common.dto.campaign.CampaignStatus;
 
 import java.time.LocalDateTime;
 
 public class CampaignEvent {
   private String id;
-  private String status;
+  private CampaignStatus status;
   private LocalDateTime startDate;
   private LocalDateTime endDate;
   private KafkaEventType kafkaEventType;
@@ -16,7 +17,7 @@ public class CampaignEvent {
     this.id = id;
     this.kafkaEventType = kafkaEventType;
   }
-  public CampaignEvent(String id, String status, LocalDateTime startDate, LocalDateTime endDate, KafkaEventType kafkaEventType) {
+  public CampaignEvent(String id, CampaignStatus status, LocalDateTime startDate, LocalDateTime endDate, KafkaEventType kafkaEventType) {
     this.id = id;
     this.status = status;
     this.startDate = startDate;
@@ -32,10 +33,10 @@ public class CampaignEvent {
     this.id = id;
   }
 
-  public String getStatus() {
+  public CampaignStatus getStatus() {
     return status;
   }
-  public void setStatus(String status) {
+  public void setStatus(CampaignStatus status) {
     this.status = status;
   }
 

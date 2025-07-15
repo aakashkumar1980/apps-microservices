@@ -2,19 +2,18 @@ package com.example.tutorial.microservices.campaign.write.service;
 
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
 import com.example.tutorial.microservices.campaign.write.service.events.publisher.CampaignEventPublisher;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 
@@ -36,10 +35,10 @@ public class CampaignCommandService {
   private CampaignEventPublisher campaignEventPublisher;
 
   @Autowired
-  private RestTemplate restTemplate;
+  private APIUtils apiUtils;
 
-  @Autowired
-  private ObjectMapper objectMapper;
+  @Value("${campaigns.api.url:http://localhost:8080/api/campaigns}")
+  String campaignsApiUrl;
 
   /**
    * Create a new campaign and publish an event to the kafka event bus.
@@ -73,14 +72,9 @@ public class CampaignCommandService {
   public void updateCampaign(BaseDto<Campaign> baseDto) throws JsonProcessingException {
     log.info("Updating campaign: {}", baseDto);
 
-    /** DATA VALIDATION: override offer ids by keeping the original as it shouldn't be changed once assigned
-     * TODO: Implement via. CircuitBreaker as it's an external service call **/
-    String originalCampaignString = restTemplate.getForObject(
-        String.format("http://localhost:8080/api/campaigns/%s", baseDto.getId()), String.class);
-    BaseDto<Campaign> originalCampaign = objectMapper.readValue(
-        originalCampaignString, new TypeReference<BaseDto<Campaign>>() {});
-    log.warn("Overriding provided offer IDs: {} with the original offer IDs: {}",
-        baseDto.getData().getOfferIds(), originalCampaign.getData().getOfferIds());
+    /** DATA VALIDATION: override offer ids by keeping the original as it shouldn't be changed once assigned **/
+    BaseDto<Campaign> originalCampaign = apiUtils.fetchBaseDtoById(
+        campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {});
     baseDto.getData().setOfferIds(originalCampaign.getData().getOfferIds());
 
     baseDto.setUpdatedAt(LocalDateTime.now());
@@ -89,7 +83,6 @@ public class CampaignCommandService {
     // Publish the campaign updated event to kafka event bus
     campaignEventPublisher.publishUpdateCampaignEvent(updatedDto);
   }
-
 
   /**
    * Delete a campaign by its ID and publish an event to the kafka event bus.

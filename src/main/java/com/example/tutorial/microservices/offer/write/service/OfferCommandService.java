@@ -3,11 +3,14 @@ package com.example.tutorial.microservices.offer.write.service;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.offer.Offer;
 import com.example.tutorial.common.dto.offer.OfferStatus;
+import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.couchbase.core.CouchbaseTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +28,39 @@ public class OfferCommandService {
 
   @Value("${offer.counter.key:offer_counter}")
   private String offerCounterKey;
+
+  @Autowired
+  private CouchbaseTemplate couchbaseTemplate;
+
+  @Autowired
+  private RedisTemplate<String, String> redisTemplate;
+
+  /**
+   * Creates a new offer and saves it to the repository.
+   * TODO: Implement @Retry as this is an internal service call
+   *
+   * @param offer the offer to be created
+   * @return the ID of the created offer
+   */
+  public String createOffer(Offer offer) {
+    log.info("Creating offer: {}", offer);
+
+    /** DATA VALIDATION
+     * Ensure that the offer has a valid campaign ID.
+     */
+    String campaignEventString = redisTemplate.opsForValue().get(offer.getCampaignId());
+
+
+    // Use DBUtils to get a unique sequential ID
+    long counter = DBUtils.getUniqueCounter(couchbaseTemplate, offerCounterKey);
+    String id = "offer::" + counter;
+
+    BaseDto<Offer> baseDto = BaseDto.build(offer);
+    baseDto.setId(id);
+    BaseDto<Offer> savedDto = offerCommandRepository.save(baseDto);
+
+    return savedDto.getId();
+  }
 
   /**
    * Deactivates all offers associated with a given campaign ID.
