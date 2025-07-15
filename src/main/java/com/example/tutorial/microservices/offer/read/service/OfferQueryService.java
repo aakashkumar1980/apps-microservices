@@ -39,4 +39,15 @@ public class OfferQueryService {
     log.info("Fetching offer with ID: {}", id);
     return offerQueryRepository.getOfferById(id);
   }
+
+  /**
+   * Retrieves all offers associated with a specific campaign ID.
+   *
+   * @param campaignId the ID of the campaign to filter offers by.
+   * @return a list of BaseDto containing Offer objects associated with the specified campaign ID.
+   */
+  public List<BaseDto<Offer>> getOffersByCampaignId(String campaignId) {
+    log.info("Fetching offers for campaign ID: {}", campaignId);
+    return offerQueryRepository.getOffersByCampaignId(campaignId);
+  }
 }

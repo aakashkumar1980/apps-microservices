@@ -39,7 +39,7 @@ public class APIUtils {
     apiUrl = String.format(apiUrl + "/%s", baseDto.getId());
     String responseString = restTemplate.getForObject(
         apiUrl , String.class);
-    log.debug("Response from {} API: {}", apiUrl, responseString);
+    log.info("REST API Response from {} API: {}", apiUrl, responseString);
     try {
       return objectMapper.readValue(responseString, typeReference);
     } catch (JsonProcessingException e) {

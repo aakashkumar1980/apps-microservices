@@ -72,9 +72,12 @@ public class CampaignCommandService {
   public void updateCampaign(BaseDto<Campaign> baseDto) throws JsonProcessingException {
     log.info("Updating campaign: {}", baseDto);
 
-    /** DATA VALIDATION: override offer ids by keeping the original as it shouldn't be changed once assigned **/
+    /** DATA VALIDATION **/
+    /** override offer ids by keeping the original as it shouldn't be changed once assigned **/
     BaseDto<Campaign> originalCampaign = apiUtils.fetchBaseDtoById(
         campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {});
+    log.info("Overriding offer IDs for campaign: {} with the original campaign: {}",
+        baseDto.getData().getOfferIds(), originalCampaign.getData().getOfferIds());
     baseDto.getData().setOfferIds(originalCampaign.getData().getOfferIds());
 
     // Update the updated campaign to the repository

@@ -52,4 +52,21 @@ public class OfferQueryController {
     }
   }
 
+  /**
+   * Fetches all offers associated with a specific campaign ID.
+   *
+   * @param campaignId the ID of the campaign to filter offers by.
+   * @return ResponseEntity containing a list of BaseDto<Offer> objects associated with the specified campaign ID.
+   */
+  @GetMapping("/campaigns/{campaignId}")
+  public ResponseEntity<List<BaseDto<Offer>>> getOffersByCampaignId(@PathVariable String campaignId) {
+    log.info("Fetching offers for campaign ID: {}", campaignId);
+    List<BaseDto<Offer>> offers = offerQueryService.getOffersByCampaignId(campaignId);
+    if (offers.isEmpty()) {
+      log.warn("No offers found for campaign ID: {}", campaignId);
+      return ResponseEntity.noContent().build();
+    }
+    return ResponseEntity.ok(offers);
+  }
+
 }
