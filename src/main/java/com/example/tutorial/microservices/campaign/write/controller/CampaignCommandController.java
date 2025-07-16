@@ -3,7 +3,6 @@ package com.example.tutorial.microservices.campaign.write.controller;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.microservices.campaign.write.service.CampaignCommandService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +40,7 @@ public class CampaignCommandController {
      * @return a response entity with a success message
      */
     @PutMapping
-    public ResponseEntity<String> updateCampaign(@Valid @RequestBody BaseDto<Campaign> baseDto) throws JsonProcessingException {
+    public ResponseEntity<String> updateCampaign(@Valid @RequestBody BaseDto<Campaign> baseDto) {
         log.info("Received request to update campaign: {}", baseDto);
 
         campaignCommandService.updateCampaign(baseDto);

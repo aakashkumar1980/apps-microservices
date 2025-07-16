@@ -2,12 +2,10 @@ package com.example.tutorial.microservices.campaign.write.service;
 
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
+import com.example.tutorial.common.utils.ValidationUtils;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
 import com.example.tutorial.microservices.campaign.write.service.events.publisher.CampaignEventPublisher;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +33,7 @@ public class CampaignCommandService {
   private CampaignEventPublisher campaignEventPublisher;
 
   @Autowired
-  private APIUtils apiUtils;
+  private ValidationUtils validationUtils;
 
   @Value("${campaigns.api.url}")
   String campaignsApiUrl;
@@ -69,16 +67,12 @@ public class CampaignCommandService {
    *
    * @param baseDto the BaseDto containing the campaign data to update
    */
-  public void updateCampaign(BaseDto<Campaign> baseDto) throws JsonProcessingException {
+  public void updateCampaign(BaseDto<Campaign> baseDto) {
     log.info("Updating campaign: {}", baseDto);
 
     /** DATA VALIDATION **/
-    /** override offer ids by keeping the original as it shouldn't be changed once assigned **/
-    BaseDto<Campaign> originalCampaign = apiUtils.fetchBaseDtoById(
-        campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {});
-    log.info("Overriding offer IDs for campaign: {} with the original campaign: {}",
-        baseDto.getData().getOfferIds(), originalCampaign.getData().getOfferIds());
-    baseDto.getData().setOfferIds(originalCampaign.getData().getOfferIds());
+    // override offer ids by keeping the original as it shouldn't be changed once assigned
+    validationUtils.keepOriginalOfferIds(baseDto, campaignsApiUrl);
 
     // Update the updated campaign to the repository
     baseDto.setUpdatedAt(LocalDateTime.now());
@@ -87,6 +81,8 @@ public class CampaignCommandService {
     // Publish the campaign updated event to kafka event bus
     campaignEventPublisher.publishUpdateCampaignEvent(updatedDto);
   }
+
+
 
   /**
    * Delete a campaign by its ID and publish an event to the kafka event bus.

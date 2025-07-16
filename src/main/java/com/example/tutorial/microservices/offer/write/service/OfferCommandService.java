@@ -3,8 +3,11 @@ package com.example.tutorial.microservices.offer.write.service;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.offer.Offer;
 import com.example.tutorial.common.dto.offer.OfferStatus;
+import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
+import com.example.tutorial.common.utils.ValidationUtils;
 import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,18 @@ public class OfferCommandService {
   @Autowired
   private RedisTemplate<String, String> redisTemplate;
 
+  @Autowired
+  private ObjectMapper objectMapper;
+
+  @Autowired
+  private APIUtils apiUtils;
+
+  @Value("${campaigns.api.url}")
+  private String campaignsApiUrl;
+
+  @Autowired
+  private ValidationUtils validationUtils;
+
   /**
    * Creates a new offer and saves it to the repository.
    * TODO: Implement @Retry as this is an internal service call
@@ -44,6 +59,10 @@ public class OfferCommandService {
    */
   public String createOffer(Offer offer) {
     log.info("Creating offer: {}", offer);
+
+    /** DATA VALIDATION **/
+    // Validate that the offer has a valid campaign
+    validationUtils.validateCampaign(offer, campaignsApiUrl);
 
     // generate a unique ID for the offer using a counter
     String id = "offer::" + DBUtils.getUniqueCounter(couchbaseTemplate, offerCounterKey);
@@ -55,6 +74,7 @@ public class OfferCommandService {
 
     return savedDto.getId();
   }
+
 
   /**
    * Deactivates all offers associated with a given campaign ID.
