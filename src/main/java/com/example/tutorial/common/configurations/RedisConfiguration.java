@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,6 +15,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.data.redis.core.convert.RedisCustomConversions;
 import org.springframework.beans.factory.annotation.Value;
+
+import java.time.Duration;
 
 @Configuration
 @EnableCaching
@@ -34,6 +37,31 @@ public class RedisConfiguration {
     @Value("${spring.data.redis.password}")
     private String redisPassword;
 
+    // This is the default cache expiration time in minutes
+    private static final Integer REDIS_CACHE_LIMIT_MIN = 10;
+
+    /**
+     * Configures a RedisCacheManager with a default cache configuration.
+     * The cache entries will expire after the specified time.
+     *
+     * @param connectionFactory the Redis connection factory
+     * @return the configured RedisCacheManager
+     */
+    @Bean
+    public RedisCacheManager cacheManager(LettuceConnectionFactory connectionFactory) {
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+            .entryTtl(Duration.ofMinutes(REDIS_CACHE_LIMIT_MIN));
+        return RedisCacheManager.builder(connectionFactory)
+            .cacheDefaults(config)
+            .build();
+    }
+
+    /**
+     * Configures a LettuceConnectionFactory for Redis.
+     * This factory is used to create connections to the Redis server.
+     *
+     * @return the configured LettuceConnectionFactory
+     */
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
@@ -44,6 +72,13 @@ public class RedisConfiguration {
         return new LettuceConnectionFactory(config);
     }
 
+    /**
+     * Configures a RedisTemplate for Redis operations.
+     * This template is used to perform CRUD operations on Redis data.
+     *
+     * @param connectionFactory the Redis connection factory
+     * @return the configured RedisTemplate
+     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -53,11 +88,12 @@ public class RedisConfiguration {
         return template;
     }
 
-    @Bean
-    public RedisCacheManager cacheManager(LettuceConnectionFactory connectionFactory) {
-        return RedisCacheManager.builder(connectionFactory).build();
-    }
-
+    /**
+     * Provides a custom RedisCustomConversions bean.
+     * This bean can be used to register custom converters for Redis data types.
+     *
+     * @return the configured RedisCustomConversions
+     */
     @Bean(name = "redisCustomConversions")
     @Primary
     public RedisCustomConversions redisCustomConversions() {
