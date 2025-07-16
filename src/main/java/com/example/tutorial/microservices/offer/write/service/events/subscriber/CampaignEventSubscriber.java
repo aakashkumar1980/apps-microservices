@@ -5,6 +5,7 @@ import com.example.tutorial.microservices.offer.write.service.OfferCommandServic
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -21,6 +22,9 @@ public class CampaignEventSubscriber {
   @Autowired
   private ObjectMapper objectMapper;
 
+  @Autowired
+  private RedisTemplate<String, Object> redisTemplate;
+
   /**
    * Handles the CampaignCreated campaignEvent by caching the campaign details in Redis.
    * It can be used later to quickly access campaign information without
@@ -31,6 +35,13 @@ public class CampaignEventSubscriber {
   @KafkaListener(topics = "CAMPAIGN_CREATED", groupId = "offer-microservice")
   public void subscribeCreateCampaignEvent(String payload) throws JsonProcessingException {
     log.info("Received CampaignCreated event: {}", payload);
+
+    CampaignEvent campaignEvent = objectMapper.readValue(payload, CampaignEvent.class);
+    String campaignId = campaignEvent.getId();
+
+    // Cache the campaign details in Redis
+    redisTemplate.opsForValue().set(campaignId, payload);
+    log.info("Cached campaign {} in Redis", campaignId);
   }
 
   /**
@@ -42,6 +53,13 @@ public class CampaignEventSubscriber {
   @KafkaListener(topics = "CAMPAIGN_UPDATED", groupId = "offer-microservice")
   public void subscribeUpdateCampaignEvent(String payload) throws JsonProcessingException {
     log.info("Received CampaignUpdated event: {}", payload);
+
+    CampaignEvent campaignEvent = objectMapper.readValue(payload, CampaignEvent.class);
+    String campaignId = campaignEvent.getId();
+
+    // Update the campaign details in Redis cache
+    redisTemplate.opsForValue().set(campaignId, payload);
+    log.info("Cached campaign {} in Redis", campaignId);
   }
 
   /**
@@ -56,6 +74,10 @@ public class CampaignEventSubscriber {
 
     CampaignEvent campaignEvent = objectMapper.readValue(payload, CampaignEvent.class);
     String campaignId = campaignEvent.getId();
+
+    // Remove the campaign from Redis cache
+    redisTemplate.delete(campaignId);
+    log.info("Removed campaign {} from Redis cache", campaignId);
 
     // Deactivate all offers associated with the campaign
     offerCommandService.deactivateOffers(campaignId);
