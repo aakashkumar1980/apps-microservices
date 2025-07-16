@@ -1,11 +1,7 @@
 package com.example.tutorial.microservices.offer.write.controller;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.offer.Offer;
-import com.example.tutorial.microservices.campaign.write.service.CampaignCommandService;
 import com.example.tutorial.microservices.offer.write.service.OfferCommandService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
