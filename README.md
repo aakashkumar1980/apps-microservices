@@ -35,19 +35,21 @@
 ---
 
 ## AI/ML Topics
-
-| Module Name                     | 📘 Algorithms Applied                                    | 🧠 LLM / AI Stack Used                          | 🔢 Java Streams Used                         |
-|----------------------------------|----------------------------------------------------------|--------------------------------------------------|-----------------------------------------------|
-| **1. Batch Offer Upload**        | ✅ Regex validation <br>✅ Trie <br>✅ Dedup (HashSet)      | —                                                | `map`, `filter`, `collect`                    |
-| **2. Reporting Engine**          | ✅ Frequency Map <br>✅ Max/Min <br>✅ Aggregation Chains   | —                                                | `groupingBy`, `joining`, `collectingAndThen`  |
-| **3. Campaign Comparison Tool**  | ✅ Sorting <br>✅ Median/Bucket <br>✅ Aggregation logic     | Bedrock (for summary insight)                    | `summarizingDouble`, `joining`, `groupingBy`  |
-| **4. Smart Offer Creator (LLM)** | ✅ Regex <br>✅ Subset Match (Backtracking)                | Bedrock (Claude, prompt engineering)             | —                                             |
-| **5. Customer 360 Profile Builder** | ✅ Set Merge <br>✅ Join <br>✅ Set Intersection           | SageMaker (personalization), Titan Embeddings    | `flatMap`, `toMap`, `anyMatch`                |
-| **6. Redemption Funnel Tracker** | ✅ BFS <br>✅ Conversion Graphs                             | Bedrock (LLM-based feedback insight)             | `map`, `reduce`, `groupingBy`                 |
-| **7. Offer Forecasting Engine**  | ✅ Sliding Window <br>✅ Top-K (Heap) <br>✅ Prefix Sum      | Bedrock (Claude), SageMaker (XGBoost)            | `groupingBy`, `reduce`, `partitioningBy`      |
-| **8. Anomaly & Fraud Detector**  | ✅ Union-Find <br>✅ Cycle Detection <br>✅ Histogram Scan   | AWS Fraud Detector, SageMaker anomaly detection  | —                                             |
-| **9. Campaign Summary Generator**| ✅ LCS <br>✅ Word Clustering                               | Bedrock (Claude, Mistral)                        | —                                             |
-| **10. Semantic Search (RAG)**    | ✅ Cosine Similarity <br>✅ KNN <br>✅ Embedding Distance    | Bedrock + Titan Embeddings, OpenSearch Vector DB | —                                             |
+| Module Name                         | 📘 Algorithms Applied                                                  | 🧠 LLM / AI Stack Used                                       |
+|-------------------------------------|------------------------------------------------------------------------|--------------------------------------------------------------|
+| **1. Batch Offer Upload**           | ✅ Regex validation <br> ✅ Trie <br> ✅ Dedup (HashSet)                 | —                                                            |
+| **2. Reporting Engine**             | ✅ Frequency Map <br> ✅ Max/Min <br> ✅ Aggregation Chains              | —                                                            |
+| **3. Campaign Comparison Tool**     | ✅ Sorting <br> ✅ Median/Bucket <br> ✅ Aggregation logic               | Bedrock Claude (text summaries), Mistral (campaign narrative)|
+| **4. Smart Offer Creator (LLM)**    | ✅ Regex <br> ✅ Subset Match (Backtracking)                            | Bedrock Claude (prompt gen), Titan Embeddings                |
+| **5. Customer 360 Profile Builder** | ✅ Set Merge <br> ✅ Join <br> ✅ Set Intersection                       | SageMaker tabular model, Titan Embeddings                    |
+| **6. Redemption Funnel Tracker**    | ✅ BFS <br> ✅ Conversion Graphs                                        | Bedrock Claude (summarization), Redis Graph                  |
+| **7. Offer Forecasting Engine**     | ✅ Sliding Window <br> ✅ Top-K (Heap) <br> ✅ Prefix Sum                | SageMaker (XGBoost), Bedrock Claude (LLM insight gen)        |
+| **8. Anomaly & Fraud Detector**     | ✅ Union-Find <br> ✅ Cycle Detection <br> ✅ Histogram Scan             | AWS Fraud Detector <br> SageMaker (unsupervised detection)   |
+| **9. Campaign Summary Generator**   | ✅ LCS <br> ✅ Word Clustering                                          | Bedrock Claude + Mistral                                     |
+| **10. Semantic Search (RAG)**       | ✅ Cosine Similarity <br> ✅ KNN <br> ✅ Embedding Distance              | Titan Embeddings <br> OpenSearch RAG                         |
+| **11. Fraud Monitoring & Flagging** | ✅ Transaction pattern scan <br> ✅ Count-Min Sketch <br> ✅ Trie lookups| Rule Engine + SageMaker anomaly detection                    |
+| **12. Recommendation Engine**       | ✅ Priority Queue <br> ✅ Top-K merge <br> ✅ Preference Matching        | SageMaker ranking model <br> Redis TTL Cache (12h)           |
+| **13. Loyalty Engine**              | ✅ Threshold Triggers <br> ✅ Points Accumulator                        | Rule-based logic, future plan: SageMaker reinforcement model |
 
 
 ### 🔰 Learning & Execution Order Recommendation
