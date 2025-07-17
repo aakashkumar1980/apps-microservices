@@ -2,6 +2,8 @@ package com.example.tutorial.common.dto.offer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
+import org.springframework.data.couchbase.core.mapping.Field;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -9,39 +11,55 @@ public class Offer {
 
   @NotBlank
   @JsonProperty("campaign_id")
+  @Field("campaign_id")
   private String campaignId;
+
+  @NotBlank
+  @JsonProperty("merchant_id")
+  @Field("merchant_id")
+  private String merchantId;
 
   @NotNull
   @JsonProperty("type")
+  @Field("type")
   private OfferType type;
 
   @NotNull
   @JsonProperty("status")
+  @Field("status")
   private OfferStatus status;
 
   @DecimalMin("0.0")
   @JsonProperty("discount_amount")
+  @Field("discount_amount")
   private BigDecimal discountAmount;
 
   @NotBlank
   @Pattern(regexp = "^[A-Z]{3}$", message = "Currency must be ISO 4217 format (e.g., USD, INR)")
   @JsonProperty("currency")
+  @Field("currency")
   private String currency;
 
   @NotNull
   @JsonProperty("valid_from")
+  @Field("valid_from")
   private LocalDateTime validFrom;
 
   @NotNull
   @JsonProperty("valid_to")
+  @Field("valid_to")
   private LocalDateTime validTo;
 
   @Min(0)
   @JsonProperty("max_redemptions")
+  @Field("max_redemptions")
   private Integer maxRedemptions;
 
   public String getCampaignId() { return campaignId; }
   public void setCampaignId(String campaignId) { this.campaignId = campaignId; }
+
+  public String getMerchantId() { return merchantId; }
+  public void setMerchantId(String merchantId) { this.merchantId = merchantId; }
 
   public OfferType getType() { return type; }
   public void setType(OfferType type) { this.type = type; }
@@ -68,6 +86,7 @@ public class Offer {
   public String toString() {
     return "Offer{" +
         "campaignId='" + campaignId + '\'' +
+        ", merchantId='" + merchantId + '\'' +
         ", type=" + type +
         ", status=" + status +
         ", discountAmount=" + discountAmount +
