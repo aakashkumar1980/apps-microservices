@@ -1,6 +1,7 @@
 package com.example.tutorial.common.utils;
 
 import com.example.tutorial.common.dto.BaseDto;
+import com.example.tutorial.common.dto.Event;
 import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
@@ -39,8 +40,14 @@ public class ValidationUtils {
    * @param baseDto The BaseDto containing the campaign data.
    */
   public void keepOriginalOfferIds(BaseDto<Campaign> baseDto, String campaignsApiUrl) {
-    BaseDto<Campaign> originalCampaign = apiUtils.fetchBaseDtoById(
-        campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {});
+    Event event = new CampaignEvent();
+    ((CampaignEvent)event).setId(baseDto.getId());
+    ((CampaignEvent)event).setStatus(baseDto.getData().getStatus());
+    ((CampaignEvent)event).setStartDate(baseDto.getData().getStartDate());
+    ((CampaignEvent)event).setEndDate(baseDto.getData().getEndDate());
+    event.setKafkaEventType(KafkaEventType.CAMPAIGN_UPDATED);
+    BaseDto<Campaign> originalCampaign = apiUtils.fetchAndCacheBaseDtoById(
+        campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {}, event);
     baseDto.getData().setOfferIds(originalCampaign.getData().getOfferIds());
 
     log.info("Overriding offer IDs for campaign: {} with the original campaign: {}",
@@ -83,26 +90,19 @@ public class ValidationUtils {
       log.info("Campaign ID {} not found in Redis cache, fetching from campaigns API", campaignId);
       BaseDto<Campaign> baseDto = new BaseDto<>();
       baseDto.setId(campaignId);
-      baseDto = apiUtils.fetchBaseDtoById(campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {});
+
+      Event event = new CampaignEvent();
+      ((CampaignEvent)event).setId(baseDto.getId());
+      ((CampaignEvent)event).setStatus(baseDto.getData().getStatus());
+      ((CampaignEvent)event).setStartDate(baseDto.getData().getStartDate());
+      ((CampaignEvent)event).setEndDate(baseDto.getData().getEndDate());
+      event.setKafkaEventType(KafkaEventType.CAMPAIGN_UPDATED);
+      baseDto = apiUtils.fetchAndCacheBaseDtoById(campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {}, event);
 
       // validate if the campaign is still active, if not throw an exception
       if (!StringUtils.equals(baseDto.getData().getStatus().name(), CampaignStatus.ACTIVE.name())) {
         throw new ApplicationFunctionalException(
             String.format("Cannot create offer for campaign ID %s as it is not active", campaignId));
-      }
-
-      // cache the campaign event in Redis for future use
-      log.info("Caching campaign event for campaign ID {} in Redis", campaignId);
-      CampaignEvent event = new CampaignEvent();
-      event.setId(baseDto.getId());
-      event.setStatus(baseDto.getData().getStatus());
-      event.setStartDate(baseDto.getData().getStartDate());
-      event.setEndDate(baseDto.getData().getEndDate());
-      event.setKafkaEventType(KafkaEventType.CAMPAIGN_UPDATED);
-      try {
-        redisTemplate.opsForValue().set(campaignId, objectMapper.writeValueAsString(event));
-      } catch (JsonProcessingException e) {
-        throw new RuntimeException(e);
       }
     }
   }

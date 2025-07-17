@@ -1,5 +1,6 @@
 package com.example.tutorial.common.dto.campaign.events;
 
+import com.example.tutorial.common.dto.Event;
 import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,24 +8,24 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CampaignEvent {
+public class CampaignEvent extends Event {
   private String id;
   private CampaignStatus status;
   private LocalDateTime startDate;
   private LocalDateTime endDate;
-  private KafkaEventType kafkaEventType;
 
   public CampaignEvent() {}
   public CampaignEvent(String id, KafkaEventType kafkaEventType) {
+    super(kafkaEventType);
     this.id = id;
-    this.kafkaEventType = kafkaEventType;
+
   }
   public CampaignEvent(String id, CampaignStatus status, LocalDateTime startDate, LocalDateTime endDate, KafkaEventType kafkaEventType) {
+    super(kafkaEventType);
     this.id = id;
     this.status = status;
     this.startDate = startDate;
     this.endDate = endDate;
-    this.kafkaEventType = kafkaEventType;
   }
 
   // Getters and Setters
@@ -56,13 +57,6 @@ public class CampaignEvent {
     this.endDate = endDate;
   }
 
-  public KafkaEventType getKafkaEventType() {
-    return kafkaEventType;
-  }
-  public void setKafkaEventType(KafkaEventType kafkaEventType) {
-    this.kafkaEventType = kafkaEventType;
-  }
-
   @Override
   public String toString() {
     return "CampaignEvent{" +
@@ -70,7 +64,6 @@ public class CampaignEvent {
         ", status='" + status + '\'' +
         ", startDate=" + startDate +
         ", endDate=" + endDate +
-        ", kafkaEventType=" + kafkaEventType +
         '}';
   }
 }
