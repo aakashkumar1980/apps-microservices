@@ -1,0 +1,277 @@
+[
+  {
+    "id": "funnel::1",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 421,
+      "total_clicks": 83,
+      "total_redemptions": 37
+    }
+  },
+  {
+    "id": "funnel::2",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 214,
+      "total_clicks": 70,
+      "total_redemptions": 65
+    }
+  },
+  {
+    "id": "funnel::3",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 430,
+      "total_clicks": 37,
+      "total_redemptions": 16
+    }
+  },
+  {
+    "id": "funnel::4",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 267,
+      "total_clicks": 51,
+      "total_redemptions": 53
+    }
+  },
+  {
+    "id": "funnel::5",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 278,
+      "total_clicks": 65,
+      "total_redemptions": 32
+    }
+  },
+  {
+    "id": "funnel::6",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 207,
+      "total_clicks": 33,
+      "total_redemptions": 54
+    }
+  },
+  {
+    "id": "funnel::7",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 426,
+      "total_clicks": 85,
+      "total_redemptions": 62
+    }
+  },
+  {
+    "id": "funnel::8",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 247,
+      "total_clicks": 84,
+      "total_redemptions": 29
+    }
+  },
+  {
+    "id": "funnel::9",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 357,
+      "total_clicks": 24,
+      "total_redemptions": 32
+    }
+  },
+  {
+    "id": "funnel::10",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 405,
+      "total_clicks": 41,
+      "total_redemptions": 36
+    }
+  },
+  {
+    "id": "funnel::11",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 155,
+      "total_clicks": 25,
+      "total_redemptions": 42
+    }
+  },
+  {
+    "id": "funnel::12",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 337,
+      "total_clicks": 30,
+      "total_redemptions": 48
+    }
+  },
+  {
+    "id": "funnel::13",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 258,
+      "total_clicks": 43,
+      "total_redemptions": 68
+    }
+  },
+  {
+    "id": "funnel::14",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 430,
+      "total_clicks": 70,
+      "total_redemptions": 59
+    }
+  },
+  {
+    "id": "funnel::15",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 452,
+      "total_clicks": 54,
+      "total_redemptions": 55
+    }
+  },
+  {
+    "id": "funnel::16",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 238,
+      "total_clicks": 36,
+      "total_redemptions": 29
+    }
+  },
+  {
+    "id": "funnel::17",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 274,
+      "total_clicks": 36,
+      "total_redemptions": 53
+    }
+  },
+  {
+    "id": "funnel::18",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 269,
+      "total_clicks": 21,
+      "total_redemptions": 39
+    }
+  },
+  {
+    "id": "funnel::19",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 179,
+      "total_clicks": 94,
+      "total_redemptions": 56
+    }
+  },
+  {
+    "id": "funnel::20",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 104,
+      "total_clicks": 36,
+      "total_redemptions": 34
+    }
+  },
+  {
+    "id": "funnel::21",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 366,
+      "total_clicks": 91,
+      "total_redemptions": 29
+    }
+  },
+  {
+    "id": "funnel::22",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 306,
+      "total_clicks": 38,
+      "total_redemptions": 46
+    }
+  },
+  {
+    "id": "funnel::23",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 325,
+      "total_clicks": 46,
+      "total_redemptions": 63
+    }
+  },
+  {
+    "id": "funnel::24",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 349,
+      "total_clicks": 80,
+      "total_redemptions": 5
+    }
+  },
+  {
+    "id": "funnel::25",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "total_impressions": 270,
+      "total_clicks": 39,
+      "total_redemptions": 79
+    }
+  }
+]

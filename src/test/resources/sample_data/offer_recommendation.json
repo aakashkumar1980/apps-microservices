@@ -1,0 +1,252 @@
+[
+  {
+    "id": "recommend::1",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::1",
+      "recommended_offer_id": "offer::1"
+    }
+  },
+  {
+    "id": "recommend::2",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::2",
+      "recommended_offer_id": "offer::2"
+    }
+  },
+  {
+    "id": "recommend::3",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::3",
+      "recommended_offer_id": "offer::3"
+    }
+  },
+  {
+    "id": "recommend::4",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::4",
+      "recommended_offer_id": "offer::4"
+    }
+  },
+  {
+    "id": "recommend::5",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::5",
+      "recommended_offer_id": "offer::5"
+    }
+  },
+  {
+    "id": "recommend::6",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::6",
+      "recommended_offer_id": "offer::6"
+    }
+  },
+  {
+    "id": "recommend::7",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::7",
+      "recommended_offer_id": "offer::7"
+    }
+  },
+  {
+    "id": "recommend::8",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::8",
+      "recommended_offer_id": "offer::8"
+    }
+  },
+  {
+    "id": "recommend::9",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::9",
+      "recommended_offer_id": "offer::9"
+    }
+  },
+  {
+    "id": "recommend::10",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::10",
+      "recommended_offer_id": "offer::10"
+    }
+  },
+  {
+    "id": "recommend::11",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::11",
+      "recommended_offer_id": "offer::11"
+    }
+  },
+  {
+    "id": "recommend::12",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::12",
+      "recommended_offer_id": "offer::12"
+    }
+  },
+  {
+    "id": "recommend::13",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::13",
+      "recommended_offer_id": "offer::13"
+    }
+  },
+  {
+    "id": "recommend::14",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::14",
+      "recommended_offer_id": "offer::14"
+    }
+  },
+  {
+    "id": "recommend::15",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::15",
+      "recommended_offer_id": "offer::15"
+    }
+  },
+  {
+    "id": "recommend::16",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::16",
+      "recommended_offer_id": "offer::16"
+    }
+  },
+  {
+    "id": "recommend::17",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::17",
+      "recommended_offer_id": "offer::17"
+    }
+  },
+  {
+    "id": "recommend::18",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::18",
+      "recommended_offer_id": "offer::18"
+    }
+  },
+  {
+    "id": "recommend::19",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::19",
+      "recommended_offer_id": "offer::19"
+    }
+  },
+  {
+    "id": "recommend::20",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::20",
+      "recommended_offer_id": "offer::20"
+    }
+  },
+  {
+    "id": "recommend::21",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::21",
+      "recommended_offer_id": "offer::21"
+    }
+  },
+  {
+    "id": "recommend::22",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::22",
+      "recommended_offer_id": "offer::22"
+    }
+  },
+  {
+    "id": "recommend::23",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::23",
+      "recommended_offer_id": "offer::23"
+    }
+  },
+  {
+    "id": "recommend::24",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::24",
+      "recommended_offer_id": "offer::24"
+    }
+  },
+  {
+    "id": "recommend::25",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::25",
+      "recommended_offer_id": "offer::25"
+    }
+  }
+]

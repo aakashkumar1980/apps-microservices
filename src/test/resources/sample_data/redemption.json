@@ -1,0 +1,302 @@
+[
+  {
+    "id": "redemption::1",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::1",
+      "offer_id": "offer::1",
+      "channel": "POS",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::2",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::2",
+      "offer_id": "offer::2",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::3",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::3",
+      "offer_id": "offer::3",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::4",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::4",
+      "offer_id": "offer::4",
+      "channel": "WEBSITE",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::5",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::5",
+      "offer_id": "offer::5",
+      "channel": "WEBSITE",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::6",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::6",
+      "offer_id": "offer::6",
+      "channel": "POS",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::7",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::7",
+      "offer_id": "offer::7",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::8",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::8",
+      "offer_id": "offer::8",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::9",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::9",
+      "offer_id": "offer::9",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::10",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::10",
+      "offer_id": "offer::10",
+      "channel": "WEBSITE",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::11",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::11",
+      "offer_id": "offer::11",
+      "channel": "WEBSITE",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::12",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::12",
+      "offer_id": "offer::12",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::13",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::13",
+      "offer_id": "offer::13",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::14",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::14",
+      "offer_id": "offer::14",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::15",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::15",
+      "offer_id": "offer::15",
+      "channel": "POS",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::16",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::16",
+      "offer_id": "offer::16",
+      "channel": "WEBSITE",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::17",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::17",
+      "offer_id": "offer::17",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::18",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::18",
+      "offer_id": "offer::18",
+      "channel": "WEBSITE",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::19",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::19",
+      "offer_id": "offer::19",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::20",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::20",
+      "offer_id": "offer::20",
+      "channel": "POS",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::21",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::21",
+      "offer_id": "offer::21",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::22",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::22",
+      "offer_id": "offer::22",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::23",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::23",
+      "offer_id": "offer::23",
+      "channel": "MOBILE_APP",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::24",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::24",
+      "offer_id": "offer::24",
+      "channel": "POS",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  },
+  {
+    "id": "redemption::25",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::25",
+      "offer_id": "offer::25",
+      "channel": "WEBSITE",
+      "redeemed_at": "2025-07-18T00:00:00"
+    }
+  }
+]

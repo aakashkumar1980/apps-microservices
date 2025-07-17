@@ -1,0 +1,452 @@
+[
+  {
+    "id": "campaign::1",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 1",
+      "description": "Exclusive offers in campaign 1",
+      "status": "PAUSED",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 2390.07,
+      "offer_ids": [
+        "offer::1",
+        "offer::2"
+      ]
+    }
+  },
+  {
+    "id": "campaign::2",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 2",
+      "description": "Exclusive offers in campaign 2",
+      "status": "DRAFT",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 9615.87,
+      "offer_ids": [
+        "offer::2",
+        "offer::3"
+      ]
+    }
+  },
+  {
+    "id": "campaign::3",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 3",
+      "description": "Exclusive offers in campaign 3",
+      "status": "ACTIVE",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 6026.17,
+      "offer_ids": [
+        "offer::3",
+        "offer::4"
+      ]
+    }
+  },
+  {
+    "id": "campaign::4",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 4",
+      "description": "Exclusive offers in campaign 4",
+      "status": "ACTIVE",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 9770.07,
+      "offer_ids": [
+        "offer::4",
+        "offer::5"
+      ]
+    }
+  },
+  {
+    "id": "campaign::5",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 5",
+      "description": "Exclusive offers in campaign 5",
+      "status": "DRAFT",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 9860.07,
+      "offer_ids": [
+        "offer::5",
+        "offer::6"
+      ]
+    }
+  },
+  {
+    "id": "campaign::6",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 6",
+      "description": "Exclusive offers in campaign 6",
+      "status": "ACTIVE",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 5473.24,
+      "offer_ids": [
+        "offer::6",
+        "offer::7"
+      ]
+    }
+  },
+  {
+    "id": "campaign::7",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 7",
+      "description": "Exclusive offers in campaign 7",
+      "status": "DRAFT",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 2091.33,
+      "offer_ids": [
+        "offer::7",
+        "offer::8"
+      ]
+    }
+  },
+  {
+    "id": "campaign::8",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 8",
+      "description": "Exclusive offers in campaign 8",
+      "status": "DRAFT",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 7308.41,
+      "offer_ids": [
+        "offer::8",
+        "offer::9"
+      ]
+    }
+  },
+  {
+    "id": "campaign::9",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 9",
+      "description": "Exclusive offers in campaign 9",
+      "status": "ACTIVE",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 7690.3,
+      "offer_ids": [
+        "offer::9",
+        "offer::10"
+      ]
+    }
+  },
+  {
+    "id": "campaign::10",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 10",
+      "description": "Exclusive offers in campaign 10",
+      "status": "DRAFT",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 3551.53,
+      "offer_ids": [
+        "offer::10",
+        "offer::11"
+      ]
+    }
+  },
+  {
+    "id": "campaign::11",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 11",
+      "description": "Exclusive offers in campaign 11",
+      "status": "DRAFT",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 1716.35,
+      "offer_ids": [
+        "offer::11",
+        "offer::12"
+      ]
+    }
+  },
+  {
+    "id": "campaign::12",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 12",
+      "description": "Exclusive offers in campaign 12",
+      "status": "PAUSED",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 4056.14,
+      "offer_ids": [
+        "offer::12",
+        "offer::13"
+      ]
+    }
+  },
+  {
+    "id": "campaign::13",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 13",
+      "description": "Exclusive offers in campaign 13",
+      "status": "PAUSED",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 2532.32,
+      "offer_ids": [
+        "offer::13",
+        "offer::14"
+      ]
+    }
+  },
+  {
+    "id": "campaign::14",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 14",
+      "description": "Exclusive offers in campaign 14",
+      "status": "PAUSED",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 2917.86,
+      "offer_ids": [
+        "offer::14",
+        "offer::15"
+      ]
+    }
+  },
+  {
+    "id": "campaign::15",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 15",
+      "description": "Exclusive offers in campaign 15",
+      "status": "DRAFT",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 8147.12,
+      "offer_ids": [
+        "offer::15",
+        "offer::16"
+      ]
+    }
+  },
+  {
+    "id": "campaign::16",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 16",
+      "description": "Exclusive offers in campaign 16",
+      "status": "ACTIVE",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 8752.02,
+      "offer_ids": [
+        "offer::16",
+        "offer::17"
+      ]
+    }
+  },
+  {
+    "id": "campaign::17",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 17",
+      "description": "Exclusive offers in campaign 17",
+      "status": "PAUSED",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 6898.87,
+      "offer_ids": [
+        "offer::17",
+        "offer::18"
+      ]
+    }
+  },
+  {
+    "id": "campaign::18",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 18",
+      "description": "Exclusive offers in campaign 18",
+      "status": "PAUSED",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 8074.41,
+      "offer_ids": [
+        "offer::18",
+        "offer::19"
+      ]
+    }
+  },
+  {
+    "id": "campaign::19",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 19",
+      "description": "Exclusive offers in campaign 19",
+      "status": "DRAFT",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 4121.59,
+      "offer_ids": [
+        "offer::19",
+        "offer::20"
+      ]
+    }
+  },
+  {
+    "id": "campaign::20",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 20",
+      "description": "Exclusive offers in campaign 20",
+      "status": "ACTIVE",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 9803.75,
+      "offer_ids": [
+        "offer::20",
+        "offer::21"
+      ]
+    }
+  },
+  {
+    "id": "campaign::21",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 21",
+      "description": "Exclusive offers in campaign 21",
+      "status": "PAUSED",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 7665.58,
+      "offer_ids": [
+        "offer::21",
+        "offer::22"
+      ]
+    }
+  },
+  {
+    "id": "campaign::22",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 22",
+      "description": "Exclusive offers in campaign 22",
+      "status": "PAUSED",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 4090.44,
+      "offer_ids": [
+        "offer::22",
+        "offer::23"
+      ]
+    }
+  },
+  {
+    "id": "campaign::23",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 23",
+      "description": "Exclusive offers in campaign 23",
+      "status": "DRAFT",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 5673.1,
+      "offer_ids": [
+        "offer::23",
+        "offer::24"
+      ]
+    }
+  },
+  {
+    "id": "campaign::24",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 24",
+      "description": "Exclusive offers in campaign 24",
+      "status": "ACTIVE",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 2830.65,
+      "offer_ids": [
+        "offer::24",
+        "offer::25"
+      ]
+    }
+  },
+  {
+    "id": "campaign::25",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Campaign 25",
+      "description": "Exclusive offers in campaign 25",
+      "status": "DRAFT",
+      "start_date": "2025-07-14T00:00:00",
+      "end_date": "2025-08-12T00:00:00",
+      "budget": 3158.07,
+      "offer_ids": [
+        "offer::25",
+        "offer::26"
+      ]
+    }
+  }
+]

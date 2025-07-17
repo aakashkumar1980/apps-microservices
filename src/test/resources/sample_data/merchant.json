@@ -1,0 +1,252 @@
+[
+  {
+    "id": "merchant::1",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 1",
+      "merchant_code": "MRC0001"
+    }
+  },
+  {
+    "id": "merchant::2",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 2",
+      "merchant_code": "MRC0002"
+    }
+  },
+  {
+    "id": "merchant::3",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 3",
+      "merchant_code": "MRC0003"
+    }
+  },
+  {
+    "id": "merchant::4",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 4",
+      "merchant_code": "MRC0004"
+    }
+  },
+  {
+    "id": "merchant::5",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 5",
+      "merchant_code": "MRC0005"
+    }
+  },
+  {
+    "id": "merchant::6",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 6",
+      "merchant_code": "MRC0006"
+    }
+  },
+  {
+    "id": "merchant::7",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 7",
+      "merchant_code": "MRC0007"
+    }
+  },
+  {
+    "id": "merchant::8",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 8",
+      "merchant_code": "MRC0008"
+    }
+  },
+  {
+    "id": "merchant::9",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 9",
+      "merchant_code": "MRC0009"
+    }
+  },
+  {
+    "id": "merchant::10",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 10",
+      "merchant_code": "MRC0010"
+    }
+  },
+  {
+    "id": "merchant::11",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 11",
+      "merchant_code": "MRC0011"
+    }
+  },
+  {
+    "id": "merchant::12",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 12",
+      "merchant_code": "MRC0012"
+    }
+  },
+  {
+    "id": "merchant::13",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 13",
+      "merchant_code": "MRC0013"
+    }
+  },
+  {
+    "id": "merchant::14",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 14",
+      "merchant_code": "MRC0014"
+    }
+  },
+  {
+    "id": "merchant::15",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 15",
+      "merchant_code": "MRC0015"
+    }
+  },
+  {
+    "id": "merchant::16",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 16",
+      "merchant_code": "MRC0016"
+    }
+  },
+  {
+    "id": "merchant::17",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 17",
+      "merchant_code": "MRC0017"
+    }
+  },
+  {
+    "id": "merchant::18",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 18",
+      "merchant_code": "MRC0018"
+    }
+  },
+  {
+    "id": "merchant::19",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 19",
+      "merchant_code": "MRC0019"
+    }
+  },
+  {
+    "id": "merchant::20",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 20",
+      "merchant_code": "MRC0020"
+    }
+  },
+  {
+    "id": "merchant::21",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 21",
+      "merchant_code": "MRC0021"
+    }
+  },
+  {
+    "id": "merchant::22",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 22",
+      "merchant_code": "MRC0022"
+    }
+  },
+  {
+    "id": "merchant::23",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 23",
+      "merchant_code": "MRC0023"
+    }
+  },
+  {
+    "id": "merchant::24",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 24",
+      "merchant_code": "MRC0024"
+    }
+  },
+  {
+    "id": "merchant::25",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Merchant 25",
+      "merchant_code": "MRC0025"
+    }
+  }
+]

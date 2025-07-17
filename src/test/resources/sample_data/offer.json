@@ -1,0 +1,402 @@
+[
+  {
+    "id": "offer::1",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::1",
+      "type": "DISCOUNT",
+      "discount_amount": 43.3,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 328,
+      "status": "ACTIVE"
+    }
+  },
+  {
+    "id": "offer::2",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::2",
+      "type": "REWARD_POINTS",
+      "discount_amount": 41.39,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 872,
+      "status": "CANCELLED"
+    }
+  },
+  {
+    "id": "offer::3",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::3",
+      "type": "REWARD_POINTS",
+      "discount_amount": 48.78,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 345,
+      "status": "EXPIRED"
+    }
+  },
+  {
+    "id": "offer::4",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::4",
+      "type": "CASHBACK",
+      "discount_amount": 28.46,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 625,
+      "status": "EXPIRED"
+    }
+  },
+  {
+    "id": "offer::5",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::5",
+      "type": "CASHBACK",
+      "discount_amount": 32.32,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 563,
+      "status": "DRAFT"
+    }
+  },
+  {
+    "id": "offer::6",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::6",
+      "type": "REWARD_POINTS",
+      "discount_amount": 65.87,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 473,
+      "status": "CANCELLED"
+    }
+  },
+  {
+    "id": "offer::7",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::7",
+      "type": "REWARD_POINTS",
+      "discount_amount": 82.53,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 745,
+      "status": "REDEEMED"
+    }
+  },
+  {
+    "id": "offer::8",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::8",
+      "type": "REWARD_POINTS",
+      "discount_amount": 96.43,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 281,
+      "status": "REDEEMED"
+    }
+  },
+  {
+    "id": "offer::9",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::9",
+      "type": "DISCOUNT",
+      "discount_amount": 62.81,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 683,
+      "status": "REDEEMED"
+    }
+  },
+  {
+    "id": "offer::10",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::10",
+      "type": "REWARD_POINTS",
+      "discount_amount": 48.33,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 881,
+      "status": "EXPIRED"
+    }
+  },
+  {
+    "id": "offer::11",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::11",
+      "type": "REWARD_POINTS",
+      "discount_amount": 66.47,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 1000,
+      "status": "CANCELLED"
+    }
+  },
+  {
+    "id": "offer::12",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::12",
+      "type": "REWARD_POINTS",
+      "discount_amount": 69.04,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 884,
+      "status": "ACTIVE"
+    }
+  },
+  {
+    "id": "offer::13",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::13",
+      "type": "DISCOUNT",
+      "discount_amount": 93.68,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 246,
+      "status": "CANCELLED"
+    }
+  },
+  {
+    "id": "offer::14",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::14",
+      "type": "REWARD_POINTS",
+      "discount_amount": 10.57,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 504,
+      "status": "ACTIVE"
+    }
+  },
+  {
+    "id": "offer::15",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::15",
+      "type": "REWARD_POINTS",
+      "discount_amount": 99.96,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 492,
+      "status": "ACTIVE"
+    }
+  },
+  {
+    "id": "offer::16",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::16",
+      "type": "CASHBACK",
+      "discount_amount": 37.77,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 192,
+      "status": "CANCELLED"
+    }
+  },
+  {
+    "id": "offer::17",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::17",
+      "type": "REWARD_POINTS",
+      "discount_amount": 25.88,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 584,
+      "status": "DRAFT"
+    }
+  },
+  {
+    "id": "offer::18",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::18",
+      "type": "REWARD_POINTS",
+      "discount_amount": 16.19,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 307,
+      "status": "REDEEMED"
+    }
+  },
+  {
+    "id": "offer::19",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::19",
+      "type": "REWARD_POINTS",
+      "discount_amount": 65.68,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 745,
+      "status": "DRAFT"
+    }
+  },
+  {
+    "id": "offer::20",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::20",
+      "type": "CASHBACK",
+      "discount_amount": 42.76,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 344,
+      "status": "DRAFT"
+    }
+  },
+  {
+    "id": "offer::21",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::21",
+      "type": "CASHBACK",
+      "discount_amount": 34.88,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 517,
+      "status": "EXPIRED"
+    }
+  },
+  {
+    "id": "offer::22",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::22",
+      "type": "DISCOUNT",
+      "discount_amount": 77.02,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 469,
+      "status": "CANCELLED"
+    }
+  },
+  {
+    "id": "offer::23",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::23",
+      "type": "CASHBACK",
+      "discount_amount": 60.43,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 218,
+      "status": "REDEEMED"
+    }
+  },
+  {
+    "id": "offer::24",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::24",
+      "type": "CASHBACK",
+      "discount_amount": 61.71,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 279,
+      "status": "REDEEMED"
+    }
+  },
+  {
+    "id": "offer::25",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "campaign_id": "campaign::25",
+      "type": "DISCOUNT",
+      "discount_amount": 99.16,
+      "currency": "USD",
+      "valid_from": "2025-07-15T00:00:00",
+      "valid_to": "2025-08-07T00:00:00",
+      "max_redemptions": 872,
+      "status": "EXPIRED"
+    }
+  }
+]
