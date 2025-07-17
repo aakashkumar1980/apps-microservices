@@ -10,6 +10,17 @@ import java.time.LocalDateTime;
 public class Offer {
 
   @NotBlank
+  @Size(min = 3, max = 100)
+  @JsonProperty("name")
+  @Field("name")
+  private String name;
+
+  @Size(max = 500)
+  @JsonProperty("description")
+  @Field("description")
+  private String description;
+
+  @NotBlank
   @JsonProperty("campaign_id")
   @Field("campaign_id")
   private String campaignId;
@@ -55,6 +66,12 @@ public class Offer {
   @Field("max_redemptions")
   private Integer maxRedemptions;
 
+  public String getName() { return name; }
+  public void setName(String name) { this.name = name; }
+
+  public String getDescription() { return description; }
+  public void setDescription(String description) { this.description = description; }
+
   public String getCampaignId() { return campaignId; }
   public void setCampaignId(String campaignId) { this.campaignId = campaignId; }
 
@@ -85,6 +102,8 @@ public class Offer {
   @Override
   public String toString() {
     return "Offer{" +
+        "name='" + name + '\'' +
+        ", description='" + description + '\'' +
         "campaignId='" + campaignId + '\'' +
         ", merchantId='" + merchantId + '\'' +
         ", type=" + type +

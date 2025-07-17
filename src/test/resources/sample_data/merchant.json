@@ -5,7 +5,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 1",
+      "name": "Barnes & Noble",
       "merchant_code": "MRC0001"
     }
   },
@@ -15,7 +15,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 2",
+      "name": "Expedia",
       "merchant_code": "MRC0002"
     }
   },
@@ -25,7 +25,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 3",
+      "name": "Whole Foods Market",
       "merchant_code": "MRC0003"
     }
   },
@@ -35,7 +35,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 4",
+      "name": "Booking.com",
       "merchant_code": "MRC0004"
     }
   },
@@ -45,7 +45,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 5",
+      "name": "Best Buy",
       "merchant_code": "MRC0005"
     }
   },
@@ -55,7 +55,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 6",
+      "name": "Target",
       "merchant_code": "MRC0006"
     }
   },
@@ -65,7 +65,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 7",
+      "name": "Amazon",
       "merchant_code": "MRC0007"
     }
   },
@@ -75,7 +75,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 8",
+      "name": "Sephora",
       "merchant_code": "MRC0008"
     }
   },
@@ -85,7 +85,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 9",
+      "name": "GNC",
       "merchant_code": "MRC0009"
     }
   },
@@ -95,7 +95,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 10",
+      "name": "Williams Sonoma",
       "merchant_code": "MRC0010"
     }
   },
@@ -105,7 +105,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 11",
+      "name": "Domino's Pizza",
       "merchant_code": "MRC0011"
     }
   },
@@ -115,7 +115,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 12",
+      "name": "Apple Store",
       "merchant_code": "MRC0012"
     }
   },
@@ -125,7 +125,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 13",
+      "name": "Toys 'R' Us",
       "merchant_code": "MRC0013"
     }
   },
@@ -135,7 +135,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 14",
+      "name": "Staples",
       "merchant_code": "MRC0014"
     }
   },
@@ -145,7 +145,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 15",
+      "name": "Home Depot",
       "merchant_code": "MRC0015"
     }
   },
@@ -155,7 +155,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 16",
+      "name": "Rolex",
       "merchant_code": "MRC0016"
     }
   },
@@ -165,7 +165,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 17",
+      "name": "PetSmart",
       "merchant_code": "MRC0017"
     }
   },
@@ -175,7 +175,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 18",
+      "name": "Philips Hue",
       "merchant_code": "MRC0018"
     }
   },
@@ -185,7 +185,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 19",
+      "name": "Planet Fitness",
       "merchant_code": "MRC0019"
     }
   },
@@ -195,7 +195,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 20",
+      "name": "Patagonia",
       "merchant_code": "MRC0020"
     }
   },
@@ -205,7 +205,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 21",
+      "name": "H&M",
       "merchant_code": "MRC0021"
     }
   },
@@ -215,7 +215,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 22",
+      "name": "IKEA",
       "merchant_code": "MRC0022"
     }
   },
@@ -225,7 +225,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 23",
+      "name": "Wayfair",
       "merchant_code": "MRC0023"
     }
   },
@@ -235,7 +235,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 24",
+      "name": "Walmart",
       "merchant_code": "MRC0024"
     }
   },
@@ -245,7 +245,7 @@
     "updated_at": "2025-07-13T00:00:00",
     "version": 1,
     "data": {
-      "name": "Merchant 25",
+      "name": "Jiffy Lube",
       "merchant_code": "MRC0025"
     }
   }
