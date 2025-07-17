@@ -90,7 +90,7 @@ public class OfferCommandService {
     if (offers != null && !offers.isEmpty()) {
       // Iterate through the filtered offers and set their status to INACTIVE
       offers.forEach(baseDto -> {
-        baseDto.getData().setOfferStatus(OfferStatus.INACTIVE);
+        baseDto.getData().setStatus(OfferStatus.INACTIVE);
 
         log.info("Deactivating offer with ID: {}", baseDto.getId());
         offerCommandRepository.save(baseDto);

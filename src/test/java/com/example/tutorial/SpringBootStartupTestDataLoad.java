@@ -66,8 +66,8 @@ public class SpringBootStartupTestDataLoad {
   @Test
   public void loadTestData() throws Exception {
     // 1. Load sample data from resources as BaseDto lists
-    List<BaseDto<Campaign>> campaigns = readJsonArray("sample-campaigns.json", new TypeReference<List<BaseDto<Campaign>>>() {});
-    List<BaseDto<Offer>> offers = readJsonArray("sample-offers.json", new TypeReference<List<BaseDto<Offer>>>() {});
+    List<BaseDto<Campaign>> campaigns = readJsonArray("sample_data/campaign.json", new TypeReference<List<BaseDto<Campaign>>>() {});
+    List<BaseDto<Offer>> offers = readJsonArray("sample_data/offer.json", new TypeReference<List<BaseDto<Offer>>>() {});
 
     // 2. Remove all existing docs for each type (offers, merchants, campaigns)
     offerRepository.deleteAll();
