@@ -1,5 +1,9 @@
 package com.example.tutorial.common.dto.campaign;
 
 public enum CampaignStatus {
-    DRAFT, ACTIVE, PAUSED, CLOSED
+  DRAFT,
+  ACTIVE,
+  PAUSED,
+  COMPLETED,
+  CANCELLED
 }
