@@ -46,7 +46,7 @@
 							"response": []
 						},
 						{
-							"name": "CreateOffer Copy",
+							"name": "CreateOffer",
 							"id": "25453210-5367dc3a-6ba6-4cb8-a525-c23872deff0f",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
