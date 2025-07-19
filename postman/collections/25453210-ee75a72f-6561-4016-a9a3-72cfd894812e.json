@@ -52,7 +52,7 @@
 			"id": "25453210-f3a6b790-c3f7-4b27-bd59-ce8bce9ee6b1"
 		},
 		{
-			"name": "Get All Campaigns",
+			"name": "Get All Offers",
 			"id": "25453210-3721a86c-39ba-4168-9a53-51821f0db8cc",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
