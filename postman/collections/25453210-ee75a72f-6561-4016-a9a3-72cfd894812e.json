@@ -13,7 +13,7 @@
 					"name": "CreateOffer",
 					"item": [
 						{
-							"name": "CreateOffer_",
+							"name": "CreateOffer_ValidationError",
 							"id": "25453210-671e311f-515b-4136-a8ed-3d09e2c662fa",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
