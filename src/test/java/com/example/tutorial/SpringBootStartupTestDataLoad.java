@@ -2,7 +2,9 @@ package com.example.tutorial;
 
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.dto.merchant.Merchant;
 import com.example.tutorial.common.dto.offer.Offer;
+import com.example.tutorial.microservices.merchant.read.repository.MerchantQueryRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -57,6 +59,9 @@ public class SpringBootStartupTestDataLoad {
   @Autowired
   private OfferQueryRepository offerRepository;
 
+  @Autowired
+  private MerchantQueryRepository merchantRepository;
+
   /**
    * This method is executed after the Spring Boot application context is loaded.
    *
@@ -68,25 +73,30 @@ public class SpringBootStartupTestDataLoad {
     // 1. Load sample data from resources as BaseDto lists
     List<BaseDto<Campaign>> campaigns = readJsonArray("sample_data/campaign.json", new TypeReference<List<BaseDto<Campaign>>>() {});
     List<BaseDto<Offer>> offers = readJsonArray("sample_data/offer.json", new TypeReference<List<BaseDto<Offer>>>() {});
+    List<BaseDto<Merchant>> merchants = readJsonArray("sample_data/merchant.json", new TypeReference<List<BaseDto<Merchant>>>() {});
 
     // 2. Remove all existing docs for each type (offers, merchants, campaigns)
     offerRepository.deleteAll();
     campaignRepository.deleteAll();
+    merchantRepository.deleteAll();
 
     // 3. Reset counters
     setCounterTo(campaignCounterKey, 0);
     setCounterTo(offerCounterKey, 0);
+    setCounterTo(merchantCounterKey, 0);
 
     // 4. Insert fresh docs
     campaignRepository.saveAll(campaigns);
     offerRepository.saveAll(offers);
+    merchantRepository.saveAll(merchants);
 
     // 5. Increment counters to the number of documents inserted
     setCounterTo(campaignCounterKey, campaigns.size());
     setCounterTo(offerCounterKey, offers.size());
+    setCounterTo(merchantCounterKey, merchants.size());
 
-    log.info("Test data loaded successfully: {} campaigns, {} offers",
-        campaigns.size(), offers.size());
+    log.info("Test data loaded successfully: {} campaigns, {} offers, {} merchants",
+        campaigns.size(), offers.size(), merchants.size());
   }
 
   /** PRIVATE METHODS **/

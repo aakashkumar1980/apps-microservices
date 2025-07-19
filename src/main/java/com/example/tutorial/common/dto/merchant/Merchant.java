@@ -25,6 +25,7 @@ public class Merchant {
 
     @NotEmpty
     @Pattern(regexp = "^MR[0-9]{4,}$", message = "Merchant ID must start with 'MR' followed by at least 4 digits")
+    @JsonProperty("merchant_code")
     @Field("merchant_code")
     private String merchantCode;
 
