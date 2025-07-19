@@ -10,7 +10,7 @@
 			"name": "FLOWS",
 			"item": [
 				{
-					"name": "UpdateCampaign",
+					"name": "CreateOffer",
 					"item": [
 						{
 							"name": "UpdateCampaignBudget",
