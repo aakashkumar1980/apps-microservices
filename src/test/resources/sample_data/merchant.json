@@ -6,7 +6,10 @@
     "version": 1,
     "data": {
       "name": "Barnes & Noble",
-      "merchant_code": "MRC0001"
+      "category": "Books",
+      "location": "New York, NY",
+      "merchant_code": "MRC0001",
+      "active_offers": []
     }
   },
   {
@@ -16,7 +19,10 @@
     "version": 1,
     "data": {
       "name": "Expedia",
-      "merchant_code": "MRC0002"
+      "category": "Travel",
+      "location": "Bellevue, WA",
+      "merchant_code": "MRC0002",
+      "active_offers": []
     }
   },
   {
@@ -26,7 +32,10 @@
     "version": 1,
     "data": {
       "name": "Whole Foods Market",
-      "merchant_code": "MRC0003"
+      "category": "Grocery",
+      "location": "Austin, TX",
+      "merchant_code": "MRC0003",
+      "active_offers": []
     }
   },
   {
@@ -36,7 +45,10 @@
     "version": 1,
     "data": {
       "name": "Booking.com",
-      "merchant_code": "MRC0004"
+      "category": "Travel",
+      "location": "Amsterdam, NL",
+      "merchant_code": "MRC0004",
+      "active_offers": []
     }
   },
   {
@@ -46,7 +58,10 @@
     "version": 1,
     "data": {
       "name": "Best Buy",
-      "merchant_code": "MRC0005"
+      "category": "Electronics",
+      "location": "Richfield, MN",
+      "merchant_code": "MRC0005",
+      "active_offers": []
     }
   },
   {
@@ -56,7 +71,10 @@
     "version": 1,
     "data": {
       "name": "Target",
-      "merchant_code": "MRC0006"
+      "category": "Retail",
+      "location": "Minneapolis, MN",
+      "merchant_code": "MRC0006",
+      "active_offers": []
     }
   },
   {
@@ -66,7 +84,10 @@
     "version": 1,
     "data": {
       "name": "Amazon",
-      "merchant_code": "MRC0007"
+      "category": "E-commerce",
+      "location": "Seattle, WA",
+      "merchant_code": "MRC0007",
+      "active_offers": []
     }
   },
   {
@@ -76,7 +97,10 @@
     "version": 1,
     "data": {
       "name": "Sephora",
-      "merchant_code": "MRC0008"
+      "category": "Beauty",
+      "location": "San Francisco, CA",
+      "merchant_code": "MRC0008",
+      "active_offers": []
     }
   },
   {
@@ -86,7 +110,10 @@
     "version": 1,
     "data": {
       "name": "GNC",
-      "merchant_code": "MRC0009"
+      "category": "Health",
+      "location": "Pittsburgh, PA",
+      "merchant_code": "MRC0009",
+      "active_offers": []
     }
   },
   {
@@ -96,7 +123,10 @@
     "version": 1,
     "data": {
       "name": "Williams Sonoma",
-      "merchant_code": "MRC0010"
+      "category": "Home",
+      "location": "San Francisco, CA",
+      "merchant_code": "MRC0010",
+      "active_offers": []
     }
   },
   {
@@ -106,7 +136,10 @@
     "version": 1,
     "data": {
       "name": "Domino's Pizza",
-      "merchant_code": "MRC0011"
+      "category": "Food",
+      "location": "Ann Arbor, MI",
+      "merchant_code": "MRC0011",
+      "active_offers": []
     }
   },
   {
@@ -116,7 +149,10 @@
     "version": 1,
     "data": {
       "name": "Apple Store",
-      "merchant_code": "MRC0012"
+      "category": "Electronics",
+      "location": "Cupertino, CA",
+      "merchant_code": "MRC0012",
+      "active_offers": []
     }
   },
   {
@@ -126,7 +162,10 @@
     "version": 1,
     "data": {
       "name": "Toys 'R' Us",
-      "merchant_code": "MRC0013"
+      "category": "Kids",
+      "location": "Wayne, NJ",
+      "merchant_code": "MRC0013",
+      "active_offers": []
     }
   },
   {
@@ -136,7 +175,10 @@
     "version": 1,
     "data": {
       "name": "Staples",
-      "merchant_code": "MRC0014"
+      "category": "Office Supplies",
+      "location": "Framingham, MA",
+      "merchant_code": "MRC0014",
+      "active_offers": []
     }
   },
   {
@@ -146,7 +188,10 @@
     "version": 1,
     "data": {
       "name": "Home Depot",
-      "merchant_code": "MRC0015"
+      "category": "Home Improvement",
+      "location": "Atlanta, GA",
+      "merchant_code": "MRC0015",
+      "active_offers": []
     }
   },
   {
@@ -156,7 +201,10 @@
     "version": 1,
     "data": {
       "name": "Rolex",
-      "merchant_code": "MRC0016"
+      "category": "Luxury",
+      "location": "Geneva, CH",
+      "merchant_code": "MRC0016",
+      "active_offers": []
     }
   },
   {
@@ -166,7 +214,10 @@
     "version": 1,
     "data": {
       "name": "PetSmart",
-      "merchant_code": "MRC0017"
+      "category": "Pets",
+      "location": "Phoenix, AZ",
+      "merchant_code": "MRC0017",
+      "active_offers": []
     }
   },
   {
@@ -176,7 +227,10 @@
     "version": 1,
     "data": {
       "name": "Philips Hue",
-      "merchant_code": "MRC0018"
+      "category": "Smart Home",
+      "location": "Eindhoven, NL",
+      "merchant_code": "MRC0018",
+      "active_offers": []
     }
   },
   {
@@ -186,7 +240,10 @@
     "version": 1,
     "data": {
       "name": "Planet Fitness",
-      "merchant_code": "MRC0019"
+      "category": "Fitness",
+      "location": "Hampton, NH",
+      "merchant_code": "MRC0019",
+      "active_offers": []
     }
   },
   {
@@ -196,7 +253,10 @@
     "version": 1,
     "data": {
       "name": "Patagonia",
-      "merchant_code": "MRC0020"
+      "category": "Eco-friendly",
+      "location": "Ventura, CA",
+      "merchant_code": "MRC0020",
+      "active_offers": []
     }
   },
   {
@@ -206,7 +266,10 @@
     "version": 1,
     "data": {
       "name": "H&M",
-      "merchant_code": "MRC0021"
+      "category": "Fashion",
+      "location": "Stockholm, SE",
+      "merchant_code": "MRC0021",
+      "active_offers": []
     }
   },
   {
@@ -216,7 +279,10 @@
     "version": 1,
     "data": {
       "name": "IKEA",
-      "merchant_code": "MRC0022"
+      "category": "Home",
+      "location": "Delft, NL",
+      "merchant_code": "MRC0022",
+      "active_offers": []
     }
   },
   {
@@ -226,7 +292,10 @@
     "version": 1,
     "data": {
       "name": "Wayfair",
-      "merchant_code": "MRC0023"
+      "category": "Home",
+      "location": "Boston, MA",
+      "merchant_code": "MRC0023",
+      "active_offers": []
     }
   },
   {
@@ -236,7 +305,10 @@
     "version": 1,
     "data": {
       "name": "Walmart",
-      "merchant_code": "MRC0024"
+      "category": "Retail",
+      "location": "Bentonville, AR",
+      "merchant_code": "MRC0024",
+      "active_offers": []
     }
   },
   {
@@ -246,7 +318,10 @@
     "version": 1,
     "data": {
       "name": "Jiffy Lube",
-      "merchant_code": "MRC0025"
+      "category": "Automotive",
+      "location": "Houston, TX",
+      "merchant_code": "MRC0025",
+      "active_offers": []
     }
   }
 ]
