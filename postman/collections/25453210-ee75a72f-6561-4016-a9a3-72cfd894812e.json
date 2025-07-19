@@ -109,30 +109,6 @@
 			"response": []
 		},
 		{
-			"name": "Get All Offers",
-			"id": "25453210-ba4a8d99-d5aa-48ba-b537-ab7e5e54a52d",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/offers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"offers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get Offer By Id",
 			"id": "25453210-7145b5cc-0a43-483e-825d-589952af87ac",
 			"protocolProfileBehavior": {
