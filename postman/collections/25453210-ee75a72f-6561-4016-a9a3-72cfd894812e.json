@@ -44,31 +44,6 @@
 								}
 							},
 							"response": []
-						},
-						{
-							"name": "Get Campaign By Id",
-							"id": "25453210-7eb288c0-0ab7-4719-bd36-fbe2f25a111a",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/campaigns/{{campaign_id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"campaigns",
-										"{{campaign_id}}"
-									]
-								}
-							},
-							"response": []
 						}
 					],
 					"id": "25453210-5652a4b1-f1d8-4042-910a-7e99cea24755"
