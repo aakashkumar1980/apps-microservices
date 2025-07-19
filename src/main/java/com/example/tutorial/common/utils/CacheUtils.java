@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class CacheUtils {
@@ -26,8 +27,8 @@ public class CacheUtils {
    * @param cacheLimitHour the expiration time in hours
    */
   public void setCache(String id, String payload, Integer cacheLimitHour) {
-    redisTemplate.opsForValue().set(id, payload, cacheLimitHour * 60 * 60); // Convert hours to seconds
-    log.info("Cached value for ID {}: {} with expiration of {} hours", id, payload, cacheLimitHour);
+    redisTemplate.opsForValue().set(id, payload, cacheLimitHour, TimeUnit.MINUTES); // Specify expiry with TimeUnit
+    log.info("Cached value for ID {}: {} with expiration of {} minutes", id, payload, cacheLimitHour);
   }
 
   /**
