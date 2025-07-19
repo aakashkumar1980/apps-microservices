@@ -1,7 +1,6 @@
 package com.example.tutorial.common.utils;
 
 import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.Event;
 import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
@@ -40,14 +39,9 @@ public class ValidationUtils {
    * @param baseDto The BaseDto containing the campaign data.
    */
   public void keepOriginalOfferIds(BaseDto<Campaign> baseDto, String campaignsApiUrl) {
-    Event event = new CampaignEvent();
-    ((CampaignEvent)event).setId(baseDto.getId());
-    ((CampaignEvent)event).setStatus(baseDto.getData().getStatus());
-    ((CampaignEvent)event).setStartDate(baseDto.getData().getStartDate());
-    ((CampaignEvent)event).setEndDate(baseDto.getData().getEndDate());
-    event.setKafkaEventType(KafkaEventType.CAMPAIGN_UPDATED);
     BaseDto<Campaign> originalCampaign = apiUtils.fetchAndCacheBaseDtoById(
-        campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {}, event);
+        campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {},
+        new CampaignEvent(baseDto.getId(), KafkaEventType.CAMPAIGN_UPDATED));
     baseDto.getData().setOfferIds(originalCampaign.getData().getOfferIds());
 
     log.info("Overriding offer IDs for campaign: {} with the original campaign: {}",
@@ -71,7 +65,7 @@ public class ValidationUtils {
     /** check if the campaign ID is present in Redis cache. If present, use it to validate the campaign status **/
     String campaignEventString = redisTemplate.opsForValue().get(campaignId);
     if(StringUtils.isNotBlank(campaignEventString)) {
-      log.info("Campaign ID {} found in Redis cache", campaignId);
+      log.info("Cached event {} for ID {} found in Redis cache", campaignEventString, campaignId);
       CampaignEvent campaignEvent = null;
       try {
         campaignEvent = objectMapper.readValue(campaignEventString, new TypeReference<CampaignEvent>() {});
@@ -90,14 +84,9 @@ public class ValidationUtils {
       log.info("Campaign ID {} not found in Redis cache, fetching from campaigns API", campaignId);
       BaseDto<Campaign> baseDto = new BaseDto<>();
       baseDto.setId(campaignId);
-
-      Event event = new CampaignEvent();
-      ((CampaignEvent)event).setId(baseDto.getId());
-      ((CampaignEvent)event).setStatus(baseDto.getData().getStatus());
-      ((CampaignEvent)event).setStartDate(baseDto.getData().getStartDate());
-      ((CampaignEvent)event).setEndDate(baseDto.getData().getEndDate());
-      event.setKafkaEventType(KafkaEventType.CAMPAIGN_UPDATED);
-      baseDto = apiUtils.fetchAndCacheBaseDtoById(campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {}, event);
+      baseDto = apiUtils.fetchAndCacheBaseDtoById(
+          campaignsApiUrl, baseDto, new TypeReference<BaseDto<Campaign>>() {},
+          new CampaignEvent(baseDto.getId(), KafkaEventType.CAMPAIGN_UPDATED));
 
       // validate if the campaign is still active, if not throw an exception
       if (!StringUtils.equals(baseDto.getData().getStatus().name(), CampaignStatus.ACTIVE.name())) {

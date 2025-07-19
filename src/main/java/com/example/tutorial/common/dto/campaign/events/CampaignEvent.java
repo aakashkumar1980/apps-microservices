@@ -18,7 +18,6 @@ public class CampaignEvent extends Event {
   public CampaignEvent(String id, KafkaEventType kafkaEventType) {
     super(kafkaEventType);
     this.id = id;
-
   }
   public CampaignEvent(String id, CampaignStatus status, LocalDateTime startDate, LocalDateTime endDate, KafkaEventType kafkaEventType) {
     super(kafkaEventType);

@@ -43,7 +43,7 @@ public class CampaignEventSubscriber {
 
       // Cache the campaign details in Redis
       redisTemplate.opsForValue().set(campaignId, payload);
-      log.info("Cached campaign {} in Redis", campaignId);
+      log.info("Cached campaign event {} for ID {} in Redis Cache", payload, campaignId);
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
     }
@@ -66,7 +66,7 @@ public class CampaignEventSubscriber {
 
       // Update the campaign details in Redis cache
       redisTemplate.opsForValue().set(campaignId, payload);
-      log.info("Cached campaign {} in Redis", campaignId);
+      log.info("Cached campaign event {} for ID {} in Redis Cache", payload, campaignId);
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
     }

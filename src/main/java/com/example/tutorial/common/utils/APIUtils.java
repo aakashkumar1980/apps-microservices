@@ -5,12 +5,15 @@ import com.example.tutorial.common.dto.Event;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
+import java.lang.reflect.InvocationTargetException;
 
 @Component
 public class APIUtils {
@@ -34,8 +37,8 @@ public class APIUtils {
    * @param apiUrl        The API URL to fetch the BaseDto from.
    * @param baseDto       The BaseDto containing the ID to fetch.
    * @param typeReference The TypeReference for the BaseDto type.
-   * @param event         The Event to store in the cache.
    * @param <T>           The type of the BaseDto.
+   * @param event         The type of events to be stored in the cache like CampaignEvent, OfferEvent, etc.
    * @return The fetched BaseDto.
    */
   public <T> BaseDto<T> fetchAndCacheBaseDtoById(
@@ -49,13 +52,17 @@ public class APIUtils {
         apiUrl , String.class);
     log.info("REST API Response from {} API: {}", apiUrl, responseString);
 
-    // cache the event in Redis for future use, to avoid multiple calls to the same API
-    log.info("Caching {} event for ID {} in Redis", event.getClass().getSimpleName(), baseDto.getId());
     try {
-      redisTemplate.opsForValue().set(baseDto.getId(), objectMapper.writeValueAsString(event));
+      BaseDto<T> value = objectMapper.readValue(responseString, typeReference);
 
-      return objectMapper.readValue(responseString, typeReference);
-    } catch (JsonProcessingException e) {
+      // Copy properties from the BaseDto to the event object
+      BeanUtils.copyProperties(event, value.getData());
+      redisTemplate.opsForValue().set(baseDto.getId(), objectMapper.writeValueAsString(event));
+      // cache the event in Redis for future use, to avoid multiple calls to the same API
+      log.info("Cached event {} for ID {} in Redis Cache", event, baseDto.getId());
+
+      return value;
+    } catch (JsonProcessingException | InvocationTargetException | IllegalAccessException e) {
       throw new RuntimeException(e);
     }
   }
