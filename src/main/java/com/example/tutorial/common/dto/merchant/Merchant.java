@@ -38,6 +38,8 @@ public class Merchant {
     public void setCategory(String category) { this.category = category; }
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
+    public String getMerchantCode() { return merchantCode; }
+    public void setMerchantCode(String merchantCode) { this.merchantCode = merchantCode; }
     public List<String> getActiveOffers() { return activeOffers; }
     public void setActiveOffers(List<String> activeOffers) { this.activeOffers = activeOffers; }
 

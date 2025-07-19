@@ -1,19 +1,21 @@
 package com.example.tutorial.common.utils;
 
+import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.Event;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Optional;
 
 @Component
 public class APIUtils {
@@ -27,7 +29,7 @@ public class APIUtils {
   private ObjectMapper objectMapper;
 
   @Autowired
-  private RedisTemplate<String, String> redisTemplate;
+  private CacheUtils cacheUtils;
 
   /**
    * Fetch a BaseDto by its ID from the specified REST API URL.
@@ -35,35 +37,38 @@ public class APIUtils {
    * TODO: Implement via. CircuitBreaker as it's an external service call
    *
    * @param apiUrl        The API URL to fetch the BaseDto from.
-   * @param baseDto       The BaseDto containing the ID to fetch.
+   * @param id            The ID of the BaseDto to fetch.
    * @param typeReference The TypeReference for the BaseDto type.
    * @param <T>           The type of the BaseDto.
    * @param event         The type of events to be stored in the cache like CampaignEvent, OfferEvent, etc.
-   * @return The fetched BaseDto.
+   * @return              Optional containing the fetched BaseDto if found, otherwise empty.
    */
-  public <T> BaseDto<T> fetchAndCacheBaseDtoById(
+  public <T> Optional<BaseDto<T>> fetchAndCacheBaseDtoById(
       String apiUrl,
-      BaseDto<T> baseDto,
+      String id,
       TypeReference<BaseDto<T>> typeReference,
       Event event
   ) {
-    apiUrl = String.format(apiUrl + "/%s", baseDto.getId());
+    apiUrl = String.format(apiUrl + "/%s", id);
     String responseString = restTemplate.getForObject(
         apiUrl , String.class);
     log.info("REST API Response from {} API: {}", apiUrl, responseString);
 
-    try {
-      BaseDto<T> value = objectMapper.readValue(responseString, typeReference);
+    if (StringUtils.isNotBlank(responseString)) {
+      try {
+        BaseDto<T> value = objectMapper.readValue(responseString, typeReference);
 
-      // Copy properties from the BaseDto to the event object
-      BeanUtils.copyProperties(event, value.getData());
-      redisTemplate.opsForValue().set(baseDto.getId(), objectMapper.writeValueAsString(event));
-      // cache the event in Redis for future use, to avoid multiple calls to the same API
-      log.info("Cached event {} for ID {} in Redis Cache", event, baseDto.getId());
+        // Copy properties from the BaseDto to the event object
+        BeanUtils.copyProperties(event, value.getData());
+        // cache the event in Redis for future use, to avoid multiple calls to the same API
+        cacheUtils.setCache(id, objectMapper.writeValueAsString(event), CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
 
-      return value;
-    } catch (JsonProcessingException | InvocationTargetException | IllegalAccessException e) {
-      throw new RuntimeException(e);
+        return Optional.of(value);
+      } catch (JsonProcessingException | InvocationTargetException | IllegalAccessException e) {
+        throw new RuntimeException(e);
+      }
+    } else {
+      return Optional.empty();
     }
   }
 }

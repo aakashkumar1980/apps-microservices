@@ -1,11 +1,12 @@
 package com.example.tutorial.microservices.offer.write.service.events.subscriber;
 
+import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
+import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.offer.write.service.OfferCommandService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class CampaignEventSubscriber {
   private ObjectMapper objectMapper;
 
   @Autowired
-  private RedisTemplate<String, Object> redisTemplate;
+  private CacheUtils  cacheUtils;
 
   /**
    * Handles the CampaignCreated campaignEvent by caching the campaign details in Redis.
@@ -42,7 +43,7 @@ public class CampaignEventSubscriber {
       String campaignId = campaignEvent.getId();
 
       // Cache the campaign details in Redis
-      redisTemplate.opsForValue().set(campaignId, payload);
+      cacheUtils.setCache(campaignId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
       log.info("Cached campaign event {} for ID {} in Redis Cache", payload, campaignId);
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
@@ -65,7 +66,7 @@ public class CampaignEventSubscriber {
       String campaignId = campaignEvent.getId();
 
       // Update the campaign details in Redis cache
-      redisTemplate.opsForValue().set(campaignId, payload);
+      cacheUtils.setCache(campaignId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
       log.info("Cached campaign event {} for ID {} in Redis Cache", payload, campaignId);
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
@@ -88,7 +89,7 @@ public class CampaignEventSubscriber {
       String campaignId = campaignEvent.getId();
 
       // Remove the campaign from Redis cache
-      redisTemplate.delete(campaignId);
+      cacheUtils.delete(campaignId);
       log.info("Removed campaign {} from Redis cache", campaignId);
 
       // Deactivate all offers associated with the campaign

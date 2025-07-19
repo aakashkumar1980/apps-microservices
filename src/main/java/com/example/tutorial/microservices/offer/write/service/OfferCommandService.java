@@ -5,7 +5,7 @@ import com.example.tutorial.common.dto.offer.Offer;
 import com.example.tutorial.common.dto.offer.OfferStatus;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
-import com.example.tutorial.common.utils.ValidationUtils;
+import com.example.tutorial.common.utils.validation.CampaignValidation;
 import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -44,11 +44,14 @@ public class OfferCommandService {
   @Autowired
   private APIUtils apiUtils;
 
+  @Autowired
+  private DBUtils dbUtils;
+
   @Value("${campaigns.api.url}")
   private String campaignsApiUrl;
 
   @Autowired
-  private ValidationUtils validationUtils;
+  private CampaignValidation campaignValidation;
 
   /**
    * Creates a new offer and saves it to the repository.
@@ -62,10 +65,10 @@ public class OfferCommandService {
 
     /** DATA VALIDATION **/
     // Validate that the offer has a valid campaign
-    validationUtils.validateCampaign(offer, campaignsApiUrl);
+    campaignValidation.validateCampaign(offer.getCampaignId(), campaignsApiUrl);
 
     // generate a unique ID for the offer using a counter
-    String id = "offer::" + DBUtils.getUniqueCounter(couchbaseTemplate, offerCounterKey);
+    String id = "offer::" + dbUtils.getUniqueCounter(couchbaseTemplate, offerCounterKey);
     // build the BaseDto for the offer with default values
     BaseDto<Offer> baseDto = BaseDto.build(offer);
     baseDto.setId(id);

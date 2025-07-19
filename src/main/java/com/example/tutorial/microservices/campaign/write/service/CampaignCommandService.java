@@ -3,7 +3,7 @@ package com.example.tutorial.microservices.campaign.write.service;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.utils.DBUtils;
-import com.example.tutorial.common.utils.ValidationUtils;
+import com.example.tutorial.common.utils.validation.CampaignValidation;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
 import com.example.tutorial.microservices.campaign.write.service.events.publisher.CampaignEventPublisher;
 import org.slf4j.Logger;
@@ -33,7 +33,10 @@ public class CampaignCommandService {
   private CampaignEventPublisher campaignEventPublisher;
 
   @Autowired
-  private ValidationUtils validationUtils;
+  private CampaignValidation campaignValidation;
+
+  @Autowired
+  private DBUtils dbUtils;
 
   @Value("${campaigns.api.url}")
   String campaignsApiUrl;
@@ -49,7 +52,7 @@ public class CampaignCommandService {
     log.info("Creating campaign: {}", campaign);
 
     // generate a unique ID for the campaign
-    String id = "campaign::" + DBUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
+    String id = "campaign::" + dbUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
     // build the BaseDto for the campaign with default values
     BaseDto<Campaign> baseDto = BaseDto.build(campaign);
     baseDto.setId(id);
@@ -72,7 +75,7 @@ public class CampaignCommandService {
 
     /** DATA VALIDATION **/
     // override offer ids by keeping the original as it shouldn't be changed once assigned
-    validationUtils.keepOriginalOfferIds(baseDto, campaignsApiUrl);
+    campaignValidation.keepOriginalOfferIds(baseDto, campaignsApiUrl);
 
     // Update the updated campaign to the repository
     baseDto.setUpdatedAt(LocalDateTime.now());

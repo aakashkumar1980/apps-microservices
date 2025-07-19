@@ -3,7 +3,9 @@ package com.example.tutorial.common.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DBUtils {
   private static final Logger log = LoggerFactory.getLogger(DBUtils.class);
 
@@ -13,7 +15,7 @@ public class DBUtils {
    * @param counterKey the key for the counter document
    * @return the incremented counter value
    */
-  public static long getUniqueCounter(CouchbaseTemplate couchbaseTemplate, String counterKey) {
+  public long getUniqueCounter(CouchbaseTemplate couchbaseTemplate, String counterKey) {
     log.debug("Incrementing counter for key: {}", counterKey);
     return couchbaseTemplate.getCouchbaseClientFactory()
         .getCluster()
