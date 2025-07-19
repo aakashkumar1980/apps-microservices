@@ -23,7 +23,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Grocery Essentials Cashback\",\r\n    \"description\": \"Receive $25.50 cashback on grocery purchases during the Fresh Start campaign.\",\r\n    \"campaign_id\": \"campaign::3\",\r\n    \"merchant_id\": \"merchant::3\",\r\n    \"type\": \"CASHBACK\",\r\n    \"discount_amount\": 25.5,\r\n    \"currency\": \"USD\",\r\n    \"valid_from\": \"2025-07-20T00:00:00\",\r\n    \"valid_to\": \"2025-08-15T00:00:00\",\r\n    \"max_redemptions\": 500,\r\n    \"status\": \"ACTIVE\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Grocery Essentials Cashback\",\r\n    \"description\": \"Receive $25.50 cashback on grocery purchases during the Fresh Start campaign.\",\r\n    \"campaign_id\": \"campaign::21\",\r\n    \"merchant_id\": \"merchant::3\",\r\n    \"type\": \"CASHBACK\",\r\n    \"discount_amount\": 25.5,\r\n    \"currency\": \"USD\",\r\n    \"valid_from\": \"2025-07-20T00:00:00\",\r\n    \"valid_to\": \"2025-08-15T00:00:00\",\r\n    \"max_redemptions\": 500,\r\n    \"status\": \"ACTIVE\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
