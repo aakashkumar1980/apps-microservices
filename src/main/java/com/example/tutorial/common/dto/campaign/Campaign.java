@@ -43,7 +43,6 @@ public class Campaign {
   @Field("status")
   private CampaignStatus status;
 
-  @NotEmpty
   @JsonProperty("offer_ids")
   @Field("offer_ids")
   private List<String> offerIds;
