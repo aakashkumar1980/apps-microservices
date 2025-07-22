@@ -1,7 +1,7 @@
 package com.example.tutorial.common.utils.validation;
 
 import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.KafkaEventType;
+import com.example.tutorial.common.constants.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
@@ -43,18 +43,18 @@ public class CampaignValidation {
    * Overrides the offer IDs in the BaseDto with the original campaign's offer IDs.
    * This is used to ensure that the offer IDs are consistent with the original campaign.
    *
-   * @param baseDto The BaseDto containing the campaign data.
+   * @param campaign The BaseDto containing the campaign data.
    * @param campaignsApiUrl The URL of the campaigns API to fetch the original campaign.
    */
-  public void keepOriginalOfferIds(BaseDto<Campaign> baseDto, String campaignsApiUrl) {
+  public void keepOriginalOfferIds(BaseDto<Campaign> campaign, String campaignsApiUrl) {
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
-        campaignsApiUrl, baseDto.getId(), new TypeReference<BaseDto<Campaign>>() {},
-        new CampaignEvent(baseDto.getId(), KafkaEventType.CAMPAIGN_UPDATED));
+        campaignsApiUrl, campaign.getId(), new TypeReference<BaseDto<Campaign>>() {},
+        new CampaignEvent(campaign.getId(), KafkaEventType.CAMPAIGN_UPDATED));
 
     originalCampaignOptional.ifPresent( originalCampaign -> {
-      baseDto.getData().setOfferIds(originalCampaign.getData().getOfferIds());
+      campaign.getData().setOfferIds(originalCampaign.getData().getOfferIds());
       log.info("Overriding offer IDs for campaign: {} with the original campaign: {}",
-          baseDto.getData().getOfferIds(), originalCampaign.getData().getOfferIds());
+          campaign.getData().getOfferIds(), originalCampaign.getData().getOfferIds());
     });
 
   }
@@ -72,11 +72,11 @@ public class CampaignValidation {
     log.info("Validating existence of campaign with ID: {}", campaignId);
 
     /** check if the campaign ID is present in Redis cache. If present, use it to validate the campaign status **/
-    Optional<String> campaignEventStringOptional =cacheUtils.getCache(campaignId);
-    if(campaignEventStringOptional.isPresent()) {
+    Optional<String> campaignEventOptional =cacheUtils.getCache(campaignId);
+    if(campaignEventOptional.isPresent()) {
       CampaignEvent campaignEvent = null;
       try {
-        campaignEvent = objectMapper.readValue(campaignEventStringOptional.get(), new TypeReference<CampaignEvent>() {});
+        campaignEvent = objectMapper.readValue(campaignEventOptional.get(), new TypeReference<CampaignEvent>() {});
 
         validateCampaign(campaignEvent.getStatus().name(), campaignEvent.getEndDate(), campaignId);
       } catch (JsonProcessingException e) {
@@ -85,14 +85,14 @@ public class CampaignValidation {
 
     /** if the campaign ID is not present in Redis cache, fetch it from the campaigns API and then validate the campaign status **/
     } else {
-      Optional<BaseDto<Campaign>> baseDtoOptional = apiUtils.fetchAndCacheBaseDtoById(
+      Optional<BaseDto<Campaign>> campaignOptional = apiUtils.fetchAndCacheBaseDtoById(
           campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
           new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
 
-      baseDtoOptional.ifPresent(campaignBaseDto ->
+      campaignOptional.ifPresent(campaign ->
           validateCampaign(
-            campaignBaseDto.getData().getStatus().name(),
-            campaignBaseDto.getData().getEndDate(), campaignId));
+            campaign.getData().getStatus().name(),
+            campaign.getData().getEndDate(), campaignId));
 
     }
   }

@@ -39,9 +39,9 @@ public class MerchantQueryController {
   @GetMapping("/{id}")
   public ResponseEntity<BaseDto<Merchant>> getMerchantById(@PathVariable String id) {
     log.info("Fetching merchant with ID: {}", id);
-    Optional<BaseDto<Merchant>> merchant = merchantQueryService.getMerchantById(id);
-    if (merchant.isPresent()) {
-      return ResponseEntity.ok(merchant.get());
+    Optional<BaseDto<Merchant>> merchantOptional = merchantQueryService.getMerchantById(id);
+    if (merchantOptional.isPresent()) {
+      return ResponseEntity.ok(merchantOptional.get());
     } else {
       log.warn("Merchant with ID: {} not found", id);
       return ResponseEntity.notFound().build();

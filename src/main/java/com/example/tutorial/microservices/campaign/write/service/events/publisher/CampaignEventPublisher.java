@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices.campaign.write.service.events.publisher;
 
 import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.KafkaEventType;
+import com.example.tutorial.common.constants.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
 import com.example.tutorial.common.utils.KafkaUtils;
@@ -23,14 +23,14 @@ public class CampaignEventPublisher {
 
   /**
    * Publishes a campaign creation event to Kafka.
-   * @param baseDto the BaseDto containing the campaign data
+   * @param campaign the BaseDto containing the campaign data
    */
-  public void publishCreateCampaignEvent(BaseDto<Campaign> baseDto) {
+  public void publishCreateCampaignEvent(BaseDto<Campaign> campaign) {
     CampaignEvent campaignEvent = new CampaignEvent(
-        baseDto.getId(),
-        baseDto.getData().getStatus(),
-        baseDto.getData().getStartDate(),
-        baseDto.getData().getEndDate(),
+        campaign.getId(),
+        campaign.getData().getStatus(),
+        campaign.getData().getStartDate(),
+        campaign.getData().getEndDate(),
         KafkaEventType.CAMPAIGN_CREATED
     );
 
@@ -40,14 +40,14 @@ public class CampaignEventPublisher {
 
   /**
    * Publishes a campaign update event to Kafka.
-   * @param baseDto the BaseDto containing the updated campaign data
+   * @param campaign the BaseDto containing the updated campaign data
    */
-  public void publishUpdateCampaignEvent(BaseDto<Campaign> baseDto) {
+  public void publishUpdateCampaignEvent(BaseDto<Campaign> campaign) {
     CampaignEvent campaignEvent = new CampaignEvent(
-        baseDto.getId(),
-        baseDto.getData().getStatus(),
-        baseDto.getData().getStartDate(),
-        baseDto.getData().getEndDate(),
+        campaign.getId(),
+        campaign.getData().getStatus(),
+        campaign.getData().getStartDate(),
+        campaign.getData().getEndDate(),
         KafkaEventType.CAMPAIGN_UPDATED
     );
 

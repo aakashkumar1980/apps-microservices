@@ -8,6 +8,7 @@ import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
 import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,8 @@ public class OfferCommandService {
    */
   public String createOffer(Offer offer) {
     log.info("Creating offer: {}", offer);
+    // build the BaseDto for the offer with default values
+    BaseDto<Offer> baseOffer = BaseDto.build(offer);
 
     /** DATA VALIDATION **/
     // Validate that the offer has a valid campaign
@@ -69,11 +72,9 @@ public class OfferCommandService {
 
     // generate a unique ID for the offer using a counter
     String id = "offer::" + dbUtils.getUniqueCounter(couchbaseTemplate, offerCounterKey);
-    // build the BaseDto for the offer with default values
-    BaseDto<Offer> baseDto = BaseDto.build(offer);
-    baseDto.setId(id);
+    baseOffer.setId(id);
     // Save the offer to the repository
-    BaseDto<Offer> savedDto = offerCommandRepository.save(baseDto);
+    BaseDto<Offer> savedDto = offerCommandRepository.save(baseOffer);
 
     return savedDto.getId();
   }
@@ -89,14 +90,14 @@ public class OfferCommandService {
     log.info("Deactivating offers for campaign ID: {}", campaignId);
 
     // Retrieve all offers associated with the given campaign ID
-    List<BaseDto<Offer>> offers = offerCommandRepository.getOffersByCampaignId(campaignId);
-    if (offers != null && !offers.isEmpty()) {
+    List<BaseDto<Offer>> offersByCampaign = offerCommandRepository.getOffersByCampaignId(campaignId);
+    if (CollectionUtils.isNotEmpty(offersByCampaign)) {
       // Iterate through the filtered offers and set their status to INACTIVE
-      offers.forEach(baseDto -> {
-        baseDto.getData().setStatus(OfferStatus.INACTIVE);
+      offersByCampaign.forEach(offer -> {
+        offer.getData().setStatus(OfferStatus.INACTIVE);
 
-        log.info("Deactivating offer with ID: {}", baseDto.getId());
-        offerCommandRepository.save(baseDto);
+        log.info("Deactivating offer with ID: {}", offer.getId());
+        offerCommandRepository.save(offer);
       });
 
     } else {

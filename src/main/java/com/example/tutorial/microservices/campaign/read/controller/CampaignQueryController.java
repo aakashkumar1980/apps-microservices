@@ -44,9 +44,9 @@ public class CampaignQueryController {
   @GetMapping("/{id}")
   public ResponseEntity<BaseDto<Campaign>> getCampaignById(@PathVariable String id) {
     log.info("Fetching campaign with ID: {}", id);
-    Optional<BaseDto<Campaign>> campaign = campaignQueryService.getCampaignById(id);
-    if (campaign.isPresent()) {
-      return ResponseEntity.ok(campaign.get());
+    Optional<BaseDto<Campaign>> campaignOptional = campaignQueryService.getCampaignById(id);
+    if (campaignOptional.isPresent()) {
+      return ResponseEntity.ok(campaignOptional.get());
     } else {
       log.warn("Campaign with ID: {} not found", id);
       return ResponseEntity.notFound().build();

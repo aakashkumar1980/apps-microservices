@@ -1,7 +1,7 @@
 package com.example.tutorial.common.dto.merchant.events;
 
 import com.example.tutorial.common.dto.Event;
-import com.example.tutorial.common.dto.KafkaEventType;
+import com.example.tutorial.common.constants.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 

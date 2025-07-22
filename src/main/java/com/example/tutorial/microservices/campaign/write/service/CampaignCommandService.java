@@ -50,39 +50,39 @@ public class CampaignCommandService {
    */
   public String createCampaign(Campaign campaign) {
     log.info("Creating campaign: {}", campaign);
+    // build the BaseDto for the campaign with default values
+    BaseDto<Campaign> baseCampaign = BaseDto.build(campaign);
 
     // generate a unique ID for the campaign
     String id = "campaign::" + dbUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
-    // build the BaseDto for the campaign with default values
-    BaseDto<Campaign> baseDto = BaseDto.build(campaign);
-    baseDto.setId(id);
+    baseCampaign.setId(id);
     // Save the campaign to the repository
-    BaseDto<Campaign> savedDto = campaignCommandRepository.save(baseDto);
+    BaseDto<Campaign> savedCampaign = campaignCommandRepository.save(baseCampaign);
 
     // Publish the campaign created event to kafka event bus
-    campaignEventPublisher.publishCreateCampaignEvent(savedDto);
-    return savedDto.getId();
+    campaignEventPublisher.publishCreateCampaignEvent(savedCampaign);
+    return savedCampaign.getId();
   }
 
   /**
    * Update an existing campaign and publish an event to the kafka event bus.
    * TODO: Implement @Retry as this is an internal service call
    *
-   * @param baseDto the BaseDto containing the campaign data to update
+   * @param campaign the BaseDto containing the campaign data to update
    */
-  public void updateCampaign(BaseDto<Campaign> baseDto) {
-    log.info("Updating campaign: {}", baseDto);
+  public void updateCampaign(BaseDto<Campaign> campaign) {
+    log.info("Updating campaign: {}", campaign);
 
     /** DATA VALIDATION **/
     // override offer ids by keeping the original as it shouldn't be changed once assigned
-    campaignValidation.keepOriginalOfferIds(baseDto, campaignsApiUrl);
+    campaignValidation.keepOriginalOfferIds(campaign, campaignsApiUrl);
 
     // Update the updated campaign to the repository
-    baseDto.setUpdatedAt(LocalDateTime.now());
-    BaseDto<Campaign> updatedDto = campaignCommandRepository.save(baseDto);
+    campaign.setUpdatedAt(LocalDateTime.now());
+    BaseDto<Campaign> updatedCampaign = campaignCommandRepository.save(campaign);
 
     // Publish the campaign updated event to kafka event bus
-    campaignEventPublisher.publishUpdateCampaignEvent(updatedDto);
+    campaignEventPublisher.publishUpdateCampaignEvent(updatedCampaign);
   }
 
 

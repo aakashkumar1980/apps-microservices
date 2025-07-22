@@ -35,18 +35,17 @@ public class CustomerCommandService {
     List<BaseDto<Customer>> allCustomers = customerCommandRepository.getAllCustomers();
 
     // Iterate through each customer to check eligibility for the offer
-    allCustomers.forEach(baseDto -> {
-      Customer customer = baseDto.getData();
+    allCustomers.forEach(customer -> {
       // Check if the customer is eligible for the offer
-      boolean eligible = customerEligibilityEngineClient.isEligible(baseDto.getId(), offerId);
+      boolean eligible = customerEligibilityEngineClient.isEligible(customer.getId(), offerId);
       if (eligible) {
-        log.info("Customer {} is eligible for offer {}", baseDto.getId(), offerId);
+        log.info("Customer {} is eligible for offer {}", customer.getId(), offerId);
         // Add the offer ID to the customer's enrolled offers
-        customer.getEnrolledOfferIds().add(offerId);
+        customer.getData().getEnrolledOfferIds().add(offerId);
         // Save the updated customer back to the repository
-        customerCommandRepository.save(baseDto);
+        customerCommandRepository.save(customer);
       } else {
-        log.warn("Customer {} is not eligible for offer {}", baseDto.getId(), offerId);
+        log.warn("Customer {} is not eligible for offer {}", customer.getId(), offerId);
         // TODO: Logic to handle ineligibility, e.g., notifying the customer or logging
       }
     });

@@ -1,4 +1,4 @@
-package com.example.tutorial.common.dto;
+package com.example.tutorial.common.constants;
 
 public enum KafkaEventType {
   CAMPAIGN_CREATED,

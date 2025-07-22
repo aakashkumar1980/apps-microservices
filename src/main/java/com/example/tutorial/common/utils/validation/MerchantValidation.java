@@ -3,7 +3,7 @@ package com.example.tutorial.common.utils.validation;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.merchant.Merchant;
 import com.example.tutorial.common.dto.merchant.events.MerchantEvent;
-import com.example.tutorial.common.dto.KafkaEventType;
+import com.example.tutorial.common.constants.KafkaEventType;
 import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;
@@ -42,8 +42,8 @@ public class MerchantValidation {
   public void validateMerchant(String merchantId, String merchantsApiUrl) {
     log.info("Validating existence of merchant with ID: {}", merchantId);
 
-    Optional<String> merchantEventStringOptional = cacheUtils.getCache(merchantId);
-    if (merchantEventStringOptional.isEmpty()) {
+    Optional<String> merchantEventOptional = cacheUtils.getCache(merchantId);
+    if (merchantEventOptional.isEmpty()) {
       log.info("Fetching data for ID {} from merchants API", merchantId);
       Optional<BaseDto<Merchant>> merchantOptional = apiUtils.fetchAndCacheBaseDtoById(
           merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {},

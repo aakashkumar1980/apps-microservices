@@ -39,9 +39,9 @@ public class CustomerQueryController {
   @GetMapping("/{id}")
   public ResponseEntity<BaseDto<Customer>> getCustomerById(@PathVariable String id) {
     log.info("Fetching customer with ID: {}", id);
-    Optional<BaseDto<Customer>> customer = customerQueryService.getCustomerById(id);
-    if (customer.isPresent()) {
-      return ResponseEntity.ok(customer.get());
+    Optional<BaseDto<Customer>> customerOptional = customerQueryService.getCustomerById(id);
+    if (customerOptional.isPresent()) {
+      return ResponseEntity.ok(customerOptional.get());
     } else {
       log.warn("Customer with ID: {} not found", id);
       return ResponseEntity.notFound().build();
