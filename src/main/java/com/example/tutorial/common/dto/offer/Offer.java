@@ -45,6 +45,11 @@ public class Offer {
   @Field("discount_amount")
   private BigDecimal discountAmount;
 
+  @NotNull
+  @JsonProperty("segment_criteria")
+  @Field("segment_criteria")
+  private Segment segmentCriteria;
+
   @NotBlank
   @Pattern(regexp = "^[A-Z]{3}$", message = "Currency must be ISO 4217 format (e.g., USD, INR)")
   @JsonProperty("currency")
@@ -87,6 +92,9 @@ public class Offer {
   public BigDecimal getDiscountAmount() { return discountAmount; }
   public void setDiscountAmount(BigDecimal discountAmount) { this.discountAmount = discountAmount; }
 
+  public Segment getSegmentCriteria() { return segmentCriteria; }
+  public void setSegmentCriteria(Segment segment) { this.segmentCriteria = segmentCriteria; }
+
   public String getCurrency() { return currency; }
   public void setCurrency(String currency) { this.currency = currency; }
 
@@ -109,6 +117,7 @@ public class Offer {
         ", type=" + type +
         ", status=" + status +
         ", discountAmount=" + discountAmount +
+        ", segmentCriteria=" + segmentCriteria +
         ", currency='" + currency + '\'' +
         ", validFrom=" + validFrom +
         ", validTo=" + validTo +

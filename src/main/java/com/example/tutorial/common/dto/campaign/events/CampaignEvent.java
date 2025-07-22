@@ -4,14 +4,23 @@ import com.example.tutorial.common.dto.Event;
 import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CampaignEvent extends Event {
+
+  @JsonProperty("id")
   private String id;
+
+  @JsonProperty("status")
   private CampaignStatus status;
+
+  @JsonProperty("start_date")
   private LocalDateTime startDate;
+
+  @JsonProperty("end_date")
   private LocalDateTime endDate;
 
   public CampaignEvent() {}
