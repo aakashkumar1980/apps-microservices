@@ -1,7 +1,5 @@
 package com.example.tutorial.common.dto;
 
-import com.example.tutorial.common.constants.KafkaEventType;
-
 public abstract class Event {
 
   private KafkaEventType kafkaEventType;

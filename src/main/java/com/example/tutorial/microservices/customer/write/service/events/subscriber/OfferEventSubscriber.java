@@ -3,6 +3,7 @@ package com.example.tutorial.microservices.customer.write.service.events.subscri
 import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.dto.offer.events.OfferEvent;
 import com.example.tutorial.common.utils.CacheUtils;
+import com.example.tutorial.microservices.customer.ApplicationConstants;
 import com.example.tutorial.microservices.customer.write.service.CustomerCommandService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,7 +34,7 @@ public class OfferEventSubscriber {
    *
    * @param payload The JSON payload of the OfferCreated event.
    */
-  @KafkaListener(topics = "OFFER_CREATED", groupId = "customer-microservice")
+  @KafkaListener(topics = "OFFER_CREATED", groupId = ApplicationConstants.APPLICATION_NAME)
   public void subscribeCreateOfferEvent(String payload) {
     log.info("Received OfferCreated event: {}", payload);
 

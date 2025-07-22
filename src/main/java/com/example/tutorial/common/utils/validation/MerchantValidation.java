@@ -3,7 +3,7 @@ package com.example.tutorial.common.utils.validation;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.merchant.Merchant;
 import com.example.tutorial.common.dto.merchant.events.MerchantEvent;
-import com.example.tutorial.common.constants.KafkaEventType;
+import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;

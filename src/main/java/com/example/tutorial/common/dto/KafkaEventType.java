@@ -1,0 +1,14 @@
+package com.example.tutorial.common.dto;
+
+public enum KafkaEventType {
+  CAMPAIGN_CREATED,
+  CAMPAIGN_UPDATED,
+  CAMPAIGN_DELETED,
+
+  OFFER_CREATED,
+  OFFER_UPDATED,
+  OFFER_DELETED,
+
+  MERCHANT_CREATED,
+  MERCHANT_UPDATED
+}

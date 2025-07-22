@@ -3,6 +3,7 @@ package com.example.tutorial.microservices.offer.write.service.events.subscriber
 import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
 import com.example.tutorial.common.utils.CacheUtils;
+import com.example.tutorial.microservices.offer.ApplicationConstants;
 import com.example.tutorial.microservices.offer.write.service.OfferCommandService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -79,7 +80,7 @@ public class CampaignEventSubscriber {
    *
    * @param payload the JSON payload of the CampaignDeleted event
    */
-  @KafkaListener(topics = "CAMPAIGN_DELETED", groupId = "offer-microservice")
+  @KafkaListener(topics = "CAMPAIGN_DELETED", groupId = ApplicationConstants.APPLICATION_NAME)
   public void subscribeDeleteCampaignEvent(String payload) {
     log.info("Received CampaignDeleted event: {}", payload);
 

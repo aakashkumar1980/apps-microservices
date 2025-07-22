@@ -1,7 +1,7 @@
 package com.example.tutorial.common.utils.validation;
 
 import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.constants.KafkaEventType;
+import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
