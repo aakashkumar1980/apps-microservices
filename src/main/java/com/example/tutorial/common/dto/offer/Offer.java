@@ -112,7 +112,7 @@ public class Offer {
     return "Offer{" +
         "name='" + name + '\'' +
         ", description='" + description + '\'' +
-        "campaignId='" + campaignId + '\'' +
+        "  campaignId='" + campaignId + '\'' +
         ", merchantId='" + merchantId + '\'' +
         ", type=" + type +
         ", status=" + status +

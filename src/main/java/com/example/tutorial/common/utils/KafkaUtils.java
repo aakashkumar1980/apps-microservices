@@ -23,6 +23,8 @@ public class KafkaUtils {
 
   /**
    * Publishes an event to a Kafka topic with a specific key.
+   * TODO: Implement @Retry as this is a service call
+   *
    * @param topic the Kafka topic to publish the event to
    * @param key the key for the event. This can be used to partition the events in Kafka.
    * @param event the event to publish. This should be a serializable object.

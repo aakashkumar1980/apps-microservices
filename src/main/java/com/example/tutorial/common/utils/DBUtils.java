@@ -11,6 +11,8 @@ public class DBUtils {
 
   /**
    * Get a unique counter value from Couchbase.
+   * TODO: Implement @Retry as this is a service call
+   *
    * @param couchbaseTemplate the CouchbaseTemplate
    * @param counterKey the key for the counter document
    * @return the incremented counter value

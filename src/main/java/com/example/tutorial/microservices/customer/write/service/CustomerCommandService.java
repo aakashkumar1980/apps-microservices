@@ -28,6 +28,7 @@ public class CustomerCommandService {
    * This method retrieves all customers from the repository, then
    * checks each customer's eligibility for the specified offer using the CustomerEligibilityEngineClient.
    * If a customer is eligible, the offer ID is added to their list of enrolled offers.
+   * TODO: Implement @Retry as this is an internal service call
    *
    * @param offerId The ID of the offer to be assigned.
    * @return A list of BaseDto<Customer> containing all customers who were assigned the offer.

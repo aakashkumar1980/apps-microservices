@@ -79,7 +79,6 @@ public class OfferCommandService {
     return savedOffer.getId();
   }
 
-
   /**
    * Deactivates all offers associated with a given campaign ID.
    * TODO: Implement @Retry as this is an internal service call

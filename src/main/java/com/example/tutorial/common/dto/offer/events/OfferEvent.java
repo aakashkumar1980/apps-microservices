@@ -15,6 +15,9 @@ public class OfferEvent extends Event {
   @JsonProperty("id")
   private String id;
 
+  @JsonProperty("campaign_id")
+  private String campaignId;
+
   @JsonProperty("merchant_id")
   private String merchantId;
 
@@ -32,11 +35,11 @@ public class OfferEvent extends Event {
     super(kafkaEventType);
     this.id = id;
   }
-  public OfferEvent(String id, String merchantId, OfferType type, BigDecimal discountAmount, Segment segmentCriteria, KafkaEventType kafkaEventType) {
+  public OfferEvent(String id, String campaignId, String merchantId, BigDecimal discountAmount, Segment segmentCriteria, KafkaEventType kafkaEventType) {
     super(kafkaEventType);
     this.id = id;
+    this.campaignId = campaignId;
     this.merchantId = merchantId;
-    this.type = type;
     this.discountAmount = discountAmount;
     this.segmentCriteria = segmentCriteria;
   }
@@ -47,6 +50,13 @@ public class OfferEvent extends Event {
   }
   public void setId(String id) {
     this.id = id;
+  }
+
+  public String getCampaignId() {
+    return campaignId;
+  }
+  public void setCampaignId(String campaignId) {
+    this.campaignId = campaignId;
   }
 
   public String getMerchantId() {
@@ -80,7 +90,8 @@ public class OfferEvent extends Event {
   @Override
   public String toString() {
     return "OfferEvent{" +
-        "id='" + id + '\'' +
+        "  id='" + id + '\'' +
+        ", campaignId='" + campaignId + '\'' +
         ", merchantId='" + merchantId + '\'' +
         ", type='" + type + '\'' +
         ", discountAmount=" + discountAmount +

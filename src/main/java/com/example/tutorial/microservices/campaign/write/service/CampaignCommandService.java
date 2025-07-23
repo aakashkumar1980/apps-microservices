@@ -1,11 +1,15 @@
 package com.example.tutorial.microservices.campaign.write.service;
 
 import com.example.tutorial.common.dto.BaseDto;
+import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
+import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
 import com.example.tutorial.microservices.campaign.write.service.events.publisher.CampaignEventPublisher;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,8 @@ import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CampaignCommandService {
@@ -37,6 +43,9 @@ public class CampaignCommandService {
 
   @Autowired
   private DBUtils dbUtils;
+
+  @Autowired
+  private APIUtils apiUtils;
 
   @Value("${campaigns.api.url}")
   String campaignsApiUrl;
@@ -85,8 +94,6 @@ public class CampaignCommandService {
     campaignEventPublisher.publishUpdateCampaignEvent(updatedCampaign);
   }
 
-
-
   /**
    * Delete a campaign by its ID and publish an event to the kafka event bus.
    * TODO: Implement @Retry as this is an internal service call
@@ -101,5 +108,36 @@ public class CampaignCommandService {
 
     // Publish the campaign created event to kafka event bus
     campaignEventPublisher.publishDeleteCampaignEvent(id);
+  }
+
+  /**
+   * Link an offer to a campaign by campaign ID and offer ID.
+   * If the offer is already linked, it will not be added again.
+   * TODO: Implement @Retry as this is an internal service call
+   *
+   * @param campaignId the ID of the campaign
+   * @param offerId    the ID of the offer to link
+   */
+  public void linkOfferToCampaign(String campaignId, String offerId) {
+    log.info("Linking offer {} to campaign {}", offerId, campaignId);
+
+    // Fetch the campaign by ID
+    Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
+        campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
+        new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
+    if (originalCampaignOptional.isPresent()) {
+      BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
+      // Get the existing offer IDs from the campaign
+      List<String> existingOfferIds = originalCampaign.getData().getOfferIds();
+      if(!existingOfferIds.contains(offerId)) {
+        existingOfferIds.add(offerId);
+        log.info("Adding offer {} to campaign {}", offerId, campaignId);
+        campaignCommandRepository.save(originalCampaign);
+
+      } else {
+        log.info("Offer {} is already linked to campaign {}", offerId, campaignId);
+      }
+    }
+
   }
 }

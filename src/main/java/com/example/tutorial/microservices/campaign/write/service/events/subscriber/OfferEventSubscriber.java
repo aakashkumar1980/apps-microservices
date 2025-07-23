@@ -1,23 +1,18 @@
-package com.example.tutorial.microservices.customer.write.service.events.subscriber;
+package com.example.tutorial.microservices.campaign.write.service.events.subscriber;
 
 import com.example.tutorial.common.constants.CacheConstants;
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.customer.Customer;
 import com.example.tutorial.common.dto.offer.events.OfferEvent;
 import com.example.tutorial.common.utils.CacheUtils;
+import com.example.tutorial.microservices.campaign.write.service.CampaignCommandService;
 import com.example.tutorial.microservices.customer.ApplicationConstants;
-import com.example.tutorial.microservices.customer.write.service.CustomerCommandService;
-import com.example.tutorial.microservices.customer.write.service.events.publisher.OfferAssignedEventPublisher;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.collections.CollectionUtils;
+import io.micrometer.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class OfferEventSubscriber {
@@ -25,7 +20,7 @@ public class OfferEventSubscriber {
   private static final Logger log = LoggerFactory.getLogger(OfferEventSubscriber.class);
 
   @Autowired
-  private CustomerCommandService customerCommandService;
+  private CampaignCommandService campaignCommandService;
 
   @Autowired
   private ObjectMapper objectMapper;
@@ -33,13 +28,9 @@ public class OfferEventSubscriber {
   @Autowired
   private CacheUtils cacheUtils;
 
-  @Autowired
-  private OfferAssignedEventPublisher offerAssignedEventPublisher;
-
   /**
-   * This method listens to the OFFER_CREATED topic and processes the OfferCreated event.
-   * It caches the offer details and checks if customers are eligible for the offer.
-   * If eligible, it assigns the offer to the customers and publishes an OfferAssigned event.
+   * This method listens to the Kafka topic "OFFER_CREATED" for OfferCreated events.
+   * When an event is received, it caches the offer details and links the offer to the Campaign.
    *
    * @param payload The JSON payload of the OfferCreated event.
    */
@@ -55,13 +46,10 @@ public class OfferEventSubscriber {
       // Cache the offer details in Redis
       cacheUtils.setCache(offerId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
 
-      // Check if the customer is eligible for the offer. If eligible, assign the offer to the customer.
-      List<BaseDto<Customer>> eligibleCustomers = customerCommandService.assignOfferToCustomer(offerId);
-      log.info("Assigned offer {} to {} customers successfully", offerId, eligibleCustomers.size());
-
-      // Publish the offer assignment event
-      if(CollectionUtils.isNotEmpty(eligibleCustomers)) {
-        offerAssignedEventPublisher.publishOfferAssignedEvent(offerId, eligibleCustomers);
+      // Link the offers to the Campaign
+      String campaignId = offerEvent.getCampaignId();
+      if (StringUtils.isNotBlank(campaignId)) {
+        campaignCommandService.linkOfferToCampaign(campaignId, offerId);
       }
 
     } catch (JsonProcessingException e) {
