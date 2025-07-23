@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,11 +30,13 @@ public class CustomerCommandService {
    * If a customer is eligible, the offer ID is added to their list of enrolled offers.
    *
    * @param offerId The ID of the offer to be assigned.
+   * @return A list of BaseDto<Customer> containing all customers who were assigned the offer.
    */
-  public void assignOfferToCustomer(String offerId) {
+  public List<BaseDto<Customer>> assignOfferToCustomer(String offerId) {
     // Retrieve all customers from the repository
     List<BaseDto<Customer>> allCustomers = customerCommandRepository.getAllCustomers();
 
+    List<BaseDto<Customer>> eligibleCustomers = new ArrayList<BaseDto<Customer>>();
     // Iterate through each customer to check eligibility for the offer
     allCustomers.forEach(customer -> {
       // Check if the customer is eligible for the offer
@@ -44,11 +47,14 @@ public class CustomerCommandService {
         customer.getData().getEnrolledOfferIds().add(offerId);
         // Save the updated customer back to the repository
         customerCommandRepository.save(customer);
+        eligibleCustomers.add(customer);
       } else {
         log.warn("Customer {} is not eligible for offer {}", customer.getId(), offerId);
         // TODO: Logic to handle ineligibility, e.g., notifying the customer or logging
       }
     });
+
+    return eligibleCustomers;
   }
 
 }

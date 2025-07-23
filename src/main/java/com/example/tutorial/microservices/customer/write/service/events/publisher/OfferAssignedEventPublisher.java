@@ -2,13 +2,15 @@ package com.example.tutorial.microservices.customer.write.service.events.publish
 
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.KafkaEventType;
-import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
+import com.example.tutorial.common.dto.customer.Customer;
+import com.example.tutorial.common.dto.customer.events.OfferAssignedEvent;
 import com.example.tutorial.common.utils.KafkaUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Service for publishing campaign command events to Kafka.
@@ -22,50 +24,28 @@ public class OfferAssignedEventPublisher {
   private KafkaUtils kafkaUtils;
 
   /**
-   * Publishes a campaign creation event to Kafka.
-   * @param campaign the BaseDto containing the campaign data
+   * Publishes an OfferAssignedEvent to Kafka. This is used by the "Recommendation Engine"
+   * for offer personalization which includes ranking, filtering, or tailoring offers based on
+   * customer data such as purchase history, browsing behavior, preferences, or demographics.
+   * for example,
+   * A customer frequently buys electronics and rarely shops for clothing. The recommendation engine,
+   * upon receiving a list of eligible offers, prioritizes or highlights electronics-related offers for
+   * this customer, while deprioritizing or omitting clothing offers. This increases the chance the
+   * customer will engage with the offer.
+   *
+   * @param offerId The ID of the offer being assigned.
+   * @param eligibleCustomers The list of eligible customers for the offer.
    */
-  public void publishOfferAssignedEvent(BaseDto<Campaign> campaign) {
-    CampaignEvent campaignEvent = new CampaignEvent(
-        campaign.getId(),
-        campaign.getData().getStatus(),
-        campaign.getData().getStartDate(),
-        campaign.getData().getEndDate(),
-        KafkaEventType.CAMPAIGN_CREATED
+  public void publishOfferAssignedEvent(String offerId, List<BaseDto<Customer>> eligibleCustomers) {
+    OfferAssignedEvent offerAssignedEvent = new OfferAssignedEvent(
+        offerId,
+        eligibleCustomers.stream().map(BaseDto::getId).toList(),
+        java.time.LocalDateTime.now(),
+        KafkaEventType.CUSTOMER_OFFER_ASSIGNED
     );
 
-    log.info("Publishing campaign creation event: {}", campaignEvent);
-    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getCampaignId(), campaignEvent);
+    log.info("Publishing OfferAssignedEvent: {}", offerAssignedEvent);
+    kafkaUtils.publishEvent(offerAssignedEvent.getKafkaEventType().name(), offerAssignedEvent.getOfferId(), offerAssignedEvent);
   }
 
-  /**
-   * Publishes a campaign update event to Kafka.
-   * @param campaign the BaseDto containing the updated campaign data
-   */
-  public void publishUpdateCampaignEvent(BaseDto<Campaign> campaign) {
-    CampaignEvent campaignEvent = new CampaignEvent(
-        campaign.getId(),
-        campaign.getData().getStatus(),
-        campaign.getData().getStartDate(),
-        campaign.getData().getEndDate(),
-        KafkaEventType.CAMPAIGN_UPDATED
-    );
-
-    log.info("Publishing campaign update event: {}", campaignEvent);
-    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getCampaignId(), campaignEvent);
-  }
-
-  /**
-   * Publishes a campaign delete event to Kafka.
-   * @param id the ID of the campaign that was deleted
-   */
-  public void publishDeleteCampaignEvent(String id) {
-    CampaignEvent campaignEvent = new CampaignEvent(
-        id,
-        KafkaEventType.CAMPAIGN_DELETED
-    );
-
-    log.info("Publishing campaign delete event: {}", campaignEvent);
-    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getCampaignId(), campaignEvent);
-  }
 }
