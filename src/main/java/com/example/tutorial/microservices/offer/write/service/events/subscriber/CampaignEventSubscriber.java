@@ -75,14 +75,14 @@ public class CampaignEventSubscriber {
   }
 
   /**
-   * Handles the CampaignDeleted campaignEvent by removing the campaign from Redis cache
+   * Handles the Campaign Cancelled campaignEvent by removing the campaign from Redis cache
    * and deactivating associated offers.
    *
    * @param payload the JSON payload of the CampaignDeleted event
    */
-  @KafkaListener(topics = "CAMPAIGN_DELETED", groupId = ApplicationConstants.APPLICATION_NAME)
-  public void subscribeDeleteCampaignEvent(String payload) {
-    log.info("Received CampaignDeleted event: {}", payload);
+  @KafkaListener(topics = "CAMPAIGN_CANCELLED", groupId = ApplicationConstants.APPLICATION_NAME)
+  public void subscribeCancelCampaignEvent(String payload) {
+    log.info("Received CampaignCancelled event: {}", payload);
 
     CampaignEvent campaignEvent = null;
     try {

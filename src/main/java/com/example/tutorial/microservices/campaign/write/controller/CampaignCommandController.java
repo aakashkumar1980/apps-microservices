@@ -48,15 +48,15 @@ public class CampaignCommandController {
     }
 
     /**
-     * Handles the deletion of a campaign by its ID.
+     * Handles the cancellation of a campaign by its ID.
      *
-     * @param id the ID of the campaign to be deleted
+     * @param id the ID of the campaign to be cancelled
      * @return a response entity with a success message
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCampaign(@PathVariable String id) {
-        log.info("Received request to delete campaign with ID: {}", id);
-        campaignCommandService.deleteCampaign(id);
-        return ResponseEntity.ok("Campaign deleted successfully");
+    public ResponseEntity<String> cancelCampaign(@PathVariable String id) {
+        log.info("Received request to cancel campaign with ID: {}", id);
+        campaignCommandService.cancelCampaign(id);
+        return ResponseEntity.ok("Campaign cancelled successfully");
     }
 }

@@ -3,7 +3,9 @@ package com.example.tutorial.microservices.campaign.write.service;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.dto.campaign.CampaignStatus;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
+import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
@@ -95,19 +97,31 @@ public class CampaignCommandService {
   }
 
   /**
-   * Delete a campaign by its ID and publish an event to the kafka event bus.
+   * Cancel a campaign by its ID and publish an event to the kafka event bus.
    * TODO: Implement @Retry as this is an internal service call
    *
    * @param id the ID of the campaign to delete
+   * @throws ApplicationFunctionalException
    */
-  public void deleteCampaign(String id) {
-    log.info("Deleting campaign with ID: {}", id);
+  public void cancelCampaign(String id) {
+    log.info("Cancelling campaign with ID: {}", id);
 
-    // Delete the campaign from the repository
-    campaignCommandRepository.deleteById(id);
+    // change the CampaignStatus of the campaign to CANCELLED
+    Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
+        campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {},
+        new CampaignEvent(id, KafkaEventType.CAMPAIGN_CANCELLED));
+    if (originalCampaignOptional.isPresent()) {
+      BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
+      originalCampaign.getData().setStatus(CampaignStatus.CANCELLED);
+      campaignCommandRepository.save(originalCampaign);
+      log.info("Campaign with ID {} has been cancelled", id);
+
+    } else {
+      throw new ApplicationFunctionalException(String.format("Campaign with ID %s not found", id));
+    }
 
     // Publish the campaign created event to kafka event bus
-    campaignEventPublisher.publishDeleteCampaignEvent(id);
+    campaignEventPublisher.publishCancelCampaignEvent(id);
   }
 
   /**
@@ -135,7 +149,7 @@ public class CampaignCommandService {
         campaignCommandRepository.save(originalCampaign);
 
       } else {
-        log.info("Offer {} is already linked to campaign {}", offerId, campaignId);
+        log.warn("Offer {} is already linked to campaign {}", offerId, campaignId);
       }
     }
 

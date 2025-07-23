@@ -56,16 +56,16 @@ public class CampaignEventPublisher {
   }
 
   /**
-   * Publishes a campaign delete event to Kafka.
-   * @param id the ID of the campaign that was deleted
+   * Publishes a campaign cancellation event to Kafka.
+   * @param id the ID of the campaign that was cancelled
    */
-  public void publishDeleteCampaignEvent(String id) {
+  public void publishCancelCampaignEvent(String id) {
     CampaignEvent campaignEvent = new CampaignEvent(
         id,
-        KafkaEventType.CAMPAIGN_DELETED
+        KafkaEventType.CAMPAIGN_CANCELLED
     );
 
-    log.info("Publishing campaign delete event: {}", campaignEvent);
+    log.info("Publishing campaign cancel event: {}", campaignEvent);
     kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getCampaignId(), campaignEvent);
   }
 }
