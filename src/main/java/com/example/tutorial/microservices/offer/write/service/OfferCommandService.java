@@ -74,9 +74,9 @@ public class OfferCommandService {
     String id = "offer::" + dbUtils.getUniqueCounter(couchbaseTemplate, offerCounterKey);
     baseOffer.setId(id);
     // Save the offer to the repository
-    BaseDto<Offer> savedDto = offerCommandRepository.save(baseOffer);
+    BaseDto<Offer> savedOffer = offerCommandRepository.save(baseOffer);
 
-    return savedDto.getId();
+    return savedOffer.getId();
   }
 
 
