@@ -14,7 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-@Service
+
+@Service("CampaignOfferEventSubscriber") // Ensure the service name is unique to avoid conflicts with other subscribers
 public class OfferEventSubscriber {
 
   private static final Logger log = LoggerFactory.getLogger(OfferEventSubscriber.class);

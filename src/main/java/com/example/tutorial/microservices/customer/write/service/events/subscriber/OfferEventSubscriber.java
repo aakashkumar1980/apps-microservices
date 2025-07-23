@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("CustomerOfferEventSubscriber") // Ensure the service name is unique to avoid conflicts with other subscribers
 public class OfferEventSubscriber {
 
   private static final Logger log = LoggerFactory.getLogger(OfferEventSubscriber.class);
