@@ -2,57 +2,49 @@ package com.example.tutorial.common.dto.merchant.events;
 
 import com.example.tutorial.common.dto.Event;
 import com.example.tutorial.common.dto.KafkaEventType;
-import com.example.tutorial.common.dto.campaign.CampaignStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MerchantEvent extends Event {
-  private String id;
-  private LocalDateTime startDate;
-  private LocalDateTime endDate;
+
+  @JsonProperty("merchant_id")
+  private String merchantId;
+
+  @JsonProperty("merchant_code")
+  private String merchantCode;
 
   public MerchantEvent() {}
-  public MerchantEvent(String id, KafkaEventType kafkaEventType) {
+  public MerchantEvent(String merchantId, KafkaEventType kafkaEventType) {
     super(kafkaEventType);
-    this.id = id;
+    this.merchantId = merchantId;
   }
-  public MerchantEvent(String id, CampaignStatus status, LocalDateTime startDate, LocalDateTime endDate, KafkaEventType kafkaEventType) {
+  public MerchantEvent(String merchantId, String merchantCode, KafkaEventType kafkaEventType) {
     super(kafkaEventType);
-    this.id = id;
-    this.startDate = startDate;
-    this.endDate = endDate;
+    this.merchantId = merchantId;
+    this.merchantCode = merchantCode;
   }
 
   // Getters and Setters
-  public String getId() {
-    return id;
+  public String getMerchantId() {
+    return merchantId;
   }
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public LocalDateTime getStartDate() {
-    return startDate;
-  }
-  public void setStartDate(LocalDateTime startDate) {
-    this.startDate = startDate;
+  public void setMerchantId(String merchantId) {
+    this.merchantId = merchantId;
   }
 
-  public LocalDateTime getEndDate() {
-    return endDate;
+  public String getMerchantCode() {
+    return merchantCode;
   }
-  public void setEndDate(LocalDateTime endDate) {
-    this.endDate = endDate;
+  public void setMerchantCode(String merchantCode) {
+    this.merchantCode = merchantCode;
   }
 
   @Override
   public String toString() {
     return "CampaignEvent{" +
-        "id='" + id + '\'' +
-        ", startDate=" + startDate +
-        ", endDate=" + endDate +
+        "merchantId='" + merchantId + '\'' +
+        ", merchantCode='" + merchantCode + '\'' +
         '}';
   }
 }

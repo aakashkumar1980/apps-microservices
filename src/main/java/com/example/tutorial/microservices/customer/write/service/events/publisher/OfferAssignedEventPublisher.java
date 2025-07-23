@@ -1,4 +1,4 @@
-package com.example.tutorial.microservices.campaign.write.service.events.publisher;
+package com.example.tutorial.microservices.customer.write.service.events.publisher;
 
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.KafkaEventType;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
  * Service for publishing campaign command events to Kafka.
  */
 @Service
-public class CampaignEventPublisher {
+public class OfferAssignedEventPublisher {
 
-  private static final Logger log = LoggerFactory.getLogger(CampaignEventPublisher.class);
+  private static final Logger log = LoggerFactory.getLogger(OfferAssignedEventPublisher.class);
 
   @Autowired
   private KafkaUtils kafkaUtils;
@@ -25,7 +25,7 @@ public class CampaignEventPublisher {
    * Publishes a campaign creation event to Kafka.
    * @param campaign the BaseDto containing the campaign data
    */
-  public void publishCreateCampaignEvent(BaseDto<Campaign> campaign) {
+  public void publishOfferAssignedEvent(BaseDto<Campaign> campaign) {
     CampaignEvent campaignEvent = new CampaignEvent(
         campaign.getId(),
         campaign.getData().getStatus(),

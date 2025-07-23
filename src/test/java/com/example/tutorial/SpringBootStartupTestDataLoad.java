@@ -2,8 +2,10 @@ package com.example.tutorial;
 
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.dto.customer.Customer;
 import com.example.tutorial.common.dto.merchant.Merchant;
 import com.example.tutorial.common.dto.offer.Offer;
+import com.example.tutorial.microservices.customer.read.repository.CustomerQueryRepository;
 import com.example.tutorial.microservices.merchant.read.repository.MerchantQueryRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,6 +52,9 @@ public class SpringBootStartupTestDataLoad {
   @Value("${merchant.counter.key}")
   private String merchantCounterKey;
 
+  @Value("{customer.counter.key}")
+  private String customerCounterKey;
+
   @Autowired
   private ObjectMapper objectMapper;
 
@@ -61,6 +66,9 @@ public class SpringBootStartupTestDataLoad {
 
   @Autowired
   private MerchantQueryRepository merchantRepository;
+
+  @Autowired
+  private CustomerQueryRepository customerRepository;
 
   /**
    * This method is executed after the Spring Boot application context is loaded.
@@ -74,29 +82,34 @@ public class SpringBootStartupTestDataLoad {
     List<BaseDto<Campaign>> campaigns = readJsonArray("sample_data/campaign.json", new TypeReference<List<BaseDto<Campaign>>>() {});
     List<BaseDto<Offer>> offers = readJsonArray("sample_data/offer.json", new TypeReference<List<BaseDto<Offer>>>() {});
     List<BaseDto<Merchant>> merchants = readJsonArray("sample_data/merchant.json", new TypeReference<List<BaseDto<Merchant>>>() {});
+    List<BaseDto<Customer>> customers = readJsonArray("sample_data/customer.json", new TypeReference<List<BaseDto<Customer>>>() {});
 
     // 2. Remove all existing docs for each type (offers, merchants, campaigns)
     offerRepository.deleteAll();
     campaignRepository.deleteAll();
     merchantRepository.deleteAll();
+    customerRepository.deleteAll();
 
     // 3. Reset counters
     setCounterTo(campaignCounterKey, 0);
     setCounterTo(offerCounterKey, 0);
     setCounterTo(merchantCounterKey, 0);
+    setCounterTo(customerCounterKey, 0);
 
     // 4. Insert fresh docs
     campaignRepository.saveAll(campaigns);
     offerRepository.saveAll(offers);
     merchantRepository.saveAll(merchants);
+    customerRepository.saveAll(List.of());
 
     // 5. Increment counters to the number of documents inserted
     setCounterTo(campaignCounterKey, campaigns.size());
     setCounterTo(offerCounterKey, offers.size());
     setCounterTo(merchantCounterKey, merchants.size());
+    setCounterTo(customerCounterKey, customers.size());
 
-    log.info("Test data loaded successfully: {} campaigns, {} offers, {} merchants",
-        campaigns.size(), offers.size(), merchants.size());
+    log.info("Test data loaded successfully: {} campaigns, {} offers, {} merchants, {} customers",
+        campaigns.size(), offers.size(), merchants.size(), customers.size());
   }
 
   /** PRIVATE METHODS **/
