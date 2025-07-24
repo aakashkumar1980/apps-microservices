@@ -47,6 +47,7 @@ public class CampaignValidation {
    * @param campaignsApiUrl The URL of the campaigns API to fetch the original campaign.
    */
   public void keepOriginalOfferIds(BaseDto<Campaign> campaign, String campaignsApiUrl) {
+    log.info("Overriding offer IDs for campaign: {}", campaign.getData().getOfferIds());
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, campaign.getId(), new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(campaign.getId(), KafkaEventType.CAMPAIGN_UPDATED));
