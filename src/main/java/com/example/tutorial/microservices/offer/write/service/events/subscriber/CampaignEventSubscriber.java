@@ -97,9 +97,9 @@ public class CampaignEventSubscriber {
       log.info("Removed campaign {} from Redis cache", campaignId);
 
       /** BUSINESS LOGIC **/
-      // Deactivate all offers associated with the campaign
-      offerCommandService.deactivateOffers(campaignId);
-      log.info("Deactivated offers for campaign {}", campaignId);
+      // Cancel all offers associated with the campaign
+      offerCommandService.cancelOffers(campaignId);
+      log.info("Cancelled offers for campaign {}", campaignId);
 
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);

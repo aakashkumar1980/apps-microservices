@@ -77,13 +77,13 @@ public class OfferCommandService {
   }
 
   /**
-   * Deactivates all offers associated with a given campaign ID.
+   * Cancels all offers associated with a given campaign ID.
    * TODO: Implement @Retry as this is an internal service call
    *
-   * @param campaignId the ID of the campaign whose offers are to be deactivated
+   * @param campaignId the ID of the campaign whose offers are to be cancelled
    */
-  public void deactivateOffers(String campaignId) {
-    log.info("Deactivating offers for campaign ID: {}", campaignId);
+  public void cancelOffers(String campaignId) {
+    log.info("Cancelling offers for campaign ID: {}", campaignId);
 
     /** PERSIST DATA **/
     // Retrieve all offers associated with the given campaign ID
@@ -91,9 +91,9 @@ public class OfferCommandService {
     if (CollectionUtils.isNotEmpty(offersByCampaign)) {
       // Iterate through the filtered offers and set their status to INACTIVE
       offersByCampaign.forEach(offer -> {
-        offer.getData().setStatus(OfferStatus.INACTIVE);
+        offer.getData().setStatus(OfferStatus.CANCELLED);
 
-        log.info("Deactivating offer with ID: {}", offer.getId());
+        log.info("Cancelling offer with ID: {}", offer.getId());
         offerCommandRepository.save(offer);
       });
 
