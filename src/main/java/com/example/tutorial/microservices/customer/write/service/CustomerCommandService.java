@@ -2,11 +2,14 @@ package com.example.tutorial.microservices.customer.write.service;
 
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.customer.Customer;
+import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.validation.CustomerEligibilityEngineClient;
 import com.example.tutorial.microservices.customer.write.repository.CustomerCommandRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +26,12 @@ public class CustomerCommandService {
   @Autowired
   private CustomerEligibilityEngineClient customerEligibilityEngineClient;
 
+  @Autowired
+  private APIUtils apiUtils;
+
+  @Value("{customers.api.url")
+  private String customersApiUrl;
+
   /**
    * Assigns an offer to all customers who are eligible for it.
    * This method retrieves all customers from the repository, then
@@ -35,7 +44,8 @@ public class CustomerCommandService {
    */
   public List<BaseDto<Customer>> assignOfferToCustomer(String offerId) {
     // Retrieve all customers from the repository
-    List<BaseDto<Customer>> allCustomers = customerCommandRepository.getAllCustomers();
+    //List<BaseDto<Customer>> allCustomers = customerCommandRepository.getAllCustomers();
+    List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
 
     /** PERSIST DATA **/
     List<BaseDto<Customer>> eligibleCustomers = new ArrayList<BaseDto<Customer>>();

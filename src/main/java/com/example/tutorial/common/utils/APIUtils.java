@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -69,6 +70,33 @@ public class APIUtils {
       }
     } else {
       return Optional.empty();
+    }
+  }
+
+  /**
+   * Fetch a list of BaseDto from the specified REST API URL.
+   *
+   * @param apiUrl        The API URL to fetch the BaseDto list from.
+   * @param typeReference The TypeReference for the list of BaseDto type.
+   * @param <T>           The type of the BaseDto.
+   * @return              List of BaseDto fetched from the API.
+   */
+  public <T> List<BaseDto<T>> fetchBaseDtoList(
+      String apiUrl,
+      TypeReference<List<BaseDto<T>>> typeReference
+  ) {
+    String responseString = restTemplate.getForObject(
+        apiUrl , String.class);
+    log.info("REST API Response from {} API: {}", apiUrl, responseString);
+
+    if (StringUtils.isNotBlank(responseString)) {
+      try {
+        return objectMapper.readValue(responseString, typeReference);
+      } catch (JsonProcessingException e) {
+        throw new RuntimeException(e);
+      }
+    } else {
+      return List.of();
     }
   }
 }

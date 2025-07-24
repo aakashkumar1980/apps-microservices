@@ -31,5 +31,11 @@ public class OfferCommandController {
     return ResponseEntity.ok(String.format("Offer created successfully with ID: %s", id));
   }
 
+  @DeleteMapping("/{id}")
+  public ResponseEntity<String> cancelOffer(@PathVariable String id) {
+    log.info("Received request to cancel offer with ID: {}", id);
+    //offerCommandService.cancelOffer(id);
+    return ResponseEntity.ok("Offer cancelled successfully");
+  }
 
 }
