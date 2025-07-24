@@ -40,6 +40,7 @@ public class MerchantCommandService {
   public void linkOfferToMerchant(String merchantId, String offerId) {
     log.info("Linking offer {} to merchant {}", offerId, merchantId);
 
+    /** PERSIST DATA **/
     // Fetch the merchant by ID
     Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchAndCacheBaseDtoById(
         merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {},
@@ -54,7 +55,7 @@ public class MerchantCommandService {
         merchantCommandRepository.save(originalMerchant);
 
       } else {
-        log.info("Offer {} is already linked to campaign {}", offerId, merchantId);
+        log.warn("Offer {} is already linked to campaign {}", offerId, merchantId);
       }
     }
   }

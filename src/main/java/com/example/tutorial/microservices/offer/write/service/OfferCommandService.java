@@ -3,18 +3,16 @@ package com.example.tutorial.microservices.offer.write.service;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.offer.Offer;
 import com.example.tutorial.common.dto.offer.OfferStatus;
-import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
 import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.tutorial.microservices.offer.write.service.events.publisher.OfferEventPublisher;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,15 +35,6 @@ public class OfferCommandService {
   private CouchbaseTemplate couchbaseTemplate;
 
   @Autowired
-  private RedisTemplate<String, String> redisTemplate;
-
-  @Autowired
-  private ObjectMapper objectMapper;
-
-  @Autowired
-  private APIUtils apiUtils;
-
-  @Autowired
   private DBUtils dbUtils;
 
   @Value("${campaigns.api.url}")
@@ -53,6 +42,9 @@ public class OfferCommandService {
 
   @Autowired
   private CampaignValidation campaignValidation;
+
+  @Autowired
+  private OfferEventPublisher offerEventPublisher;
 
   /**
    * Creates a new offer and saves it to the repository.
@@ -70,11 +62,16 @@ public class OfferCommandService {
     // Validate that the offer has a valid campaign
     campaignValidation.validateCampaign(offer.getCampaignId(), campaignsApiUrl);
 
+    /** PERSIST DATA **/
     // generate a unique ID for the offer using a counter
     String id = "offer::" + dbUtils.getUniqueCounter(couchbaseTemplate, offerCounterKey);
     baseOffer.setId(id);
     // Save the offer to the repository
     BaseDto<Offer> savedOffer = offerCommandRepository.save(baseOffer);
+
+    /** PUBLISH EVENTS **/
+    // Publish an event for the created offer
+    offerEventPublisher.publishCreateOfferEvent(savedOffer);
 
     return savedOffer.getId();
   }
@@ -88,6 +85,7 @@ public class OfferCommandService {
   public void deactivateOffers(String campaignId) {
     log.info("Deactivating offers for campaign ID: {}", campaignId);
 
+    /** PERSIST DATA **/
     // Retrieve all offers associated with the given campaign ID
     List<BaseDto<Offer>> offersByCampaign = offerCommandRepository.getOffersByCampaignId(campaignId);
     if (CollectionUtils.isNotEmpty(offersByCampaign)) {

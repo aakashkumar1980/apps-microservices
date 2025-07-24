@@ -5,7 +5,6 @@ import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
-import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
@@ -64,12 +63,14 @@ public class CampaignCommandService {
     // build the BaseDto for the campaign with default values
     BaseDto<Campaign> baseCampaign = BaseDto.build(campaign);
 
+    /** PERSIST DATA **/
     // generate a unique ID for the campaign
     String id = "campaign::" + dbUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
     baseCampaign.setId(id);
     // Save the campaign to the repository
     BaseDto<Campaign> savedCampaign = campaignCommandRepository.save(baseCampaign);
 
+    /** PUBLISH EVENT **/
     // Publish the campaign created event to kafka event bus
     campaignEventPublisher.publishCreateCampaignEvent(savedCampaign);
     return savedCampaign.getId();
@@ -88,10 +89,12 @@ public class CampaignCommandService {
     // override offer ids by keeping the original as it shouldn't be changed once assigned
     campaignValidation.keepOriginalOfferIds(campaign, campaignsApiUrl);
 
+    /** PERSIST DATA **/
     // Update the updated campaign to the repository
     campaign.setUpdatedAt(LocalDateTime.now());
     BaseDto<Campaign> updatedCampaign = campaignCommandRepository.save(campaign);
 
+    /** PUBLISH EVENT **/
     // Publish the campaign updated event to kafka event bus
     campaignEventPublisher.publishUpdateCampaignEvent(updatedCampaign);
   }
@@ -101,25 +104,26 @@ public class CampaignCommandService {
    * TODO: Implement @Retry as this is an internal service call
    *
    * @param id the ID of the campaign to delete
-   * @throws ApplicationFunctionalException
    */
   public void cancelCampaign(String id) {
     log.info("Cancelling campaign with ID: {}", id);
 
-    // change the CampaignStatus of the campaign to CANCELLED
+    /** PERSIST DATA **/
+    // Get the campaign by ID
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(id, KafkaEventType.CAMPAIGN_CANCELLED));
     if (originalCampaignOptional.isPresent()) {
       BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
+      // Set the status to CANCELLED
       originalCampaign.getData().setStatus(CampaignStatus.CANCELLED);
+      // Persist the updated campaign
       campaignCommandRepository.save(originalCampaign);
       log.info("Campaign with ID {} has been cancelled", id);
 
-    } else {
-      throw new ApplicationFunctionalException(String.format("Campaign with ID %s not found", id));
     }
 
+    /** PUBLISH EVENT **/
     // Publish the campaign created event to kafka event bus
     campaignEventPublisher.publishCancelCampaignEvent(id);
   }
@@ -135,6 +139,7 @@ public class CampaignCommandService {
   public void linkOfferToCampaign(String campaignId, String offerId) {
     log.info("Linking offer {} to campaign {}", offerId, campaignId);
 
+    /** PERSIST DATA **/
     // Fetch the campaign by ID
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
@@ -144,6 +149,7 @@ public class CampaignCommandService {
       // Get the existing offer IDs from the campaign
       List<String> existingOfferIds = originalCampaign.getData().getOfferIds();
       if(!existingOfferIds.contains(offerId)) {
+        // If the offer is not already linked, add it to the campaign
         existingOfferIds.add(offerId);
         log.info("Adding offer {} to campaign {}", offerId, campaignId);
         campaignCommandRepository.save(originalCampaign);

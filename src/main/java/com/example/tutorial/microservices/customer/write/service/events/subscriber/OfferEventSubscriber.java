@@ -52,13 +52,16 @@ public class OfferEventSubscriber {
       offerEvent = objectMapper.readValue(payload, OfferEvent.class);
       String offerId = offerEvent.getId();
 
+      /** CACHE DATA **/
       // Cache the offer details in Redis
       cacheUtils.setCache(offerId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
 
+      /** BUSNESS LOGIC **/
       // Check if the customer is eligible for the offer. If eligible, assign the offer to the customer.
       List<BaseDto<Customer>> eligibleCustomers = customerCommandService.assignOfferToCustomer(offerId);
       log.info("Assigned offer {} to {} customers successfully", offerId, eligibleCustomers.size());
 
+      /** PUBLISH EVENT **/
       // Publish the offer assignment event
       if(CollectionUtils.isNotEmpty(eligibleCustomers)) {
         offerAssignedEventPublisher.publishOfferAssignedEvent(offerId, eligibleCustomers);

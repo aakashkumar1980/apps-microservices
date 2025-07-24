@@ -43,6 +43,7 @@ public class CampaignEventSubscriber {
       campaignEvent = objectMapper.readValue(payload, CampaignEvent.class);
       String campaignId = campaignEvent.getCampaignId();
 
+      /** CACHE DATA **/
       // Cache the campaign details in Redis
       cacheUtils.setCache(campaignId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
       log.info("Cached campaign event {} for ID {} in Redis Cache", payload, campaignId);
@@ -66,6 +67,7 @@ public class CampaignEventSubscriber {
       campaignEvent = objectMapper.readValue(payload, CampaignEvent.class);
       String campaignId = campaignEvent.getCampaignId();
 
+      /** CACHE DATA **/
       // Update the campaign details in Redis cache
       cacheUtils.setCache(campaignId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
       log.info("Cached campaign event {} for ID {} in Redis Cache", payload, campaignId);
@@ -89,10 +91,12 @@ public class CampaignEventSubscriber {
       campaignEvent = objectMapper.readValue(payload, CampaignEvent.class);
       String campaignId = campaignEvent.getCampaignId();
 
+      /** CLEAR CACHE DATA **/
       // Remove the campaign from Redis cache
       cacheUtils.delete(campaignId);
       log.info("Removed campaign {} from Redis cache", campaignId);
 
+      /** BUSINESS LOGIC **/
       // Deactivate all offers associated with the campaign
       offerCommandService.deactivateOffers(campaignId);
       log.info("Deactivated offers for campaign {}", campaignId);

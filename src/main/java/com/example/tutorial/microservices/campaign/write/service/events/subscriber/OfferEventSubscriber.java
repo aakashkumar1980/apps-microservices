@@ -4,10 +4,9 @@ import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.dto.offer.events.OfferEvent;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.campaign.write.service.CampaignCommandService;
-import com.example.tutorial.microservices.customer.ApplicationConstants;
+import com.example.tutorial.microservices.campaign.ApplicationConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.micrometer.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +43,13 @@ public class OfferEventSubscriber {
       offerEvent = objectMapper.readValue(payload, OfferEvent.class);
       String offerId = offerEvent.getId();
 
+      /** CACHE DATA **/
       // Cache the offer details in Redis
       cacheUtils.setCache(offerId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
 
+      /** BUSINESS LOGIC **/
       // Link the offers to the Campaign
-      String campaignId = offerEvent.getCampaignId();
-      if (StringUtils.isNotBlank(campaignId)) {
-        campaignCommandService.linkOfferToCampaign(campaignId, offerId);
-      }
+      campaignCommandService.linkOfferToCampaign(offerEvent.getCampaignId(), offerId);
 
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);

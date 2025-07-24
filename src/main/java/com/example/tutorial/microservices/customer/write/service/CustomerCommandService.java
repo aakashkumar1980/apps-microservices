@@ -37,6 +37,7 @@ public class CustomerCommandService {
     // Retrieve all customers from the repository
     List<BaseDto<Customer>> allCustomers = customerCommandRepository.getAllCustomers();
 
+    /** PERSIST DATA **/
     List<BaseDto<Customer>> eligibleCustomers = new ArrayList<BaseDto<Customer>>();
     // Iterate through each customer to check eligibility for the offer
     allCustomers.forEach(customer -> {
