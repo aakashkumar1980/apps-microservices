@@ -31,4 +31,5 @@ public class OfferCommandController {
     return ResponseEntity.ok(String.format("Offer created successfully with ID: %s", id));
   }
 
+
 }
