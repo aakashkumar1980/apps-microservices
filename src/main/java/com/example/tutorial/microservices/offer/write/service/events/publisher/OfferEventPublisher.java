@@ -36,4 +36,22 @@ public class OfferEventPublisher {
     kafkaUtils.publishEvent(offerEvent.getKafkaEventType().name(), offerEvent.getId(), offerEvent);
   }
 
+  /**
+   * Publishes a offer cancellation event to Kafka.
+   * @param offer the BaseDto containing the cancelled offer data
+   */
+  public void publishCancelOfferEvent(BaseDto<Offer> offer) {
+    OfferEvent offerEvent = new OfferEvent(
+        offer.getId(),
+        offer.getData().getCampaignId(),
+        offer.getData().getMerchantId(),
+        offer.getData().getDiscountAmount(),
+        offer.getData().getSegmentCriteria(),
+        KafkaEventType.OFFER_CANCELLED
+    );
+
+    log.info("Publishing offer cancellation event: {}", offerEvent);
+    kafkaUtils.publishEvent(offerEvent.getKafkaEventType().name(), offerEvent.getId(), offerEvent);
+
+  }
 }

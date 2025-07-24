@@ -160,4 +160,36 @@ public class CampaignCommandService {
     }
 
   }
+
+  /**
+   * Unlink an offer from a campaign by campaign ID and offer ID.
+   * If the offer is not linked, it will not be removed.
+   * TODO: Implement @Retry as this is an internal service call
+   *
+   * @param campaignId the ID of the campaign
+   * @param offerId    the ID of the offer to unlink
+   */
+  public void unlinkOfferFromCampaign(String campaignId, String offerId) {
+    log.info("Unlinking offer {} from campaign {}", offerId, campaignId);
+
+    /** PERSIST DATA **/
+    // Fetch the campaign by ID
+    Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
+        campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
+        new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
+    if (originalCampaignOptional.isPresent()) {
+      BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
+      // Get the existing offer IDs from the campaign
+      List<String> existingOfferIds = originalCampaign.getData().getOfferIds();
+      if(existingOfferIds.contains(offerId)) {
+        // If the offer is linked, remove it from the campaign
+        existingOfferIds.remove(offerId);
+        log.info("Removing offer {} from campaign {}", offerId, campaignId);
+        campaignCommandRepository.save(originalCampaign);
+
+      } else {
+        log.warn("Offer {} is not linked to campaign {}", offerId, campaignId);
+      }
+    }
+  }
 }

@@ -54,4 +54,32 @@ public class OfferEventSubscriber {
       throw new RuntimeException(e);
     }
   }
+
+  /**
+   * This method listens to the Kafka topic "OFFER_CANCELLED" for offer cancellation events.
+   * When an event is received, it removes the offer from the merchant's offers.
+   *
+   * @param payload The JSON payload of the OfferCancelled event.
+   */
+  @KafkaListener(topics = "OFFER_CANCELLED", groupId = ApplicationConstants.APPLICATION_NAME)
+  public void subscribeCancelOfferEvent(String payload) {
+    log.info("Received OfferCancelled event: {}", payload);
+
+    OfferEvent offerEvent = null;
+    try {
+      offerEvent = objectMapper.readValue(payload, OfferEvent.class);
+      String offerId = offerEvent.getId();
+
+      /** CACHE DATA **/
+      // Clear the cached offer details in Redis
+      cacheUtils.delete(offerId);
+
+      /** BUSINESS LOGIC **/
+      // Unlink the offer from the merchant
+      merchantCommandService.unlinkOfferFromMerchant(offerEvent.getMerchantId(), offerId);
+
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

@@ -1,7 +1,9 @@
 package com.example.tutorial.microservices.offer.write.service.events.subscriber;
 
 import com.example.tutorial.common.constants.CacheConstants;
+import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
+import com.example.tutorial.common.dto.offer.Offer;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.offer.ApplicationConstants;
 import com.example.tutorial.microservices.offer.write.service.OfferCommandService;
@@ -12,6 +14,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 @Service
 public class CampaignEventSubscriber {

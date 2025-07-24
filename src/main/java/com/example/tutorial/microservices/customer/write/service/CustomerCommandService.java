@@ -5,7 +5,9 @@ import com.example.tutorial.common.dto.customer.Customer;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.validation.CustomerEligibilityEngineClient;
 import com.example.tutorial.microservices.customer.write.repository.CustomerCommandRepository;
+import com.example.tutorial.microservices.customer.write.service.events.publisher.OfferCustomerEventPublisher;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,23 +30,25 @@ public class CustomerCommandService {
 
   @Autowired
   private APIUtils apiUtils;
+  @Autowired
+  private OfferCustomerEventPublisher offerCustomerEventPublisher;
 
   @Value("{customers.api.url")
   private String customersApiUrl;
 
   /**
    * Assigns an offer to all customers who are eligible for it.
-   * This method retrieves all customers from the repository, then
-   * checks each customer's eligibility for the specified offer using the CustomerEligibilityEngineClient.
+   * This method retrieves all customers from the repository, then checks each customer's
+   * eligibility for the specified offer using the CustomerEligibilityEngineClient.
    * If a customer is eligible, the offer ID is added to their list of enrolled offers.
+   * Also publishes an event to notify that the offer has been assigned to eligible customers.
    * TODO: Implement @Retry as this is an internal service call
    *
    * @param offerId The ID of the offer to be assigned.
    * @return A list of BaseDto<Customer> containing all customers who were assigned the offer.
    */
-  public List<BaseDto<Customer>> assignOfferToCustomer(String offerId) {
+  public void assignOfferToCustomer(String offerId) {
     // Retrieve all customers from the repository
-    //List<BaseDto<Customer>> allCustomers = customerCommandRepository.getAllCustomers();
     List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
 
     /** PERSIST DATA **/
@@ -66,7 +70,37 @@ public class CustomerCommandService {
       }
     });
 
-    return eligibleCustomers;
+    /** PUBLISH EVENT **/
+    // Publish the offer assignment event, which can be used by other services like ""Recommendation Engine" etc.
+    if(CollectionUtils.isNotEmpty(eligibleCustomers)) {
+      offerCustomerEventPublisher.publishOfferAssignedEvent(offerId, eligibleCustomers);
+    }
   }
 
+  public void unassignOfferFromCustomer(String offerId) {
+    // Retrieve all customers from the repository
+    List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
+
+    /** PERSIST DATA **/
+    List<BaseDto<Customer>> unassignedCustomers = new ArrayList<BaseDto<Customer>>();
+    // Iterate through each customer to remove the offer ID from their enrolled offers
+    allCustomers.forEach(customer -> {
+      // check if the customer has the offer ID in their enrolled offers, then only remove it, else log a warning
+      if(customer.getData().getEnrolledOfferIds().contains(offerId)) {
+        log.info("Removing offer {} from customer {}", offerId, customer.getId());
+        customer.getData().getEnrolledOfferIds().remove(offerId);
+        // Save the updated customer back to the repository
+        customerCommandRepository.save(customer);
+        unassignedCustomers.add(customer);
+
+      } else {
+        log.warn("Customer {} does not have offer {} enrolled", customer.getId(), offerId);
+        return; // Skip to the next customer if the offer is not enrolled
+      }
+
+      /** PUBLISH EVENT **/
+      // Publish the offer unassignment event, which can be used by other services like "Recommendation Engine" etc.
+      offerCustomerEventPublisher.publishOfferUnassignedEvent(offerId, unassignedCustomers);
+    });
+  }
 }

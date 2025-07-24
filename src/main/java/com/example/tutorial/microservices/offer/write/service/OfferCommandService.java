@@ -97,6 +97,13 @@ public class OfferCommandService {
         offerCommandRepository.save(offer);
       });
 
+      /** PUBLISH EVENTS **/
+      // Publish an event for each cancelled offers
+      offersByCampaign.forEach(offer -> {
+        log.info("Publishing cancel offer event for ID: {}", offer.getId());
+        offerEventPublisher.publishCancelOfferEvent(offer);
+      });
+
     } else {
       log.warn("No offers found for campaign ID: {}", campaignId);
     }

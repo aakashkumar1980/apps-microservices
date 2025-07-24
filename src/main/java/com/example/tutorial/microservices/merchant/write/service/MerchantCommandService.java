@@ -59,4 +59,33 @@ public class MerchantCommandService {
       }
     }
   }
+
+  /**
+   * Unlinks an offer from a merchant by removing the offer ID from the merchant's active offers list.
+   * TODO: Implement @Retry as this is an internal service call
+   *
+   * @param merchantId
+   * @param offerId
+   */
+  public void unlinkOfferFromMerchant(String merchantId, String offerId) {
+    log.info("Unlinking offer {} from merchant {}", offerId, merchantId);
+
+    /** PERSIST DATA **/
+    // Fetch the merchant by ID
+    Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchAndCacheBaseDtoById(
+        merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {},
+        new MerchantEvent(merchantId, KafkaEventType.MERCHANT_UPDATED));
+    if (originalMerchantOptional.isPresent()) {
+      BaseDto<Merchant> originalMerchant = originalMerchantOptional.get();
+      // get the active offers list from the merchant, and remove the offerId if it is present
+      List<String> activeOfferIds = originalMerchant.getData().getActiveOffers();
+      if(activeOfferIds.contains(offerId)) {
+        activeOfferIds.remove(offerId);
+        log.info("Removing offer {} from merchant {}", offerId, merchantId);
+        merchantCommandRepository.save(originalMerchant);
+      } else {
+        log.warn("Offer {} is not linked to campaign {}", offerId, merchantId);
+      }
+    }
+  }
 }

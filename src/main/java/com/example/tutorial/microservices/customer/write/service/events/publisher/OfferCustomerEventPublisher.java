@@ -16,14 +16,14 @@ import java.util.List;
  * Service for publishing campaign command events to Kafka.
  */
 @Service
-public class OfferAssignedEventPublisher {
+public class OfferCustomerEventPublisher {
 
-  private static final Logger log = LoggerFactory.getLogger(OfferAssignedEventPublisher.class);
+  private static final Logger log = LoggerFactory.getLogger(OfferCustomerEventPublisher.class);
 
   @Autowired
   private KafkaUtils kafkaUtils;
 
-  /**
+  /** << Recommendation Engine >>
    * Publishes an OfferAssignedEvent to Kafka. This is used by the "Recommendation Engine"
    * for offer personalization which includes ranking, filtering, or tailoring offers based on
    * customer data such as purchase history, browsing behavior, preferences, or demographics.
@@ -48,4 +48,23 @@ public class OfferAssignedEventPublisher {
     kafkaUtils.publishEvent(offerAssignedEvent.getKafkaEventType().name(), offerAssignedEvent.getOfferId(), offerAssignedEvent);
   }
 
+  /** << Recommendation Engine >>
+   * Publishes an OfferUnassignedEvent to Kafka. This is used when a customer is no longer eligible
+   * for an offer, or the offer has been removed. This is used by the "Recommendation Engine" to update
+   * its recommendations.
+   *
+   * @param offerId The ID of the offer being unassigned.
+   * @param unassignedCustomers The list of customers who are no longer eligible for the offer.
+   */
+  public void publishOfferUnassignedEvent(String offerId, List<BaseDto<Customer>> unassignedCustomers) {
+    OfferAssignedEvent offerAssignedEvent = new OfferAssignedEvent(
+        offerId,
+        unassignedCustomers.stream().map(BaseDto::getId).toList(),
+        java.time.LocalDateTime.now(),
+        KafkaEventType.CUSTOMER_OFFER_UNASSIGNED
+    );
+
+    log.info("Publishing OfferUnassignedEvent: {}", offerAssignedEvent);
+    kafkaUtils.publishEvent(offerAssignedEvent.getKafkaEventType().name(), offerAssignedEvent.getOfferId(), offerAssignedEvent);
+  }
 }
