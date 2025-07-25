@@ -100,7 +100,7 @@ public class SpringBootStartupTestDataLoad {
     campaignRepository.saveAll(campaigns);
     offerRepository.saveAll(offers);
     merchantRepository.saveAll(merchants);
-    customerRepository.saveAll(List.of());
+    customerRepository.saveAll(customers);
 
     // 5. Increment counters to the number of documents inserted
     setCounterTo(campaignCounterKey, campaigns.size());

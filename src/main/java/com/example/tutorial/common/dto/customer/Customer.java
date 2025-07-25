@@ -2,12 +2,10 @@ package com.example.tutorial.common.dto.customer;
 
 import jakarta.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.util.List;
 
-@Document
 public class Customer {
 
   @NotBlank
