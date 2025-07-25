@@ -80,6 +80,45 @@
 						}
 					],
 					"id": "25453210-5652a4b1-f1d8-4042-910a-7e99cea24755"
+				},
+				{
+					"name": "CreateCampaign Copy",
+					"item": [
+						{
+							"name": "Create Campaign",
+							"id": "25453210-9cf82057-d601-45b3-8529-76689ae764ed",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Back to School Essentials\",\n  \"description\": \"Special offers on school supplies, backpacks, and stationery for students.\",\n  \"status\": \"DRAFT\",\n  \"start_date\": \"2025-08-14T00:00:00\",\n  \"end_date\": \"2025-09-12T00:00:00\",\n  \"budget\": 9615.87,\n  \"offer_ids\": []\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/campaigns",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"campaigns"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "25453210-76ac16b7-3e5e-44a5-9892-0a8918943adc"
 				}
 			],
 			"id": "25453210-f3a6b790-c3f7-4b27-bd59-ce8bce9ee6b1"
