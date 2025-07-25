@@ -103,9 +103,10 @@ public class CustomerCommandService {
     // Iterate through each customer to remove the offer ID from their enrolled offers
     allCustomers.forEach(customer -> {
       // check if the customer has the offer ID in their enrolled offers, then only remove it, else log a warning
-      if(customer.getData().getEnrolledOfferIds().contains(offerId)) {
+      List<String> enrolledOfferIds= customer.getData().getEnrolledOfferIds();
+      if(enrolledOfferIds.contains(offerId)) {
         log.info("Removing offer {} from customer {}", offerId, customer.getId());
-        customer.getData().getEnrolledOfferIds().remove(offerId);
+        enrolledOfferIds.remove(offerId);
         // Save the updated customer back to the repository
         customerCommandRepository.save(customer);
         unassignedCustomers.add(customer);
