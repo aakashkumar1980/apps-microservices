@@ -34,7 +34,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 872,
-      "status": "CANCELLED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -53,7 +53,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 345,
-      "status": "EXPIRED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -72,7 +72,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 625,
-      "status": "EXPIRED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -91,7 +91,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 563,
-      "status": "DRAFT"
+      "status": "ACTIVE"
     }
   },
   {
@@ -110,7 +110,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 473,
-      "status": "CANCELLED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -129,7 +129,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 745,
-      "status": "REDEEMED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -140,15 +140,15 @@
     "data": {
       "name": "Tech Upgrade Week Reward Points",
       "description": "Earn reward points on smartphones and laptops during Tech Upgrade Week.",
-      "campaign_id": "campaign::8",
-      "merchant_id": "merchant::5",
+      "campaign_id": "campaign::1",
+      "merchant_id": "merchant::7",
       "type": "REWARD_POINTS",
       "discount_amount": 96.43,
       "currency": "USD",
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 281,
-      "status": "REDEEMED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -167,7 +167,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 683,
-      "status": "REDEEMED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -186,7 +186,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 881,
-      "status": "EXPIRED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -205,7 +205,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 1000,
-      "status": "CANCELLED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -243,7 +243,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 246,
-      "status": "CANCELLED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -300,7 +300,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 192,
-      "status": "CANCELLED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -319,7 +319,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 584,
-      "status": "DRAFT"
+      "status": "ACTIVE"
     }
   },
   {
@@ -338,7 +338,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 307,
-      "status": "REDEEMED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -395,7 +395,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 517,
-      "status": "EXPIRED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -414,7 +414,7 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 469,
-      "status": "CANCELLED"
+      "status": "ACTIVE"
     }
   },
   {
@@ -425,7 +425,7 @@
     "data": {
       "name": "Student Super Savers Cashback",
       "description": "Get $60.43 cashback on electronics and learning tools in Student Super Savers.",
-      "campaign_id": "campaign::23",
+      "campaign_id": "campaign::2",
       "merchant_id": "merchant::12",
       "type": "CASHBACK",
       "discount_amount": 60.43,

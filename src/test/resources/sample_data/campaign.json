@@ -13,7 +13,7 @@
       "budget": 2390.07,
       "offer_ids": [
         "offer::1",
-        "offer::2"
+        "offer::8"
       ]
     }
   },
@@ -31,7 +31,7 @@
       "budget": 9615.87,
       "offer_ids": [
         "offer::2",
-        "offer::3"
+        "offer::23"
       ]
     }
   },
@@ -48,8 +48,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 6026.17,
       "offer_ids": [
-        "offer::3",
-        "offer::4"
+        "offer::3"
       ]
     }
   },
@@ -66,8 +65,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 9770.07,
       "offer_ids": [
-        "offer::4",
-        "offer::5"
+        "offer::4"
       ]
     }
   },
@@ -84,8 +82,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 9860.07,
       "offer_ids": [
-        "offer::5",
-        "offer::6"
+        "offer::5"
       ]
     }
   },
@@ -102,8 +99,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 5473.24,
       "offer_ids": [
-        "offer::6",
-        "offer::7"
+        "offer::6"
       ]
     }
   },
@@ -120,8 +116,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 2091.33,
       "offer_ids": [
-        "offer::7",
-        "offer::8"
+        "offer::7"
       ]
     }
   },
@@ -138,8 +133,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 7308.41,
       "offer_ids": [
-        "offer::8",
-        "offer::9"
+        "offer::8"
       ]
     }
   },
@@ -156,8 +150,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 7690.3,
       "offer_ids": [
-        "offer::9",
-        "offer::10"
+        "offer::9"
       ]
     }
   },
@@ -174,8 +167,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 3551.53,
       "offer_ids": [
-        "offer::10",
-        "offer::11"
+        "offer::10"
       ]
     }
   },
@@ -192,8 +184,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 1716.35,
       "offer_ids": [
-        "offer::11",
-        "offer::12"
+        "offer::11"
       ]
     }
   },
@@ -210,8 +201,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 4056.14,
       "offer_ids": [
-        "offer::12",
-        "offer::13"
+        "offer::12"
       ]
     }
   },
@@ -228,8 +218,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 2532.32,
       "offer_ids": [
-        "offer::13",
-        "offer::14"
+        "offer::13"
       ]
     }
   },
@@ -246,8 +235,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 2917.86,
       "offer_ids": [
-        "offer::14",
-        "offer::15"
+        "offer::14"
       ]
     }
   },
@@ -264,8 +252,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 8147.12,
       "offer_ids": [
-        "offer::15",
-        "offer::16"
+        "offer::15"
       ]
     }
   },
@@ -282,8 +269,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 8752.02,
       "offer_ids": [
-        "offer::16",
-        "offer::17"
+        "offer::16"
       ]
     }
   },
@@ -300,8 +286,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 6898.87,
       "offer_ids": [
-        "offer::17",
-        "offer::18"
+        "offer::17"
       ]
     }
   },
@@ -318,8 +303,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 8074.41,
       "offer_ids": [
-        "offer::18",
-        "offer::19"
+        "offer::18"
       ]
     }
   },
@@ -336,8 +320,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 4121.59,
       "offer_ids": [
-        "offer::19",
-        "offer::20"
+        "offer::19"
       ]
     }
   },
@@ -354,8 +337,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 9803.75,
       "offer_ids": [
-        "offer::20",
-        "offer::21"
+        "offer::20"
       ]
     }
   },
@@ -372,8 +354,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 7665.58,
       "offer_ids": [
-        "offer::21",
-        "offer::22"
+        "offer::21"
       ]
     }
   },
@@ -390,8 +371,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 4090.44,
       "offer_ids": [
-        "offer::22",
-        "offer::23"
+        "offer::22"
       ]
     }
   },
@@ -408,8 +388,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 5673.1,
       "offer_ids": [
-        "offer::23",
-        "offer::24"
+        "offer::23"
       ]
     }
   },
@@ -426,8 +405,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 2830.65,
       "offer_ids": [
-        "offer::24",
-        "offer::25"
+        "offer::24"
       ]
     }
   },
@@ -444,8 +422,7 @@
       "end_date": "2025-08-12T00:00:00",
       "budget": 3158.07,
       "offer_ids": [
-        "offer::25",
-        "offer::26"
+        "offer::25"
       ]
     }
   }

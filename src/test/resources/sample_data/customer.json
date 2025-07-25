@@ -8,7 +8,7 @@
       "name": "Alice Johnson",
       "email": "alice.johnson@example.com",
       "phone_number": "+1-202-555-0101",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::1", "offer::2"]
     }
   },
   {
@@ -20,7 +20,7 @@
       "name": "Brian Smith",
       "email": "brian.smith@example.com",
       "phone_number": "+1-202-555-0102",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::3"]
     }
   },
   {
@@ -32,7 +32,7 @@
       "name": "Catherine Lee",
       "email": "catherine.lee@example.com",
       "phone_number": "+1-202-555-0103",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::4", "offer::5"]
     }
   },
   {
@@ -44,7 +44,7 @@
       "name": "David Kim",
       "email": "david.kim@example.com",
       "phone_number": "+1-202-555-0104",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::6"]
     }
   },
   {
@@ -56,7 +56,7 @@
       "name": "Emily Clark",
       "email": "emily.clark@example.com",
       "phone_number": "+1-202-555-0105",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::7", "offer::8"]
     }
   },
   {
@@ -68,7 +68,7 @@
       "name": "Franklin Wright",
       "email": "franklin.wright@example.com",
       "phone_number": "+1-202-555-0106",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::9"]
     }
   },
   {
@@ -80,7 +80,7 @@
       "name": "Grace Miller",
       "email": "grace.miller@example.com",
       "phone_number": "+1-202-555-0107",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::10", "offer::11"]
     }
   },
   {
@@ -92,7 +92,7 @@
       "name": "Henry Adams",
       "email": "henry.adams@example.com",
       "phone_number": "+1-202-555-0108",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::12"]
     }
   },
   {
@@ -104,7 +104,7 @@
       "name": "Isabella Martinez",
       "email": "isabella.martinez@example.com",
       "phone_number": "+1-202-555-0109",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::13", "offer::14"]
     }
   },
   {
@@ -116,7 +116,7 @@
       "name": "Jack Wilson",
       "email": "jack.wilson@example.com",
       "phone_number": "+1-202-555-0110",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::15"]
     }
   },
   {
@@ -128,7 +128,7 @@
       "name": "Karen Patel",
       "email": "karen.patel@example.com",
       "phone_number": "+1-202-555-0111",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::16", "offer::17"]
     }
   },
   {
@@ -140,7 +140,7 @@
       "name": "Liam Nguyen",
       "email": "liam.nguyen@example.com",
       "phone_number": "+1-202-555-0112",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::18"]
     }
   },
   {
@@ -152,7 +152,7 @@
       "name": "Mia Brown",
       "email": "mia.brown@example.com",
       "phone_number": "+1-202-555-0113",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::1"]
     }
   },
   {
@@ -164,7 +164,7 @@
       "name": "Noah Davis",
       "email": "noah.davis@example.com",
       "phone_number": "+1-202-555-0114",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::2", "offer::3"]
     }
   },
   {
@@ -176,7 +176,7 @@
       "name": "Olivia Garcia",
       "email": "olivia.garcia@example.com",
       "phone_number": "+1-202-555-0115",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::4"]
     }
   },
   {
@@ -188,7 +188,7 @@
       "name": "Paul Robinson",
       "email": "paul.robinson@example.com",
       "phone_number": "+1-202-555-0116",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::5", "offer::6"]
     }
   },
   {
@@ -200,7 +200,7 @@
       "name": "Quinn Evans",
       "email": "quinn.evans@example.com",
       "phone_number": "+1-202-555-0117",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::7"]
     }
   },
   {
@@ -212,7 +212,7 @@
       "name": "Rachel Turner",
       "email": "rachel.turner@example.com",
       "phone_number": "+1-202-555-0118",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::8", "offer::9"]
     }
   },
   {
@@ -224,7 +224,7 @@
       "name": "Samuel Harris",
       "email": "samuel.harris@example.com",
       "phone_number": "+1-202-555-0119",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::10"]
     }
   },
   {
@@ -236,7 +236,7 @@
       "name": "Tina Walker",
       "email": "tina.walker@example.com",
       "phone_number": "+1-202-555-0120",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::11", "offer::12"]
     }
   },
   {
@@ -248,7 +248,7 @@
       "name": "Uma Shah",
       "email": "uma.shah@example.com",
       "phone_number": "+1-202-555-0121",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::13"]
     }
   },
   {
@@ -260,7 +260,7 @@
       "name": "Victor Lopez",
       "email": "victor.lopez@example.com",
       "phone_number": "+1-202-555-0122",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::14", "offer::15"]
     }
   },
   {
@@ -272,7 +272,7 @@
       "name": "Wendy Gonzalez",
       "email": "wendy.gonzalez@example.com",
       "phone_number": "+1-202-555-0123",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::16"]
     }
   },
   {
@@ -284,7 +284,7 @@
       "name": "Xavier Perez",
       "email": "xavier.perez@example.com",
       "phone_number": "+1-202-555-0124",
-      "enrolled_offer_ids": []
+      "enrolled_offer_ids": ["offer::17", "offer::18"]
     }
   },
   {
@@ -300,4 +300,3 @@
     }
   }
 ]
-

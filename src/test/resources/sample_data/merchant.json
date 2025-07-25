@@ -9,7 +9,9 @@
       "category": "Books",
       "location": "New York, NY",
       "merchant_code": "MRC0001",
-      "active_offers": []
+      "active_offers": [
+        "offer::13"
+      ]
     }
   },
   {
@@ -22,7 +24,9 @@
       "category": "Travel",
       "location": "Bellevue, WA",
       "merchant_code": "MRC0002",
-      "active_offers": []
+      "active_offers": [
+        "offer::6"
+      ]
     }
   },
   {
@@ -35,7 +39,9 @@
       "category": "Grocery",
       "location": "Austin, TX",
       "merchant_code": "MRC0003",
-      "active_offers": []
+      "active_offers": [
+        "offer::3"
+      ]
     }
   },
   {
@@ -48,7 +54,9 @@
       "category": "Travel",
       "location": "Amsterdam, NL",
       "merchant_code": "MRC0004",
-      "active_offers": []
+      "active_offers": [
+        "offer::18"
+      ]
     }
   },
   {
@@ -87,7 +95,10 @@
       "category": "E-commerce",
       "location": "Seattle, WA",
       "merchant_code": "MRC0007",
-      "active_offers": []
+      "active_offers": [
+        "offer::1",
+        "offer::8"
+      ]
     }
   },
   {
@@ -100,7 +111,9 @@
       "category": "Beauty",
       "location": "San Francisco, CA",
       "merchant_code": "MRC0008",
-      "active_offers": []
+      "active_offers": [
+        "offer::10"
+      ]
     }
   },
   {
@@ -113,7 +126,9 @@
       "category": "Health",
       "location": "Pittsburgh, PA",
       "merchant_code": "MRC0009",
-      "active_offers": []
+      "active_offers": [
+        "offer::15"
+      ]
     }
   },
   {
@@ -139,7 +154,9 @@
       "category": "Food",
       "location": "Ann Arbor, MI",
       "merchant_code": "MRC0011",
-      "active_offers": []
+      "active_offers": [
+        "offer::5"
+      ]
     }
   },
   {
@@ -165,7 +182,9 @@
       "category": "Kids",
       "location": "Wayne, NJ",
       "merchant_code": "MRC0013",
-      "active_offers": []
+      "active_offers": [
+        "offer::14"
+      ]
     }
   },
   {
@@ -178,7 +197,9 @@
       "category": "Office Supplies",
       "location": "Framingham, MA",
       "merchant_code": "MRC0014",
-      "active_offers": []
+      "active_offers": [
+        "offer::2"
+      ]
     }
   },
   {
@@ -204,7 +225,10 @@
       "category": "Luxury",
       "location": "Geneva, CH",
       "merchant_code": "MRC0016",
-      "active_offers": []
+      "active_offers": [
+        "offer::16",
+        "offer::22"
+      ]
     }
   },
   {
@@ -217,7 +241,9 @@
       "category": "Pets",
       "location": "Phoenix, AZ",
       "merchant_code": "MRC0017",
-      "active_offers": []
+      "active_offers": [
+        "offer::11"
+      ]
     }
   },
   {
@@ -243,7 +269,9 @@
       "category": "Fitness",
       "location": "Hampton, NH",
       "merchant_code": "MRC0019",
-      "active_offers": []
+      "active_offers": [
+        "offer::7"
+      ]
     }
   },
   {
@@ -256,7 +284,9 @@
       "category": "Eco-friendly",
       "location": "Ventura, CA",
       "merchant_code": "MRC0020",
-      "active_offers": []
+      "active_offers": [
+        "offer::17"
+      ]
     }
   },
   {
@@ -269,7 +299,10 @@
       "category": "Fashion",
       "location": "Stockholm, SE",
       "merchant_code": "MRC0021",
-      "active_offers": []
+      "active_offers": [
+        "offer::4",
+        "offer::21"
+      ]
     }
   },
   {
@@ -295,7 +328,9 @@
       "category": "Home",
       "location": "Boston, MA",
       "merchant_code": "MRC0023",
-      "active_offers": []
+      "active_offers": [
+        "offer::9"
+      ]
     }
   },
   {
@@ -321,7 +356,9 @@
       "category": "Automotive",
       "location": "Houston, TX",
       "merchant_code": "MRC0025",
-      "active_offers": []
+      "active_offers": [
+        "offer::12"
+      ]
     }
   }
 ]
