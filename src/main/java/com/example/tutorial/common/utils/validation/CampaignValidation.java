@@ -47,14 +47,13 @@ public class CampaignValidation {
    * @param campaignsApiUrl The URL of the campaigns API to fetch the original campaign.
    */
   public void keepOriginalOfferIds(BaseDto<Campaign> campaign, String campaignsApiUrl) {
-    log.info("Overriding offer IDs for campaign: {}", campaign.getData().getOfferIds());
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, campaign.getId(), new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(campaign.getId(), KafkaEventType.CAMPAIGN_UPDATED));
 
     originalCampaignOptional.ifPresent( originalCampaign -> {
       campaign.getData().setOfferIds(originalCampaign.getData().getOfferIds());
-      log.info("Overriding offer IDs for campaign: {} with the original campaign: {}",
+      log.info("Overridden offer IDs for campaign: {} with the original campaign: {}",
           campaign.getData().getOfferIds(), originalCampaign.getData().getOfferIds());
     });
 
@@ -73,6 +72,7 @@ public class CampaignValidation {
     log.info("Validating existence of campaign with ID: {}", campaignId);
 
     /** check if the campaign ID is present in Redis cache. If present, use it to validate the campaign status **/
+    log.info("Checking Redis cache for campaign ID: {}", campaignId);
     Optional<String> campaignEventOptional =cacheUtils.getCache(campaignId);
     if(campaignEventOptional.isPresent()) {
       CampaignEvent campaignEvent = null;
@@ -86,6 +86,7 @@ public class CampaignValidation {
 
     /** if the campaign ID is not present in Redis cache, fetch it from the campaigns API and then validate the campaign status **/
     } else {
+      log.info("Campaign ID {} not found in cache, fetching from campaigns API: {}", campaignId, campaignsApiUrl);
       Optional<BaseDto<Campaign>> campaignOptional = apiUtils.fetchAndCacheBaseDtoById(
           campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
           new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));

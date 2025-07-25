@@ -42,6 +42,7 @@ public class MerchantValidation {
   public void validateMerchant(String merchantId, String merchantsApiUrl) {
     log.info("Validating existence of merchant with ID: {}", merchantId);
 
+    log.info("Checking cache for merchant event with ID: {}", merchantId);
     Optional<String> merchantEventOptional = cacheUtils.getCache(merchantId);
     if (merchantEventOptional.isEmpty()) {
       log.info("Fetching data for ID {} from merchants API", merchantId);

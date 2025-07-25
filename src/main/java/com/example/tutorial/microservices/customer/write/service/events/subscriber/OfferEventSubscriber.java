@@ -79,7 +79,6 @@ public class OfferEventSubscriber {
       /** BUSINESS LOGIC **/
       // Unassign the offer from the customers
       customerCommandService.unassignOfferFromCustomer(offerId);
-      log.info("Unassigned offer {} from customers successfully", offerId);
 
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);

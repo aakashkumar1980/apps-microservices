@@ -110,6 +110,7 @@ public class CampaignCommandService {
 
     /** PERSIST DATA **/
     // Get the campaign by ID
+    log.info("Fetching campaign with ID: {}", id);
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(id, KafkaEventType.CAMPAIGN_CANCELLED));
@@ -141,6 +142,7 @@ public class CampaignCommandService {
 
     /** PERSIST DATA **/
     // Fetch the campaign by ID
+    log.info("Fetching campaign with ID: {}", campaignId);
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
@@ -174,6 +176,7 @@ public class CampaignCommandService {
 
     /** PERSIST DATA **/
     // Fetch the campaign by ID
+    log.info("Fetching campaign with ID: {}", campaignId);
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));

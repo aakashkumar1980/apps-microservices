@@ -87,6 +87,7 @@ public class OfferCommandService {
 
     /** PERSIST DATA **/
     // Retrieve all offers associated with the given campaign ID
+    log.info("Retrieving offers for campaign ID: {}", campaignId);
     List<BaseDto<Offer>> offersByCampaign = offerCommandRepository.getOffersByCampaignId(campaignId);
     if (CollectionUtils.isNotEmpty(offersByCampaign)) {
       // Iterate through the filtered offers and set their status to INACTIVE
@@ -100,7 +101,6 @@ public class OfferCommandService {
       /** PUBLISH EVENTS **/
       // Publish an event for each cancelled offers
       offersByCampaign.forEach(offer -> {
-        log.info("Publishing cancel offer event for ID: {}", offer.getId());
         offerEventPublisher.publishCancelOfferEvent(offer);
       });
 

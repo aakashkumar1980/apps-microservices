@@ -42,6 +42,7 @@ public class MerchantCommandService {
 
     /** PERSIST DATA **/
     // Fetch the merchant by ID
+    log.info("Fetching merchant with ID: {}", merchantId);
     Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchAndCacheBaseDtoById(
         merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {},
         new MerchantEvent(merchantId, KafkaEventType.MERCHANT_UPDATED));
@@ -72,6 +73,7 @@ public class MerchantCommandService {
 
     /** PERSIST DATA **/
     // Fetch the merchant by ID
+    log.info("Fetching merchant with ID: {}", merchantId);
     Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchAndCacheBaseDtoById(
         merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {},
         new MerchantEvent(merchantId, KafkaEventType.MERCHANT_UPDATED));

@@ -33,7 +33,7 @@ public class CustomerCommandService {
   @Autowired
   private OfferCustomerEventPublisher offerCustomerEventPublisher;
 
-  @Value("{customers.api.url")
+  @Value("${customers.api.url}")
   private String customersApiUrl;
 
   /**
@@ -48,7 +48,10 @@ public class CustomerCommandService {
    * @return A list of BaseDto<Customer> containing all customers who were assigned the offer.
    */
   public void assignOfferToCustomer(String offerId) {
+    log.info("Assigning offer {} to eligible customers", offerId);
+
     // Retrieve all customers from the repository
+    log.info("Fetching all customers from the repository at {}", customersApiUrl);
     List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
 
     /** PERSIST DATA **/
@@ -56,6 +59,7 @@ public class CustomerCommandService {
     // Iterate through each customer to check eligibility for the offer
     allCustomers.forEach(customer -> {
       // Check if the customer is eligible for the offer
+      log.info("Checking eligibility for customer {} for offer {}", customer.getId(), offerId);
       boolean eligible = customerEligibilityEngineClient.isEligible(customer.getId(), offerId);
       if (eligible) {
         log.info("Customer {} is eligible for offer {}", customer.getId(), offerId);
@@ -77,8 +81,19 @@ public class CustomerCommandService {
     }
   }
 
+  /**
+   * Unassigns an offer from all customers who have it enrolled.
+   * This method retrieves all customers from the repository, then checks each customer's
+   * enrolled offers for the specified offer ID. If found, the offer ID is removed from their list of enrolled offers.
+   * Also publishes an event to notify that the offer has been unassigned from customers.
+   *
+   * @param offerId The ID of the offer to be unassigned.
+   */
   public void unassignOfferFromCustomer(String offerId) {
+    log.info("Unassigning offer {} from customers", offerId);
+
     // Retrieve all customers from the repository
+    log.info("Fetching all customers from the repository at {}", customersApiUrl);
     List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
 
     /** PERSIST DATA **/
@@ -100,7 +115,9 @@ public class CustomerCommandService {
 
       /** PUBLISH EVENT **/
       // Publish the offer unassignment event, which can be used by other services like "Recommendation Engine" etc.
-      offerCustomerEventPublisher.publishOfferUnassignedEvent(offerId, unassignedCustomers);
+      if (CollectionUtils.isNotEmpty(unassignedCustomers)) {
+        offerCustomerEventPublisher.publishOfferUnassignedEvent(offerId, unassignedCustomers);
+      }
     });
   }
 }
