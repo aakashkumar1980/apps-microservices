@@ -7,7 +7,6 @@ import org.springframework.data.couchbase.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface MerchantQueryRepository extends CouchbaseRepository<BaseDto<Merchant>, String> {
@@ -19,10 +18,5 @@ public interface MerchantQueryRepository extends CouchbaseRepository<BaseDto<Mer
   @Query("#{#n1ql.selectEntity} WHERE #{#n1ql.filter} AND META().id LIKE 'merchant::%'")
   List<BaseDto<Merchant>> getAllMerchants();
 
-  /**
-   * Retrieves a merchant by its ID.
-   */
-  @Query("#{#n1ql.selectEntity} WHERE #{#n1ql.filter} AND META().id = $1")
-  Optional<BaseDto<Merchant>> getMerchantById(String id);
 }
 

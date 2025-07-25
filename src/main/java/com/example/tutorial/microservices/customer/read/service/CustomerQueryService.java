@@ -21,6 +21,11 @@ public class CustomerQueryService {
 
   /**
    * Returns all customers.
+   * NOTE: Here we are not using the CouchbaseRepository's findAll method, because the id for different data models
+   * starts like 'campaign::1', 'offer::1', etc. where the prefix is used to identify the type of document.
+   * Therefore, it needs a custom query to filter by the prefix.
+   *
+   * @return List of BaseDto<Customer>
    */
   public List<BaseDto<Customer>> getAllCustomers() {
     log.info("Fetching all customers from the repository");
@@ -29,10 +34,13 @@ public class CustomerQueryService {
 
   /**
    * Returns a customer by its ID.
+   *
+   * @param id the ID of the customer
+   * @return Optional containing the BaseDto<Customer> if found, or empty if not found
    */
   public Optional<BaseDto<Customer>> getCustomerById(String id) {
     log.info("Fetching customer with ID: {}", id);
-    return customerQueryRepository.getCustomerById(id);
+    return customerQueryRepository.findById(id);
   }
 }
 

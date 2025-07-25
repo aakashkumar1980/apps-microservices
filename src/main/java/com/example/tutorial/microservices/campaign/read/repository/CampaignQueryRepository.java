@@ -7,7 +7,6 @@ import org.springframework.data.couchbase.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface CampaignQueryRepository extends CouchbaseRepository<BaseDto<Campaign>, String> {
@@ -22,14 +21,4 @@ public interface CampaignQueryRepository extends CouchbaseRepository<BaseDto<Cam
   @Query("#{#n1ql.selectEntity} WHERE #{#n1ql.filter} AND META().id LIKE 'campaign::%'")
   List<BaseDto<Campaign>> getAllCampaigns();
 
-  /**
-   * Retrieves a campaign by its ID.
-   * This method uses a N1QL query to select a document of type Campaign
-   * (identified by the document ID starting with 'campaign::').
-   *
-   * @param id the ID of the campaign to retrieve.
-   * @return an Optional containing the BaseDto<Campaign> if found, or empty if not found.
-   */
-  @Query("#{#n1ql.selectEntity} WHERE #{#n1ql.filter} AND META().id = $1")
-  Optional<BaseDto<Campaign>> getCampaignById(String id);
 }

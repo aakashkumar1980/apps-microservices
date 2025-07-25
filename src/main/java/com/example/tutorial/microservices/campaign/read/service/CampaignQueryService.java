@@ -21,7 +21,11 @@ public class CampaignQueryService {
 
   /**
    * Returns all campaigns.
-   * @return List of Campaigns
+   * NOTE: Here we are not using the CouchbaseRepository's findAll method, because the id for different data models
+   * starts like 'campaign::1', 'offer::1', etc. where the prefix is used to identify the type of document.
+   * Therefore, it needs a custom query to filter by the prefix.
+   *
+   * @return List of BaseDto<Campaign>
    */
   public List<BaseDto<Campaign>> getAllCampaigns() {
     log.info("Fetching all campaigns from the repository");
@@ -30,11 +34,12 @@ public class CampaignQueryService {
 
   /**
    * Returns a campaign by its ID.
+   *
    * @param id the ID of the campaign
    * @return Optional containing the BaseDto<Campaign> if found, or empty if not found
    */
   public Optional<BaseDto<Campaign>> getCampaignById(String id) {
     log.info("Fetching campaign with ID: {}", id);
-    return campaignQueryRepository.getCampaignById(id);
+    return campaignQueryRepository.findById(id);
   }
 }

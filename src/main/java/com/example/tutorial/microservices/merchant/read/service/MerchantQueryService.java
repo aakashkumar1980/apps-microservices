@@ -21,6 +21,11 @@ public class MerchantQueryService {
 
   /**
    * Returns all merchants.
+   * NOTE: Here we are not using the CouchbaseRepository's findAll method, because the id for different data models
+   * starts like 'campaign::1', 'offer::1', etc. where the prefix is used to identify the type of document.
+   * Therefore, it needs a custom query to filter by the prefix.
+   *
+   * @return List of BaseDto<Merchant>
    */
   public List<BaseDto<Merchant>> getAllMerchants() {
     log.info("Fetching all merchants from the repository");
@@ -29,10 +34,13 @@ public class MerchantQueryService {
 
   /**
    * Returns a merchant by its ID.
+   *
+   * @param id the ID of the merchant
+   * @return Optional containing the BaseDto<Merchant> if found, or empty if not found
    */
   public Optional<BaseDto<Merchant>> getMerchantById(String id) {
     log.info("Fetching merchant with ID: {}", id);
-    return merchantQueryRepository.getMerchantById(id);
+    return merchantQueryRepository.findById(id);
   }
 }
 
