@@ -52,7 +52,8 @@ public class CustomerCommandService {
 
     // Retrieve all customers from the repository
     log.info("Fetching all customers from the repository at {}", customersApiUrl);
-    List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
+    List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(
+        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
 
     /** PERSIST DATA **/
     List<BaseDto<Customer>> eligibleCustomers = new ArrayList<BaseDto<Customer>>();
@@ -94,7 +95,8 @@ public class CustomerCommandService {
 
     // Retrieve all customers from the repository
     log.info("Fetching all customers from the repository at {}", customersApiUrl);
-    List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
+    List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(
+        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
 
     /** PERSIST DATA **/
     List<BaseDto<Customer>> unassignedCustomers = new ArrayList<BaseDto<Customer>>();

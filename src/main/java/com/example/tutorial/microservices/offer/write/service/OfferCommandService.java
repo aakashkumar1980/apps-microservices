@@ -3,10 +3,12 @@ package com.example.tutorial.microservices.offer.write.service;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.offer.Offer;
 import com.example.tutorial.common.dto.offer.OfferStatus;
+import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
 import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
 import com.example.tutorial.microservices.offer.write.service.events.publisher.OfferEventPublisher;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +47,12 @@ public class OfferCommandService {
 
   @Autowired
   private OfferEventPublisher offerEventPublisher;
+
+  @Value("${offers.api.url}")
+  private String offersApiUrl;
+
+  @Autowired
+  private APIUtils apiUtils;
 
   /**
    * Creates a new offer and saves it to the repository.
@@ -88,7 +96,8 @@ public class OfferCommandService {
     /** PERSIST DATA **/
     // Retrieve all offers associated with the given campaign ID
     log.info("Retrieving offers for campaign ID: {}", campaignId);
-    List<BaseDto<Offer>> offersByCampaign = offerCommandRepository.getOffersByCampaignId(campaignId);
+    List<BaseDto<Offer>> offersByCampaign = apiUtils.fetchBaseDtoList(
+        (offersApiUrl+"/campaigns/"+campaignId), new TypeReference<List<BaseDto<Offer>>>() {});
     if (CollectionUtils.isNotEmpty(offersByCampaign)) {
       // Iterate through the filtered offers and set their status to INACTIVE
       offersByCampaign.forEach(offer -> {
