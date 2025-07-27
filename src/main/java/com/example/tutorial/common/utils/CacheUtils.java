@@ -56,8 +56,8 @@ public class CacheUtils {
    * @param campaignId the ID of the cache entry to delete
    */
   public void delete(String campaignId) {
-    log.info("Deleting cache entry for ID: {}", campaignId);
     if (redisTemplate.hasKey(campaignId)) {
+      log.info("Deleting cache entry for ID: {}", campaignId);
       redisTemplate.delete(campaignId);
     } else {
       log.warn("No cache entry found for ID: {}", campaignId);

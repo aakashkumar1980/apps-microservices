@@ -113,7 +113,7 @@ public class CampaignCommandService {
     log.info("Fetching campaign with ID: {}", id);
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {},
-        new CampaignEvent(id, KafkaEventType.CAMPAIGN_CANCELLED));
+        new CampaignEvent(id, KafkaEventType.CAMPAIGN_UPDATED));
     if (originalCampaignOptional.isPresent()) {
       BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
       // Set the status to CANCELLED
