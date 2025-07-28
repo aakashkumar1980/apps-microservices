@@ -15,7 +15,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 328,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "GOLD"
     }
   },
   {
@@ -34,7 +35,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 872,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "SILVER"
     }
   },
   {
@@ -53,7 +55,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 345,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "PLATINUM"
     }
   },
   {
@@ -72,7 +75,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 625,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "BRONZE"
     }
   },
   {
@@ -91,7 +95,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 563,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "REGULAR"
     }
   },
   {
@@ -110,7 +115,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 473,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "GOLD"
     }
   },
   {
@@ -129,7 +135,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 745,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "SILVER"
     }
   },
   {
@@ -148,7 +155,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 281,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "PLATINUM"
     }
   },
   {
@@ -167,7 +175,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 683,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "BRONZE"
     }
   },
   {
@@ -186,7 +195,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 881,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "REGULAR"
     }
   },
   {
@@ -205,7 +215,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 1000,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "GOLD"
     }
   },
   {
@@ -224,7 +235,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 884,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "SILVER"
     }
   },
   {
@@ -243,7 +255,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 246,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "PLATINUM"
     }
   },
   {
@@ -262,7 +275,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 504,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "BRONZE"
     }
   },
   {
@@ -281,7 +295,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 492,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "REGULAR"
     }
   },
   {
@@ -300,7 +315,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 192,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "GOLD"
     }
   },
   {
@@ -319,7 +335,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 584,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "SILVER"
     }
   },
   {
@@ -338,7 +355,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 307,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "PLATINUM"
     }
   },
   {
@@ -357,7 +375,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 745,
-      "status": "DRAFT"
+      "status": "DRAFT",
+      "segment_criteria": "BRONZE"
     }
   },
   {
@@ -376,7 +395,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 344,
-      "status": "DRAFT"
+      "status": "DRAFT",
+      "segment_criteria": "REGULAR"
     }
   },
   {
@@ -395,7 +415,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 517,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "GOLD"
     }
   },
   {
@@ -414,7 +435,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 469,
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "segment_criteria": "SILVER"
     }
   },
   {
@@ -433,7 +455,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 218,
-      "status": "REDEEMED"
+      "status": "REDEEMED",
+      "segment_criteria": "PLATINUM"
     }
   },
   {
@@ -452,7 +475,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 279,
-      "status": "REDEEMED"
+      "status": "REDEEMED",
+      "segment_criteria": "BRONZE"
     }
   },
   {
@@ -471,7 +495,8 @@
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
       "max_redemptions": 872,
-      "status": "EXPIRED"
+      "status": "EXPIRED",
+      "segment_criteria": "REGULAR"
     }
   }
 ]
