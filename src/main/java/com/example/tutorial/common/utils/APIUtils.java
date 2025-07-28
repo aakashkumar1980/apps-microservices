@@ -33,7 +33,7 @@ public class APIUtils {
   private CacheUtils cacheUtils;
 
   /**
-   * Fetch a BaseDto by its ID from the specified REST API URL.
+   * Fetch a BaseDto by its ID from the specified cache first and if not found then gets it from REST API URL.
    * Also caches the event in Redis for future use to avoid multiple calls to the same API.
    * TODO: Implement via. CircuitBreaker as it's an external service call
    *
@@ -50,26 +50,40 @@ public class APIUtils {
       TypeReference<BaseDto<T>> typeReference,
       Event event
   ) {
-    apiUrl = String.format(apiUrl + "/%s", id);
-    String responseString = restTemplate.getForObject(
-        apiUrl , String.class);
-    log.info("REST API Response from {} API: {}", apiUrl, responseString);
-
-    if (StringUtils.isNotBlank(responseString)) {
+    // Check if the event is already cached
+    Optional<String> payload = cacheUtils.getCache(id);
+    if (payload.isPresent()) {
+      log.info("Cache hit for ID: {}. Returning cached value.", id);
       try {
-        BaseDto<T> value = objectMapper.readValue(responseString, typeReference);
-
+        BaseDto<T> cachedValue = objectMapper.readValue(payload.get(), typeReference);
         // Copy properties from the BaseDto to the event object
-        BeanUtils.copyProperties(event, value.getData());
-        // cache the event in Redis for future use, to avoid multiple calls to the same API
-        cacheUtils.setCache(id, objectMapper.writeValueAsString(event), CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
-
-        return Optional.of(value);
+        BeanUtils.copyProperties(event, cachedValue.getData());
+        return Optional.of(cachedValue);
       } catch (JsonProcessingException | InvocationTargetException | IllegalAccessException e) {
-        throw new RuntimeException(e);
+        throw new RuntimeException("Error processing cached value", e);
       }
     } else {
-      return Optional.empty();
+      apiUrl = String.format(apiUrl + "/%s", id);
+      String responseString = restTemplate.getForObject(
+          apiUrl , String.class);
+      log.warn("Cache miss for ID: {}. Fetching from REST API Response from {} API: {}", id, apiUrl, responseString);
+
+      if (StringUtils.isNotBlank(responseString)) {
+        try {
+          BaseDto<T> value = objectMapper.readValue(responseString, typeReference);
+
+          // Copy properties from the BaseDto to the event object
+          BeanUtils.copyProperties(event, value.getData());
+          // cache the event in Redis for future use, to avoid multiple calls to the same API
+          cacheUtils.setCache(id, objectMapper.writeValueAsString(event), CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
+
+          return Optional.of(value);
+        } catch (JsonProcessingException | InvocationTargetException | IllegalAccessException e) {
+          throw new RuntimeException(e);
+        }
+      } else {
+        return Optional.empty();
+      }
     }
   }
 
