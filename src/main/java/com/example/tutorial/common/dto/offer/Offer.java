@@ -57,11 +57,13 @@ public class Offer {
   private String currency;
 
   @NotNull
+  @FutureOrPresent
   @JsonProperty("valid_from")
   @Field("valid_from")
   private LocalDateTime validFrom;
 
   @NotNull
+  @Future
   @JsonProperty("valid_to")
   @Field("valid_to")
   private LocalDateTime validTo;
