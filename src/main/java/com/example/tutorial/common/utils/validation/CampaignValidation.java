@@ -52,9 +52,9 @@ public class CampaignValidation {
         new CampaignEvent(campaign.getId(), KafkaEventType.CAMPAIGN_UPDATED));
 
     originalCampaignOptional.ifPresent( originalCampaign -> {
-      campaign.getData().setOfferIds(originalCampaign.getData().getOfferIds());
       log.info("Overridden offer IDs for campaign: {} with the original campaign: {}",
           campaign.getData().getOfferIds(), originalCampaign.getData().getOfferIds());
+      campaign.getData().setOfferIds(originalCampaign.getData().getOfferIds());
     });
 
   }
