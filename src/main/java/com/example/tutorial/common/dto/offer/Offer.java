@@ -93,7 +93,7 @@ public class Offer {
   public void setDiscountAmount(BigDecimal discountAmount) { this.discountAmount = discountAmount; }
 
   public Segment getSegmentCriteria() { return segmentCriteria; }
-  public void setSegmentCriteria(Segment segment) { this.segmentCriteria = segmentCriteria; }
+  public void setSegmentCriteria(Segment segmentCriteria) { this.segmentCriteria = segmentCriteria; }
 
   public String getCurrency() { return currency; }
   public void setCurrency(String currency) { this.currency = currency; }
