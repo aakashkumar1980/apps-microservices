@@ -2,18 +2,16 @@ flowchart TD
 %% --- Campaign Write Microservice ---
     subgraph subGraph4["Campaign Write Microservice"]
         direction TB
-        c1["CampaignCommandController _createCampaign()"]
-        s1["CampaignCommandService _createCampaign()"]
-        u1["DBUtils _getUniqueCounter()"]
-        ct1["CouchbaseTemplate"]
-        r1["CampaignCommandRepository _save()"]
-        e1["CampaignEventPublisher _publishCreateCampaignEvent()"]
+        c1["CampaignCommandController<br/><i>Receives the API request to create a campaign</i>"]
+        s1["CampaignCommandService<br/><i>Handles business logic for creating a campaign</i>"]
+        r1["CampaignCommandRepository<br/><i>Saves the campaign data to the database</i>"]
+        e1["CampaignEventPublisher<br/><i>Publishes an event after campaign creation</i>"]
     end
 
 %% --- Offer Write Microservice ---
     subgraph subGraph7["Offer Write Microservice"]
         direction TB
-        oesub["CampaignEventSubscriber _subscribeCreateCampaignEvent()"]
+        oesub["CampaignEventSubscriber<br/><i>Listens for campaign creation events</i>"]
     end
 
 %% --- External Systems ---
@@ -25,15 +23,12 @@ redis["Redis Cache"]
 %% --- Flow for Create Campaign ---
 postman -- "1: POST /api/campaigns" --> c1
 c1 -- "2: Delegate to service" --> s1
-s1 -- "3: Generate ID using DBUtils" --> u1
-u1 -- "4: Uses CouchbaseTemplate" --> ct1
-ct1 -- "5: Interacts with DB" --> couchbase
-s1 -- "6: Save campaign" --> r1
-r1 -- "7: Persist to Couchbase" --> couchbase
-s1 -- "8: Publish event" --> e1
-e1 -- "9: CAMPAIGN_CREATED event" --> kafka
-kafka -- "10: Event consumed" --> oesub
-oesub -- "11: Update Redis cache" --> redis
+s1 -- "3: Save campaign" --> r1
+r1 -- "4: Persist to Couchbase" --> couchbase
+s1 -- "5: Publish event" --> e1
+e1 -- "6: CAMPAIGN_CREATED event" --> kafka
+kafka -- "7: Event consumed" --> oesub
+oesub -- "8: Update Redis cache" --> redis
 
 %% --- Styling ---
 postman:::ext
