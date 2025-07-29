@@ -23,7 +23,8 @@ flowchart TD
         oesub["CampaignEventSubscriber<br/><i>Listens for campaign update events</i>"]
     end
     postman["REST API"]
-    couchbase["Couchbase DB"]
+    couchbase_write["Couchbase DB (Write)"]
+    couchbase_read["Couchbase DB (Read)"]
     kafka["Kafka"]
     redis["Redis Cache"]
 
@@ -33,19 +34,19 @@ flowchart TD
     u1 -- "4: Calls GET /api/campaigns/{id}" --> cr1
     cr1 -- "5: Delegates to service" --> crs1
     crs1 -- "6: Queries repository" --> crr1
-    crr1 -- "7: Reads from Couchbase" --> couchbase
-    cr1 -- "8: Returns campaign data" --> u1
-    v1 -- "9: Set original offer IDs" --> s1
-    s1 -- "10: Save updated campaign" --> r1
-    r1 -- "11: Persist to Couchbase" --> couchbase
-    s1 -- "12: Publish update event" --> e1
-    e1 -- "13: CAMPAIGN_UPDATED event" --> kafka
-    kafka -- "14: Event consumed" --> oesub
-    oesub -- "15: Update Redis cache" --> redis
+    crr1 -- "7: Reads from Couchbase" --> couchbase_read
+    v1 -- "8: Set original offer IDs" --> s1
+    s1 -- "9: Save updated campaign" --> r1
+    r1 -- "10: Persist to Couchbase" --> couchbase_write
+    s1 -- "11: Publish update event" --> e1
+    e1 -- "12: CAMPAIGN_UPDATED event" --> kafka
+    kafka -- "13: Event consumed" --> oesub
+    oesub -- "14: Update Redis cache" --> redis
 
     %% Styling
     postman:::ext
-    couchbase:::ext
+    couchbase_write:::ext
+    couchbase_read:::ext
     kafka:::ext
     redis:::ext
     classDef ext fill:#fff,stroke:#333,stroke-width:2px
