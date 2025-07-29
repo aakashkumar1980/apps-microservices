@@ -2,7 +2,7 @@ flowchart TD
     %% --- Campaign Write Microservice ---
     subgraph subGraph4["Campaign Write Microservice"]
         direction TB
-        c1["CampaignCommandController._cancelCampaign()<br/><i>Receives the API request to cancel a campaign</i>"]
+        c1["CampaignCommandController.cancelCampaign()<br/><i>Receives the API request to cancel a campaign</i>"]
         s1["CampaignCommandService.cancelCampaign()<br/><i>Handles business logic for cancelling a campaign</i>"]
         a1["APIUtils.fetchAndCacheBaseDtoById()<br/><i>Fetches and caches campaign data by ID</i>"]
         r1["CampaignCommandRepository.save()<br/><i>Saves the cancelled campaign to the database</i>"]
