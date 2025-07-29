@@ -1,0 +1,60 @@
+flowchart TD
+    subgraph subGraph4["Campaign Write Microservice"]
+        direction TB
+        c1["CampaignCommandController _cancelCampaign()"]
+        s1["CampaignCommandService _cancelCampaign()"]
+        a1["APIUtils _fetchAndCacheBaseDtoById()"]
+        r1["CampaignCommandRepository _save()"]
+        e1["CampaignEventPublisher _publishCancelCampaignEvent()"]
+    end
+    subgraph subGraph5["Campaign Read Microservice"]
+        direction TB
+        cr1["CampaignQueryController _getCampaignById()"]
+        crs1["CampaignQueryService _getCampaignById()"]
+        crr1["CampaignQueryRepository _findById()"]
+    end
+subgraph subGraph7["Offer Write Microservice"]
+direction TB
+oesub["CampaignEventSubscriber _subscribeCancelCampaignEvent()"]
+cacheDel["CacheUtils _delete()"]
+dummy[" "]
+cancel["OfferCommandService _cancelOffers()"]
+offerRepo["OfferCommandRepository _save()"]
+end
+postman["REST API"] -- 1: PUT /api/campaigns/{id}/cancel --> c1
+c1 -- 2: Cancel campaign --> s1
+s1 -- 3: Fetch original campaign --> a1
+a1 -- 4: GET /api/campaigns/{id} --> cr1
+cr1 --> crs1
+crs1 --> crr1
+crr1 --> couchbase["Campaign Couchbase DB"]
+s1 -- "5: Mark status = CANCELLED" --> r1
+r1 -- 6: Save to Couchbase --> couchbase
+s1 -- 7: Publish cancel event --> e1
+e1 -- 8: CAMPAIGN_CANCELLED event --> kafka["Kafka"]
+kafka -- 9: Event consumed --> oesub
+oesub -- 10: Delete campaign cache --> cacheDel
+cacheDel --> dummy
+dummy --> redis["Redis Cache"]
+oesub -- 11: Cancel offers --> cancel
+cancel -- 12: Save updated offers --> offerRepo
+offerRepo -- 13: Persist to Offer Couchbase DB --> offerdb["Offer Couchbase DB"]
+
+postman@{ img: "https://cdn-icons-png.flaticon.com/128/718/718064.png", h: 32, w: 32, constraint: "on"}
+couchbase@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", h: 32, w: 32, constraint: "on"}
+offerdb@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", h: 32, w: 32, constraint: "on"}
+kafka@{ img: "https://cdn-icons-png.flaticon.com/128/16177/16177677.png", h: 32, w: 32, constraint: "on"}
+redis@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", h: 32, w: 32, constraint: "on"}
+dummy:::hidden
+postman:::ext
+couchbase:::ext
+offerdb:::ext
+kafka:::ext
+redis:::ext
+classDef ext fill:#fff,stroke:#333,stroke-width:2px
+classDef hidden fill:none,stroke:none,stroke-width:0
+style subGraph4 fill:#BBDEFB
+style subGraph5 fill:#BBDEFB
+style subGraph7 fill:#C8E6C9
+
+

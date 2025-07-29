@@ -1,0 +1,45 @@
+flowchart TD
+%% --- Campaign Write Microservice ---
+    subgraph subGraph4["Campaign Write Microservice"]
+        direction TB
+        c1["CampaignCommandController _createCampaign()"]
+        s1["CampaignCommandService _createCampaign()"]
+        u1["DBUtils _getUniqueCounter()"]
+        ct1["CouchbaseTemplate"]
+        r1["CampaignCommandRepository _save()"]
+        e1["CampaignEventPublisher _publishCreateCampaignEvent()"]
+    end
+
+%% --- Offer Write Microservice ---
+    subgraph subGraph7["Offer Write Microservice"]
+        direction TB
+        oesub["CampaignEventSubscriber _subscribeCreateCampaignEvent()"]
+    end
+
+%% --- External Systems ---
+    postman@{ img: "https://cdn-icons-png.flaticon.com/128/718/718064.png", label: "REST API", h: 32, w: 32, constraint: "on" }
+couchbase@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", label: "Couchbase DB", h: 32, w: 32, constraint: "on" }
+kafka@{ img: "https://cdn-icons-png.flaticon.com/128/16177/16177677.png", label: "Kafka", h: 32, w: 32, constraint: "on" }
+redis@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", label: "Redis Cache", h: 32, w: 32, constraint: "on" }
+
+%% --- Flow for Create Campaign ---
+postman -- "1: POST /api/campaigns" --> c1
+c1 -- "2: Delegate to service" --> s1
+s1 -- "3: Generate ID using DBUtils" --> u1
+u1 -- "4: Uses CouchbaseTemplate" --> ct1
+ct1 -- "5: Interacts with DB" --> couchbase
+s1 -- "6: Save campaign" --> r1
+r1 -- "7: Persist to Couchbase" --> couchbase
+s1 -- "8: Publish event" --> e1
+e1 -- "9: CAMPAIGN_CREATED event" --> kafka
+kafka -- "10: Event consumed" --> oesub
+oesub -- "11: Update Redis cache" --> redis
+
+%% --- Styling ---
+postman:::ext
+couchbase:::ext
+kafka:::ext
+redis:::ext
+classDef ext fill:#fff,stroke:#333,stroke-width:2px
+style subGraph4 fill:#BBDEFB
+style subGraph7 fill:#C8E6C9
