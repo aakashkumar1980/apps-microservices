@@ -1,61 +1,67 @@
 flowchart TD
+    %% --- Campaign Write Microservice ---
     subgraph subGraph4["Campaign Write Microservice"]
         direction TB
-        c1["CampaignCommandController.cancelCampaign()<br/><i>Receives the API request to cancel a campaign</i>"]
+        c1["CampaignCommandController._cancelCampaign()<br/><i>Receives the API request to cancel a campaign</i>"]
         s1["CampaignCommandService.cancelCampaign()<br/><i>Handles business logic for cancelling a campaign</i>"]
         a1["APIUtils.fetchAndCacheBaseDtoById()<br/><i>Fetches and caches campaign data by ID</i>"]
-        r1["CampaignCommandRepository.save()<br/><i>Saves the cancelled campaign</i>"]
+        r1["CampaignCommandRepository.save()<br/><i>Saves the cancelled campaign to the database</i>"]
         e1["CampaignEventPublisher.publishCancelCampaignEvent()<br/><i>Publishes an event after campaign cancellation</i>"]
     end
+
+    %% --- Campaign Read Microservice ---
     subgraph subGraph5["Campaign Read Microservice"]
         direction TB
         cr1["CampaignQueryController.getCampaignById()<br/><i>Receives GET campaign by ID request</i>"]
         crs1["CampaignQueryService.getCampaignById()<br/><i>Processes and validates the fetch request</i>"]
         crr1["CampaignQueryRepository.findById()<br/><i>Retrieves campaign by ID from the database</i>"]
     end
+
+    %% --- Offer Write Microservice ---
     subgraph subGraph7["Offer Write Microservice"]
         direction TB
-        oesub["CampaignEventSubscriber.subscribeCancelCampaignEvent()<br/><i>Listens for campaign cancelled events</i>"]
+        oesub["CampaignEventSubscriber.subscribeCancelCampaignEvent()<br/><i>Handles campaign cancelled event: removes campaign from cache and cancels offers</i>"]
         cacheDel["CacheUtils.delete()<br/><i>Removes campaign from cache</i>"]
-        dummy[" "]
-        cancel["OfferCommandService.cancelOffers()<br/><i>Cancels related offers</i>"]
-        offerRepo["OfferCommandRepository.save()<br/><i>Saves cancelled offers</i>"]
+        cancel["OfferCommandService.cancelOffers()<br/><i>Cancels all offers associated with the campaign</i>"]
+        offerRepo["OfferCommandRepository.save()<br/><i>Saves cancelled offers to the database</i>"]
+        offerPub["OfferEventPublisher.publishCancelOfferEvent()<br/><i>Publishes offer cancellation events</i>"]
     end
 
+    %% --- External Systems ---
     postman["REST API"]
     couchbase["Campaign Couchbase DB"]
     offerdb["Offer Couchbase DB"]
     kafka["Kafka"]
     redis["Redis Cache"]
 
+    %% --- Flow ---
     postman -- "1: PUT /api/campaigns/{id}/cancel" --> c1
-    c1 -- "2: Cancel campaign" --> s1
+    c1 -- "2: Calls service to cancel campaign" --> s1
     s1 -- "3: Fetch original campaign" --> a1
     a1 -- "4: GET /api/campaigns/{id}" --> cr1
     cr1 -- "5: Delegates to service" --> crs1
     crs1 -- "6: Queries repository" --> crr1
     crr1 -- "7: Reads from Couchbase" --> couchbase
-    s1 -- "8: Mark status = CANCELLED" --> r1
+    s1 -- "8: Mark status = CANCELLED and save" --> r1
     r1 -- "9: Save to Couchbase" --> couchbase
     s1 -- "10: Publish cancel event" --> e1
     e1 -- "11: CAMPAIGN_CANCELLED event" --> kafka
     kafka -- "12: Event consumed" --> oesub
     oesub -- "13: Delete campaign cache" --> cacheDel
-    cacheDel --> dummy
-    dummy --> redis
-    oesub -- "14: Cancel offers" --> cancel
-    cancel -- "15: Save updated offers" --> offerRepo
-    offerRepo -- "16: Persist to Offer Couchbase DB" --> offerdb
+    cacheDel -- "14: Remove from Redis" --> redis
+    oesub -- "15: Cancel offers" --> cancel
+    cancel -- "16: Save updated offers" --> offerRepo
+    offerRepo -- "17: Persist to Offer Couchbase DB" --> offerdb
+    cancel -- "18: Publish offer cancellation events" --> offerPub
+    offerPub -- "19: Send OFFER_CANCELLED event to Kafka" --> kafka
 
-    %% Styling
-    dummy:::hidden
+    %% --- Styling ---
     postman:::ext
     couchbase:::ext
     offerdb:::ext
     kafka:::ext
     redis:::ext
     classDef ext fill:#fff,stroke:#333,stroke-width:2px
-    classDef hidden fill:none,stroke:none,stroke-width:0
     style subGraph4 fill:#BBDEFB
     style subGraph5 fill:#BBDEFB
     style subGraph7 fill:#C8E6C9
