@@ -14,9 +14,9 @@ flowchart TD
     end
     subgraph subGraph5["Campaign Read Microservice"]
         direction TB
-        cr1["CampaignQueryController<br/><i>Handles GET campaign by ID requests</i>"]
-        crs1["CampaignQueryService<br/><i>Business logic for fetching campaign by ID</i>"]
-        crr1["CampaignQueryRepository<br/><i>Finds campaign by ID in the database</i>"]
+        cr1["CampaignQueryController<br/><i>Receives GET campaign by ID request</i>"]
+        crs1["CampaignQueryService<br/><i>Processes and validates the fetch request</i>"]
+        crr1["CampaignQueryRepository<br/><i>Retrieves campaign by ID from the database</i>"]
     end
     subgraph subGraph7["Offer Write Microservice"]
         direction TB
@@ -31,16 +31,17 @@ flowchart TD
     c1 -- "2: Validate & keep original offer IDs" --> v1
     v1 -- "3: Calls APIUtils to fetch campaign by ID" --> u1
     u1 -- "4: Calls GET /api/campaigns/{id}" --> cr1
-    cr1 --> crs1
-    crs1 --> crr1
-    crr1 --> couchbase
-    v1 -- "5: Set original offer IDs" --> s1
-    s1 -- "6: Save updated campaign" --> r1
-    r1 -- "7: Persist to Couchbase" --> couchbase
-    s1 -- "8: Publish update event" --> e1
-    e1 -- "9: CAMPAIGN_UPDATED event" --> kafka
-    kafka -- "10: Event consumed" --> oesub
-    oesub -- "11: Update Redis cache" --> redis
+    cr1 -- "5: Delegates to service" --> crs1
+    crs1 -- "6: Queries repository" --> crr1
+    crr1 -- "7: Reads from Couchbase" --> couchbase
+    cr1 -- "8: Returns campaign data" --> u1
+    v1 -- "9: Set original offer IDs" --> s1
+    s1 -- "10: Save updated campaign" --> r1
+    r1 -- "11: Persist to Couchbase" --> couchbase
+    s1 -- "12: Publish update event" --> e1
+    e1 -- "13: CAMPAIGN_UPDATED event" --> kafka
+    kafka -- "14: Event consumed" --> oesub
+    oesub -- "15: Update Redis cache" --> redis
 
     %% Styling
     postman:::ext
