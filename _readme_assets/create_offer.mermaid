@@ -1,0 +1,118 @@
+flowchart TD
+
+%% --- External Systems ---
+postman@{ img: "https://cdn-icons-png.flaticon.com/128/718/718064.png", label: "", h: 40, w: 40, constraint: "on" }
+redisC1@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", label: "Campaign Redis Cache", h: 40, w: 40, constraint: "on" }
+redisC2@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", label: "Campaign Redis Cache", h: 40, w: 40, constraint: "on" }
+redisC3@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", label: "Merchant Redis Cache", h: 40, w: 40, constraint: "on" }
+redisO1@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", label: "Offer Redis Cache", h: 40, w: 40, constraint: "on" }
+redisO2@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", label: "Offer Redis Cache", h: 40, w: 40, constraint: "on" }
+
+restCamp1["GET /api/campaigns/{{id}}"]
+restCamp2["GET /api/campaigns/{{id}}"]
+restMerch["GET /api/merchants/{{id}}"]
+restCust["GET /api/customers"]
+
+couchOffer@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", label: "Offer Couchbase DB", h: 40, w: 40, constraint: "on" }
+couchCamp@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", label: "Campaign Couchbase DB", h: 40, w: 40, constraint: "on" }
+couchMerch@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", label: "Merchant Couchbase DB", h: 40, w: 40, constraint: "on" }
+
+kafkaO@{ img: "https://cdn-icons-png.flaticon.com/128/16177/16177677.png", label: "Kafka (OFFER_CREATED)", h: 40, w: 40, constraint: "on" }
+kafkaC@{ img: "https://cdn-icons-png.flaticon.com/128/16177/16177677.png", label: "Kafka (CUSTOMER_OFFER_ASSIGNED)", h: 40, w: 40, constraint: "on" }
+
+%% --- Offer Write Microservice ---
+subgraph OfferWriteMS["Offer Write Microservice"]
+o1["OfferCommandController.createOffer()<br>Handles POST request"]
+o2["OfferCommandService.createOffer()<br>Coordinates creation, validation, persistence"]
+o3["CampaignValidation.validateCampaign()<br>Validates campaign existence and status"]
+oApi["APIUtils.fetchAndCacheBaseDtoById()<br>Checks Redis first, falls back to REST API"]
+oCacheCheck{{"Cache Hit?"}}
+o5["OfferCommandRepository.save()<br>Persists offer to Couchbase"]
+o6["OfferEventPublisher.publishCreateOfferEvent()<br>Publishes OFFER_CREATED to Kafka"]
+end
+
+%% --- Campaign Write Microservice ---
+subgraph CampaignWriteMS["Campaign Write Microservice"]
+cSub["OfferEventSubscriber.subscribeCreateOfferEvent()<br>Consumes OFFER_CREATED event"]
+cCacheSet["CacheUtils.setCache()<br>Caches offer in Redis"]
+cSrv["CampaignCommandService.linkOfferToCampaign()<br>Adds offer ID to campaign document"]
+cApi["APIUtils.fetchAndCacheBaseDtoById()<br>Checks Redis first, then REST"]
+cCacheCheck{{"Cache Hit?"}}
+cRepo["CampaignCommandRepository.save()<br>Updates campaign in Couchbase"]
+end
+
+%% --- Merchant Write Microservice ---
+subgraph MerchantWriteMS["Merchant Write Microservice"]
+mSub["OfferEventSubscriber.subscribeCreateOfferEvent()<br>Consumes OFFER_CREATED event"]
+mCacheSet["CacheUtils.setCache()<br>Caches offer in Redis"]
+mSrv["MerchantCommandService.linkOfferToMerchant()<br>Adds offer ID to merchant document"]
+mApi["APIUtils.fetchAndCacheBaseDtoById()<br>Checks Redis first, then REST"]
+mCacheCheck{{"Cache Hit?"}}
+mRepo["MerchantCommandRepository.save()<br>Updates merchant in Couchbase"]
+end
+
+%% --- Customer Write Microservice ---
+subgraph CustomerWriteMS["Customer Write Microservice"]
+custSub["OfferEventSubscriber.subscribeCreateOfferEvent()<br>Consumes OFFER_CREATED event"]
+custSrv["CustomerCommandService.assignOfferToCustomer()<br>Fetches customers, checks eligibility, assigns"]
+custApi["APIUtils.fetchBaseDtoList()<br>Fetches customers from REST"]
+custElig["CustomerEligibilityEngineClient.isEligible()<br>Checks customer eligibility"]
+custPub["OfferCustomerEventPublisher.publishOfferAssignedEvent()<br>Publishes CUSTOMER_OFFER_ASSIGNED"]
+end
+
+%% --- Flow ---
+postman -->|1: POST /api/offers| o1
+o1 -->|2: Call service| o2
+o2 -->|3: Validate campaign| o3
+o3 -->|4: Call APIUtils| oApi
+oApi -->|5: Check cache| oCacheCheck
+oCacheCheck -- "6a: Hit" --> redisC1
+oCacheCheck -- "6b: Miss" --> restCamp1
+o2 -->|7: Save offer| o5
+o5 -->|8: Write DB| couchOffer
+o2 -->|9: Publish event| o6
+o6 -->|10: Send to Kafka| kafkaO
+
+kafkaO -->|11: OFFER_CREATED| cSub
+cSub -->|12: Cache offer| cCacheSet
+cCacheSet --> redisO1
+cSub -->|13: Link offer to campaign| cSrv
+cSrv -->|14: APIUtils| cApi
+cApi -->|15: Check cache| cCacheCheck
+cCacheCheck -- "16a: Hit" --> redisC2
+cCacheCheck -- "16b: Miss" --> restCamp2
+cSrv -->|17: Save campaign| cRepo
+cRepo -->|18: Write DB| couchCamp
+
+kafkaO -->|19: OFFER_CREATED| mSub
+mSub -->|20: Cache offer| mCacheSet
+mCacheSet --> redisO2
+mSub -->|21: Link offer to merchant| mSrv
+mSrv -->|22: APIUtils| mApi
+mApi -->|23: Check cache| mCacheCheck
+mCacheCheck -- "24a: Hit" --> redisC3
+mCacheCheck -- "24b: Miss" --> restMerch
+mSrv -->|25: Save merchant| mRepo
+mRepo -->|26: Write DB| couchMerch
+
+kafkaO -->|27: OFFER_CREATED| custSub
+custSub -->|28: Assign to eligible customers| custSrv
+custSrv -->|29: Fetch customer list| custApi
+custApi -->|30: Call GET API| restCust
+custSrv -->|31: Check eligibility loop| custElig
+custSrv -->|32: Publish assignment event| custPub
+custPub -->|33: Send to Kafka| kafkaC
+
+%% --- Styling ---
+classDef ext fill:#fff,stroke:#333,stroke-width:2px
+classDef offerColor fill:#FFF9C4,stroke:#999
+classDef campaignColor fill:#BBDEFB,stroke:#999
+classDef merchantColor fill:#B2EBF2,stroke:#999
+classDef customerColor fill:#C8E6C9,stroke:#999
+
+class OfferWriteMS offerColor
+class CampaignWriteMS campaignColor
+class MerchantWriteMS merchantColor
+class CustomerWriteMS customerColor
+
+class postman,redisC1,redisC2,redisC3,redisO1,redisO2,restCamp1,restCamp2,restMerch,restCust,couchOffer,couchCamp,couchMerch,kafkaO,kafkaC ext

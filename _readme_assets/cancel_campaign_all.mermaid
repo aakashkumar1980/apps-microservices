@@ -1,0 +1,97 @@
+flowchart TD
+
+%% --- 3rd Party Services (no icon for GET) ---
+postmanPut@{ img: "https://cdn-icons-png.flaticon.com/128/718/718064.png", label: "", h: 40, w: 40, constraint: on }
+getCampaign["GET /api/campaigns/{id}"]
+redisO1@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", label: "Offer Redis Cache 1", h: 40, w: 40, constraint: "on" }
+redisO2@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", label: "Offer Redis Cache 2", h: 40, w: 40, constraint: "on" }
+redisM1@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", label: "Merchant Redis Cache", h: 40, w: 40, constraint: "on" }
+redisC1@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", label: "Customer Redis Cache", h: 40, w: 40, constraint: "on" }
+couchCamp@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", label: "Campaign Couchbase DB", h: 40, w: 40, constraint: "on" }
+couchOffer@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", label: "Offer Couchbase DB", h: 40, w: 40, constraint: "on" }
+couchMerch@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", label: "Merchant Couchbase DB", h: 40, w: 40, constraint: "on" }
+couchCustomer@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", label: "Customer Couchbase DB", h: 40, w: 40, constraint: "on" }
+kafkaCancel@{ img: "https://cdn-icons-png.flaticon.com/128/16177/16177677.png", label: "Kafka (CAMPAIGN_CANCELLED)", h: 40, w: 40, constraint: "on" }
+kafkaOfferCancel@{ img: "https://cdn-icons-png.flaticon.com/128/16177/16177677.png", label: "Kafka (OFFER_CANCELLED)", h: 40, w: 40, constraint: "on" }
+
+%% --- Campaign Write Microservice ---
+subgraph CampaignWriteMS["Campaign Write Microservice"]
+c1["cancelCampaign()"]
+cApi["APIUtils.fetchAndCacheBaseDtoById()"]
+cCacheCheck{{"Cache Hit?"}}
+cRepo["CampaignCommandRepository.save()"]
+cPub["CampaignEventPublisher.publishCancelCampaignEvent()"]
+end
+
+%% --- Offer Write Microservice ---
+subgraph OfferWriteMS["Offer Write Microservice"]
+oSub["CampaignEventSubscriber.subscribeCancelCampaignEvent()"]
+oCacheDel["CacheUtils.delete()"]
+oSrv["OfferCommandService.cancelOffers()"]
+oRepo["OfferCommandRepository.save()"]
+oPub["OfferEventPublisher.publishCancelOfferEvent()"]
+end
+
+%% --- Customer Write Microservice ---
+subgraph CustomerWriteMS["Customer Write Microservice"]
+custSub["OfferEventSubscriber.subscribeCancelOfferEvent()"]
+custCacheDel["CacheUtils.delete()"]
+custSrv["CustomerCommandService.unassignOfferFromCustomer()"]
+custRepo["CustomerCommandRepository.save()"]
+custPub["OfferCustomerEventPublisher.publishOfferUnassignedEvent()"]
+end
+
+%% --- Merchant Write Microservice ---
+subgraph MerchantWriteMS["Merchant Write Microservice"]
+mSub["OfferEventSubscriber.subscribeCancelOfferEvent()"]
+mCacheDel["CacheUtils.delete()"]
+mSrv["MerchantCommandService.unlinkOfferFromMerchant()"]
+mRepo["MerchantCommandRepository.save()"]
+end
+
+%% --- Flow ---
+postmanPut -->|1: Cancel campaign API call| c1
+c1 -->|2: Fetch campaign| cApi
+cApi -->|3: Check cache| cCacheCheck
+cCacheCheck -- "4a: Hit" --> redisO1
+cCacheCheck -- "4b: Miss" --> getCampaign
+c1 -->|5: Save cancelled campaign| cRepo
+cRepo -->|6: Write DB| couchCamp
+c1 -->|7: Publish event| cPub
+cPub -->|8: Send to Kafka| kafkaCancel
+
+kafkaCancel -->|9: CAMPAIGN_CANCELLED| oSub
+oSub -->|10: Remove campaign from cache| oCacheDel
+oCacheDel --> redisO2
+oSub -->|11: Cancel offers| oSrv
+oSrv -->|12: Save cancelled offers| oRepo
+oRepo -->|13: Write DB| couchOffer
+oSrv -->|14: Publish OFFER_CANCELLED| oPub
+oPub -->|15: Send to Kafka| kafkaOfferCancel
+
+kafkaOfferCancel -->|16: OFFER_CANCELLED| custSub
+custSub -->|17: Remove offer from cache| custCacheDel
+custCacheDel --> redisC1
+custSub -->|18: Unassign offer from customers| custSrv
+custSrv -->|19: Save customers| custRepo
+custRepo -->|20: Write DB| couchCustomer
+custSrv -->|21: Publish unassigned event| custPub
+
+kafkaOfferCancel -->|22: OFFER_CANCELLED| mSub
+mSub -->|23: Remove offer from cache| mCacheDel
+mCacheDel --> redisM1
+mSub -->|24: Unlink offer from merchant| mSrv
+mSrv -->|25: Save merchant| mRepo
+mRepo -->|26: Write DB| couchMerch
+
+%% --- Styling ---
+classDef ext fill:#fff,stroke:#333,stroke-width:2px
+classDef offerColor fill:#FFF9C4,stroke:#999
+classDef campaignColor fill:#BBDEFB,stroke:#999
+classDef merchantColor fill:#B2EBF2,stroke:#999
+classDef customerColor fill:#C8E6C9,stroke:#999
+
+class CampaignWriteMS campaignColor
+class OfferWriteMS offerColor
+class MerchantWriteMS merchantColor
+class CustomerWriteMS customerColor
