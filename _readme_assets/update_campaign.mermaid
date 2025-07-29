@@ -5,46 +5,52 @@ config:
 flowchart TD
     subgraph subGraph4["Campaign Write Microservice"]
         direction TB
-        c1["CampaignCommandController _updateCampaign()"]
-        v1["CampaignValidation _keepOriginalOfferIds()"]
-        u1["APIUtils _fetchAndCacheBaseDtoById()"]
-        s1["CampaignCommandService _updateCampaign()"]
-        r1["CampaignCommandRepository _save()"]
-        e1["CampaignEventPublisher _publishUpdateCampaignEvent()"]
+        c1["CampaignCommandController<br/><i>Receives the API request to update a campaign</i>"]
+        v1["CampaignValidation<br/><i>Keeps original offer IDs during update</i>"]
+        u1["APIUtils<br/><i>Fetches and caches campaign data by ID</i>"]
+        s1["CampaignCommandService<br/><i>Handles business logic for updating a campaign</i>"]
+        r1["CampaignCommandRepository<br/><i>Saves the updated campaign data to the database</i>"]
+        e1["CampaignEventPublisher<br/><i>Publishes an event after campaign update</i>"]
     end
     subgraph subGraph5["Campaign Read Microservice"]
         direction TB
-        cr1["CampaignQueryController _getCampaignById()"]
-        crs1["CampaignQueryService _getCampaignById()"]
-        crr1["CampaignQueryRepository _findById()"]
+        cr1["CampaignQueryController<br/><i>Handles GET campaign by ID requests</i>"]
+        crs1["CampaignQueryService<br/><i>Business logic for fetching campaign by ID</i>"]
+        crr1["CampaignQueryRepository<br/><i>Finds campaign by ID in the database</i>"]
     end
     subgraph subGraph7["Offer Write Microservice"]
         direction TB
-        oesub["CampaignEventSubscriber _subscribeUpdateCampaignEvent()"]
+        oesub["CampaignEventSubscriber<br/><i>Listens for campaign update events</i>"]
     end
-    postman["REST API"] -- 1: PUT /api/campaigns --> c1
-    c1 -- 2: Validate & keep original offer IDs --> v1
-    v1 -- 3: Calls APIUtils to fetch campaign by ID --> u1
-    u1 -- 4: Calls GET /api/campaigns/{id} --> cr1
-cr1 --> crs1
-crs1 --> crr1
-crr1 --> couchbase["Couchbase DB"]
-v1 -- 5: Set original offer IDs --> s1
-s1 -- 6: Save updated campaign --> r1
-r1 -- 7: Persist to Couchbase --> couchbase
-s1 -- 8: Publish update event --> e1
-e1 -- 9: CAMPAIGN_UPDATED event --> kafka["Kafka"]
-kafka -- 10: Event consumed --> oesub
-oesub -- 11: Update Redis cache --> redis["Redis Cache"]
-postman@{ img: "https://cdn-icons-png.flaticon.com/128/718/718064.png", h: 32, w: 32, constraint: "on"}
-couchbase@{ img: "https://cdn-icons-png.flaticon.com/128/9850/9850812.png", h: 32, w: 32, constraint: "on"}
-kafka@{ img: "https://cdn-icons-png.flaticon.com/128/16177/16177677.png", h: 32, w: 32, constraint: "on"}
-redis@{ img: "https://cdn-icons-png.flaticon.com/128/18279/18279795.png", h: 32, w: 32, constraint: "on"}
-postman:::ext
-couchbase:::ext
-kafka:::ext
-redis:::ext
-classDef ext fill:#fff,stroke:#333,stroke-width:2px
-style subGraph4 fill:#BBDEFB
-style subGraph5 fill:#BBDEFB
-style subGraph7 fill:#C8E6C9
+    postman["REST API"]
+    couchbase["Couchbase DB"]
+    kafka["Kafka"]
+    redis["Redis Cache"]
+
+    postman -- "1: PUT /api/campaigns" --> c1
+    c1 -- "2: Validate & keep original offer IDs" --> v1
+    v1 -- "3: Calls APIUtils to fetch campaign by ID" --> u1
+    u1 -- "4: Calls GET /api/campaigns/{id}" --> cr1
+    cr1 --> crs1
+    crs1 --> crr1
+    crr1 --> couchbase
+    v1 -- "5: Set original offer IDs" --> s1
+    s1 -- "6: Save updated campaign" --> r1
+    r1 -- "7: Persist to Couchbase" --> couchbase
+    s1 -- "8: Publish update event" --> e1
+    e1 -- "9: CAMPAIGN_UPDATED event" --> kafka
+    kafka -- "10: Event consumed" --> oesub
+    oesub -- "11: Update Redis cache" --> redis
+
+    %% Styling
+    postman:::ext
+    couchbase:::ext
+    kafka:::ext
+    redis:::ext
+    classDef ext fill:#fff,stroke:#333,stroke-width:2px
+    style subGraph4 fill:#BBDEFB
+    style subGraph5 fill:#BBDEFB
+    style subGraph7 fill:#C8E6C9
+
+    %% Notes:
+    %% Mermaid does not support images, 3D effects, or advanced shading in nodes.
