@@ -5,22 +5,22 @@ config:
 flowchart TD
     subgraph subGraph4["Campaign Write Microservice"]
         direction TB
-        c1["CampaignCommandController<br/><i>Receives the API request to update a campaign</i>"]
-        v1["CampaignValidation<br/><i>Keeps original offer IDs during update</i>"]
-        u1["APIUtils<br/><i>Fetches and caches campaign data by ID</i>"]
-        s1["CampaignCommandService<br/><i>Handles business logic for updating a campaign</i>"]
-        r1["CampaignCommandRepository<br/><i>Saves the updated campaign data to the database</i>"]
-        e1["CampaignEventPublisher<br/><i>Publishes an event after campaign update</i>"]
+        c1["CampaignCommandController.updateCampaign()<br/><i>Receives the API request to update a campaign</i>"]
+        v1["CampaignValidation.keepOriginalOfferIds()<br/><i>Keeps original offer IDs during update</i>"]
+        u1["APIUtils.fetchAndCacheBaseDtoById()<br/><i>Fetches and caches campaign data by ID</i>"]
+        s1["CampaignCommandService.updateCampaign()<br/><i>Handles business logic for updating a campaign</i>"]
+        r1["CampaignCommandRepository.save()<br/><i>Saves the updated campaign data to the database</i>"]
+        e1["CampaignEventPublisher.publishUpdateCampaignEvent()<br/><i>Publishes an event after campaign update</i>"]
     end
     subgraph subGraph5["Campaign Read Microservice"]
         direction TB
-        cr1["CampaignQueryController<br/><i>Receives GET campaign by ID request</i>"]
-        crs1["CampaignQueryService<br/><i>Processes and validates the fetch request</i>"]
-        crr1["CampaignQueryRepository<br/><i>Retrieves campaign by ID from the database</i>"]
+        cr1["CampaignQueryController.getCampaignById()<br/><i>Receives GET campaign by ID request</i>"]
+        crs1["CampaignQueryService.getCampaignById()<br/><i>Processes and validates the fetch request</i>"]
+        crr1["CampaignQueryRepository.findById()<br/><i>Retrieves campaign by ID from the database</i>"]
     end
     subgraph subGraph7["Offer Write Microservice"]
         direction TB
-        oesub["CampaignEventSubscriber<br/><i>Listens for campaign update events</i>"]
+        oesub["CampaignEventSubscriber.subscribeUpdateCampaignEvent()<br/><i>Listens for campaign update events</i>"]
     end
     postman["REST API"]
     couchbase_write["Couchbase DB (Write)"]
