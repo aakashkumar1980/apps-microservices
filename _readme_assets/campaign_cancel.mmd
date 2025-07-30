@@ -2,10 +2,9 @@ flowchart TD
 %% Postman
     POSTMAN["Postman<br>PUT /api/campaigns/:id"]:::external
 
-%% Campaign Write Microservice (Main Flow)
+%% Campaign Write Microservice
     subgraph Campaign_Write_Microservice
         style Campaign_Write_Microservice fill:#BBDEFB,stroke:#333,stroke-width:1px
-
         CCC["CampaignCommandController<br>cancelCampaign()"]:::controller
         CCS["CampaignCommandService<br>cancelCampaign()"]:::service
         APIU["APIUtils<br>fetchAndCacheBaseDtoById()"]:::util
@@ -15,10 +14,9 @@ flowchart TD
         CEP["CampaignEventPublisher<br>publishCancelCampaignEvent()"]:::event
     end
 
-%% Campaign Write Microservice (Kafka Subscriber)
+%% Campaign Kafka Subscriber
     subgraph Campaign_Write_Microservice_2
         style Campaign_Write_Microservice_2 fill:#E1F5FE,stroke:#0288D1,stroke-width:1px
-
         CES2["OfferEventSubscriber<br>subscribeCancelOfferEvent()"]:::subscriber
         APIUC1["APIUtils<br>fetchAndCacheBaseDtoById()"]:::util
         CU2["CacheUtils<br>get()"]:::util2
@@ -30,7 +28,6 @@ flowchart TD
 %% Offer Write Microservice
     subgraph Offer_Write_Microservice
         style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
-
         CES["CampaignEventSubscriber<br>subscribeCancelCampaignEvent()"]:::subscriber
         OFU["OfferCommandService<br>cancelOffers()"]:::service
         APIU2["APIUtils<br>fetchBaseDtoList()"]:::util
@@ -41,79 +38,99 @@ flowchart TD
 %% Customer Write Microservice
     subgraph Customer_Write_Microservice
         style Customer_Write_Microservice fill:#C8E6C9,stroke:#2E7D32,stroke-width:1px
-
         CUS["OfferEventSubscriber<br>subscribeCancelOfferEvent()"]:::subscriber
-        APIUC2["APIUtils<br>fetchAndCacheBaseDtoById()"]:::util
+        APIUC2["APIUtils<br>fetchBaseDtoList()"]:::util
         CU3["CacheUtils<br>get()"]:::util2
         DECISION_C2{{Cache Hit?}}:::decision
         CUSVC["CustomerCommandService<br>unassignOfferFromCustomer()"]:::service
         CUREPO["CustomerCommandRepository<br>save()"]:::repository
     end
 
-%% External Systems (All Separate)
-    CB_CAMPAIGN_MAIN["Couchbase<br>Campaign DB (Main)"]:::external
-    CB_CAMPAIGN_SUB["Couchbase<br>Campaign DB (Subscriber)"]:::external
-    CB_OFFER["Couchbase<br>Offer DB"]:::external
-    CB_CUSTOMER["Couchbase<br>Customer DB"]:::external
+%% Merchant Write Microservice
+    subgraph Merchant_Write_Microservice
+        style Merchant_Write_Microservice fill:#B2EBF2,stroke:#00838F,stroke-width:1px
+        MES["OfferEventSubscriber<br>subscribeCancelOfferEvent()"]:::subscriber
+        APIUM["APIUtils<br>fetchAndCacheBaseDtoById()"]:::util
+        CUM["CacheUtils<br>get()"]:::util2
+        DECISION_M{{Cache Hit?}}:::decision
+        MCS["MerchantCommandService<br>unlinkOfferFromMerchant()"]:::service
+        MREP["MerchantCommandRepository<br>save()"]:::repository
+    end
 
-    K1["Kafka Topic<br>CAMPAIGN_CANCELLED"]:::external
-    K2["Kafka Topic<br>OFFER_CANCELLED"]:::external
-
+%% External Systems
     REDIS1["Redis Cache<br>campaign::id (main)"]:::external
     REDIS1_B["Redis Cache<br>campaign::id (subscriber)"]:::external
     REDIS2["Redis Cache<br>offer::id"]:::external
     REDIS3["Redis Cache<br>customer::id"]:::external
+    REDISM["Redis Cache<br>merchant::id"]:::external
 
-    REST1["Campaign Read API<br>GET /api/campaigns/:id (main)"]:::external
-    REST2["Campaign Read API<br>GET /api/campaigns/:id (subscriber)"]:::external
-    REST3["Offer Read API<br>GET /api/offers/campaigns/:campaignId"]:::external
-    REST4["Offer Read API<br>GET /api/offers/:offerId"]:::external
+    CB_CAMPAIGN_MAIN["Couchbase<br>Campaign DB (Main)"]:::external
+    CB_CAMPAIGN_SUB["Couchbase<br>Campaign DB (Subscriber)"]:::external
+    CB_OFFER["Couchbase<br>Offer DB"]:::external
+    CB_CUSTOMER["Couchbase<br>Customer DB"]:::external
+    CB_MERCHANT["Couchbase<br>Merchant DB"]:::external
 
-%% Campaign Flow
-    POSTMAN -->|1: PUT request to cancel campaign| CCC
-    CCC -->|2: Call service layer| CCS
-    CCS -->|3: Fetch original campaign| APIU
+    REST1["GET /api/campaigns/:id<br>(Main Flow)"]:::external
+    REST2["GET /api/campaigns/:id<br>(Subscriber Flow)"]:::external
+    REST3["GET /api/offers/campaigns/:campaignId"]:::external
+    REST4["GET /api/customers"]:::external
+    RESTM["GET /api/merchants/:id"]:::external
+
+    K1["Kafka Topic<br>CAMPAIGN_CANCELLED"]:::external
+    K2["Kafka Topic<br>OFFER_CANCELLED"]:::external
+
+%% Flows
+    POSTMAN -->|1: Cancel request| CCC
+    CCC -->|2: Call service| CCS
+    CCS -->|3: Fetch campaign| APIU
     APIU -->|4: Check Redis| CU
-    CU -->|5: Query Redis| REDIS1
-    REDIS1 -->|6: Cache result| DECISION
-    DECISION -->|7: No - call REST API| REST1
-    CCS -->|8: Set status to CANCELLED| CCR
-    CCR -->|9: Save to Couchbase| CB_CAMPAIGN_MAIN
-    CCS -->|10: Publish cancel event| CEP
-    CEP -->|11: Send to Kafka| K1
+    CU -->|5: Lookup campaign cache| REDIS1
+    REDIS1 -->|6: If miss| DECISION
+    DECISION -->|7: Fetch from DB| REST1
+    CCS -->|8: Update status to CANCELLED| CCR
+    CCR -->|9: Save updated campaign| CB_CAMPAIGN_MAIN
+    CCS -->|10: Publish event| CEP
+    CEP -->|11: Emit to Kafka| K1
 
-%% Offer Flow
-    K1 -->|12: Receive event| CES
-    CES -->|13: Call cancelOffers| OFU
+    K1 -->|12: Receive CAMPAIGN_CANCELLED| CES
+    CES -->|13: Cancel related offers| OFU
     OFU -->|14: Fetch offers by campaign| APIU2
-    APIU2 -->|15: Call Offer Read API| REST3
-    OFU -->|16: Set offer status to CANCELLED| OFR
+    APIU2 -->|15: Call REST for offers| REST3
+    OFU -->|16: Update offer statuses| OFR
     OFR -->|17: Save to Couchbase| CB_OFFER
     OFU -->|18: Publish OFFER_CANCELLED| OEP
-    OEP -->|19: Send Kafka message| K2
+    OEP -->|19: Emit to Kafka| K2
 
-%% Campaign Reaction to OFFER_CANCELLED
     K2 -->|20: Receive OFFER_CANCELLED| CES2
     CES2 -->|21: Fetch campaign| APIUC1
     APIUC1 -->|22: Check Redis| CU2
-    CU2 -->|23: Query Redis| REDIS1_B
-    REDIS1_B -->|24: Result| DECISION_C1
-    DECISION_C1 -->|25: No - call REST| REST2
+    CU2 -->|23: Lookup cache| REDIS1_B
+    REDIS1_B -->|24: Miss check| DECISION_C1
+    DECISION_C1 -->|25: Fetch from REST| REST2
     CES2 -->|26: Unlink offer from campaign| CCS2
-    CCS2 -->|27: Save campaign| CCR2
+    CCS2 -->|27: Save updated campaign| CCR2
     CCR2 -->|28: Write to Couchbase| CB_CAMPAIGN_SUB
 
-%% Customer Reaction to OFFER_CANCELLED
-    K2 -->|29: Receive OFFER_CANCELLED| CUS
-    CUS -->|30: Fetch offer| APIUC2
+    K2 -->|29: Trigger in Customer| CUS
+    CUS -->|30: Fetch all customers| APIUC2
     APIUC2 -->|31: Check Redis| CU3
-    CU3 -->|32: Query Redis| REDIS2
-    REDIS2 -->|33: Result| DECISION_C2
-    DECISION_C2 -->|34: No - call REST| REST4
-    CUS -->|35: Unassign offer from customers| CUSVC
-    CUSVC -->|36: Save updated customers| CUREPO
+    CU3 -->|32: Access cache| REDIS2
+    REDIS2 -->|33: On miss| DECISION_C2
+    DECISION_C2 -->|34: Fetch all customers| REST4
+    CUS -->|35: Remove offer from customers| CUSVC
+    CUSVC -->|36: Save updated list| CUREPO
     CUREPO -->|37: Write to Couchbase| CB_CUSTOMER
-    CUSVC -->|↪ Update Redis| REDIS3
+    CUSVC -->|38: Update Redis| REDIS3
+
+    K2 -->|39: Trigger in Merchant| MES
+    MES -->|40: Fetch merchant| APIUM
+    APIUM -->|41: Check Redis| CUM
+    CUM -->|42: Lookup merchant cache| REDISM
+    REDISM -->|43: On miss| DECISION_M
+    DECISION_M -->|44: Call merchant REST| RESTM
+    MES -->|45: Unlink offer from merchant| MCS
+    MCS -->|46: Save updated merchant| MREP
+    MREP -->|47: Write to Couchbase| CB_MERCHANT
 
 %% Styling
     classDef controller fill:#E3F2FD,stroke:#1E88E5,color:#000;
@@ -123,4 +140,4 @@ flowchart TD
     classDef util fill:#FFF3E0,stroke:#FB8C00,color:#000;
     classDef util2 fill:#FBE9E7,stroke:#D84315,color:#000;
     classDef event fill:#E0F7FA,stroke:#00ACC1,color:#000;
-    classDef external fill:#FFFFFF,stroke:#000,color:#000,stroke-dasharray: 4 2;
+    classDef external fill:#FFFFFF,stroke:#000,stroke-dasharray: 4 2;
