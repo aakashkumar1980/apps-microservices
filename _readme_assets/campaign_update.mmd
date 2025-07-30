@@ -1,67 +1,58 @@
+---
+config:
+  layout: dagre
+---
 flowchart TD
-%% Postman
-    POSTMAN["Postman<br>PUT /api/campaigns/:id"]:::external
-
-%% Microservice: Campaign Write
-    subgraph Campaign_Write_Microservice
-        style Campaign_Write_Microservice fill:#BBDEFB,stroke:#333,stroke-width:1px
-
-        CCC["CampaignCommandController<br>updateCampaign()"]:::controller
-        CCS["CampaignCommandService<br>updateCampaign()"]:::service
-        VAL["CampaignValidation<br>keepOriginalOfferIds()"]:::validator
-        APIU["APIUtils<br>fetchAndCacheBaseDtoById()"]:::util
-        CU1["CacheUtils<br>get()"]:::util2
-        DECISION{{Cache Hit?}}:::decision
-        CCR["CampaignCommandRepository<br>save()"]:::repository
-        CEP["CampaignEventPublisher<br>publishUpdateCampaignEvent()"]:::event
+    subgraph Campaign_Write_Microservice["Campaign_Write_Microservice"]
+        CCC["CampaignCommandController<br>updateCampaign()"]
+        CCS["CampaignCommandService<br>updateCampaign()"]
+        VAL["CampaignValidation<br>keepOriginalOfferIds()"]
+        APIU["APIUtils<br>fetchAndCacheBaseDtoById()"]
+        CCR["CampaignCommandRepository<br>save()"]
+        CEP["CampaignEventPublisher<br>publishUpdateCampaignEvent()"]
     end
-
-%% Microservice: Offer Write
-    subgraph Offer_Write_Microservice
-        style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
-
-        CES["OfferEventSubscriber<br>onCampaignUpdated()"]:::subscriber
-        CU2["CacheUtils<br>put()"]:::util2
+    subgraph Offer_Write_Microservice["Offer_Write_Microservice"]
+        CES["OfferEventSubscriber<br>onCampaignUpdated()"]
+        CU2["CacheUtils<br>put()"]
     end
-
-%% External Systems
-    CB1["Couchbase<br>campaign document"]:::external
-    K1["Kafka Topic<br>CAMPAIGN_UPDATED"]:::external
-    REDIS1["Redis Cache<br>campaign::id"]:::external
-    REDIS2["Redis Cache<br>updated campaign"]:::external
-
-%% REST API box (outside Campaign MS)
-    subgraph REST_Campaign_Read_API [GET /api/campaigns/:id]
-        style REST_Campaign_Read_API stroke-dasharray: 4 4,fill:#ffffff
-        REST["REST API<br>Campaign Read Service"]:::external
+    subgraph REST_Campaign_Read_API["GET /api/campaigns/:id"]
+        REST["REST API<br>Campaign Read Service"]
     end
-
-%% Flow Arrows
-    POSTMAN -->|1: PUT request<br>to update campaign| CCC
-    CCC -->|2: Pass to service| CCS
-    CCS -->|3: Validate offerIds| VAL
-    VAL -->|4: Fetch original campaign| APIU
-    APIU -->|5: Try cache fetch| CU1
-    CU1 -->|6: Check Redis cache| REDIS1
-    REDIS1 -->|7: Cache lookup result| DECISION
-    DECISION -->|8: No - Call REST API| REST
-    APIU -->|9: Set offerIds from original| VAL
-    CCS -->|10: Save campaign| CCR
-    CCR -->|11: Write to Couchbase| CB1
-    CCS -->|12: Publish Kafka event| CEP
-    CEP -->|13: Send to topic CAMPAIGN_UPDATED| K1
-    K1 -->|14: Receive update event| CES
-    CES -->|15: Process in Offer MS| CU2
-    CU2 -->|16: Cache updated campaign| REDIS2
-
-%% Styling
-    classDef controller fill:#E3F2FD,stroke:#1E88E5,color:#000;
-    classDef service fill:#E8F5E9,stroke:#43A047,color:#000;
-    classDef validator fill:#EDE7F6,stroke:#5E35B1,color:#000;
-    classDef repository fill:#F3E5F5,stroke:#8E24AA,color:#000;
-    classDef util fill:#FFF3E0,stroke:#FB8C00,color:#000;
-    classDef event fill:#E0F7FA,stroke:#00ACC1,color:#000;
-    classDef decision fill:#FFFDE7,stroke:#FBC02D,color:#000;
-    classDef subscriber fill:#F1F8E9,stroke:#7CB342,color:#000;
-    classDef util2 fill:#FBE9E7,stroke:#D84315,color:#000;
-    classDef external fill:#FFFFFF,stroke:#000,color:#000,stroke-dasharray: 4 2;
+    POSTMAN["Postman<br>PUT /api/campaigns/:id"] -- 1: PUT request<br>to update campaign --> CCC
+    CCC -- 2: Pass to service --> CCS
+    CCS -- 3: Validate offerIds --> VAL
+    VAL -- 4: Fetch original campaign --> APIU
+    APIU -- "5: No - Call REST API" --> REST
+    APIU -- 6: Set offerIds from original --> VAL
+    CCS -- 7: Save campaign --> CCR
+    CCR -- 8: Write to Couchbase --> CB1["Couchbase<br>campaign document"]
+    CCS -- 9: Publish Kafka event --> CEP
+    CEP -- 10: Send to topic CAMPAIGN_UPDATED --> K1["Kafka Topic<br>CAMPAIGN_UPDATED"]
+    K1 -- 11: Receive update event --> CES
+    CES -- 12: Process in Offer MS --> CU2
+    CU2 -- 13: Cache updated campaign --> REDIS2["Redis Cache<br>updated campaign"]
+    CCC:::controller
+    CCS:::service
+    VAL:::validator
+    APIU:::util
+    CCR:::repository
+    CEP:::event
+    CES:::subscriber
+    CU2:::util2
+    REST:::external
+    POSTMAN:::external
+    CB1:::external
+    K1:::external
+    REDIS2:::external
+    classDef controller fill:#E3F2FD,stroke:#1E88E5,color:#000
+    classDef service fill:#E8F5E9,stroke:#43A047,color:#000
+    classDef validator fill:#EDE7F6,stroke:#5E35B1,color:#000
+    classDef repository fill:#F3E5F5,stroke:#8E24AA,color:#000
+    classDef util fill:#FFF3E0,stroke:#FB8C00,color:#000
+    classDef event fill:#E0F7FA,stroke:#00ACC1,color:#000
+    classDef subscriber fill:#F1F8E9,stroke:#7CB342,color:#000
+    classDef util2 fill:#FBE9E7,stroke:#D84315,color:#000
+    classDef external fill:#FFFFFF,stroke:#000,color:#000,stroke-dasharray: 4 2
+    style Campaign_Write_Microservice fill:#BBDEFB,stroke:#333,stroke-width:1px
+    style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
+    style REST_Campaign_Read_API stroke-dasharray: 4 4,fill:#ffffff
