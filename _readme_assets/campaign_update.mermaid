@@ -1,58 +1,67 @@
----
-config:
-  layout: dagre
----
 flowchart TD
-    subgraph subGraph4["Campaign Write Microservice"]
-        direction TB
-        c1["CampaignCommandController.updateCampaign()<br/><i>Receives the API request to update a campaign</i>"]
-        v1["CampaignValidation.keepOriginalOfferIds()<br/><i>Keeps original offer IDs during update</i>"]
-        u1["APIUtils.fetchAndCacheBaseDtoById()<br/><i>Fetches and caches campaign data by ID</i>"]
-        s1["CampaignCommandService.updateCampaign()<br/><i>Handles business logic for updating a campaign</i>"]
-        r1["CampaignCommandRepository.save()<br/><i>Saves the updated campaign data to the database</i>"]
-        e1["CampaignEventPublisher.publishUpdateCampaignEvent()<br/><i>Publishes an event after campaign update</i>"]
-    end
-    subgraph subGraph5["Campaign Read Microservice"]
-        direction TB
-        cr1["CampaignQueryController.getCampaignById()<br/><i>Receives GET campaign by ID request</i>"]
-        crs1["CampaignQueryService.getCampaignById()<br/><i>Processes and validates the fetch request</i>"]
-        crr1["CampaignQueryRepository.findById()<br/><i>Retrieves campaign by ID from the database</i>"]
-    end
-    subgraph subGraph7["Offer Write Microservice"]
-        direction TB
-        oesub["CampaignEventSubscriber.subscribeUpdateCampaignEvent()<br/><i>Listens for campaign update events</i>"]
-    end
-    postman["REST API"]
-    couchbase_write["Couchbase DB (Write)"]
-    couchbase_read["Couchbase DB (Read)"]
-    kafka["Kafka"]
-    redis["Redis Cache"]
+%% Postman
+    POSTMAN["Postman<br>PUT /api/campaigns/:id"]:::external
 
-    postman -- "1: PUT /api/campaigns" --> c1
-    c1 -- "2: Validate & keep original offer IDs" --> v1
-    v1 -- "3: Calls APIUtils to fetch campaign by ID" --> u1
-    u1 -- "4: Calls GET /api/campaigns/{id}" --> cr1
-    cr1 -- "5: Delegates to service" --> crs1
-    crs1 -- "6: Queries repository" --> crr1
-    crr1 -- "7: Reads from Couchbase" --> couchbase_read
-    v1 -- "8: Set original offer IDs" --> s1
-    s1 -- "9: Save updated campaign" --> r1
-    r1 -- "10: Persist to Couchbase" --> couchbase_write
-    s1 -- "11: Publish update event" --> e1
-    e1 -- "12: CAMPAIGN_UPDATED event" --> kafka
-    kafka -- "13: Event consumed" --> oesub
-    oesub -- "14: Update Redis cache" --> redis
+%% Microservice: Campaign Write
+    subgraph Campaign_Write_Microservice
+        style Campaign_Write_Microservice fill:#BBDEFB,stroke:#333,stroke-width:1px
 
-    %% Styling
-    postman:::ext
-    couchbase_write:::ext
-    couchbase_read:::ext
-    kafka:::ext
-    redis:::ext
-    classDef ext fill:#fff,stroke:#333,stroke-width:2px
-    style subGraph4 fill:#BBDEFB
-    style subGraph5 fill:#BBDEFB
-    style subGraph7 fill:#C8E6C9
+        CCC["CampaignCommandController<br>updateCampaign()"]:::controller
+        CCS["CampaignCommandService<br>updateCampaign()"]:::service
+        VAL["CampaignValidation<br>keepOriginalOfferIds()"]:::validator
+        APIU["APIUtils<br>fetchAndCacheBaseDtoById()"]:::util
+        CU1["CacheUtils<br>get()"]:::util2
+        DECISION{{Cache Hit?}}:::decision
+        CCR["CampaignCommandRepository<br>save()"]:::repository
+        CEP["CampaignEventPublisher<br>publishUpdateCampaignEvent()"]:::event
+    end
 
-    %% Notes:
-    %% Mermaid does not support images, 3D effects, or advanced shading in nodes.
+%% Microservice: Offer Write
+    subgraph Offer_Write_Microservice
+        style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
+
+        CES["OfferEventSubscriber<br>onCampaignUpdated()"]:::subscriber
+        CU2["CacheUtils<br>put()"]:::util2
+    end
+
+%% External Systems
+    CB1["Couchbase<br>campaign document"]:::external
+    K1["Kafka Topic<br>CAMPAIGN_UPDATED"]:::external
+    REDIS1["Redis Cache<br>campaign::id"]:::external
+    REDIS2["Redis Cache<br>updated campaign"]:::external
+
+%% REST API box (outside Campaign MS)
+    subgraph REST_Campaign_Read_API [GET /api/campaigns/:id]
+        style REST_Campaign_Read_API stroke-dasharray: 4 4,fill:#ffffff
+        REST["REST API<br>Campaign Read Service"]:::external
+    end
+
+%% Flow Arrows
+    POSTMAN -->|1: PUT request<br>to update campaign| CCC
+    CCC -->|2: Pass to service| CCS
+    CCS -->|3: Validate offerIds| VAL
+    VAL -->|4: Fetch original campaign| APIU
+    APIU -->|5: Try cache fetch| CU1
+    CU1 -->|6: Check Redis cache| REDIS1
+    REDIS1 -->|7: Cache lookup result| DECISION
+    DECISION -->|8: No - Call REST API| REST
+    APIU -->|9: Set offerIds from original| VAL
+    CCS -->|10: Save campaign| CCR
+    CCR -->|11: Write to Couchbase| CB1
+    CCS -->|12: Publish Kafka event| CEP
+    CEP -->|13: Send to topic CAMPAIGN_UPDATED| K1
+    K1 -->|14: Receive update event| CES
+    CES -->|15: Process in Offer MS| CU2
+    CU2 -->|16: Cache updated campaign| REDIS2
+
+%% Styling
+    classDef controller fill:#E3F2FD,stroke:#1E88E5,color:#000;
+    classDef service fill:#E8F5E9,stroke:#43A047,color:#000;
+    classDef validator fill:#EDE7F6,stroke:#5E35B1,color:#000;
+    classDef repository fill:#F3E5F5,stroke:#8E24AA,color:#000;
+    classDef util fill:#FFF3E0,stroke:#FB8C00,color:#000;
+    classDef event fill:#E0F7FA,stroke:#00ACC1,color:#000;
+    classDef decision fill:#FFFDE7,stroke:#FBC02D,color:#000;
+    classDef subscriber fill:#F1F8E9,stroke:#7CB342,color:#000;
+    classDef util2 fill:#FBE9E7,stroke:#D84315,color:#000;
+    classDef external fill:#FFFFFF,stroke:#000,color:#000,stroke-dasharray: 4 2;
