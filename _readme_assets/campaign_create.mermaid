@@ -1,40 +1,52 @@
 flowchart TD
-%% --- Campaign Write Microservice ---
-    subgraph CampaignWrite["Campaign Write Microservice"]
-        direction TB
-        C1["CampaignCommandController<br>createCampaign()"]
-        S1["CampaignCommandService<br>createCampaign()"]
-        R1["CampaignCommandRepository<br>save()"]
-        E1["CampaignEventPublisher<br>publishCreateCampaignEvent()"]
+%% Postman
+    POSTMAN["Postman<br>POST /api/campaigns"]:::external
+
+%% Microservice: Campaign Write
+    subgraph Campaign_Write_Microservice
+        style Campaign_Write_Microservice fill:#BBDEFB,stroke:#333,stroke-width:1px
+
+        CCC["CampaignCommandController<br>createCampaign()"]:::controller
+        CCS["CampaignCommandService<br>createCampaign()"]:::service
+        DBU["DBUtils<br>getUniqueCounter()"]:::util
+        CCR["CampaignCommandRepository<br>save()"]:::repository
+        CEP["CampaignEventPublisher<br>publishCreateCampaignEvent()"]:::event
     end
 
-%% --- Offer Write Microservice ---
-    subgraph OfferWrite["Offer Write Microservice"]
-        direction TB
-        OESub["CampaignEventSubscriber<br>subscribeCreateCampaignEvent()"]
+%% Microservice: Offer Write
+    subgraph Offer_Write_Microservice
+        style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
+
+        CES["CampaignEventSubscriber<br>onCampaignCreated()"]:::subscriber
+        OCU["CacheUtils<br>put()"]:::util2
     end
 
-%% --- External Systems ---
-    API["REST API<br>POST /api/campaigns"]
-    Couchbase["Couchbase DB"]
-    Kafka["Kafka"]
-    Redis["Redis Cache"]
+%% External: Couchbase
+    CB1["Couchbase<br>campaign::123"]:::external
+%% External: Redis
+    REDIS["Redis Cache<br>Campaign Data"]:::external
+%% External: Kafka
+    K1["Kafka Topic<br>CAMPAIGN_CREATED"]:::external
 
-%% --- Flow with Numbered Descriptions ---
-    API -- "0: Client initiates campaign creation" --> C1
-    C1 -- "1: Handles incoming campaign creation request" --> S1
-    S1 -- "2: Validates and processes campaign data" --> R1
-    R1 -- "3: Persists campaign entity to database" --> Couchbase
-    S1 -- "4: Emits campaign creation event" --> E1
-    E1 -- "5: Publishes event to Kafka" --> Kafka
-    Kafka -- "6: Transports event to offer service" --> OESub
-    OESub -- "7: Updates offer cache" --> Redis
+%% Flow Arrows
+    POSTMAN -->|1: Send request<br>to create campaign| CCC
+    CCC -->|2: Accept request<br>map to service| CCS
+    CCS -->|3: Wrap into DTO<br>with metadata| DBU
+    DBU -->|4: Generate unique ID<br>like campaign::123| CB1
+    CCS -->|5: Save DTO<br>using repository| CCR
+    CCR -->|6: Persist to Couchbase| CB1
+    CCS -->|7: Publish creation event<br>to Kafka| CEP
+    CEP -->|8: Send to Kafka Topic| K1
+    K1 -->|9: Kafka event received<br>CAMPAIGN_CREATED| CES
+    CES -->|10: Process event<br>in offer microservice| OCU
+    OCU -->|11: Cache campaign<br>data to Redis| REDIS
 
-%% --- Styling ---
-    classDef ext fill:#fff,stroke:#333,stroke-width:2px
-    API:::ext
-    Couchbase:::ext
-    Kafka:::ext
-    Redis:::ext
-    style CampaignWrite fill:#BBDEFB
-    style OfferWrite fill:#C8E6C9
+%% Styling
+    classDef controller fill:#E3F2FD,stroke:#1E88E5,color:#000;
+    classDef service fill:#E8F5E9,stroke:#43A047,color:#000;
+    classDef repository fill:#F3E5F5,stroke:#8E24AA,color:#000;
+    classDef util fill:#FFF3E0,stroke:#FB8C00,color:#000;
+    classDef event fill:#E0F7FA,stroke:#00ACC1,color:#000;
+    classDef subscriber fill:#F1F8E9,stroke:#7CB342,color:#000;
+    classDef util2 fill:#FBE9E7,stroke:#D84315,color:#000;
+    classDef external fill:#FFFFFF,stroke:#000,color:#000,stroke-dasharray: 4 2;
