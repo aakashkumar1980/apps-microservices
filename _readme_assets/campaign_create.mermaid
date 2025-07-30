@@ -2,20 +2,20 @@ flowchart TD
 %% --- Campaign Write Microservice ---
     subgraph CampaignWrite["Campaign Write Microservice"]
         direction TB
-        C1["CampaignCommandController\ncreateCampaign()"]
-        S1["CampaignCommandService\ncreateCampaign()"]
-        R1["CampaignCommandRepository\nsave()"]
-        E1["CampaignEventPublisher\npublishCreateCampaignEvent()"]
+        C1["CampaignCommandController<br>createCampaign()"]
+        S1["CampaignCommandService<br>createCampaign()"]
+        R1["CampaignCommandRepository<br>save()"]
+        E1["CampaignEventPublisher<br>publishCreateCampaignEvent()"]
     end
 
 %% --- Offer Write Microservice ---
     subgraph OfferWrite["Offer Write Microservice"]
         direction TB
-        OESub["CampaignEventSubscriber\nsubscribeCreateCampaignEvent()"]
+        OESub["CampaignEventSubscriber<br>subscribeCreateCampaignEvent()"]
     end
 
 %% --- External Systems ---
-    API["REST API\nPOST /api/campaigns"]
+    API["REST API<br>POST /api/campaigns"]
     Couchbase["Couchbase DB"]
     Kafka["Kafka"]
     Redis["Redis Cache"]
