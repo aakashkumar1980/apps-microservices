@@ -2,33 +2,33 @@ flowchart TD
 %% --- Campaign Write Microservice ---
     subgraph CampaignWrite["Campaign Write Microservice"]
         direction TB
-        C1["1. CampaignCommandController.createCampaign()<br/><i>Handles incoming campaign creation requests</i>"]
-        S1["2. CampaignCommandService.createCampaign()<br/><i>Validates and processes campaign data</i>"]
-        R1["3. CampaignCommandRepository.save()<br/><i>Persists campaign entity to database</i>"]
-        E1["4. CampaignEventPublisher.publishCreateCampaignEvent()<br/><i>Emits campaign creation event</i>"]
+        C1["CampaignCommandController\ncreateCampaign()"]
+        S1["CampaignCommandService\ncreateCampaign()"]
+        R1["CampaignCommandRepository\nsave()"]
+        E1["CampaignEventPublisher\npublishCreateCampaignEvent()"]
     end
 
 %% --- Offer Write Microservice ---
     subgraph OfferWrite["Offer Write Microservice"]
         direction TB
-        OESub["6. CampaignEventSubscriber.subscribeCreateCampaignEvent()<br/><i>Listens for campaign events and updates offers</i>"]
+        OESub["CampaignEventSubscriber\nsubscribeCreateCampaignEvent()"]
     end
 
 %% --- External Systems ---
-    API["0. REST API<br/><i>External client initiates campaign creation</i>"]
-    Couchbase["3a. Couchbase DB<br/><i>Stores campaign records</i>"]
-    Kafka["5. Kafka<br/><i>Transports events between services</i>"]
-    Redis["7. Redis Cache<br/><i>Refreshes offer cache after update</i>"]
+    API["REST API"]
+    Couchbase["Couchbase DB"]
+    Kafka["Kafka"]
+    Redis["Redis Cache"]
 
-%% --- Flow ---
-    API -- "POST /api/campaigns" --> C1
-    C1 --> S1
-    S1 --> R1
-    R1 --> Couchbase
-    S1 --> E1
-    E1 --> Kafka
-    Kafka --> OESub
-    OESub --> Redis
+%% --- Flow with Numbered Descriptions ---
+    API -- "0: Client initiates campaign creation" --> C1
+    C1 -- "1: Handles incoming campaign creation request" --> S1
+    S1 -- "2: Validates and processes campaign data" --> R1
+    R1 -- "3: Persists campaign entity to database" --> Couchbase
+    S1 -- "4: Emits campaign creation event" --> E1
+    E1 -- "5: Publishes event to Kafka" --> Kafka
+    Kafka -- "6: Transports event to offer service" --> OESub
+    OESub -- "7: Updates offer cache" --> Redis
 
 %% --- Styling ---
     classDef ext fill:#fff,stroke:#333,stroke-width:2px
