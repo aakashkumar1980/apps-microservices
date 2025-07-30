@@ -1,40 +1,40 @@
 flowchart TD
 %% --- Campaign Write Microservice ---
-    subgraph subGraph4["Campaign Write Microservice"]
+    subgraph CampaignWrite["Campaign Write Microservice"]
         direction TB
-        c1["CampaignCommandController.createCampaign()<br/><i>Receives the API request to create a campaign</i>"]
-        s1["CampaignCommandService.createCampaign()<br/><i>Handles business logic for creating a campaign</i>"]
-        r1["CampaignCommandRepository.save()<br/><i>Saves the campaign data to the database</i>"]
-        e1["CampaignEventPublisher.publishCreateCampaignEvent()<br/><i>Publishes an event after campaign creation</i>"]
+        C1["1. CampaignCommandController.createCampaign()<br/><i>Handles incoming campaign creation requests</i>"]
+        S1["2. CampaignCommandService.createCampaign()<br/><i>Validates and processes campaign data</i>"]
+        R1["3. CampaignCommandRepository.save()<br/><i>Persists campaign entity to database</i>"]
+        E1["4. CampaignEventPublisher.publishCreateCampaignEvent()<br/><i>Emits campaign creation event</i>"]
     end
 
 %% --- Offer Write Microservice ---
-    subgraph subGraph7["Offer Write Microservice"]
+    subgraph OfferWrite["Offer Write Microservice"]
         direction TB
-        oesub["CampaignEventSubscriber.subscribeCreateCampaignEvent()<br/><i>Listens for campaign creation events</i>"]
+        OESub["6. CampaignEventSubscriber.subscribeCreateCampaignEvent()<br/><i>Listens for campaign events and updates offers</i>"]
     end
 
 %% --- External Systems ---
-postman["REST API"]
-couchbase["Couchbase DB"]
-kafka["Kafka"]
-redis["Redis Cache"]
+    API["0. REST API<br/><i>External client initiates campaign creation</i>"]
+    Couchbase["3a. Couchbase DB<br/><i>Stores campaign records</i>"]
+    Kafka["5. Kafka<br/><i>Transports events between services</i>"]
+    Redis["7. Redis Cache<br/><i>Refreshes offer cache after update</i>"]
 
-%% --- Flow for Create Campaign ---
-postman -- "1: POST /api/campaigns" --> c1
-c1 -- "2: Delegate to service" --> s1
-s1 -- "3: Save campaign" --> r1
-r1 -- "4: Persist to Couchbase" --> couchbase
-s1 -- "5: Publish event" --> e1
-e1 -- "6: CAMPAIGN_CREATED event" --> kafka
-kafka -- "7: Event consumed" --> oesub
-oesub -- "8: Update Redis cache" --> redis
+%% --- Flow ---
+    API -- "POST /api/campaigns" --> C1
+    C1 --> S1
+    S1 --> R1
+    R1 --> Couchbase
+    S1 --> E1
+    E1 --> Kafka
+    Kafka --> OESub
+    OESub --> Redis
 
 %% --- Styling ---
-postman:::ext
-couchbase:::ext
-kafka:::ext
-redis:::ext
-classDef ext fill:#fff,stroke:#333,stroke-width:2px
-style subGraph4 fill:#BBDEFB
-style subGraph7 fill:#C8E6C9
+    classDef ext fill:#fff,stroke:#333,stroke-width:2px
+    API:::ext
+    Couchbase:::ext
+    Kafka:::ext
+    Redis:::ext
+    style CampaignWrite fill:#BBDEFB
+    style OfferWrite fill:#C8E6C9
