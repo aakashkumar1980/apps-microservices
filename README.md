@@ -1,2 +1,44 @@
-# Flow: `createOffer (v1)`
-![](_readme_assets/event-driven-architecture-offer_createV1.png)
+# Flow: `createCampaign`
+
+```mermaid
+flowchart TD
+%% --- Campaign Write Microservice ---
+    subgraph CampaignWrite["Campaign Write Microservice"]
+        direction TB
+        C1["CampaignCommandController\ncreateCampaign()"]
+        S1["CampaignCommandService\ncreateCampaign()"]
+        R1["CampaignCommandRepository\nsave()"]
+        E1["CampaignEventPublisher\npublishCreateCampaignEvent()"]
+    end
+
+%% --- Offer Write Microservice ---
+    subgraph OfferWrite["Offer Write Microservice"]
+        direction TB
+        OESub["CampaignEventSubscriber\nsubscribeCreateCampaignEvent()"]
+    end
+
+%% --- External Systems ---
+    API["REST API\nPOST /api/campaigns"]
+    Couchbase["Couchbase DB"]
+    Kafka["Kafka"]
+    Redis["Redis Cache"]
+
+%% --- Flow with Numbered Descriptions ---
+    API -- "0: Client initiates campaign creation" --> C1
+    C1 -- "1: Handles incoming campaign creation request" --> S1
+    S1 -- "2: Validates and processes campaign data" --> R1
+    R1 -- "3: Persists campaign entity to database" --> Couchbase
+    S1 -- "4: Emits campaign creation event" --> E1
+    E1 -- "5: Publishes event to Kafka" --> Kafka
+    Kafka -- "6: Transports event to offer service" --> OESub
+    OESub -- "7: Updates offer cache" --> Redis
+
+%% --- Styling ---
+    classDef ext fill:#fff,stroke:#333,stroke-width:2px
+    API:::ext
+    Couchbase:::ext
+    Kafka:::ext
+    Redis:::ext
+    style CampaignWrite fill:#BBDEFB
+    style OfferWrite fill:#C8E6C9
+```
