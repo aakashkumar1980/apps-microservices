@@ -15,35 +15,66 @@ flowchart TD
         CEP["CampaignEventPublisher<br>publishCancelCampaignEvent()"]:::event
     end
 
-%% External: Couchbase, Kafka, Redis, REST API
-    CB["Couchbase<br>campaign document"]:::external
-    K1["Kafka Topic<br>CAMPAIGN_CANCELLED"]:::external
-    REDIS["Redis Cache<br>campaign::id"]:::external
+%% Offer Write Microservice
+    subgraph Offer_Write_Microservice
+        style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
 
-%% External REST API call box
+        CES["CampaignEventSubscriber<br>subscribeCancelCampaignEvent()"]:::subscriber
+        OFU["OfferCommandService<br>cancelOffers()"]:::service
+        APIU2["APIUtils<br>fetchBaseDtoList()"]:::util
+        OFR["OfferCommandRepository<br>save()"]:::repository
+        OEP["OfferEventPublisher<br>publishCancelOfferEvent()"]:::event
+    end
+
+%% External Systems
+    CB_CAMPAIGN["Couchbase<br>Campaign DB"]:::external
+    CB_OFFER["Couchbase<br>Offer DB"]:::external
+    K1["Kafka Topic<br>CAMPAIGN_CANCELLED"]:::external
+    K2["Kafka Topic<br>OFFER_CANCELLED"]:::external
+    REDIS1["Redis Cache<br>campaign::id"]:::external
+    REDIS2["Redis Cache<br>offer::id"]:::external
+
+%% REST API box (campaign)
     subgraph Campaign_Read_API [GET /api/campaigns/:id]
         style Campaign_Read_API stroke-dasharray: 4 4,fill:#ffffff
         REST["Campaign Read API<br>returns BaseDto<Campaign>"]:::external
     end
 
-%% Flow Arrows
-    POSTMAN -->|1: PUT request<br>to cancel campaign| CCC
+%% REST API box (offer)
+    subgraph Offer_Read_API [GET /api/offers?campaignId=:id]
+        style Offer_Read_API stroke-dasharray: 4 4,fill:#ffffff
+        REST2["Offer Read API<br>returns List<BaseDto<Offer>>"]:::external
+    end
+
+%% Campaign Flow
+    POSTMAN -->|1: PUT request to cancel campaign| CCC
     CCC -->|2: Call service layer| CCS
     CCS -->|3: Fetch original campaign| APIU
     APIU -->|4: Check Redis| CU
-    CU -->|5: Query Redis cache| REDIS
-    REDIS -->|6: Cache result| DECISION
+    CU -->|5: Query Redis| REDIS1
+    REDIS1 -->|6: Cache result| DECISION
     DECISION -->|7: No - call REST API| REST
-    CCS -->|8: Set status = CANCELLED| CCR
-    CCR -->|9: Save updated campaign| CB
+    CCS -->|8: Set status to CANCELLED| CCR
+    CCR -->|9: Save to Couchbase| CB_CAMPAIGN
     CCS -->|10: Publish cancel event| CEP
     CEP -->|11: Send to Kafka| K1
+
+%% Offer Flow
+    K1 -->|12: Receive event| CES
+    CES -->|13: Call cancelOffers| OFU
+    OFU -->|14: Fetch offers by campaign| APIU2
+    APIU2 -->|15: Call Offer Read API| REST2
+    OFU -->|16: Set offer status to CANCELLED| OFR
+    OFR -->|17: Save to Couchbase| CB_OFFER
+    OFU -->|18: Publish OFFER_CANCELLED| OEP
+    OEP -->|19: Send Kafka message| K2
 
 %% Styling
     classDef controller fill:#E3F2FD,stroke:#1E88E5,color:#000;
     classDef service fill:#E8F5E9,stroke:#43A047,color:#000;
+    classDef subscriber fill:#F1F8E9,stroke:#7CB342,color:#000;
+    classDef repository fill:#F3E5F5,stroke:#8E24AA,color:#000;
     classDef util fill:#FFF3E0,stroke:#FB8C00,color:#000;
     classDef util2 fill:#FBE9E7,stroke:#D84315,color:#000;
     classDef event fill:#E0F7FA,stroke:#00ACC1,color:#000;
-    classDef repository fill:#F3E5F5,stroke:#8E24AA,color:#000;
     classDef external fill:#FFFFFF,stroke:#000,color:#000,stroke-dasharray: 4 2;
