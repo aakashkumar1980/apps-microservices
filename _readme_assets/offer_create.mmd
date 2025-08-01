@@ -1,0 +1,90 @@
+flowchart TD
+
+%% External API Client
+    POSTMAN["Postman<br>POST /api/offers"]:::external
+
+%% Couchbase Instances (Externalized)
+    ODB["Couchbase (local - Offer)"]:::external
+    CDB["Couchbase (local - Campaign)"]:::external
+    CUDB["Couchbase (local - Customer)"]:::external
+    MDB["Couchbase (local - Merchant)"]:::external
+
+%% External REST APIs
+    CUSREST["REST API: GET /api/customers"]:::external
+
+%% Offer Write Microservice
+    subgraph Offer_Write_Microservice
+        style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
+        OCC["OfferCommandController.createOffer()"]:::controller
+        OCS["OfferCommandService.createOffer()"]:::service
+        VAL_CAM["CampaignValidation.validateCampaign()"]:::util
+        VAL_MER["MerchantValidation.validateMerchant()"]:::util
+        OCR["OfferCommandRepository.save()"]:::repository
+        OEP["OfferEventPublisher.publishCreateOfferEvent()"]:::event
+    end
+
+%% Kafka Topic
+    KafkaTopic["Kafka Topic<br>OfferCreatedEvent"]:::event
+
+%% Campaign Write Microservice
+    subgraph Campaign_Write_Microservice
+        style Campaign_Write_Microservice fill:#BBDEFB,stroke:#333,stroke-width:1px
+        CES["OfferEventSubscriber.onOfferCreated()"]:::subscriber
+        CCS["CampaignCommandService.assignOfferToCampaign()"]:::service
+        CCR["CampaignCommandRepository.save()"]:::repository
+    end
+
+%% Customer Write Microservice
+    subgraph Customer_Write_Microservice
+        style Customer_Write_Microservice fill:#C8E6C9,stroke:#2E7D32,stroke-width:1px
+        CUSUB["OfferEventSubscriber.subscribeCreateOfferEvent()"]:::subscriber
+        CUSVC["CustomerCommandService.assignOfferToCustomer()"]:::service
+        APIU_C["APIUtils.fetchBaseDtoList()"]:::util
+        VAL_CAP["OfferValidation.checkEnrollmentsCap()"]:::util
+        CUREPO["CustomerCommandRepository.save()"]:::repository
+    end
+
+%% Merchant Write Microservice
+    subgraph Merchant_Write_Microservice
+        style Merchant_Write_Microservice fill:#FFE0B2,stroke:#FF6F00,stroke-width:1px
+        MESUB["OfferEventSubscriber.onOfferCreated()"]:::subscriber
+        MSVC["MerchantCommandService.updateMerchantOfferList()"]:::service
+        MREPO["MerchantCommandRepository.save()"]:::repository
+    end
+
+%% Arrows with colon-numbering
+    POSTMAN -->|1: REST API call to create offer| OCC
+    OCC -->|2: Delegate to service layer| OCS
+    OCS -->|3: Validate campaign ID| VAL_CAM
+    OCS -->|4: Validate merchant ID| VAL_MER
+    OCS -->|5: Save offer to Couchbase| OCR
+    OCR -->|5.1: Persist document| ODB
+    OCS -->|6: Publish OfferCreated event| OEP
+    OEP -->|7: Kafka emits OfferCreatedEvent| KafkaTopic
+
+    KafkaTopic -->|8: Campaign subscriber triggered| CES
+    CES -->|9: Assign offer to campaign| CCS
+    CCS -->|10: Save updated campaign| CCR
+    CCR -->|10.1: Persist document| CDB
+
+    KafkaTopic -->|11: Customer subscriber triggered| CUSUB
+    CUSUB -->|12: Assign offer to customer| CUSVC
+    CUSVC -->|13: Fetch all customers| APIU_C
+    APIU_C -->|13.1: Call REST API| CUSREST
+    CUSVC -->|14: Validate cap on enrollments| VAL_CAP
+    CUSVC -->|15: Save eligible customers| CUREPO
+    CUREPO -->|15.1: Persist documents| CUDB
+
+    KafkaTopic -->|16: Merchant subscriber triggered| MESUB
+    MESUB -->|17: Update merchant's offer list| MSVC
+    MSVC -->|18: Save updated merchant| MREPO
+    MREPO -->|18.1: Persist document| MDB
+
+%% Styling
+    classDef controller fill:#E3F2FD,stroke:#0288D1,stroke-width:1px;
+    classDef service fill:#E8F5E9,stroke:#2E7D32,stroke-width:1px;
+    classDef repository fill:#FBE9E7,stroke:#D84315,stroke-width:1px;
+    classDef util fill:#F3E5F5,stroke:#6A1B9A,stroke-width:1px;
+    classDef event fill:#FFF3E0,stroke:#FF6F00,stroke-width:1px;
+    classDef subscriber fill:#E1F5FE,stroke:#039BE5,stroke-width:1px;
+    classDef external stroke-dasharray: 5 5;
