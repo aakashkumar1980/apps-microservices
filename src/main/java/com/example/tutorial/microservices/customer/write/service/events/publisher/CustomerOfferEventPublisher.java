@@ -16,9 +16,9 @@ import java.util.List;
  * Service for publishing campaign command events to Kafka.
  */
 @Service
-public class OfferCustomerEventPublisher {
+public class CustomerOfferEventPublisher {
 
-  private static final Logger log = LoggerFactory.getLogger(OfferCustomerEventPublisher.class);
+  private static final Logger log = LoggerFactory.getLogger(CustomerOfferEventPublisher.class);
 
   @Autowired
   private KafkaUtils kafkaUtils;

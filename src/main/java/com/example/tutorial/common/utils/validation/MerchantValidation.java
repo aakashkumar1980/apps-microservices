@@ -53,7 +53,6 @@ public class MerchantValidation {
       merchantOptional.ifPresentOrElse(
           m -> {}, // Do nothing if present
           () -> {
-            log.error("Merchant with ID {} does not exist", merchantId);
             throw new ApplicationFunctionalException(
                 String.format("Merchant with ID %s does not exist", merchantId));
           }

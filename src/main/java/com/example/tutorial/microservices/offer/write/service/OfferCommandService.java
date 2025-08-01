@@ -6,6 +6,7 @@ import com.example.tutorial.common.dto.offer.OfferStatus;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
+import com.example.tutorial.common.utils.validation.MerchantValidation;
 import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
 import com.example.tutorial.microservices.offer.write.service.events.publisher.OfferEventPublisher;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -46,10 +47,16 @@ public class OfferCommandService {
   private CampaignValidation campaignValidation;
 
   @Autowired
+  private MerchantValidation merchantValidation;
+
+  @Autowired
   private OfferEventPublisher offerEventPublisher;
 
   @Value("${offers.api.url}")
   private String offersApiUrl;
+
+  @Value("${merchants.api.url}")
+  private String merchantsApiUrl;
 
   @Autowired
   private APIUtils apiUtils;
@@ -69,6 +76,8 @@ public class OfferCommandService {
     /** DATA VALIDATION **/
     // Validate that the offer has a valid campaign
     campaignValidation.validateCampaign(offer.getCampaignId(), campaignsApiUrl);
+    // Validate that the offer has a valid merchant
+    merchantValidation.validateMerchant(offer.getMerchantId(), merchantsApiUrl);
 
     /** PERSIST DATA **/
     // generate a unique ID for the offer using a counter

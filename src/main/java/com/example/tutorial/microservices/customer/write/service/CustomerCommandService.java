@@ -4,8 +4,9 @@ import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.customer.Customer;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.validation.CustomerEligibilityEngineClient;
+import com.example.tutorial.common.utils.validation.OfferValidation;
 import com.example.tutorial.microservices.customer.write.repository.CustomerCommandRepository;
-import com.example.tutorial.microservices.customer.write.service.events.publisher.OfferCustomerEventPublisher;
+import com.example.tutorial.microservices.customer.write.service.events.publisher.CustomerOfferEventPublisher;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -30,22 +31,29 @@ public class CustomerCommandService {
 
   @Autowired
   private APIUtils apiUtils;
+
   @Autowired
-  private OfferCustomerEventPublisher offerCustomerEventPublisher;
+  private CustomerOfferEventPublisher customerOfferEventPublisher;
+
+  @Autowired
+  private OfferValidation offerValidation;
 
   @Value("${customers.api.url}")
   private String customersApiUrl;
 
   /**
-   * Assigns an offer to all customers who are eligible for it.
-   * This method retrieves all customers from the repository, then checks each customer's
-   * eligibility for the specified offer using the CustomerEligibilityEngineClient.
-   * If a customer is eligible, the offer ID is added to their list of enrolled offers.
-   * Also publishes an event to notify that the offer has been assigned to eligible customers.
-   * TODO: Implement @Retry as this is an internal service call
+   * Assigns an offer to all eligible customers.
+   * <p>
+   * This method first checks if the current number of enrollments for the offer has reached its maximum allowed redemptions.
+   * It then retrieves all customers from the repository and checks each customer's eligibility for the specified offer
+   * using the {@code CustomerEligibilityEngineClient}. If a customer is eligible, the offer ID is added to their list
+   * of enrolled offers and the customer is updated in the repository. An event is published to notify that the offer
+   * has been assigned to eligible customers.
+   * <p>
+   * TODO: Implement @Retry as this is an internal service call.
    *
-   * @param offerId The ID of the offer to be assigned.
-   * @return A list of BaseDto<Customer> containing all customers who were assigned the offer.
+   * @param offerId the ID of the offer to assign
+   * @return a list of {@code BaseDto<Customer>} containing all customers who were assigned the offer
    */
   public void assignOfferToCustomer(String offerId) {
     log.info("Assigning offer {} to eligible customers", offerId);
@@ -55,7 +63,9 @@ public class CustomerCommandService {
     List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(
         customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
 
-    /** PERSIST DATA **/
+    /** DATA VALIDATION **/
+    offerValidation.checkEnrollmentsCap(offerId, allCustomers);
+
     List<BaseDto<Customer>> eligibleCustomers = new ArrayList<BaseDto<Customer>>();
     // Iterate through each customer to check eligibility for the offer
     allCustomers.forEach(customer -> {
@@ -63,6 +73,8 @@ public class CustomerCommandService {
       log.info("Checking eligibility for customer {} for offer {}", customer.getId(), offerId);
       boolean eligible = customerEligibilityEngineClient.isEligible(customer.getId(), offerId);
       if (eligible) {
+
+        /** PERSIST DATA **/
         log.info("Customer {} is eligible for offer {}", customer.getId(), offerId);
         // Add the offer ID to the customer's enrolled offers
         customer.getData().getEnrolledOfferIds().add(offerId);
@@ -78,7 +90,7 @@ public class CustomerCommandService {
     /** PUBLISH EVENT **/
     // Publish the offer assignment event, which can be used by other services like ""Recommendation Engine" etc.
     if(CollectionUtils.isNotEmpty(eligibleCustomers)) {
-      offerCustomerEventPublisher.publishOfferAssignedEvent(offerId, eligibleCustomers);
+      customerOfferEventPublisher.publishOfferAssignedEvent(offerId, eligibleCustomers);
     }
   }
 
@@ -119,7 +131,7 @@ public class CustomerCommandService {
       /** PUBLISH EVENT **/
       // Publish the offer unassignment event, which can be used by other services like "Recommendation Engine" etc.
       if (CollectionUtils.isNotEmpty(unassignedCustomers)) {
-        offerCustomerEventPublisher.publishOfferUnassignedEvent(offerId, unassignedCustomers);
+        customerOfferEventPublisher.publishOfferUnassignedEvent(offerId, unassignedCustomers);
       }
     });
   }

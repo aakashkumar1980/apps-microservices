@@ -64,9 +64,11 @@ public class CampaignValidation {
    * It first checks if the campaign ID is present in the Redis cache.
    * If found, it validates the campaign status and end date.
    * If not found, it fetches the campaign from the campaigns API and then validates it.
+   * If still not found, it throws an exception indicating that the campaign does not exist.
    *
    * @param campaignId The ID of the campaign to validate.
    * @param campaignsApiUrl The URL of the campaigns API to fetch the campaign if not found in cache.
+   * @throws ApplicationFunctionalException if the campaign is not found or not active or the end date has passed.
    */
   public void validateCampaign(String campaignId, String campaignsApiUrl) {
     log.info("Validating existence of campaign with ID: {}", campaignId);
@@ -91,10 +93,16 @@ public class CampaignValidation {
           campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
           new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
 
-      campaignOptional.ifPresent(campaign ->
-          validateCampaign(
+      if(campaignOptional.isPresent()) {
+        BaseDto<Campaign> campaign = campaignOptional.get();
+        validateCampaign(
             campaign.getData().getStatus().name(),
-            campaign.getData().getEndDate(), campaignId));
+            campaign.getData().getEndDate(), campaignId);
+
+      } else {
+        throw new ApplicationFunctionalException(
+            String.format("Campaign with ID %s not found", campaignId));
+      }
 
     }
   }
