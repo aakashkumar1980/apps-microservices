@@ -11,6 +11,8 @@ flowchart TD
 
 %% External REST APIs
     CUSREST["REST API: GET /api/customers"]:::external
+    CAMPAIGNREST["REST API: GET /api/campaigns/{id}"]:::external
+    MERCHANTREST["REST API: GET /api/merchants/{id}"]:::external
 
 %% Offer Write Microservice
     subgraph Offer_Write_Microservice
@@ -41,6 +43,7 @@ flowchart TD
         CUSVC["CustomerCommandService.assignOfferToCustomer()"]:::service
         APIU_C["APIUtils.fetchBaseDtoList()"]:::util
         VAL_CAP["OfferValidation.checkEnrollmentsCap()"]:::util
+        ELIG["CustomerEligibilityEngineClient.isEligible()"]:::util
         CUREPO["CustomerCommandRepository.save()"]:::repository
     end
 
@@ -56,7 +59,11 @@ flowchart TD
     POSTMAN -->|1: REST API call to create offer| OCC
     OCC -->|2: Delegate to service layer| OCS
     OCS -->|3: Validate campaign ID| VAL_CAM
+    VAL_CAM -->|3.1: Call REST| CAMPAIGNREST
+
     OCS -->|4: Validate merchant ID| VAL_MER
+    VAL_MER -->|4.1: Call REST| MERCHANTREST
+
     OCS -->|5: Save offer to Couchbase| OCR
     OCR -->|5.1: Persist document| ODB
     OCS -->|6: Publish OfferCreated event| OEP
@@ -72,13 +79,14 @@ flowchart TD
     CUSVC -->|13: Fetch all customers| APIU_C
     APIU_C -->|13.1: Call REST API| CUSREST
     CUSVC -->|14: Validate cap on enrollments| VAL_CAP
-    CUSVC -->|15: Save eligible customers| CUREPO
-    CUREPO -->|15.1: Persist documents| CUDB
+    CUSVC -->|15: Check customer eligibility| ELIG
+    CUSVC -->|16: Save eligible customers| CUREPO
+    CUREPO -->|16.1: Persist documents| CUDB
 
-    KafkaTopic -->|16: Merchant subscriber triggered| MESUB
-    MESUB -->|17: Update merchant's offer list| MSVC
-    MSVC -->|18: Save updated merchant| MREPO
-    MREPO -->|18.1: Persist document| MDB
+    KafkaTopic -->|17: Merchant subscriber triggered| MESUB
+    MESUB -->|18: Update merchant's offer list| MSVC
+    MSVC -->|19: Save updated merchant| MREPO
+    MREPO -->|19.1: Persist document| MDB
 
 %% Styling
     classDef controller fill:#E3F2FD,stroke:#0288D1,stroke-width:1px;
