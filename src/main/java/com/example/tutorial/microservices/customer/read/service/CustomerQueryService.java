@@ -42,5 +42,10 @@ public class CustomerQueryService {
     log.info("Fetching customer with ID: {}", id);
     return customerQueryRepository.findById(id);
   }
+
+  public List<BaseDto<Customer>> getCustomersByOfferId(String offerId) {
+    log.info("Fetching customers for offer ID: {}", offerId);
+    return customerQueryRepository.getCustomersByOfferId(offerId);
+  }
 }
 

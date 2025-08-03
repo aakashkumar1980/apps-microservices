@@ -47,5 +47,25 @@ public class CustomerQueryController {
       return ResponseEntity.notFound().build();
     }
   }
+
+  /**
+   * Retrieves customers associated with a specific offer ID.
+   *
+   * @param offerId the ID of the offer
+   * @return ResponseEntity containing a list of customers or no content if none found
+   */
+  @GetMapping("/offers/{offerId}")
+  public ResponseEntity<List<BaseDto<Customer>>> getCustomersByOfferId(@PathVariable String offerId) {
+    log.info("Fetching customers for offer ID: {}", offerId);
+    List<BaseDto<Customer>> customers = customerQueryService.getCustomersByOfferId(offerId);
+    if (!customers.isEmpty()) {
+      log.info("Found {} customers for offer ID: {}", customers.size(), offerId);
+      return ResponseEntity.ok(customers);
+
+    } else {
+      log.warn("No customers found for offer ID: {}", offerId);
+      return ResponseEntity.noContent().build();
+    }
+  }
 }
 
