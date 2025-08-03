@@ -110,7 +110,7 @@
 							"response": []
 						},
 						{
-							"name": "ValidationError :: Campaign End Date Passes",
+							"name": "ValidationError :: Campaign End Date Passed",
 							"id": "25453210-2fced479-b32d-4aac-aee1-a31993a59bd4",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
