@@ -143,6 +143,39 @@
 							"response": []
 						},
 						{
+							"name": "ValidationError :: Campaign End Date Passed Copy",
+							"id": "25453210-8a122a52-d6e1-479f-b065-f6d024b28769",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Electronics Summer Discount\",\r\n    \"description\": \"Save $43.30 on select electronics during the Summer Savings Blast campaign.\",\r\n    \"campaign_id\": \"campaign::3\",\r\n    \"merchant_id\": \"merchant::7\",\r\n    \"type\": \"DISCOUNT\",\r\n    \"discount_amount\": 43.3,\r\n    \"currency\": \"USD\",\r\n    \"valid_from\": \"2025-09-15T00:00:00\",\r\n    \"valid_to\": \"2025-10-07T00:00:00\",\r\n    \"max_redemptions\": 328,\r\n    \"status\": \"ACTIVE\",\r\n    \"segment_criteria\": \"GOLD\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/offers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"offers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "CreateOffer",
 							"id": "25453210-5367dc3a-6ba6-4cb8-a525-c23872deff0f",
 							"protocolProfileBehavior": {
