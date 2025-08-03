@@ -120,7 +120,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Electronics Summer Discount\",\r\n    \"description\": \"Save $43.30 on select electronics during the Summer Savings Blast campaign.\",\r\n    \"campaign_id\": \"campaign::1\",\r\n    \"merchant_id\": \"merchant::7\",\r\n    \"type\": \"DISCOUNT\",\r\n    \"discount_amount\": 43.3,\r\n    \"currency\": \"USD\",\r\n    \"valid_from\": \"2025-09-15T00:00:00\",\r\n    \"valid_to\": \"2025-10-07T00:00:00\",\r\n    \"max_redemptions\": 328,\r\n    \"status\": \"ACTIVE\",\r\n    \"segment_criteria\": \"GOLD\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Electronics Summer Discount\",\r\n    \"description\": \"Save $43.30 on select electronics during the Summer Savings Blast campaign.\",\r\n    \"campaign_id\": \"campaign::3\",\r\n    \"merchant_id\": \"merchant::7\",\r\n    \"type\": \"DISCOUNT\",\r\n    \"discount_amount\": 43.3,\r\n    \"currency\": \"USD\",\r\n    \"valid_from\": \"2025-09-15T00:00:00\",\r\n    \"valid_to\": \"2025-10-07T00:00:00\",\r\n    \"max_redemptions\": 328,\r\n    \"status\": \"ACTIVE\",\r\n    \"segment_criteria\": \"GOLD\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
