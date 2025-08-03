@@ -5,7 +5,9 @@ import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
-import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
+import com.example.tutorial.common.exceptions.ApplicationException;
+import com.example.tutorial.common.exceptions.RequestValidationException;
+import com.example.tutorial.common.exceptions.RequestValidationMessage;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,6 +21,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -68,7 +71,7 @@ public class CampaignValidation {
    *
    * @param campaignId The ID of the campaign to validate.
    * @param campaignsApiUrl The URL of the campaigns API to fetch the campaign if not found in cache.
-   * @throws ApplicationFunctionalException if the campaign is not found or not active or the end date has passed.
+   * @throws RequestValidationException if the campaign is not found or not active or the end date has passed.
    */
   public void validateCampaign(String campaignId, String campaignsApiUrl) {
     log.info("Validating existence of campaign with ID: {}", campaignId);
@@ -83,7 +86,7 @@ public class CampaignValidation {
 
         validateCampaign(campaignEvent.getStatus().name(), campaignEvent.getEndDate(), campaignId);
       } catch (JsonProcessingException e) {
-        throw new RuntimeException(e);
+        throw new ApplicationException("Error parsing object's value", e);
       }
 
     /** if the campaign ID is not present in Redis cache, fetch it from the campaigns API and then validate the campaign status **/
@@ -100,10 +103,13 @@ public class CampaignValidation {
             campaign.getData().getEndDate(), campaignId);
 
       } else {
-        throw new ApplicationFunctionalException(
-            String.format("Campaign with ID %s not found", campaignId));
-      }
 
+        RequestValidationMessage validationMessage = new RequestValidationMessage(
+            "Api request validation failed",
+            Map.of("error", String.format("Campaign with ID %s not found", campaignId))
+        );
+        throw new RequestValidationException(validationMessage);
+      }
     }
   }
 
@@ -115,18 +121,24 @@ public class CampaignValidation {
    * @param status The status of the campaign.
    * @param endDate The end date of the campaign.
    * @param campaignId The ID of the campaign.
-   * @throws ApplicationFunctionalException if the campaign is not active or the end date has passed.
+   * @throws RequestValidationException if the campaign is not active or the end date has passed.
    */
   private void validateCampaign(String status, LocalDateTime endDate, String campaignId) {
     // validate if the campaign is still active, if not throw an exception
     if (!StringUtils.equals(status, CampaignStatus.ACTIVE.name())) {
-      throw new ApplicationFunctionalException(
-          String.format("Cannot create offer for campaign ID %s as it is not active", campaignId));
+      RequestValidationMessage validationMessage = new RequestValidationMessage(
+          "Api request validation failed",
+          Map.of("error", String.format("Cannot create offer for campaign ID %s as it is not active", campaignId))
+      );
+      throw new RequestValidationException(validationMessage);
     }
     // validate if the campaign end date is not reached, if so throw an exception
     if (endDate.isBefore(java.time.LocalDateTime.now())) {
-      throw new ApplicationFunctionalException(
-          String.format("Cannot create offer for campaign ID %s as the campaign end date has passed", campaignId));
+      RequestValidationMessage validationMessage = new RequestValidationMessage(
+          "Api request validation failed",
+          Map.of("error", String.format("Cannot create offer for campaign ID %s as the campaign end date has passed", campaignId))
+      );
+      throw new RequestValidationException(validationMessage);
     }
   }
 

@@ -4,7 +4,8 @@ import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.merchant.Merchant;
 import com.example.tutorial.common.dto.merchant.events.MerchantEvent;
 import com.example.tutorial.common.dto.KafkaEventType;
-import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
+import com.example.tutorial.common.exceptions.RequestValidationException;
+import com.example.tutorial.common.exceptions.RequestValidationMessage;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -38,6 +40,7 @@ public class MerchantValidation {
    *
    * @param merchantId The ID of the merchant to validate.
    * @param merchantsApiUrl The API URL to fetch merchant details.
+   * @throws RequestValidationException if the merchant does not exist or is not found in the API.
    */
   public void validateMerchant(String merchantId, String merchantsApiUrl) {
     log.info("Validating existence of merchant with ID: {}", merchantId);
@@ -53,8 +56,11 @@ public class MerchantValidation {
       merchantOptional.ifPresentOrElse(
           m -> {}, // Do nothing if present
           () -> {
-            throw new ApplicationFunctionalException(
-                String.format("Merchant with ID %s does not exist", merchantId));
+            RequestValidationMessage validationMessage = new RequestValidationMessage(
+                "Api request validation failed",
+                Map.of("error", String.format("Merchant with ID %s does not exist", merchantId))
+            );
+            throw new RequestValidationException(validationMessage);
           }
       );
 

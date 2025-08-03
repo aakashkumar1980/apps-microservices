@@ -5,7 +5,8 @@ import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.customer.Customer;
 import com.example.tutorial.common.dto.offer.Offer;
 import com.example.tutorial.common.dto.offer.events.OfferEvent;
-import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
+import com.example.tutorial.common.exceptions.RequestValidationException;
+import com.example.tutorial.common.exceptions.RequestValidationMessage;
 import com.example.tutorial.common.utils.APIUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -35,7 +37,7 @@ public class OfferValidation {
    *
    * @param offerId The ID of the offer to validate.
    * @param allCustomers List of all customers to check against the offer's enrollments.
-   * @throws ApplicationFunctionalException if the maximum enrollments for the offer are reached.
+   * @throws RequestValidationException if the maximum enrollments for the offer are reached.
    */
   public void checkEnrollmentsCap(String offerId, List<BaseDto<Customer>> allCustomers) {
     long currentEnrollments = allCustomers.stream()
@@ -48,10 +50,19 @@ public class OfferValidation {
     if(offerOptional.isPresent()) {
       int maxRedemptions = offerOptional.get().getData().getMaxRedemptions();
       if (currentEnrollments >= maxRedemptions) {
-        throw new ApplicationFunctionalException(String.format("Max enrollments ({}) reached for offer {}. No more assignments allowed.", maxRedemptions, offerId));
+        RequestValidationMessage validationMessage = new RequestValidationMessage(
+            "Api request validation failed",
+            Map.of("error", String.format("Max enrollments ({}) reached for offer {}. No more assignments allowed.", maxRedemptions, offerId))
+        );
+        throw new RequestValidationException(validationMessage);
       }
+
     } else {
-      throw new ApplicationFunctionalException("Offer not found: " + offerId);
+      RequestValidationMessage validationMessage = new RequestValidationMessage(
+          "Api request validation failed",
+          Map.of("error", String.format("Offer %s not found", offerId))
+      );
+      throw new RequestValidationException(validationMessage);
     }
   }
 }

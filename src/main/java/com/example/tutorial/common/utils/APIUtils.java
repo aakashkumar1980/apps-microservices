@@ -3,6 +3,7 @@ package com.example.tutorial.common.utils;
 import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.Event;
+import com.example.tutorial.common.exceptions.ApplicationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,7 +64,7 @@ public class APIUtils {
         BeanUtils.copyProperties(event, cachedValue.getData());
         return Optional.of(cachedValue);
       } catch (JsonProcessingException | InvocationTargetException | IllegalAccessException e) {
-        throw new RuntimeException("Error processing cached value", e);
+        throw new ApplicationException("Error parsing object's value", e);
       }
 
     } else {
@@ -79,8 +80,7 @@ public class APIUtils {
           log.warn("No data found for ID: {} at API: {}", id, apiUrl);
           return Optional.empty();
         } else {
-          log.error("Error fetching data from API: {}", apiUrl, e);
-          throw new RuntimeException("Error fetching data from API", e);
+          throw new ApplicationException(String.format("Error fetching data from API: %s", apiUrl), e);
         }
       }
 
@@ -97,7 +97,7 @@ public class APIUtils {
 
           return Optional.of(value);
         } catch (JsonProcessingException | InvocationTargetException | IllegalAccessException e) {
-          throw new RuntimeException(e);
+          throw new ApplicationException("Error parsing object's value", e);
         }
       } else {
         return Optional.empty();
@@ -125,7 +125,7 @@ public class APIUtils {
       try {
         return objectMapper.readValue(responseString, typeReference);
       } catch (JsonProcessingException e) {
-        throw new RuntimeException(e);
+        throw new ApplicationException("Error parsing object's value", e);
       }
     } else {
       return List.of();

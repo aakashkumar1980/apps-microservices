@@ -2,6 +2,7 @@ package com.example.tutorial.microservices.customer.write.service.events.subscri
 
 import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.dto.offer.events.OfferEvent;
+import com.example.tutorial.common.exceptions.ApplicationException;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.customer.ApplicationConstants;
 import com.example.tutorial.microservices.customer.write.service.CustomerCommandService;
@@ -53,7 +54,7 @@ public class OfferEventSubscriber {
       log.info("Assigned offer {} to the customers successfully", offerId);
 
     } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
+      throw new ApplicationException("Error parsing object's value", e);
     }
   }
 
@@ -81,7 +82,7 @@ public class OfferEventSubscriber {
       customerCommandService.unassignOfferFromCustomer(offerId);
 
     } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
+      throw new ApplicationException("Error parsing object's value", e);
     }
   }
 }

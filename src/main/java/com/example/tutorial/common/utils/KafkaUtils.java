@@ -1,5 +1,6 @@
 package com.example.tutorial.common.utils;
 
+import com.example.tutorial.common.exceptions.ApplicationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class KafkaUtils {
             }
           });
     } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
+      throw new ApplicationException("Error parsing object's value", e);
     }
   }
 }

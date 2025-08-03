@@ -1,9 +1,8 @@
 package com.example.tutorial.microservices.offer.write.service.events.subscriber;
 
 import com.example.tutorial.common.constants.CacheConstants;
-import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
-import com.example.tutorial.common.dto.offer.Offer;
+import com.example.tutorial.common.exceptions.ApplicationException;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.offer.ApplicationConstants;
 import com.example.tutorial.microservices.offer.write.service.OfferCommandService;
@@ -14,8 +13,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 @Service
 public class CampaignEventSubscriber {
@@ -52,7 +49,7 @@ public class CampaignEventSubscriber {
       cacheUtils.setCache(campaignId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
       log.info("Cached campaign event {} for ID {} in Redis Cache", payload, campaignId);
     } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
+      throw new ApplicationException("Error parsing object's value", e);
     }
   }
 
@@ -76,7 +73,7 @@ public class CampaignEventSubscriber {
       cacheUtils.setCache(campaignId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
       log.info("Cached campaign event {} for ID {} in Redis Cache", payload, campaignId);
     } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
+      throw new ApplicationException("Error parsing object's value", e);
     }
   }
 
@@ -106,7 +103,7 @@ public class CampaignEventSubscriber {
       log.info("Cancelled offers for campaign {}", campaignId);
 
     } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
+      throw new ApplicationException("Error parsing object's value", e);
     }
   }
 }
