@@ -186,7 +186,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Travel & Adventure Reward Points\",\r\n    \"description\": \"Earn reward points on travel bookings in Travel & Adventure campaign.\",\r\n    \"campaign_id\": \"campaign::6\",\r\n    \"merchant_id\": \"merchant::2\",\r\n    \"type\": \"REWARD_POINTS\",\r\n    \"discount_amount\": 65.87,\r\n    \"currency\": \"USD\",\r\n    \"valid_from\": \"2025-07-15T00:00:00\",\r\n    \"valid_to\": \"2025-09-07T00:00:00\",\r\n    \"max_redemptions\": 473,\r\n    \"status\": \"ACTIVE\",\r\n    \"segment_criteria\": \"GOLD\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Travel & Adventure Reward Points\",\r\n    \"description\": \"Earn reward points on travel bookings in Travel & Adventure campaign.\",\r\n    \"campaign_id\": \"campaign::6\",\r\n    \"merchant_id\": \"merchant::2\",\r\n    \"type\": \"REWARD_POINTS\",\r\n    \"discount_amount\": 65.87,\r\n    \"currency\": \"USD\",\r\n    \"valid_from\": \"2025-08-15T00:00:00\",\r\n    \"valid_to\": \"2025-09-07T00:00:00\",\r\n    \"max_redemptions\": 473,\r\n    \"status\": \"ACTIVE\",\r\n    \"segment_criteria\": \"GOLD\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
