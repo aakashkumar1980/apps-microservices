@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.InvocationTargetException;
@@ -55,24 +56,41 @@ public class APIUtils {
     if (payload.isPresent()) {
       log.info("Cache hit for ID: {}. Returning cached value.", id);
       try {
+        // TypeReference is used because BaseDto contains generic T type for the data field.
         BaseDto<T> cachedValue = objectMapper.readValue(payload.get(), typeReference);
-        // Copy properties from the BaseDto to the event object
+
+        // Copy properties dynamically from the BaseDto to the event object
         BeanUtils.copyProperties(event, cachedValue.getData());
         return Optional.of(cachedValue);
       } catch (JsonProcessingException | InvocationTargetException | IllegalAccessException e) {
         throw new RuntimeException("Error processing cached value", e);
       }
+
     } else {
       apiUrl = String.format(apiUrl + "/%s", id);
-      String responseString = restTemplate.getForObject(
-          apiUrl , String.class);
-      log.warn("Cache miss for ID: {}. Fetching from REST API Response from {} API: {}", id, apiUrl, responseString);
+      log.warn("Cache miss for ID: {}. Fetching from REST API Response from API: {}", id, apiUrl);
 
+      String responseString = null;
+      try {
+        responseString = restTemplate.getForObject(
+            apiUrl, String.class);
+      } catch (Exception e) {
+        if(e instanceof HttpClientErrorException.NotFound) {
+          log.warn("No data found for ID: {} at API: {}", id, apiUrl);
+          return Optional.empty();
+        } else {
+          log.error("Error fetching data from API: {}", apiUrl, e);
+          throw new RuntimeException("Error fetching data from API", e);
+        }
+      }
+
+      log.info("REST API Response from {} API: {}", apiUrl, responseString);
       if (StringUtils.isNotBlank(responseString)) {
         try {
+          // TypeReference is used because BaseDto contains generic T type for the data field.
           BaseDto<T> value = objectMapper.readValue(responseString, typeReference);
 
-          // Copy properties from the BaseDto to the event object
+          // Copy properties dynamically from the BaseDto to the event object
           BeanUtils.copyProperties(event, value.getData());
           // cache the event in Redis for future use, to avoid multiple calls to the same API
           cacheUtils.setCache(id, objectMapper.writeValueAsString(event), CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
