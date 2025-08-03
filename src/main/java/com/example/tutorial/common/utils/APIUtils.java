@@ -52,57 +52,41 @@ public class APIUtils {
       TypeReference<BaseDto<T>> typeReference,
       Event event
   ) {
-    // Check if the event is already cached
-    Optional<String> payload = cacheUtils.getCache(id);
-    if (payload.isPresent()) {
-      log.info("Cache hit for ID: {}. Returning cached value.", id);
+    apiUrl = String.format(apiUrl + "/%s", id);
+    log.warn("Fetching from REST API Response from API: {}", apiUrl);
+
+    String responseString = null;
+    try {
+      responseString = restTemplate.getForObject(
+          apiUrl, String.class);
+    } catch (Exception e) {
+      if(e instanceof HttpClientErrorException.NotFound) {
+        log.warn("No data found for ID: {} at API: {}", id, apiUrl);
+        return Optional.empty();
+      } else {
+        throw new ApplicationException(String.format("Error fetching data from API: %s", apiUrl), e);
+      }
+    }
+
+    log.info("REST API Response from {} API: {}", apiUrl, responseString);
+    if (StringUtils.isNotBlank(responseString)) {
       try {
         // TypeReference is used because BaseDto contains generic T type for the data field.
-        BaseDto<T> cachedValue = objectMapper.readValue(payload.get(), typeReference);
+        BaseDto<T> value = objectMapper.readValue(responseString, typeReference);
 
         // Copy properties dynamically from the BaseDto to the event object
-        BeanUtils.copyProperties(event, cachedValue.getData());
-        return Optional.of(cachedValue);
+        BeanUtils.copyProperties(event, value.getData());
+        // cache the event in Redis for future use, to avoid multiple calls to the same API
+        cacheUtils.setCache(id, objectMapper.writeValueAsString(event), CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
+
+        return Optional.of(value);
       } catch (JsonProcessingException | InvocationTargetException | IllegalAccessException e) {
         throw new ApplicationException("Error parsing object's value", e);
       }
-
     } else {
-      apiUrl = String.format(apiUrl + "/%s", id);
-      log.warn("Cache miss for ID: {}. Fetching from REST API Response from API: {}", id, apiUrl);
-
-      String responseString = null;
-      try {
-        responseString = restTemplate.getForObject(
-            apiUrl, String.class);
-      } catch (Exception e) {
-        if(e instanceof HttpClientErrorException.NotFound) {
-          log.warn("No data found for ID: {} at API: {}", id, apiUrl);
-          return Optional.empty();
-        } else {
-          throw new ApplicationException(String.format("Error fetching data from API: %s", apiUrl), e);
-        }
-      }
-
-      log.info("REST API Response from {} API: {}", apiUrl, responseString);
-      if (StringUtils.isNotBlank(responseString)) {
-        try {
-          // TypeReference is used because BaseDto contains generic T type for the data field.
-          BaseDto<T> value = objectMapper.readValue(responseString, typeReference);
-
-          // Copy properties dynamically from the BaseDto to the event object
-          BeanUtils.copyProperties(event, value.getData());
-          // cache the event in Redis for future use, to avoid multiple calls to the same API
-          cacheUtils.setCache(id, objectMapper.writeValueAsString(event), CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
-
-          return Optional.of(value);
-        } catch (JsonProcessingException | InvocationTargetException | IllegalAccessException e) {
-          throw new ApplicationException("Error parsing object's value", e);
-        }
-      } else {
-        return Optional.empty();
-      }
+      return Optional.empty();
     }
+
   }
 
   /**

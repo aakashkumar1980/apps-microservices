@@ -45,7 +45,7 @@
       "description": "Get cashback and reward points on your grocery shopping all month.",
       "status": "ACTIVE",
       "start_date": "2025-07-14T00:00:00",
-      "end_date": "2025-08-12T00:00:00",
+      "end_date": "2025-08-01T00:00:00",
       "budget": 6026.17,
       "offer_ids": [
         "offer::3"

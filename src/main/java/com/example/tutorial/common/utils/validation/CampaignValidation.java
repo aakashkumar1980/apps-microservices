@@ -103,7 +103,6 @@ public class CampaignValidation {
             campaign.getData().getEndDate(), campaignId);
 
       } else {
-
         RequestValidationMessage validationMessage = new RequestValidationMessage(
             "Api request validation failed",
             Map.of("error", String.format("Campaign with ID %s not found", campaignId))
