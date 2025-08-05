@@ -53,7 +53,7 @@ public class APIUtils {
       Event event
   ) {
     apiUrl = String.format(apiUrl + "/%s", id);
-    log.warn("Fetching from REST API Response from API: {}", apiUrl);
+    log.info("Fetching data from REST API: {}", apiUrl);
 
     String responseString = null;
     try {
@@ -68,7 +68,7 @@ public class APIUtils {
       }
     }
 
-    log.info("REST API Response from {} API: {}", apiUrl, responseString);
+    log.debug("REST API Response from {} API: {}", apiUrl, responseString);
     if (StringUtils.isNotBlank(responseString)) {
       try {
         // TypeReference is used because BaseDto contains generic T type for the data field.
@@ -101,9 +101,11 @@ public class APIUtils {
       String apiUrl,
       TypeReference<List<BaseDto<T>>> typeReference
   ) {
+    log.info("Fetching data from REST API: {}", apiUrl);
+
     String responseString = restTemplate.getForObject(
         apiUrl , String.class);
-    log.info("REST API Response from {} API: {}", apiUrl, responseString);
+    log.debug("REST API Response from {} API: {}", apiUrl, responseString);
 
     if (StringUtils.isNotBlank(responseString)) {
       try {

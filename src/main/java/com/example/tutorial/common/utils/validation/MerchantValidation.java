@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -29,9 +30,11 @@ public class MerchantValidation {
   @Autowired
   private CacheUtils cacheUtils;
 
-
   @Autowired
   private ObjectMapper objectMapper;
+
+  @Value("${merchants.api.url}")
+  private String merchantsApiUrl;
 
   /**
    * Validates the existence of a merchant by its ID.
@@ -39,16 +42,14 @@ public class MerchantValidation {
    * If not found, it fetches the merchant details from the merchants API and caches the event.
    *
    * @param merchantId The ID of the merchant to validate.
-   * @param merchantsApiUrl The API URL to fetch merchant details.
    * @throws RequestValidationException if the merchant does not exist or is not found in the API.
    */
-  public void validateMerchant(String merchantId, String merchantsApiUrl) {
+  public void validateMerchant(String merchantId) {
     log.info("Validating existence of merchant with ID: {}", merchantId);
 
-    log.info("Checking cache for merchant event with ID: {}", merchantId);
     Optional<String> merchantEventOptional = cacheUtils.getCache(merchantId);
     if (merchantEventOptional.isEmpty()) {
-      log.info("Fetching data for ID {} from merchants API", merchantId);
+      log.debug("Fetching merchant for ID {} for REST API", merchantId);
       Optional<BaseDto<Merchant>> merchantOptional = apiUtils.fetchAndCacheBaseDtoById(
           merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {},
           new MerchantEvent(merchantId, KafkaEventType.MERCHANT_UPDATED));

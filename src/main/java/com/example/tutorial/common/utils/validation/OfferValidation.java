@@ -40,15 +40,18 @@ public class OfferValidation {
    * @throws RequestValidationException if the maximum enrollments for the offer are reached.
    */
   public void checkEnrollmentsCap(String offerId, List<BaseDto<Customer>> allCustomers) {
+    log.info("Checking enrollment cap for the offer: {}", offerId);
+
     long currentEnrollments = allCustomers.stream()
         .filter(c -> c.getData().getEnrolledOfferIds().contains(offerId))
         .count();
-    log.info("Current enrollments for offer {}: {}", offerId, currentEnrollments);
     Optional<BaseDto<Offer>> offerOptional = apiUtils.fetchAndCacheBaseDtoById(
         offersApiUrl, offerId, new TypeReference<BaseDto<Offer>>() {},
         new OfferEvent(offerId, KafkaEventType.OFFER_UPDATED));
     if(offerOptional.isPresent()) {
       int maxRedemptions = offerOptional.get().getData().getMaxRedemptions();
+      log.debug("Current enrollments for offer {}: {}, Max redemptions: {}",
+          offerId, currentEnrollments, maxRedemptions);
       if (currentEnrollments >= maxRedemptions) {
         RequestValidationMessage validationMessage = new RequestValidationMessage(
             "Api request validation failed",

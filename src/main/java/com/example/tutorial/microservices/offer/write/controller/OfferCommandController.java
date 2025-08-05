@@ -27,6 +27,7 @@ public class OfferCommandController {
   @PostMapping
   public ResponseEntity<String> createOffer(@Valid @RequestBody Offer offer) {
     log.info("Received request to create offer: {}", offer);
+
     String id = offerCommandService.createOffer(offer);
     return ResponseEntity.ok(String.format("Offer created successfully with ID: %s", id));
   }

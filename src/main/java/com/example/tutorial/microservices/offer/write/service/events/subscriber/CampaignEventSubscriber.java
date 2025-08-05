@@ -47,7 +47,6 @@ public class CampaignEventSubscriber {
       /** CACHE DATA **/
       // Cache the campaign details in Redis
       cacheUtils.setCache(campaignId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
-      log.info("Cached campaign event {} for ID {} in Redis Cache", payload, campaignId);
     } catch (JsonProcessingException e) {
       throw new ApplicationException("Error parsing object's value", e);
     }
@@ -71,7 +70,6 @@ public class CampaignEventSubscriber {
       /** CACHE DATA **/
       // Update the campaign details in Redis cache
       cacheUtils.setCache(campaignId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
-      log.info("Cached campaign event {} for ID {} in Redis Cache", payload, campaignId);
     } catch (JsonProcessingException e) {
       throw new ApplicationException("Error parsing object's value", e);
     }
@@ -95,12 +93,10 @@ public class CampaignEventSubscriber {
       /** CLEAR CACHE DATA **/
       // Remove the campaign from Redis cache
       cacheUtils.delete(campaignId);
-      log.info("Removed campaign {} from Redis cache", campaignId);
 
       /** BUSINESS LOGIC **/
       // Cancel all offers associated with the campaign
       offerCommandService.cancelOffers(campaignId);
-      log.info("Cancelled offers for campaign {}", campaignId);
 
     } catch (JsonProcessingException e) {
       throw new ApplicationException("Error parsing object's value", e);

@@ -28,8 +28,9 @@ public class OfferQueryService {
    * @return a list of BaseDto containing Offer objects.
    */
   public List<BaseDto<Offer>> getAllOffers() {
-    log.info("Fetching all offers from the repository");
-    return offerQueryRepository.getAllOffers();
+    List<BaseDto<Offer>> allOffers = offerQueryRepository.getAllOffers();
+    log.info("Total offers fetched: {}", allOffers.size());
+    return allOffers;
   }
 
   /**
@@ -39,8 +40,13 @@ public class OfferQueryService {
    * @return a BaseDto containing the Offer object if found, or null if not found.
    */
   public Optional<BaseDto<Offer>> getOfferById(String id) {
-    log.info("Fetching offer with ID: {}", id);
-    return offerQueryRepository.findById(id);
+    Optional<BaseDto<Offer>> offer = offerQueryRepository.findById(id);
+    if (offer.isPresent()) {
+      log.info("Offer with ID: {} found", id);
+    } else {
+      log.warn("Offer with ID: {} not found", id);
+    }
+    return offer;
   }
 
   /**
@@ -53,7 +59,8 @@ public class OfferQueryService {
    * @return a list of BaseDto containing Offer objects associated with the specified campaign ID.
    */
   public List<BaseDto<Offer>> getOffersByCampaignId(String campaignId) {
-    log.info("Fetching offers for campaign ID: {}", campaignId);
-    return offerQueryRepository.getOffersByCampaignId(campaignId);
+    List<BaseDto<Offer>> offers = offerQueryRepository.getOffersByCampaignId(campaignId);
+    log.info("Total offers fetched for campaign ID {}: {}", campaignId, offers.size());
+    return offers;
   }
 }

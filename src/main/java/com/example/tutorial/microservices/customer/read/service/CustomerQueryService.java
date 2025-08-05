@@ -28,8 +28,9 @@ public class CustomerQueryService {
    * @return List of BaseDto<Customer>
    */
   public List<BaseDto<Customer>> getAllCustomers() {
-    log.info("Fetching all customers from the repository");
-    return customerQueryRepository.getAllCustomers();
+    List<BaseDto<Customer>> allCustomers = customerQueryRepository.getAllCustomers();
+    log.info("Total customers fetched: {}", allCustomers.size());
+    return allCustomers;
   }
 
   /**
@@ -39,13 +40,18 @@ public class CustomerQueryService {
    * @return Optional containing the BaseDto<Customer> if found, or empty if not found
    */
   public Optional<BaseDto<Customer>> getCustomerById(String id) {
-    log.info("Fetching customer with ID: {}", id);
-    return customerQueryRepository.findById(id);
+    Optional<BaseDto<Customer>> customer = customerQueryRepository.findById(id);
+    if (customer.isPresent()) {
+      log.info("Customer with ID: {} found", id);
+    } else {
+      log.warn("Customer with ID: {} not found", id);
+    }
+    return customer;
   }
 
   public List<BaseDto<Customer>> getCustomersByOfferId(String offerId) {
-    log.info("Fetching customers for offer ID: {}", offerId);
-    return customerQueryRepository.getCustomersByOfferId(offerId);
+    List<BaseDto<Customer>> customers = customerQueryRepository.getCustomersByOfferId(offerId);
+    log.info("Total customers fetched for offer ID {}: {}", offerId, customers.size());
+    return customers;
   }
 }
-

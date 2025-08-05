@@ -29,8 +29,9 @@ public class CustomerQueryController {
    */
   @GetMapping
   public ResponseEntity<List<BaseDto<Customer>>> getAllCustomers() {
-    log.info("Fetching all customers");
-    return ResponseEntity.ok(customerQueryService.getAllCustomers());
+    List<BaseDto<Customer>> allCustomers = customerQueryService.getAllCustomers();
+    log.info("Total customers found: {}", allCustomers.size());
+    return ResponseEntity.ok(allCustomers);
   }
 
   /**
@@ -38,9 +39,9 @@ public class CustomerQueryController {
    */
   @GetMapping("/{id}")
   public ResponseEntity<BaseDto<Customer>> getCustomerById(@PathVariable String id) {
-    log.info("Fetching customer with ID: {}", id);
     Optional<BaseDto<Customer>> customerOptional = customerQueryService.getCustomerById(id);
     if (customerOptional.isPresent()) {
+      log.info("Customer with ID: {} found", id);
       return ResponseEntity.ok(customerOptional.get());
     } else {
       log.warn("Customer with ID: {} not found", id);
@@ -56,16 +57,13 @@ public class CustomerQueryController {
    */
   @GetMapping("/offers/{offerId}")
   public ResponseEntity<List<BaseDto<Customer>>> getCustomersByOfferId(@PathVariable String offerId) {
-    log.info("Fetching customers for offer ID: {}", offerId);
     List<BaseDto<Customer>> customers = customerQueryService.getCustomersByOfferId(offerId);
     if (!customers.isEmpty()) {
       log.info("Found {} customers for offer ID: {}", customers.size(), offerId);
       return ResponseEntity.ok(customers);
-
     } else {
       log.warn("No customers found for offer ID: {}", offerId);
       return ResponseEntity.noContent().build();
     }
   }
 }
-

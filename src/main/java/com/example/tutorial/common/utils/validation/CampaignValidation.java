@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -41,21 +42,24 @@ public class CampaignValidation {
   @Autowired
   private ObjectMapper objectMapper;
 
+  @Value("${campaigns.api.url}")
+  String campaignsApiUrl;
 
   /**
    * Overrides the offer IDs in the BaseDto with the original campaign's offer IDs.
    * This is used to ensure that the offer IDs are consistent with the original campaign.
    *
    * @param campaign The BaseDto containing the campaign data.
-   * @param campaignsApiUrl The URL of the campaigns API to fetch the original campaign.
    */
-  public void keepOriginalOfferIds(BaseDto<Campaign> campaign, String campaignsApiUrl) {
+  public void keepOriginalOfferIds(BaseDto<Campaign> campaign) {
+    log.info("Overriding offer IDs for campaign: {}", campaign.getId());
+
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, campaign.getId(), new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(campaign.getId(), KafkaEventType.CAMPAIGN_UPDATED));
 
     originalCampaignOptional.ifPresent( originalCampaign -> {
-      log.info("Overridden offer IDs for campaign: {} with the original campaign: {}",
+      log.debug("Overridden offer IDs for campaign: {} with the original campaign: {}",
           campaign.getData().getOfferIds(), originalCampaign.getData().getOfferIds());
       campaign.getData().setOfferIds(originalCampaign.getData().getOfferIds());
     });
@@ -77,9 +81,9 @@ public class CampaignValidation {
     log.info("Validating existence of campaign with ID: {}", campaignId);
 
     /** check if the campaign ID is present in Redis cache. If present, use it to validate the campaign status **/
-    log.info("Checking Redis cache for campaign ID: {}", campaignId);
     Optional<String> campaignEventOptional =cacheUtils.getCache(campaignId);
     if(campaignEventOptional.isPresent()) {
+      log.debug("Campaign ID {} found in cache, validating status and end date", campaignId);
       CampaignEvent campaignEvent = null;
       try {
         campaignEvent = objectMapper.readValue(campaignEventOptional.get(), new TypeReference<CampaignEvent>() {});
@@ -91,7 +95,7 @@ public class CampaignValidation {
 
     /** if the campaign ID is not present in Redis cache, fetch it from the campaigns API and then validate the campaign status **/
     } else {
-      log.info("Campaign ID {} not found in cache, fetching from campaigns API: {}", campaignId, campaignsApiUrl);
+      log.warn("Campaign ID {} not found in cache, fetching from campaigns API: {}", campaignId, campaignsApiUrl);
       Optional<BaseDto<Campaign>> campaignOptional = apiUtils.fetchAndCacheBaseDtoById(
           campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
           new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
@@ -123,6 +127,8 @@ public class CampaignValidation {
    * @throws RequestValidationException if the campaign is not active or the end date has passed.
    */
   private void validateCampaign(String status, LocalDateTime endDate, String campaignId) {
+    log.debug("Validating campaign status: {}, end date: {}, for campaign ID: {}", status, endDate, campaignId);
+
     // validate if the campaign is still active, if not throw an exception
     if (!StringUtils.equals(status, CampaignStatus.ACTIVE.name())) {
       RequestValidationMessage validationMessage = new RequestValidationMessage(

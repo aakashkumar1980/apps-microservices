@@ -59,7 +59,6 @@ public class CustomerCommandService {
     log.info("Assigning offer {} to eligible customers", offerId);
 
     // Retrieve all customers from the repository
-    log.info("Fetching all customers from the repository at {}", customersApiUrl);
     List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(
         customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
 
@@ -70,7 +69,7 @@ public class CustomerCommandService {
     // Iterate through each customer to check eligibility for the offer
     allCustomers.forEach(customer -> {
       // Check if the customer is eligible for the offer
-      log.info("Checking eligibility for customer {} for offer {}", customer.getId(), offerId);
+      log.debug("Checking eligibility for customer {} for offer {}", customer.getId(), offerId);
       boolean eligible = customerEligibilityEngineClient.isEligible(customer.getId(), offerId);
       if (eligible) {
 
@@ -78,7 +77,6 @@ public class CustomerCommandService {
         log.info("Customer {} is eligible for offer {}", customer.getId(), offerId);
         // Add the offer ID to the customer's enrolled offers
         customer.getData().getEnrolledOfferIds().add(offerId);
-        // Save the updated customer back to the repository
         customerCommandRepository.save(customer);
         eligibleCustomers.add(customer);
       } else {
@@ -106,7 +104,6 @@ public class CustomerCommandService {
     log.info("Unassigning offer {} from customers", offerId);
 
     // Retrieve all customers from the repository
-    log.info("Fetching all customers from the repository at {}", customersApiUrl);
     List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(
         customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
 

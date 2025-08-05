@@ -29,8 +29,9 @@ public class MerchantQueryController {
    */
   @GetMapping
   public ResponseEntity<List<BaseDto<Merchant>>> getAllMerchants() {
-    log.info("Fetching all merchants");
-    return ResponseEntity.ok(merchantQueryService.getAllMerchants());
+    List<BaseDto<Merchant>> allMerchants = merchantQueryService.getAllMerchants();
+    log.info("Total merchants found: {}", allMerchants.size());
+    return ResponseEntity.ok(allMerchants);
   }
 
   /**
@@ -38,9 +39,9 @@ public class MerchantQueryController {
    */
   @GetMapping("/{id}")
   public ResponseEntity<BaseDto<Merchant>> getMerchantById(@PathVariable String id) {
-    log.info("Fetching merchant with ID: {}", id);
     Optional<BaseDto<Merchant>> merchantOptional = merchantQueryService.getMerchantById(id);
     if (merchantOptional.isPresent()) {
+      log.info("Merchant with ID: {} found", id);
       return ResponseEntity.ok(merchantOptional.get());
     } else {
       log.warn("Merchant with ID: {} not found", id);
@@ -48,4 +49,3 @@ public class MerchantQueryController {
     }
   }
 }
-

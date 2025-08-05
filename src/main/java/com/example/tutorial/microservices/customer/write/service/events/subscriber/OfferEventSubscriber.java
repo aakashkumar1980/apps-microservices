@@ -51,7 +51,6 @@ public class OfferEventSubscriber {
       /** BUSNESS LOGIC **/
       // Check if the customer is eligible for the offer. If eligible, assign the offer to the customer.
       customerCommandService.assignOfferToCustomer(offerId);
-      log.info("Assigned offer {} to the customers successfully", offerId);
 
     } catch (JsonProcessingException e) {
       throw new ApplicationException("Error parsing object's value", e);

@@ -28,7 +28,9 @@ public class CampaignQueryService {
    * @return List of BaseDto<Campaign>
    */
   public List<BaseDto<Campaign>> getAllCampaigns() {
-    log.info("Fetching all campaigns from the repository");
+    List<BaseDto<Campaign>> allCampaigns = campaignQueryRepository.getAllCampaigns();
+    log.info("Total campaigns fetched: {}", allCampaigns.size());
+
     return campaignQueryRepository.getAllCampaigns();
   }
 
@@ -39,7 +41,13 @@ public class CampaignQueryService {
    * @return Optional containing the BaseDto<Campaign> if found, or empty if not found
    */
   public Optional<BaseDto<Campaign>> getCampaignById(String id) {
-    log.info("Fetching campaign with ID: {}", id);
-    return campaignQueryRepository.findById(id);
+    Optional<BaseDto<Campaign>> campaign = campaignQueryRepository.findById(id);
+    if (campaign.isPresent()) {
+      log.info("Campaign with ID: {} found", id);
+    } else {
+      log.warn("Campaign with ID: {} not found", id);
+    }
+
+    return campaign;
   }
 }

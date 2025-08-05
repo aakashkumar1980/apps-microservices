@@ -30,8 +30,9 @@ public class OfferQueryController {
    */
   @GetMapping
   public ResponseEntity<List<BaseDto<Offer>>> getAllOffers() {
-    log.info("Fetching all offers");
-    return ResponseEntity.ok(offerQueryService.getAllOffers());
+    List<BaseDto<Offer>> allOffers = offerQueryService.getAllOffers();
+    log.info("Total offers found: {}", allOffers.size());
+    return ResponseEntity.ok(allOffers);
   }
 
   /**
@@ -42,9 +43,9 @@ public class OfferQueryController {
    */
   @GetMapping("/{id}")
   public ResponseEntity<BaseDto<Offer>> getOfferById(@PathVariable String id) {
-    log.info("Fetching offer with ID: {}", id);
     Optional<BaseDto<Offer>> offerOptional = offerQueryService.getOfferById(id);
     if (offerOptional.isPresent()) {
+      log.info("Offer with ID: {} found", id);
       return ResponseEntity.ok(offerOptional.get());
     } else {
       log.warn("Offer with ID: {} not found", id);
@@ -60,13 +61,13 @@ public class OfferQueryController {
    */
   @GetMapping("/campaigns/{campaignId}")
   public ResponseEntity<List<BaseDto<Offer>>> getOffersByCampaignId(@PathVariable String campaignId) {
-    log.info("Fetching offers for campaign ID: {}", campaignId);
     List<BaseDto<Offer>> offersByCampaign = offerQueryService.getOffersByCampaignId(campaignId);
-    if (offersByCampaign.isEmpty()) {
+    if (!offersByCampaign.isEmpty()) {
+      log.info("Found {} offers for campaign ID: {}", offersByCampaign.size(), campaignId);
+      return ResponseEntity.ok(offersByCampaign);
+    } else {
       log.warn("No offers found for campaign ID: {}", campaignId);
       return ResponseEntity.noContent().build();
     }
-    return ResponseEntity.ok(offersByCampaign);
   }
-
 }

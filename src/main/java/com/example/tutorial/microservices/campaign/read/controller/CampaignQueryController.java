@@ -31,22 +31,25 @@ public class CampaignQueryController {
    */
   @GetMapping
   public ResponseEntity<List<BaseDto<Campaign>>> getAllCampaigns() {
-    log.info("Fetching all campaigns");
-    return ResponseEntity.ok(campaignQueryService.getAllCampaigns());
+    List<BaseDto<Campaign>> allCampaigns = campaignQueryService.getAllCampaigns();
+    log.info("Total campaigns found: {}", allCampaigns.size());
+    return ResponseEntity.ok(allCampaigns);
   }
 
   /**
    * Retrieves a campaign by its ID.
    *
    * @param id the ID of the campaign to retrieve
-   * @return a ResponseEntity containing the BaseDto<Campaign> object if found, or a 404 Not Found status if not found.
+   * @return a ResponseEntity containing the BaseDto<Campaign> object if found,
+   * or a 404 Not Found status if not found.
    */
   @GetMapping("/{id}")
   public ResponseEntity<BaseDto<Campaign>> getCampaignById(@PathVariable String id) {
-    log.info("Fetching campaign with ID: {}", id);
     Optional<BaseDto<Campaign>> campaignOptional = campaignQueryService.getCampaignById(id);
     if (campaignOptional.isPresent()) {
+      log.info("Campaign with ID: {} found", id);
       return ResponseEntity.ok(campaignOptional.get());
+
     } else {
       log.warn("Campaign with ID: {} not found", id);
       return ResponseEntity.notFound().build();

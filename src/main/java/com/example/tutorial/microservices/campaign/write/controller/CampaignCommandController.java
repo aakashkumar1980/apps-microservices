@@ -29,6 +29,7 @@ public class CampaignCommandController {
     @PostMapping
     public ResponseEntity<String> createCampaign(@Valid @RequestBody Campaign campaign) {
         log.info("Received request to create campaign: {}", campaign);
+
         String id = campaignCommandService.createCampaign(campaign);
         return ResponseEntity.ok(String.format("Campaign created successfully with ID: %s", id));
     }
@@ -56,6 +57,7 @@ public class CampaignCommandController {
     @PutMapping("/{id}/cancel")
     public ResponseEntity<String> cancelCampaign(@PathVariable String id) {
         log.info("Received request to cancel campaign with ID: {}", id);
+
         campaignCommandService.cancelCampaign(id);
         return ResponseEntity.ok("Campaign cancelled successfully");
     }

@@ -28,8 +28,9 @@ public class MerchantQueryService {
    * @return List of BaseDto<Merchant>
    */
   public List<BaseDto<Merchant>> getAllMerchants() {
-    log.info("Fetching all merchants from the repository");
-    return merchantQueryRepository.getAllMerchants();
+    List<BaseDto<Merchant>> allMerchants = merchantQueryRepository.getAllMerchants();
+    log.info("Total merchants fetched: {}", allMerchants.size());
+    return allMerchants;
   }
 
   /**
@@ -39,8 +40,12 @@ public class MerchantQueryService {
    * @return Optional containing the BaseDto<Merchant> if found, or empty if not found
    */
   public Optional<BaseDto<Merchant>> getMerchantById(String id) {
-    log.info("Fetching merchant with ID: {}", id);
-    return merchantQueryRepository.findById(id);
+    Optional<BaseDto<Merchant>> merchant = merchantQueryRepository.findById(id);
+    if (merchant.isPresent()) {
+      log.info("Merchant with ID: {} found", id);
+    } else {
+      log.warn("Merchant with ID: {} not found", id);
+    }
+    return merchant;
   }
 }
-

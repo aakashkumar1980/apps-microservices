@@ -55,9 +55,6 @@ public class OfferCommandService {
   @Value("${offers.api.url}")
   private String offersApiUrl;
 
-  @Value("${merchants.api.url}")
-  private String merchantsApiUrl;
-
   @Autowired
   private APIUtils apiUtils;
 
@@ -77,7 +74,7 @@ public class OfferCommandService {
     // Validate that the offer has a valid campaign
     campaignValidation.validateCampaign(offer.getCampaignId(), campaignsApiUrl);
     // Validate that the offer has a valid merchant
-    merchantValidation.validateMerchant(offer.getMerchantId(), merchantsApiUrl);
+    merchantValidation.validateMerchant(offer.getMerchantId());
 
     /** PERSIST DATA **/
     // generate a unique ID for the offer using a counter

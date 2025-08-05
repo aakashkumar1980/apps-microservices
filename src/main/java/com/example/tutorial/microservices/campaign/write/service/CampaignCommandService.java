@@ -60,6 +60,7 @@ public class CampaignCommandService {
    */
   public String createCampaign(Campaign campaign) {
     log.info("Creating campaign: {}", campaign);
+
     // build the BaseDto for the campaign with default values
     BaseDto<Campaign> baseCampaign = BaseDto.build(campaign);
 
@@ -87,7 +88,7 @@ public class CampaignCommandService {
 
     /** DATA VALIDATION **/
     // override offer ids by keeping the original as it shouldn't be changed once assigned
-    campaignValidation.keepOriginalOfferIds(campaign, campaignsApiUrl);
+    campaignValidation.keepOriginalOfferIds(campaign);
 
     /** PERSIST DATA **/
     // Update the updated campaign to the repository
@@ -110,7 +111,6 @@ public class CampaignCommandService {
 
     /** PERSIST DATA **/
     // Get the campaign by ID
-    log.info("Fetching campaign with ID: {}", id);
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(id, KafkaEventType.CAMPAIGN_UPDATED));
@@ -120,8 +120,6 @@ public class CampaignCommandService {
       originalCampaign.getData().setStatus(CampaignStatus.CANCELLED);
       // Persist the updated campaign
       campaignCommandRepository.save(originalCampaign);
-      log.info("Campaign with ID {} has been cancelled", id);
-
     }
 
     /** PUBLISH EVENT **/
@@ -142,7 +140,6 @@ public class CampaignCommandService {
 
     /** PERSIST DATA **/
     // Fetch the campaign by ID
-    log.info("Fetching campaign with ID: {}", campaignId);
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
@@ -152,8 +149,8 @@ public class CampaignCommandService {
       List<String> existingOfferIds = originalCampaign.getData().getOfferIds();
       if(!existingOfferIds.contains(offerId)) {
         // If the offer is not already linked, add it to the campaign
+        log.debug("Adding offer {} to campaign {}", offerId, campaignId);
         existingOfferIds.add(offerId);
-        log.info("Adding offer {} to campaign {}", offerId, campaignId);
         campaignCommandRepository.save(originalCampaign);
 
       } else {
@@ -176,7 +173,6 @@ public class CampaignCommandService {
 
     /** PERSIST DATA **/
     // Fetch the campaign by ID
-    log.info("Fetching campaign with ID: {}", campaignId);
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
         campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
@@ -186,8 +182,8 @@ public class CampaignCommandService {
       List<String> existingOfferIds = originalCampaign.getData().getOfferIds();
       if(existingOfferIds.contains(offerId)) {
         // If the offer is linked, remove it from the campaign
+        log.debug("Removing offer {} from campaign {}", offerId, campaignId);
         existingOfferIds.remove(offerId);
-        log.info("Removing offer {} from campaign {}", offerId, campaignId);
         campaignCommandRepository.save(originalCampaign);
 
       } else {
