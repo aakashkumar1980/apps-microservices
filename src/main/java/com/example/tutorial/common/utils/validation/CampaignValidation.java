@@ -5,14 +5,11 @@ import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
 import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
-import com.example.tutorial.common.exceptions.ApplicationException;
 import com.example.tutorial.common.exceptions.RequestValidationException;
 import com.example.tutorial.common.exceptions.RequestValidationMessage;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,9 +35,6 @@ public class CampaignValidation {
 
   @Autowired
   private CacheUtils cacheUtils;
-
-  @Autowired
-  private ObjectMapper objectMapper;
 
   @Value("${campaigns.api.url}")
   String campaignsApiUrl;
@@ -81,21 +75,15 @@ public class CampaignValidation {
     log.info("Validating existence of campaign with ID: {}", campaignId);
 
     /** check if the campaign ID is present in Redis cache. If present, use it to validate the campaign status **/
-    Optional<String> campaignEventOptional =cacheUtils.getCache(campaignId);
+    Optional<CampaignEvent> campaignEventOptional =cacheUtils.getCache(campaignId, new TypeReference<CampaignEvent>() {});
     if(campaignEventOptional.isPresent()) {
-      log.debug("Campaign ID {} found in cache, validating status and end date", campaignId);
-      CampaignEvent campaignEvent = null;
-      try {
-        campaignEvent = objectMapper.readValue(campaignEventOptional.get(), new TypeReference<CampaignEvent>() {});
-
-        validateCampaign(campaignEvent.getStatus().name(), campaignEvent.getEndDate(), campaignId);
-      } catch (JsonProcessingException e) {
-        throw new ApplicationException("Error parsing object's value", e);
-      }
+        validateCampaign(
+            campaignEventOptional.get().getStatus().name(),
+            campaignEventOptional.get().getEndDate(), campaignId
+        );
 
     /** if the campaign ID is not present in Redis cache, fetch it from the campaigns API and then validate the campaign status **/
     } else {
-      log.warn("Campaign ID {} not found in cache, fetching from campaigns API: {}", campaignId, campaignsApiUrl);
       Optional<BaseDto<Campaign>> campaignOptional = apiUtils.fetchAndCacheBaseDtoById(
           campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
           new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
@@ -104,7 +92,8 @@ public class CampaignValidation {
         BaseDto<Campaign> campaign = campaignOptional.get();
         validateCampaign(
             campaign.getData().getStatus().name(),
-            campaign.getData().getEndDate(), campaignId);
+            campaign.getData().getEndDate(), campaignId
+        );
 
       } else {
         RequestValidationMessage validationMessage = new RequestValidationMessage(

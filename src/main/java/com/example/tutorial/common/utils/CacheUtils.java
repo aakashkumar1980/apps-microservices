@@ -1,5 +1,10 @@
 package com.example.tutorial.common.utils;
 
+import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
+import com.example.tutorial.common.exceptions.ApplicationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +23,9 @@ public class CacheUtils {
   @Autowired
   private RedisTemplate<String, String> redisTemplate;
 
+  @Autowired
+  private ObjectMapper objectMapper;
+
   /**
    * Sets a cache entry in Redis with the given ID and payload.
    * The cache entry will expire after the specified number of hours.
@@ -33,19 +41,26 @@ public class CacheUtils {
   }
 
   /**
-   * Retrieves the cached value for the given ID from Redis.
-   *
-   * @param id the ID of the cached item
-   * @return the cached value, or null if not found
+   * Retrieves a cache entry from Redis by its ID and deserializes it into the specified type.
+   * @param id
+   * @param typeReference
+   * @return an Optional containing the cached object if found, or empty if not found
+   * @param <T> the type of the cached object
    */
-  public Optional<String> getCache(String id) {
+  public <T> Optional<T> getCache(String id, TypeReference<T> typeReference) {
     String payload= redisTemplate.opsForValue().get(id);
-    if(StringUtils.isBlank(payload)) {
+    if(StringUtils.isNotBlank(payload)) {
+      log.info("Retrieved cached value for ID {}: {}", id, payload);
+      try {
+        T cacheObject = objectMapper.readValue(payload, typeReference);
+        return Optional.of(cacheObject);
+      } catch (JsonProcessingException e) {
+        throw new ApplicationException("Error parsing object's value", e);
+      }
+
+    } else {
       log.warn("No cached value found for ID: {}", id);
       return Optional.empty();
-    } else {
-      log.info("Retrieved cached value for ID {}: {}", id, payload);
-      return Optional.of(payload);
     }
   }
 

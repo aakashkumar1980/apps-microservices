@@ -9,7 +9,6 @@ import com.example.tutorial.common.exceptions.RequestValidationMessage;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,6 @@ public class MerchantValidation {
   @Autowired
   private CacheUtils cacheUtils;
 
-  @Autowired
-  private ObjectMapper objectMapper;
-
   @Value("${merchants.api.url}")
   private String merchantsApiUrl;
 
@@ -47,9 +43,8 @@ public class MerchantValidation {
   public void validateMerchant(String merchantId) {
     log.info("Validating existence of merchant with ID: {}", merchantId);
 
-    Optional<String> merchantEventOptional = cacheUtils.getCache(merchantId);
+    Optional<MerchantEvent> merchantEventOptional = cacheUtils.getCache(merchantId, new TypeReference<MerchantEvent>() {});
     if (merchantEventOptional.isEmpty()) {
-      log.debug("Fetching merchant for ID {} for REST API", merchantId);
       Optional<BaseDto<Merchant>> merchantOptional = apiUtils.fetchAndCacheBaseDtoById(
           merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {},
           new MerchantEvent(merchantId, KafkaEventType.MERCHANT_UPDATED));
