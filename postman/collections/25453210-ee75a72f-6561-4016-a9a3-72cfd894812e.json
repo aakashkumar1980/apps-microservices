@@ -278,7 +278,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification> Get Customers By Offer Id Copy",
+							"name": "<verification> Get Campaigns By Offer Id",
 							"id": "25453210-a8a3c155-dbd8-462e-b428-e33d859b5c79",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -287,7 +287,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/customers/offers/{{created_offer_id}}",
+									"raw": "http://localhost:8080/api/campaigns/offers/{{created_offer_id}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -295,7 +295,7 @@
 									"port": "8080",
 									"path": [
 										"api",
-										"customers",
+										"campaigns",
 										"offers",
 										"{{created_offer_id}}"
 									]
