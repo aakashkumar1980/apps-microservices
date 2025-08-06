@@ -236,7 +236,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/merchants/{{merchant_id}}",
+									"raw": "http://localhost:8080/api/merchants/merchant::2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -245,7 +245,7 @@
 									"path": [
 										"api",
 										"merchants",
-										"{{merchant_id}}"
+										"merchant::2"
 									]
 								}
 							},
