@@ -29,7 +29,8 @@ public class CustomerEligibilityEngineClient {
    */
   public boolean isEligible(String customerId, String offerId) {
     // mock implementation for eligibility check. now simply returning random boolean
-    log.info("Checking offer eligibility for customer ID: {} for offer ID: {}", customerId, offerId);
-    return Math.random() < 0.5; // Randomly return true or false
+    boolean isEligible = Math.random() < 0.3; // Randomly return true or false
+    log.info("Checking offer eligibility for customerId: {}, offerId: {}, isEligible: {}", customerId, offerId, isEligible);
+    return isEligible;
   }
 }
