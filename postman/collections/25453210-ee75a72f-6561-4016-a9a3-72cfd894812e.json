@@ -351,6 +351,31 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Customer By Id Copy",
+					"id": "25453210-fea49ade-02cb-4b63-b01c-5829df52eb8c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/customers/{{customer_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "25453210-f3a6b790-c3f7-4b27-bd59-ce8bce9ee6b1"
