@@ -276,6 +276,32 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "<verification> Get Campaigns By Offer Id",
+							"id": "25453210-a8a3c155-dbd8-462e-b428-e33d859b5c79",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/campaigns/offers/{{created_offer_id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"campaigns",
+										"offers",
+										"{{created_offer_id}}"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"id": "25453210-5652a4b1-f1d8-4042-910a-7e99cea24755"
