@@ -56,4 +56,16 @@ public class CampaignQueryController {
     }
   }
 
+  /**
+   * Retrieves a list of campaigns associated with a specific offer ID.
+   *
+   * @param offerId the ID of the offer
+   * @return a ResponseEntity containing a list of BaseDto<Campaign> objects associated with the given offer ID.
+   */
+  @GetMapping("/offers/{offerId}")
+  public ResponseEntity<List<BaseDto<Campaign>>> getCampaignsByOfferId(@PathVariable String offerId) {
+    List<BaseDto<Campaign>> campaigns = campaignQueryService.getCampaignsByOfferId(offerId);
+    log.info("Total campaigns found for offer ID {}: {}", offerId, campaigns.size());
+    return ResponseEntity.ok(campaigns);
+  }
 }

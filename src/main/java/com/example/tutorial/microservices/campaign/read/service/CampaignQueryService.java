@@ -50,4 +50,16 @@ public class CampaignQueryService {
 
     return campaign;
   }
+
+  /**
+   * Returns a list of campaigns associated with a specific offer ID.
+   *
+   * @param offerId the ID of the offer
+   * @return List of BaseDto<Campaign> associated with the given offer ID
+   */
+  public List<BaseDto<Campaign>> getCampaignsByOfferId(String offerId) {
+    List<BaseDto<Campaign>> campaigns = campaignQueryRepository.getCampaignsByOfferId(offerId);
+    log.info("Total campaigns fetched for offer ID {}: {}", offerId, campaigns.size());
+    return campaigns;
+  }
 }
