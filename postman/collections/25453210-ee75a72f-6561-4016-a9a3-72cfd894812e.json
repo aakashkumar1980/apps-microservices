@@ -225,6 +225,31 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "<verification> Get Merchant By Id",
+							"id": "25453210-6e874f1c-727f-4a49-9bca-e500b1bf3ccf",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/merchants/{{merchant_id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"merchants",
+										"{{merchant_id}}"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"id": "25453210-5652a4b1-f1d8-4042-910a-7e99cea24755"
@@ -256,31 +281,6 @@
 				{
 					"name": "Get Merchant By Id",
 					"id": "25453210-a3738c16-f1bd-4566-a16c-867334ee05b5",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/merchants/{{merchant_id}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"merchants",
-								"{{merchant_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Merchant By Id Copy",
-					"id": "25453210-6e874f1c-727f-4a49-9bca-e500b1bf3ccf",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
