@@ -42,7 +42,6 @@ flowchart TD
         CUSUB["OfferEventSubscriber.subscribeCreateOfferEvent()"]:::subscriber
         CUSVC["CustomerCommandService.assignOfferToCustomer()"]:::service
         APIU_C["APIUtils.fetchBaseDtoList()"]:::util
-        VAL_CAP["OfferValidation.checkEnrollmentsCap()"]:::util
         ELIG["CustomerEligibilityEngineClient.isEligible()"]:::util
         CUREPO["CustomerCommandRepository.save()"]:::repository
     end
@@ -78,15 +77,14 @@ flowchart TD
     CUSUB -->|12: Assign offer to customer| CUSVC
     CUSVC -->|13: Fetch all customers| APIU_C
     APIU_C -->|13.1: Call REST API| CUSREST
-    CUSVC -->|14: Validate cap on enrollments| VAL_CAP
-    CUSVC -->|15: Check customer eligibility| ELIG
-    CUSVC -->|16: Save eligible customers| CUREPO
-    CUREPO -->|16.1: Persist documents| CUDB
+    CUSVC -->|14: Check customer eligibility| ELIG
+    CUSVC -->|15: Save eligible customers| CUREPO
+    CUREPO -->|15.1: Persist documents| CUDB
 
-    KafkaTopic -->|17: Merchant subscriber triggered| MESUB
-    MESUB -->|18: Update merchant's offer list| MSVC
-    MSVC -->|19: Save updated merchant| MREPO
-    MREPO -->|19.1: Persist document| MDB
+    KafkaTopic -->|16: Merchant subscriber triggered| MESUB
+    MESUB -->|17: Update merchant's offer list| MSVC
+    MSVC -->|18: Save updated merchant| MREPO
+    MREPO -->|18.1: Persist document| MDB
 
 %% Styling
     classDef controller fill:#E3F2FD,stroke:#0288D1,stroke-width:1px;
