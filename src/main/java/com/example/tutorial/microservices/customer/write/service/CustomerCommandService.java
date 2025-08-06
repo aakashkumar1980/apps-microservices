@@ -4,7 +4,6 @@ import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.customer.Customer;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.validation.CustomerEligibilityEngineClient;
-import com.example.tutorial.common.utils.validation.OfferValidation;
 import com.example.tutorial.microservices.customer.write.repository.CustomerCommandRepository;
 import com.example.tutorial.microservices.customer.write.service.events.publisher.CustomerOfferEventPublisher;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -35,9 +34,6 @@ public class CustomerCommandService {
   @Autowired
   private CustomerOfferEventPublisher customerOfferEventPublisher;
 
-  @Autowired
-  private OfferValidation offerValidation;
-
   @Value("${customers.api.url}")
   private String customersApiUrl;
 
@@ -61,9 +57,6 @@ public class CustomerCommandService {
     // Retrieve all customers from the repository
     List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(
         customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
-
-    /** DATA VALIDATION **/
-    offerValidation.checkEnrollmentsCap(offerId, allCustomers);
 
     List<BaseDto<Customer>> eligibleCustomers = new ArrayList<BaseDto<Customer>>();
     // Iterate through each customer to check eligibility for the offer
