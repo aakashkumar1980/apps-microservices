@@ -44,7 +44,7 @@
 					"name": "CreateOffer",
 					"item": [
 						{
-							"name": "ValidationError :: Campaign Not Found",
+							"name": "DataValidationError :: Campaign Not Found",
 							"id": "25453210-671e311f-515b-4136-a8ed-3d09e2c662fa",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -77,7 +77,7 @@
 							"response": []
 						},
 						{
-							"name": "ValidationError :: Campaign Not Active",
+							"name": "DataValidationError :: Campaign Not Active",
 							"id": "25453210-397c1f10-7b56-4e85-b2ad-de5818ba79d8",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
