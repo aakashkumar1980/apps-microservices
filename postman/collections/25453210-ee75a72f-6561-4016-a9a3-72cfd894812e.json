@@ -279,6 +279,31 @@
 					"response": []
 				},
 				{
+					"name": "Get Merchant By Id Copy",
+					"id": "25453210-6e874f1c-727f-4a49-9bca-e500b1bf3ccf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/merchants/{{merchant_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"merchants",
+								"{{merchant_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get All Customers",
 					"id": "25453210-f47e98a3-b3c0-4609-a2d1-f981eef6393b",
 					"protocolProfileBehavior": {
