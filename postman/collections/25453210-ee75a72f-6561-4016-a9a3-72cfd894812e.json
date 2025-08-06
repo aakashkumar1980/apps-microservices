@@ -184,7 +184,7 @@
 										"id": "571e6830-b604-40fb-a04f-575c3882c0ff",
 										"exec": [
 											"const response = pm.response.text();\r",
-											"const match = response.match(/offer: : \\d+/);\r",
+											"const match = response.match(/offer::\\d+/);\r",
 											"if (match) {\r",
 											"    pm.environment.set(\"created_offer_id\", match[0]);\r",
 											"}\r",
