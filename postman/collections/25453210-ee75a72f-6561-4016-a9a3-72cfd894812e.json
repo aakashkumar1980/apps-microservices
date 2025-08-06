@@ -177,6 +177,24 @@
 						},
 						{
 							"name": "CreateOffer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "571e6830-b604-40fb-a04f-575c3882c0ff",
+										"exec": [
+											"const response = pm.response.text();\r",
+											"const match = response.match(/offer::\\d+/);\r",
+											"if (match) {\r",
+											"    pm.environment.set(\"created_offer_id\", match[0]);\r",
+											"}\r",
+											"console.info(\"created_offer_id:\", pm.environment.get(\"created_offer_id\"));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "25453210-5367dc3a-6ba6-4cb8-a525-c23872deff0f",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -203,6 +221,57 @@
 									"path": [
 										"api",
 										"offers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "<verification> Get Merchant By Id",
+							"id": "25453210-6e874f1c-727f-4a49-9bca-e500b1bf3ccf",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/merchants/merchant::2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"merchants",
+										"merchant::2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customers By Offer Id",
+							"id": "25453210-fea49ade-02cb-4b63-b01c-5829df52eb8c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/customers/offers/{{created_offer_id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"customers",
+										"offers",
+										"{{created_offer_id}}"
 									]
 								}
 							},
