@@ -187,7 +187,8 @@
 											"const match = response.match(/offer: : \\d+/);\r",
 											"if (match) {\r",
 											"    pm.environment.set(\"created_offer_id\", match[0]);\r",
-											"}"
+											"}\r",
+											"console.info(\"created_offer_id:\", pm.environment.get(\"created_offer_id\"));"
 										],
 										"type": "text/javascript",
 										"packages": {}
