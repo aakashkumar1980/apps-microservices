@@ -65,13 +65,13 @@ public class CustomerCommandService {
       log.debug("Checking eligibility for customer {} for offer {}", customer.getId(), offerId);
       boolean eligible = customerEligibilityEngineClient.isEligible(customer.getId(), offerId);
       if (eligible) {
-
         /** PERSIST DATA **/
         log.info("Customer {} is eligible for offer {}", customer.getId(), offerId);
         // Add the offer ID to the customer's enrolled offers
         customer.getData().getEnrolledOfferIds().add(offerId);
         customerCommandRepository.save(customer);
         eligibleCustomers.add(customer);
+
       } else {
         log.warn("Customer {} is not eligible for offer {}", customer.getId(), offerId);
         // TODO: Logic to handle ineligibility, e.g., notifying the customer or logging
