@@ -9,7 +9,28 @@ import java.time.LocalDateTime;
 
 /**
  * Base Data Transfer Object (DTO) class that can be extended by other DTOs.
- * It includes common fields such as id, createdAt, updatedAt, version, and data.
+ * It includes common fields such as id, createdAt, updatedAt, version, and data. example dto for Campaign:
+ * <pre>
+ *   {@code
+ *    {
+ *      "id": "12345",
+ *      "created_at": "2023-10-01T12:00:00",
+ *      "updated_at": "2023-10-01T12:00:00",
+ *      "version": 1,
+ *      "data": {
+ *        "name": "Campaign Name",
+ *        "description": "Campaign Description",
+ *        "status": "ACTIVE",
+ *        "start_date": "2023-10-01T00:00:00",
+ *        "end_date": "2023-10-31T23:59:59",
+ *        "budget": 2390.07,
+ *        "offer_ids": [
+ *          "offer::1"
+ *         ]
+ *      }
+ *    }
+ *   }
+ * </pre>
  *
  * @param <T> the type of data contained in this DTO
  */
@@ -32,6 +53,19 @@ public class BaseDto<T> {
   @NotNull(message = "Version is required")
   private Integer version;
 
+  /**
+   * The `data` field is generic, allowing flexibility in the type of data it holds (e.g., Campaign, Offer, etc.).
+   * <p>
+   * For object-to-string conversion or vice versa, use `TypeReference` for deserialization:
+   * <pre>
+   *   {@code
+   *      ObjectMapper objectMapper = new ObjectMapper();
+   *      BaseDto<Campaign> campaignDto = objectMapper.readValue(jsonString, new TypeReference<BaseDto<Campaign>>() {});
+   *   }
+   * </pre>
+   * <p>
+   * Note: `TypeReference` is required instead of `Campaign.class` because the latter does not work with generics.
+   */
   @JsonProperty("data")
   @NotNull(message = "Data is required")
   private T data;
@@ -40,7 +74,7 @@ public class BaseDto<T> {
    * Static factory method to create a new BaseDto instance with the provided data.
    *
    * @param data the data to be set in the DTO
-   * @param <T> the type of data
+   * @param <T> the type of data i.e. Campaign, Offer, etc.
    * @return a new BaseDto instance with the provided data and current timestamp
    */
   public static <T> BaseDto<T> build(T data) {
