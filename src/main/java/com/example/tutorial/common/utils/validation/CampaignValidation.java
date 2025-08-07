@@ -49,8 +49,7 @@ public class CampaignValidation {
     log.info("Overriding offer IDs for campaign: {}", campaign.getId());
 
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
-        campaignsApiUrl, campaign.getId(), new TypeReference<BaseDto<Campaign>>() {},
-        new CampaignEvent(campaign.getId(), KafkaEventType.CAMPAIGN_UPDATED));
+        campaignsApiUrl, campaign.getId(), new TypeReference<BaseDto<Campaign>>() {});
 
     originalCampaignOptional.ifPresent( originalCampaign -> {
       log.debug("Overridden offer IDs for campaign: {} with the original campaign: {}",
@@ -74,34 +73,26 @@ public class CampaignValidation {
   public void validateCampaign(String campaignId, String campaignsApiUrl) {
     log.info("Validating existence of campaign with ID: {}", campaignId);
 
-    /** check if the campaign ID is present in Redis cache. If present, use it to validate the campaign status **/
-    Optional<CampaignEvent> campaignEventOptional =cacheUtils.getCache(campaignId, new TypeReference<CampaignEvent>() {});
+    // get the campaign event from cache or from the campaigns API
+    Optional<CampaignEvent> campaignEventOptional = cacheUtils.getCache(
+        campaignId, new TypeReference<CampaignEvent>() {},
+        campaignsApiUrl, new TypeReference<BaseDto<Campaign>>() {},
+        new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED)
+    );
     if(campaignEventOptional.isPresent()) {
-        validateCampaign(
-            campaignEventOptional.get().getStatus().name(),
-            campaignEventOptional.get().getEndDate(), campaignId
-        );
+      // if found in cache, validate the campaign status and end date.
+      validateCampaign(
+          campaignEventOptional.get().getStatus().name(),
+          campaignEventOptional.get().getEndDate(), campaignId
+      );
 
-    /** if the campaign ID is not present in Redis cache, fetch it from the campaigns API and then validate the campaign status **/
     } else {
-      Optional<BaseDto<Campaign>> campaignOptional = apiUtils.fetchAndCacheBaseDtoById(
-          campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
-          new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
-
-      if(campaignOptional.isPresent()) {
-        BaseDto<Campaign> campaign = campaignOptional.get();
-        validateCampaign(
-            campaign.getData().getStatus().name(),
-            campaign.getData().getEndDate(), campaignId
-        );
-
-      } else {
-        RequestValidationMessage validationMessage = new RequestValidationMessage(
-            "Api request validation failed",
-            Map.of("error", String.format("Campaign with ID %s not found", campaignId))
-        );
-        throw new RequestValidationException(validationMessage);
-      }
+      //  if not found then fail the validation with an exception.
+      RequestValidationMessage validationMessage = new RequestValidationMessage(
+          "Api request validation failed",
+          Map.of("error", String.format("Campaign with ID %s not found", campaignId))
+      );
+      throw new RequestValidationException(validationMessage);
     }
   }
 

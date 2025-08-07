@@ -46,7 +46,7 @@ public class OfferEventSubscriber {
 
       /** CACHE DATA **/
       // Cache the offer details in Redis
-      cacheUtils.setCache(offerId, payload, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
+      cacheUtils.setCache(offerId, offerEvent, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
 
       /** BUSINESS LOGIC **/
       // Link the offers to the Campaign

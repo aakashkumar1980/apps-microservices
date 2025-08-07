@@ -1,10 +1,8 @@
 package com.example.tutorial.microservices.campaign.write.service;
 
 import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.dto.campaign.CampaignStatus;
-import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
@@ -112,8 +110,7 @@ public class CampaignCommandService {
     /** PERSIST DATA **/
     // Get the campaign by ID
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
-        campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {},
-        new CampaignEvent(id, KafkaEventType.CAMPAIGN_UPDATED));
+        campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {});
     if (originalCampaignOptional.isPresent()) {
       BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
       // Set the status to CANCELLED
@@ -141,8 +138,7 @@ public class CampaignCommandService {
     /** PERSIST DATA **/
     // Fetch the campaign by ID
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
-        campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
-        new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
+        campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {});
     if (originalCampaignOptional.isPresent()) {
       BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
       // Get the existing offer IDs from the campaign
@@ -174,8 +170,7 @@ public class CampaignCommandService {
     /** PERSIST DATA **/
     // Fetch the campaign by ID
     Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
-        campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {},
-        new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED));
+        campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {});
     if (originalCampaignOptional.isPresent()) {
       BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
       // Get the existing offer IDs from the campaign

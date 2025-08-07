@@ -1,22 +1,33 @@
 package com.example.tutorial.common.utils;
 
-import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
+import com.example.tutorial.common.constants.CacheConstants;
+import com.example.tutorial.common.dto.BaseDto;
+import com.example.tutorial.common.dto.Event;
 import com.example.tutorial.common.exceptions.ApplicationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.common.util.StringUtils;
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Utility class for managing cache operations using Redis.
+ * This class provides methods to set, get, and delete cache entries.
+ *
+ * @param <T extends Event> the type of event to be cached and it should be a subclass of Event,
+ * so as to restrict the type of objects that can be cached.
+ */
 @Component
-public class CacheUtils {
+public class CacheUtils <T extends Event> {
 
   private static final Logger log = LoggerFactory.getLogger(CacheUtils.class);
 
@@ -25,6 +36,9 @@ public class CacheUtils {
 
   @Autowired
   private ObjectMapper objectMapper;
+
+  @Autowired
+  private APIUtils apiUtils;
 
   /**
    * Sets a cache entry in Redis with the given ID and payload.
@@ -35,32 +49,65 @@ public class CacheUtils {
    * @param payload the value to be cached
    * @param cacheLimitHour the expiration time in hours
    */
-  public void setCache(String id, String payload, Integer cacheLimitHour) {
-    redisTemplate.opsForValue().set(id, payload, cacheLimitHour, TimeUnit.MINUTES); // Specify expiry with TimeUnit
+  public void setCache(String id, T payload, Integer cacheLimitHour) {
+    String payloadString;
+    try {
+      payloadString = objectMapper.writeValueAsString(payload);
+    } catch (JsonProcessingException e) {
+      throw new ApplicationException("Error parsing object's value", e);
+    }
+
+    redisTemplate.opsForValue().set(id, payloadString, cacheLimitHour, TimeUnit.MINUTES); // Specify expiry with TimeUnit
     log.info("Cached value for ID {}: {} with expiration of {} minutes", id, payload, cacheLimitHour);
   }
 
   /**
-   * Retrieves a cache entry from Redis by its ID and deserializes it into the specified type.
-   * @param id
-   * @param typeReference
-   * @return an Optional containing the cached object if found, or empty if not found
-   * @param <T> the type of the cached object
+   * Retrieves a cache entry from Redis by its ID.
+   * If the entry is not found in the cache, it fetches the data from the REST API and caches it.
+   *
+   * @param id the ID of the cache entry
+   * @param cacheTypeReference the TypeReference for the cached object type
+   * @param apiUrl the REST API URL to fetch data if not found in cache
+   * @param dtoTypeReference the TypeReference for BaseDto type
+   * @param event the event object to be populated with data from BaseDto
+   * @return an Optional containing the cached object if found, otherwise empty
    */
-  public <T> Optional<T> getCache(String id, TypeReference<T> typeReference) {
-    String payload= redisTemplate.opsForValue().get(id);
-    if(StringUtils.isNotBlank(payload)) {
+  public Optional<T> getCache(
+      String id, TypeReference<T> cacheTypeReference,
+      String apiUrl, TypeReference<BaseDto<T>> dtoTypeReference,
+      T event) {
+    /** STEP 1: Check if the ID is present in Redis cache. If present, use it to return the cached object **/
+    String payload = redisTemplate.opsForValue().get(id);
+    if (StringUtils.isNotBlank(payload)) {
       log.info("Retrieved cached value for ID {}: {}", id, payload);
       try {
-        T cacheObject = objectMapper.readValue(payload, typeReference);
+        T cacheObject = objectMapper.readValue(payload, cacheTypeReference);
         return Optional.of(cacheObject);
       } catch (JsonProcessingException e) {
         throw new ApplicationException("Error parsing object's value", e);
       }
 
+    /** STEP 2: If the ID is not present in Redis cache, fetch it from the REST API and cache it **/
     } else {
-      log.warn("No cached value found for ID: {}", id);
-      return Optional.empty();
+      log.warn("No cached value found for ID: {}, so fetching from REST API", id);
+        Optional<BaseDto<T>> dtoOptional = apiUtils.fetchAndCacheBaseDtoById(
+            apiUrl, id, dtoTypeReference);
+        if (dtoOptional.isPresent()) {
+          // copy the data from BaseDto to the event object as some of the fields are common
+          try {
+            BeanUtils.copyProperties(event, dtoOptional.get().getData());
+          } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new ApplicationException("Error parsing object's value", e);
+          }
+          // cache the event in Redis for future use, to avoid multiple calls to the same API
+          setCache(id, event, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
+          return Optional.of(event);
+
+        } else {
+          log.warn("No data found for ID: {} at API: {}", id, apiUrl);
+          return Optional.empty();
+        }
+
     }
   }
 

@@ -6,7 +6,6 @@ import com.example.tutorial.common.dto.merchant.events.MerchantEvent;
 import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.exceptions.RequestValidationException;
 import com.example.tutorial.common.exceptions.RequestValidationMessage;
-import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.slf4j.Logger;
@@ -22,9 +21,6 @@ import java.util.Optional;
 public class MerchantValidation {
 
   private static final Logger log = LoggerFactory.getLogger(MerchantValidation.class);
-
-  @Autowired
-  private APIUtils apiUtils;
 
   @Autowired
   private CacheUtils cacheUtils;
@@ -43,23 +39,20 @@ public class MerchantValidation {
   public void validateMerchant(String merchantId) {
     log.info("Validating existence of merchant with ID: {}", merchantId);
 
-    Optional<MerchantEvent> merchantEventOptional = cacheUtils.getCache(merchantId, new TypeReference<MerchantEvent>() {});
+    // get the merchant event from cache or from the merchants API
+    Optional<MerchantEvent> merchantEventOptional = cacheUtils.getCache(
+        merchantId, new TypeReference<MerchantEvent>() {},
+        merchantsApiUrl, new TypeReference<BaseDto<Merchant>>() {},
+        new MerchantEvent(merchantId, KafkaEventType.MERCHANT_UPDATED)
+    );
+
     if (merchantEventOptional.isEmpty()) {
-      Optional<BaseDto<Merchant>> merchantOptional = apiUtils.fetchAndCacheBaseDtoById(
-          merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {},
-          new MerchantEvent(merchantId, KafkaEventType.MERCHANT_UPDATED));
-
-      merchantOptional.ifPresentOrElse(
-          m -> {}, // Do nothing if present
-          () -> {
-            RequestValidationMessage validationMessage = new RequestValidationMessage(
-                "Api request validation failed",
-                Map.of("error", String.format("Merchant with ID %s does not exist", merchantId))
-            );
-            throw new RequestValidationException(validationMessage);
-          }
+      // if the merchant event is not found in cache, throw an exception
+      RequestValidationMessage validationMessage = new RequestValidationMessage(
+          "Api request validation failed",
+          Map.of("error", String.format("Merchant with ID %s does not exist", merchantId))
       );
-
+      throw new RequestValidationException(validationMessage);
     }
   }
 

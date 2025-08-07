@@ -1,9 +1,7 @@
 package com.example.tutorial.microservices.merchant.write.service;
 
 import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.merchant.Merchant;
-import com.example.tutorial.common.dto.merchant.events.MerchantEvent;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.microservices.merchant.write.repository.MerchantCommandRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -43,8 +41,7 @@ public class MerchantCommandService {
     /** PERSIST DATA **/
     // Fetch the merchant by ID
     Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchAndCacheBaseDtoById(
-        merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {},
-        new MerchantEvent(merchantId, KafkaEventType.MERCHANT_UPDATED));
+        merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {});
     if (originalMerchantOptional.isPresent()) {
       BaseDto<Merchant> originalMerchant = originalMerchantOptional.get();
       // get the active offers list from the merchant, and add the offerId if it is not already present
@@ -73,8 +70,7 @@ public class MerchantCommandService {
     /** PERSIST DATA **/
     // Fetch the merchant by ID
     Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchAndCacheBaseDtoById(
-        merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {},
-        new MerchantEvent(merchantId, KafkaEventType.MERCHANT_UPDATED));
+        merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {});
     if (originalMerchantOptional.isPresent()) {
       BaseDto<Merchant> originalMerchant = originalMerchantOptional.get();
       // get the active offers list from the merchant, and remove the offerId if it is present

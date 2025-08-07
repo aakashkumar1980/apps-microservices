@@ -31,6 +31,7 @@ public class CampaignEventPublisher {
         campaign.getData().getStatus(),
         campaign.getData().getStartDate(),
         campaign.getData().getEndDate(),
+        campaign.getData().getBudget(),
         KafkaEventType.CAMPAIGN_CREATED
     );
 
@@ -48,6 +49,7 @@ public class CampaignEventPublisher {
         campaign.getData().getStatus(),
         campaign.getData().getStartDate(),
         campaign.getData().getEndDate(),
+        campaign.getData().getBudget(),
         KafkaEventType.CAMPAIGN_UPDATED
     );
 
