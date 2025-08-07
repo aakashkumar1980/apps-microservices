@@ -1,0 +1,89 @@
+```mermaid
+flowchart TD
+
+%% REST Client
+    POSTMAN["Postman<br>POST /offer"]:::external
+
+%% Offer Write Microservice
+    subgraph Offer_Write_Microservice
+        style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
+
+        OCC["OfferCommandController<br>createOffer()"]:::controller
+        OCS["OfferCommandService<br>createOffer()"]:::service
+        CV["CampaignValidation<br>validateCampaign()"]:::service
+        MV["MerchantValidation<br>validateMerchant()"]:::service
+        OV["OfferValidation<br>validateCampaignBudgetNotExceeded()"]:::service
+        OCR["OfferCommandRepository<br>save()"]:::repository
+        OEP["OfferEventPublisher<br>publishCreateOfferEvent()"]:::event
+    end
+
+%% Merchant Subscriber
+    subgraph Merchant_Write_Microservice
+        style Merchant_Write_Microservice fill:#F1F8E9,stroke:#689F38,stroke-width:1px
+
+        MES["OfferEventSubscriber<br>subscribeCreateOfferEvent()"]:::subscriber
+        MC["MerchantCommandService<br>linkOfferToMerchant()"]:::service
+    end
+
+%% Customer Subscriber
+    subgraph Customer_Write_Microservice
+        style Customer_Write_Microservice fill:#FCE4EC,stroke:#C2185B,stroke-width:1px
+
+        CES["OfferEventSubscriber<br>subscribeCreateOfferEvent()"]:::subscriber
+        CC["CustomerCommandService<br>assignOfferToCustomer()"]:::service
+        CEP["CustomerOfferEventPublisher<br>publishOfferAssignedEvent()"]:::event
+    end
+
+%% Campaign Subscriber
+    subgraph Campaign_Write_Microservice
+        style Campaign_Write_Microservice fill:#BBDEFB,stroke:#1976D2,stroke-width:1px
+
+        CAS["OfferEventSubscriber<br>subscribeCreateOfferEvent()"]:::subscriber
+        CCS["CampaignCommandService<br>linkOfferToCampaign()"]:::service
+    end
+
+%% External Systems
+    COUCHBASE_OFFER["Couchbase<br>(local - Offer)"]:::external
+    COUCHBASE_MERCHANT["Couchbase<br>(local - Merchant)"]:::external
+    COUCHBASE_CUSTOMER["Couchbase<br>(local - Customer)"]:::external
+    COUCHBASE_CAMPAIGN["Couchbase<br>(local - Campaign)"]:::external
+    KAFKA1["Kafka Topic<br>OFFER_CREATED"]:::kafka
+    KAFKA2["Kafka Topic<br>OFFER_ASSIGNED"]:::kafka
+
+%% Flow Steps (Main Command Flow)
+    POSTMAN -->|1: Send Offer JSON| OCC
+    OCC -->|2: Delegate to service| OCS
+    OCS -->|3: Validate campaign| CV
+    OCS -->|4: Validate merchant| MV
+    OCS -->|5: Check budget| OV
+    OCS -->|6: Save offer| OCR
+    OCR -->|7: Save to DB| COUCHBASE_OFFER
+    OCS -->|8: Publish OFFER_CREATED| OEP
+    OEP -->|9: Send to Kafka| KAFKA1
+
+%% Subscriptions via Kafka OFFER_CREATED
+    KAFKA1 --> MES
+    MES -->|1: Cache offer| MC
+    MC -->|2: Update merchant| COUCHBASE_MERCHANT
+
+    KAFKA1 --> CES
+    CES -->|1: Cache offer| CC
+    CC -->|2: Update customer| COUCHBASE_CUSTOMER
+    CC -->|3: Publish OFFER_ASSIGNED| CEP
+    CEP -->|4: Send to Kafka| KAFKA2
+
+    KAFKA1 --> CAS
+    CAS -->|1: Cache offer| CCS
+    CCS -->|2: Update campaign| COUCHBASE_CAMPAIGN
+
+%% Styling
+classDef controller fill:#AED581,stroke:#33691E,stroke-width:1px;
+classDef service fill:#FFF3E0,stroke:#F57C00,stroke-width:1px;
+classDef repository fill:#E0F2F1,stroke:#00796B,stroke-width:1px;
+classDef util fill:#E1BEE7,stroke:#6A1B9A,stroke-width:1px;
+classDef event fill:#F8BBD0,stroke:#AD1457,stroke-width:1px,stroke-dasharray: 5 5;
+classDef subscriber fill:#EDE7F6,stroke:#512DA8,stroke-width:1px;
+classDef external fill:#FFFFFF,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5;
+classDef kafka fill:#FFF3E0,stroke:#FF9800,stroke-width:1px,stroke-dasharray: 5 5;
+
+```
