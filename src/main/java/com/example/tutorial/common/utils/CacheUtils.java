@@ -22,9 +22,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * Utility class for managing cache operations using Redis.
  * This class provides methods to set, get, and delete cache entries.
+ * <p>
+ * First it checks the Redis cache for an entry by ID, if not found,
+ * then it fetches the data via the REST API and then caches it.
+ * </p>
  *
- * @param <T extends Event> the type of event to be cached and it should be a subclass of Event,
- * so as to restrict the type of objects that can be cached.
+ * @param <T extends Event> the type of event to be cached, and it should be a subclass of Event,
+ * e.g. CampaignEvent, OfferAssignedEvent, etc. to restrict the type of objects that can be cached.
  */
 @Component
 public class CacheUtils <T extends Event> {
@@ -90,7 +94,7 @@ public class CacheUtils <T extends Event> {
     /** STEP 2: If the ID is not present in Redis cache, fetch it from the REST API and cache it **/
     } else {
       log.warn("No cached value found for ID: {}, so fetching from REST API", id);
-        Optional<BaseDto<T>> dtoOptional = apiUtils.fetchAndCacheBaseDtoById(
+        Optional<BaseDto<T>> dtoOptional = apiUtils.fetchDtoById(
             apiUrl, id, dtoTypeReference);
         if (dtoOptional.isPresent()) {
           // copy the data from BaseDto to the event object as some of the fields are common

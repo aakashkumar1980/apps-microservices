@@ -20,8 +20,10 @@ public class CustomerEligibilityEngineClient {
 
   /**
    * Checks if a customer is eligible for a specific offer.
+   * <pre>
    * TODO: Implement the actual eligibility logic, when the Customer Eligibility Engine is available.
    * TODO: Implement via. CircuitBreaker as it's an external service call.
+   * </pre>
    *
    * @param customerId the ID of the customer
    * @param offerId the ID of the offer

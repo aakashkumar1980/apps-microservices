@@ -1,5 +1,9 @@
 package com.example.tutorial.common.dto;
 
+/**
+ * Represents a base event in the system.
+ * This class serves as a base for all events that can be published to Kafka.
+ */
 public abstract class Event {
 
   private KafkaEventType kafkaEventType;

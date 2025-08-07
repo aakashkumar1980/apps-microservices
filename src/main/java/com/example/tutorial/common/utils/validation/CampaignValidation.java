@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -31,9 +30,6 @@ public class CampaignValidation {
   private APIUtils apiUtils;
 
   @Autowired
-  private RedisTemplate<String, String> redisTemplate;
-
-  @Autowired
   private CacheUtils cacheUtils;
 
   @Value("${campaigns.api.url}")
@@ -41,14 +37,15 @@ public class CampaignValidation {
 
   /**
    * Overrides the offer IDs in the BaseDto with the original campaign's offer IDs.
-   * This is used to ensure that the offer IDs are consistent with the original campaign.
+   * This is used to ensure that the offer IDs are consistent with the original campaign as
+   * during a campaign update, the offer IDs should not change.
    *
    * @param campaign The BaseDto containing the campaign data.
    */
   public void keepOriginalOfferIds(BaseDto<Campaign> campaign) {
     log.info("Overriding offer IDs for campaign: {}", campaign.getId());
 
-    Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchAndCacheBaseDtoById(
+    Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchDtoById(
         campaignsApiUrl, campaign.getId(), new TypeReference<BaseDto<Campaign>>() {});
 
     originalCampaignOptional.ifPresent( originalCampaign -> {
@@ -61,10 +58,11 @@ public class CampaignValidation {
 
   /**
    * Validates the existence and status of a campaign by its ID.
-   * It first checks if the campaign ID is present in the Redis cache.
+   * <pre>
+   * It first checks if the campaign ID is present in the Redis cache or gets it from the REST API.
    * If found, it validates the campaign status and end date.
-   * If not found, it fetches the campaign from the campaigns API and then validates it.
-   * If still not found, it throws an exception indicating that the campaign does not exist.
+   * If not found, it throws an exception indicating that the campaign does not exist.
+   * </pre>
    *
    * @param campaignId The ID of the campaign to validate.
    * @param campaignsApiUrl The URL of the campaigns API to fetch the campaign if not found in cache.
@@ -96,7 +94,7 @@ public class CampaignValidation {
     }
   }
 
-  // -- PRIVATE METHODS --
+  // -- PRIVATE METHODS -- //
   /**
    * Extracted method to validate the campaign status and end date.
    * This method checks if the campaign is active and if the end date has not passed.

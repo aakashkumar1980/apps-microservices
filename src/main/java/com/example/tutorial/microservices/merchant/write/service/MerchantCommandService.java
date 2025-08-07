@@ -39,8 +39,8 @@ public class MerchantCommandService {
     log.info("Linking offer {} to merchant {}", offerId, merchantId);
 
     /** PERSIST DATA **/
-    // Fetch the merchant by ID
-    Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchAndCacheBaseDtoById(
+    // fetch the original merchant by ID
+    Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchDtoById(
         merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {});
     if (originalMerchantOptional.isPresent()) {
       BaseDto<Merchant> originalMerchant = originalMerchantOptional.get();
@@ -49,6 +49,7 @@ public class MerchantCommandService {
       if(!activeOfferIds.contains(offerId)) {
         activeOfferIds.add(offerId);
         log.info("Adding offer {} to merchant {}", offerId, merchantId);
+        // save the updated merchant
         merchantCommandRepository.save(originalMerchant);
 
       } else {
@@ -68,8 +69,8 @@ public class MerchantCommandService {
     log.info("Unlinking offer {} from merchant {}", offerId, merchantId);
 
     /** PERSIST DATA **/
-    // Fetch the merchant by ID
-    Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchAndCacheBaseDtoById(
+    // fetch the original merchant by ID
+    Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchDtoById(
         merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {});
     if (originalMerchantOptional.isPresent()) {
       BaseDto<Merchant> originalMerchant = originalMerchantOptional.get();
@@ -78,6 +79,7 @@ public class MerchantCommandService {
       if(activeOfferIds.contains(offerId)) {
         activeOfferIds.remove(offerId);
         log.info("Removing offer {} from merchant {}", offerId, merchantId);
+        // save the updated merchant
         merchantCommandRepository.save(originalMerchant);
       } else {
         log.warn("Offer {} is not linked to campaign {}", offerId, merchantId);

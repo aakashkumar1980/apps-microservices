@@ -2,6 +2,9 @@ package com.example.tutorial.common.exceptions;
 
 import java.util.Map;
 
+/**
+ * Represents a validation message for requests, containing a message and a map of errors.
+ */
 public class RequestValidationMessage {
   private String message;
   private Map<String, String> errors;

@@ -45,11 +45,11 @@ public class OfferEventSubscriber {
       String offerId = offerEvent.getId();
 
       /** CACHE DATA **/
-      // Cache the offer details in Redis
+      // cache the offer details in Redis
       cacheUtils.setCache(offerId, offerEvent, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
 
       /** BUSNESS LOGIC **/
-      // Check if the customer is eligible for the offer. If eligible, assign the offer to the customer.
+      // check if the customer is eligible for the offer. If eligible, assign the offer to the customer.
       customerCommandService.assignOfferToCustomer(offerId);
 
     } catch (JsonProcessingException e) {
@@ -73,11 +73,11 @@ public class OfferEventSubscriber {
       String offerId = offerEvent.getId();
 
       /** CLEAR CACHE DATA **/
-      // Remove the cached offer details from Redis
+      // remove the cached offer details from Redis
       cacheUtils.delete(offerId);
 
       /** BUSINESS LOGIC **/
-      // Unassign the offer from the customers
+      // unassign the offer from the customers
       customerCommandService.unassignOfferFromCustomer(offerId);
 
     } catch (JsonProcessingException e) {

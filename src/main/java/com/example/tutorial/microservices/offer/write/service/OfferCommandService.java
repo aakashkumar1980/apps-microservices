@@ -75,24 +75,23 @@ public class OfferCommandService {
     BaseDto<Offer> baseOffer = BaseDto.build(offer);
 
     /** DATA VALIDATION **/
-    // Validate that the offer has a valid campaign
+    // validate that the offer has a valid campaign
     campaignValidation.validateCampaign(offer.getCampaignId(), campaignsApiUrl);
-    // Validate that the offer has a valid merchant
+    // validate that the offer has a valid merchant
     merchantValidation.validateMerchant(offer.getMerchantId());
-    // Validate that the offer does not exceed the campaign budget
+    // validate that the offer does not exceed the campaign budget
     offerValidation.validateCampaignBudgetNotExceeded(offer.getCampaignId(), offer.getDiscountAmount());
 
     /** PERSIST DATA **/
     // generate a unique ID for the offer using a counter
     String id = "offer::" + dbUtils.getUniqueCounter(couchbaseTemplate, offerCounterKey);
     baseOffer.setId(id);
-    // Save the offer to the repository
+    // save the offer to the repository
     BaseDto<Offer> savedOffer = offerCommandRepository.save(baseOffer);
 
     /** PUBLISH EVENTS **/
-    // Publish an event for the created offer
+    // publish an event for the created offer
     offerEventPublisher.publishCreateOfferEvent(savedOffer);
-
     return savedOffer.getId();
   }
 
@@ -106,12 +105,12 @@ public class OfferCommandService {
     log.info("Cancelling offers for campaign ID: {}", campaignId);
 
     /** PERSIST DATA **/
-    // Retrieve all offers associated with the given campaign ID
+    // retrieve all offers associated with the given campaign ID
     log.info("Retrieving offers for campaign ID: {}", campaignId);
-    List<BaseDto<Offer>> offersByCampaign = apiUtils.fetchBaseDtoList(
+    List<BaseDto<Offer>> offersByCampaign = apiUtils.fetchDtoList(
         (offersApiUrl+"/campaigns/"+campaignId), new TypeReference<List<BaseDto<Offer>>>() {});
     if (CollectionUtils.isNotEmpty(offersByCampaign)) {
-      // Iterate through the filtered offers and set their status to INACTIVE
+      // iterate through the filtered offers and set their status to CANCELLED
       offersByCampaign.forEach(offer -> {
         offer.getData().setStatus(OfferStatus.CANCELLED);
 
@@ -120,7 +119,7 @@ public class OfferCommandService {
       });
 
       /** PUBLISH EVENTS **/
-      // Publish an event for each cancelled offers
+      // publish an event for each cancelled offers
       offersByCampaign.forEach(offer -> {
         offerEventPublisher.publishCancelOfferEvent(offer);
       });

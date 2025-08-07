@@ -39,13 +39,12 @@ public class CustomerCommandService {
 
   /**
    * Assigns an offer to all eligible customers.
-   * <p>
-   * This method first checks if the current number of enrollments for the offer has reached its maximum allowed redemptions.
-   * It then retrieves all customers from the repository and checks each customer's eligibility for the specified offer
-   * using the {@code CustomerEligibilityEngineClient}. If a customer is eligible, the offer ID is added to their list
-   * of enrolled offers and the customer is updated in the repository. An event is published to notify that the offer
-   * has been assigned to eligible customers.
-   * <p>
+   * <pre>
+   * This method retrieves all customers from the repository and checks each customer's eligibility for the specified offer
+   * using the {@code CustomerEligibilityEngineClient}.
+   * If a customer is eligible, the offer ID is added to their list of enrolled offers and the customer is updated in the repository.
+   * An event is published to notify that the offer has been assigned to eligible customers.
+   * </pre>
    * TODO: Implement @Retry as this is an internal service call.
    *
    * @param offerId the ID of the offer to assign
@@ -53,22 +52,21 @@ public class CustomerCommandService {
    */
   public void assignOfferToCustomer(String offerId) {
     log.info("Assigning offer {} to eligible customers", offerId);
-
-    // Retrieve all customers from the repository
-    List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(
-        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
-
     List<BaseDto<Customer>> eligibleCustomers = new ArrayList<BaseDto<Customer>>();
-    // Iterate through each customer to check eligibility for the offer
+
+    /** PERSIST DATA **/
+    // fetch all customers and iterate through them
+    List<BaseDto<Customer>> allCustomers = apiUtils.fetchDtoList(
+        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
     allCustomers.forEach(customer -> {
-      // Check if the customer is eligible for the offer
+      // check if the customer is eligible for the offer
       log.debug("Checking eligibility for customer {} for offer {}", customer.getId(), offerId);
       boolean eligible = customerEligibilityEngineClient.isEligible(customer.getId(), offerId);
       if (eligible) {
-        /** PERSIST DATA **/
         log.info("Customer {} is eligible for offer {}", customer.getId(), offerId);
-        // Add the offer ID to the customer's enrolled offers
+        // if eligible, add the offer ID to the customer's enrolled offers
         customer.getData().getEnrolledOfferIds().add(offerId);
+        // save the updated customer back to the repository
         customerCommandRepository.save(customer);
         eligibleCustomers.add(customer);
 
@@ -79,7 +77,7 @@ public class CustomerCommandService {
     });
 
     /** PUBLISH EVENT **/
-    // Publish the offer assignment event, which can be used by other services like ""Recommendation Engine" etc.
+    // publish the offer assignment event, which can be used by other services like ""Recommendation Engine" etc.
     if(CollectionUtils.isNotEmpty(eligibleCustomers)) {
       customerOfferEventPublisher.publishOfferAssignedEvent(offerId, eligibleCustomers);
     }
@@ -87,29 +85,31 @@ public class CustomerCommandService {
 
   /**
    * Unassigns an offer from all customers who have it enrolled.
-   * This method retrieves all customers from the repository, then checks each customer's
-   * enrolled offers for the specified offer ID. If found, the offer ID is removed from their list of enrolled offers.
+   * <pre>
+   * This method retrieves all customers from the repository, then checks each customer's enrolled offers for the specified
+   * offer ID.
+   * If found, the offer ID is removed from their list of enrolled offers.
    * Also publishes an event to notify that the offer has been unassigned from customers.
+   *  </pre>
    *
    * @param offerId The ID of the offer to be unassigned.
    */
   public void unassignOfferFromCustomer(String offerId) {
     log.info("Unassigning offer {} from customers", offerId);
-
-    // Retrieve all customers from the repository
-    List<BaseDto<Customer>> allCustomers = apiUtils.fetchBaseDtoList(
-        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
+    List<BaseDto<Customer>> unassignedCustomers = new ArrayList<BaseDto<Customer>>();
 
     /** PERSIST DATA **/
-    List<BaseDto<Customer>> unassignedCustomers = new ArrayList<BaseDto<Customer>>();
-    // Iterate through each customer to remove the offer ID from their enrolled offers
+    // retrieve all customers from the repository
+    List<BaseDto<Customer>> allCustomers = apiUtils.fetchDtoList(
+        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
+    // iterate through each customer to remove the offer ID from their enrolled offers
     allCustomers.forEach(customer -> {
       // check if the customer has the offer ID in their enrolled offers, then only remove it, else log a warning
       List<String> enrolledOfferIds= customer.getData().getEnrolledOfferIds();
       if(enrolledOfferIds.contains(offerId)) {
         log.info("Removing offer {} from customer {}", offerId, customer.getId());
         enrolledOfferIds.remove(offerId);
-        // Save the updated customer back to the repository
+        // save the updated customer back to the repository
         customerCommandRepository.save(customer);
         unassignedCustomers.add(customer);
 

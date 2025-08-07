@@ -8,12 +8,12 @@ import org.springframework.data.couchbase.core.mapping.Document;
 import java.time.LocalDateTime;
 
 /**
- * Base Data Transfer Object (DTO) class that can be extended by other DTOs.
+ * Base Data Transfer Object (DTO) class that can be embedded by other DTOs.
  * It includes common fields such as id, createdAt, updatedAt, version, and data. example dto for Campaign:
  * <pre>
  *   {@code
  *    {
- *      "id": "12345",
+ *      "id": "campaign::1",
  *      "created_at": "2023-10-01T12:00:00",
  *      "updated_at": "2023-10-01T12:00:00",
  *      "version": 1,
@@ -38,6 +38,15 @@ import java.time.LocalDateTime;
 @Document
 public class BaseDto<T> {
 
+  /**
+   * Unique identifier for the DTO, typically in the format of "type::id" (e.g., "campaign::1").
+   * This field is annotated with @Id to indicate that it is the primary key in the database.
+   * <pre>
+   *   The id is generated in the format of "type::id" where type is the name of the DTO and the id is a unique identifier,
+   *   obtained from the {@link com.example.tutorial.common.utils.DBUtils} class.
+   *   DBUtils.getUniqueCounter(...).
+   * </pre>
+   */
   @Id
   @JsonProperty("id")
   private String id;

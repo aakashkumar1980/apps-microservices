@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Global exception handler for the application.
+ * This class handles exceptions thrown by the application and provides a structured response.
+ * It uses Spring's @ControllerAdvice to handle exceptions globally across all controllers.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

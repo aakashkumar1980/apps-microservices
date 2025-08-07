@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+/**
+ * Utility class for publishing events to Kafka topics.
+ * This class provides methods to send events to Kafka with a specific topic and key.
+ * It uses the KafkaTemplate to send messages asynchronously.
+ */
 @Component
 public class KafkaUtils {
 

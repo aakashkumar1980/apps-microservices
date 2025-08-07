@@ -30,8 +30,8 @@ public class MerchantValidation {
 
   /**
    * Validates the existence of a merchant by its ID.
-   * This method first checks if the merchant event is cached in Redis.
-   * If not found, it fetches the merchant details from the merchants API and caches the event.
+   * This method first checks if the merchant event is cached in Redis or gets it from the RETS API.
+   * If not found, it throws a RequestValidationException with an appropriate message.
    *
    * @param merchantId The ID of the merchant to validate.
    * @throws RequestValidationException if the merchant does not exist or is not found in the API.

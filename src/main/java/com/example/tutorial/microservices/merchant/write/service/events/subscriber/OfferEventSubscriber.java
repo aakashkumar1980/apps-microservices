@@ -44,11 +44,11 @@ public class OfferEventSubscriber {
       String offerId = offerEvent.getId();
 
       /** CACHE DATA **/
-      // Cache the offer details in Redis
+      // cache the offer details in Redis
       cacheUtils.setCache(offerId, offerEvent, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
 
       /** BUSINESS LOGIC **/
-      // Link the offers to the Campaign
+      // link the offers to the Campaign
       merchantCommandService.linkOfferToMerchant(offerEvent.getMerchantId(), offerId);
 
     } catch (JsonProcessingException e) {
@@ -72,11 +72,11 @@ public class OfferEventSubscriber {
       String offerId = offerEvent.getId();
 
       /** CACHE DATA **/
-      // Clear the cached offer details in Redis
+      // clear the cached offer details in Redis
       cacheUtils.delete(offerId);
 
       /** BUSINESS LOGIC **/
-      // Unlink the offer from the merchant
+      // unlink the offer from the merchant
       merchantCommandService.unlinkOfferFromMerchant(offerEvent.getMerchantId(), offerId);
 
     } catch (JsonProcessingException e) {

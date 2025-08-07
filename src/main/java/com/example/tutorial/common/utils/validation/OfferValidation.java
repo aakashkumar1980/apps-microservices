@@ -40,52 +40,95 @@ public class OfferValidation {
 
   /**
    * Validates that the campaign budget has not been exceeded.
-   * This method will first fetch all the offers associated with the campaign,
-   * and then do the summation of the discountAmount of those offers and compare it with the campaign budget.
-   * If the total discount amount exceeds the campaign budget, then a RequestValidationException will be thrown.
+   * <p>
+   * This method fetches all offers associated with the specified campaign,
+   * sums their discount amounts along with the current offer's discount amount,
+   * and compares the total to the campaign's budget.
+   * If the total discount amount exceeds the campaign budget, a
+   * {@link RequestValidationException} is thrown.
+   * </p>
    *
-   * @param campaignId The ID of the campaign to validate.
-   * @throws RequestValidationException if the campaign budget has been exceeded.
+   * @param campaignId           the ID of the campaign to validate
+   * @param offerDiscountAmount  the discount amount of the current offer
+   * @throws RequestValidationException if the campaign budget has been exceeded
    */
   public void validateCampaignBudgetNotExceeded(String campaignId, BigDecimal offerDiscountAmount) {
     log.info("Validating campaign budget for campaign ID: {}", campaignId);
 
-    /** STEP 1: Fetch the campaign budget from cache or via REST API. **/
+    /** STEP 1: Fetch the campaign's budget from the cache or REST API */
+    BigDecimal budget = fetchCampaignBudget(campaignId);
+    /** STEP 2: Calculate the total discount amount for all offers associated with the campaign */
+    double totalDiscountAmount = calculateTotalDiscountAmount(campaignId, offerDiscountAmount);
+    /** STEP 3: Validate that the total discount amount (in the existing offers plus the current offer)
+     * does not exceed the campaign budget */
+    validateBudgetNotExceeded(campaignId, totalDiscountAmount, budget);
+  }
+
+  // -- PRIVATE METHODS -- //
+  /**
+   * Fetches the campaign budget from cache or via REST API.
+   *
+   * @param campaignId The ID of the campaign.
+   * @return The budget of the campaign.
+   * @throws RequestValidationException if the campaign is not found.
+   */
+  private BigDecimal fetchCampaignBudget(String campaignId) {
     Optional<CampaignEvent> campaignEventOptional = cacheUtils.getCache(
         campaignId, new TypeReference<CampaignEvent>() {},
         campaignsApiUrl, new TypeReference<BaseDto<Campaign>>() {},
         new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED)
     );
+    if (campaignEventOptional.isEmpty()) {
+      throw new RequestValidationException(
+          new RequestValidationMessage("Campaign not found", Map.of("campaignId", campaignId))
+      );
+    }
     BigDecimal budget = campaignEventOptional.get().getBudget();
     log.debug("Campaign budget for campaign ID {}: {}", campaignId, budget);
+    return budget;
+  }
 
-    /** STEP 2: Fetch all offers associated with the campaign and calculate the total discount amount till now. **/
-    double totalDiscountAmount = offerDiscountAmount.doubleValue(); // initialize with the current offer's discount amount
-    List<BaseDto<Offer>> allOffersByCampaignId = apiUtils.fetchBaseDtoList(
+  /**
+   * Calculates the total discount amount for all offers associated with the campaign,
+   * including the current offer's discount amount.
+   *
+   * @param campaignId The ID of the campaign.
+   * @param offerDiscountAmount The discount amount of the current offer.
+   * @return The total discount amount.
+   */
+  private double calculateTotalDiscountAmount(String campaignId, BigDecimal offerDiscountAmount) {
+    double totalDiscountAmount = offerDiscountAmount.doubleValue();
+    List<BaseDto<Offer>> allOffersByCampaignId = apiUtils.fetchDtoList(
         offersApiUrl + "/campaigns/" + campaignId,
         new TypeReference<List<BaseDto<Offer>>>() {}
     );
     if (!allOffersByCampaignId.isEmpty()) {
-      // do the summation of the discountAmount of all offers plus the offerDiscountAmount of the current offer
-      totalDiscountAmount = totalDiscountAmount + allOffersByCampaignId.stream()
+      totalDiscountAmount += allOffersByCampaignId.stream()
           .mapToDouble(offer -> offer.getData().getDiscountAmount().doubleValue())
           .sum();
       log.debug("Total discount amount for campaign ID {}: {}", campaignId, totalDiscountAmount);
-
     } else {
       log.debug("No offers found for campaign ID: {}", campaignId);
     }
+    return totalDiscountAmount;
+  }
 
-    /** STEP 3: Compare the total discount amount with the campaign budget. **/
-    /** If it exceeds the budget, throw an exception. **/
+  /**
+   * Compares the total discount amount with the campaign budget and throws an exception if exceeded.
+   *
+   * @param campaignId The ID of the campaign.
+   * @param totalDiscountAmount The total discount amount.
+   * @param budget The campaign budget.
+   * @throws RequestValidationException if the budget is exceeded.
+   */
+  private void validateBudgetNotExceeded(String campaignId, double totalDiscountAmount, BigDecimal budget) {
     if (BigDecimal.valueOf(totalDiscountAmount).compareTo(budget) > 0) {
       RequestValidationMessage validationMessage = new RequestValidationMessage(
           "Api request validation failed",
-          Map.of("error", String.format("Campaign budget exceeded for campaign ID: {}. Total discount amount: {}, Campaign budget: {}",
+          Map.of("error", String.format("Campaign budget exceeded for campaign ID: %s. Total discount amount: %s, Campaign budget: %s",
               campaignId, totalDiscountAmount, budget))
       );
       throw new RequestValidationException(validationMessage);
-
     } else {
       log.info("Campaign budget validation passed for campaign ID: {}", campaignId);
     }

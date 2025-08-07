@@ -16,6 +16,10 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Utility class for fetching BaseDto objects from a REST API.
+ * It provides methods to fetch a single BaseDto by ID and a list of BaseDto objects.
+ */
 @Component
 public class APIUtils <T> {
 
@@ -28,15 +32,15 @@ public class APIUtils <T> {
   private ObjectMapper objectMapper;
 
   /**
-   * Fetch a BaseDto by its ID from the specified cache first and if not found then gets it from REST API URL.
+   * Fetch a BaseDto by its ID from the REST API URL. The APIs connects to the query(read) microservices.
    * TODO: Implement via. CircuitBreaker as it's an external service call
    *
    * @param apiUrl            The API URL to fetch the BaseDto from.
    * @param id                The ID of the BaseDto to fetch.
-   * @param dtoTypeReference  The TypeReference for the BaseDto type.
+   * @param dtoTypeReference  The TypeReference for the BaseDto type. This is used to handle generic types during deserialization.
    * @return                  Optional containing the fetched BaseDto if found, otherwise empty.
    */
-  public Optional<BaseDto<T>> fetchAndCacheBaseDtoById(
+  public Optional<BaseDto<T>> fetchDtoById(
       String apiUrl,
       String id,
       TypeReference<BaseDto<T>> dtoTypeReference
@@ -63,7 +67,7 @@ public class APIUtils <T> {
     log.debug("REST API Response from {} API: {}", apiUrl, responseString);
     if (StringUtils.isNotBlank(responseString)) {
       try {
-        // TypeReference is used because BaseDto contains generic T type for the data field.
+        // convert the response string to BaseDto<T> object using ObjectMapper.
         BaseDto<T> value = objectMapper.readValue(responseString, dtoTypeReference);
         return Optional.of(value);
       } catch (JsonProcessingException e) {
@@ -82,7 +86,7 @@ public class APIUtils <T> {
    * @param typeReference The TypeReference for the list of BaseDto type.
    * @return              List of BaseDto fetched from the API.
    */
-  public List<BaseDto<T>> fetchBaseDtoList(
+  public List<BaseDto<T>> fetchDtoList(
       String apiUrl,
       TypeReference<List<BaseDto<T>>> typeReference
   ) {
