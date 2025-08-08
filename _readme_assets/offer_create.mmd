@@ -9,13 +9,13 @@ flowchart TD
 #emsp; description: '',
 #emsp; status: 'ACTIVE',
 #emsp; type: 'DISCOUNT',
-#emsp;<b> discount_amount</b>: 100,
+#emsp; <font color=orange><b> discount_amount</b></font>: 100,
 #emsp; currency: 'USD',
 #emsp; valid_from: '2025-07-15T00:00:00',
 #emsp; valid_to: '2025-08-07T00:00:00',
 #emsp; segment_criteria: 'GOLD',
-#emsp; <b>campaign_id</b>: '',
-#emsp; <b>merchant_id</b>: ''
+#emsp; <font color=orange><b>campaign_id</b></font>: '',
+#emsp; <font color=orange><b>merchant_id</b></font>: ''
 }
 </div>
 "]:::external
@@ -33,19 +33,19 @@ basedto(campaign)
 {
 #emsp; ...,
 #emsp; data: {
-#emsp;#emsp; <b>status</b>: 'PAUSED',
-#emsp;#emsp; <b>end_date</b>: '2025-08-12T00:00:00'
+#emsp;#emsp; <font color=blue><b>status</b></font>: 'PAUSED',
+#emsp;#emsp; <font color=blue><b>end_date</b></font>: '2025-08-12T00:00:00'
 #emsp; }
 }<br>
-- first checks if the <b>campaign_id</b> EXISTS in the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
-- if found, it validates the campaign <b>status</b>=ACTIVE and <b>end_date</b> NOT PASSED.<br>
+- first checks if the <font color=orange><b>campaign_id</b> EXISTS</font> in the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
+- if found, it validates the campaign <font color=blue><b>status</b>=ACTIVE and <b>end_date</b> NOT PASSED</font>.<br>
 - else, throw RequestValidationException.
 </div>
 </i>"]:::service
 
 MV["MerchantValidation :: <b>validateMerchant()</b><i>
 <div style='text-align: left'>
-- first checks if the <b>merchant_id</b> EXISTS in the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
+- first checks if the <font color=orange><b>merchant_id</b> EXISTS</font> in the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
 - else, throw RequestValidationException.
 </div>
 "]:::service
@@ -56,12 +56,12 @@ basedto(campaign)
 {
 #emsp; ...,
 #emsp; data: {
-#emsp;#emsp; <b>budget</b>: 1000
+#emsp;#emsp; <font color=blue><b>budget</b></font>: 1000
 #emsp; }
 }<br>
-validates that the campaign <b>budget</b> has not been exceeded by the offers.<br>
-- fetch the campaign's <b>budget</b> from the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
-- fetch all offers associated for the specified <b>campaign_id</b> (using @ApiUtils) and then SUM their <b>discount_amount</b> i.e. [{discount_amout=300}, {[{discount_amout=500}, ..].<br>
+validates that the campaign budget has not been exceeded by the offers.<br>
+- fetch the campaign's <font color=blue><b>budget</b></font> from the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
+- fetch all offers associated for the specified <font color=orange><b>campaign_id</b></font> (using @ApiUtils) and then SUM their <font color=orange><b>discount_amount</b></font> i.e. [{discount_amout=300}, {[{discount_amout=500}, ..].<br>
 - finally, compare the offer's TOTAL discount_amount with the campaign's budget and throws RequestValidationException if exceeded.
 </div>
 "]:::service
