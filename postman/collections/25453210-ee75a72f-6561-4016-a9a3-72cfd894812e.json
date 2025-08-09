@@ -176,7 +176,7 @@
 							"response": []
 						},
 						{
-							"name": "CreateOffer Copy",
+							"name": "DataValidationError :: Campaign Budget Exceeded",
 							"event": [
 								{
 									"listen": "test",
