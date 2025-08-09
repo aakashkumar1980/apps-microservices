@@ -176,6 +176,57 @@
 							"response": []
 						},
 						{
+							"name": "CreateOffer Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "571e6830-b604-40fb-a04f-575c3882c0ff",
+										"exec": [
+											"const response = pm.response.text();\r",
+											"const match = response.match(/offer::\\d+/);\r",
+											"if (match) {\r",
+											"    pm.environment.set(\"created_offer_id\", match[0]);\r",
+											"}\r",
+											"console.info(\"created_offer_id:\", pm.environment.get(\"created_offer_id\"));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "25453210-dbd597db-bc18-4735-93f0-0cca97624cde",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Travel & Adventure Reward Points\",\r\n    \"description\": \"Earn reward points on travel bookings in Travel & Adventure campaign.\",\r\n    \"campaign_id\": \"campaign::6\",\r\n    \"merchant_id\": \"merchant::2\",\r\n    \"type\": \"REWARD_POINTS\",\r\n    \"discount_amount\": 65.87,\r\n    \"currency\": \"USD\",\r\n    \"valid_from\": \"2025-08-15T00:00:00\",\r\n    \"valid_to\": \"2025-09-07T00:00:00\",\r\n    \"max_redemptions\": 473,\r\n    \"status\": \"ACTIVE\",\r\n    \"segment_criteria\": \"GOLD\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/offers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"offers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "CreateOffer",
 							"event": [
 								{
