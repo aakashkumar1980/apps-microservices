@@ -27,8 +27,8 @@ style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
 OCC["OfferCommandController<br>- createOffer()"]:::controller
 OCS["OfferCommandService<br>- createOffer()"]:::service
 
-CV["CampaignValidation :: <b>validateCampaign()</b><i>
-<div style='text-align: left'>
+CV["CampaignValidation :: <b>validateCampaign()</b>
+<div style='text-align:left; font-style: italic;'>
 basedto(campaign)
 {
 #emsp; ...,
@@ -37,21 +37,23 @@ basedto(campaign)
 #emsp;#emsp; <font color=blue><b>end_date</b></font>: '2025-08-12T00:00:00'
 #emsp; }
 }<br>
+VALIDATE CAMPAIGN
 - first checks if the <font color=orange><b>campaign_id</b> EXISTS</font> in the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
 - if found, it validates the campaign <font color=blue><b>status</b>=ACTIVE and <b>end_date</b> NOT PASSED</font>.<br>
-- else, throw RequestValidationException.
+- else, throw RequestValidationException if validations fails.
 </div>
-</i>"]:::service
+"]:::service
 
-MV["MerchantValidation :: <b>validateMerchant()</b><i>
-<div style='text-align: left'>
+MV["MerchantValidation :: <b>validateMerchant()</b>
+<div style='text-align:left; font-style: italic;'>
+VALIDATE MERCHANT
 - first checks if the <font color=orange><b>merchant_id</b> EXISTS</font> in the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
 - else, throw RequestValidationException.
 </div>
 "]:::service
 
-OV["OfferValidation :: <b>validateCampaignBudgetNotExceeded()</b><i>
-<div style='text-align: left'>
+OV["OfferValidation :: <b>validateCampaignBudgetNotExceeded()</b>
+<div style='text-align:left; font-style: italic;'>
 basedto(campaign)
 {
 #emsp; ...,
@@ -59,9 +61,9 @@ basedto(campaign)
 #emsp;#emsp; <font color=blue><b>budget</b></font>: 1000
 #emsp; }
 }<br>
-validates that the campaign budget has not been exceeded by the offers.<br>
+VALIDATE CAMPAIGN BUDGET
 - fetch the campaign's <font color=blue><b>budget</b></font> from the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
-- fetch all offers associated for the specified <font color=orange><b>campaign_id</b></font> (using @ApiUtils) and then SUM their <font color=orange><b>discount_amount</b></font> i.e. [{discount_amout=300}, {[{discount_amout=500}, ..].<br>
+- fetch all offers associated for the specified <font color=orange><b>campaign_id</b></font> (using @ApiUtils) and then SUM their <font color=orange><b>discount_amount</b></font> i.e. <font size=1.5em>[{discount_amout=100}, {[{discount_amout=500}, ..].</font><br>
 - finally, compare the offer's TOTAL discount_amount with the campaign's budget and throws RequestValidationException if exceeded.
 </div>
 "]:::service
@@ -75,7 +77,21 @@ subgraph Merchant_Write_Microservice
 style Merchant_Write_Microservice fill:#F1F8E9,stroke:#689F38,stroke-width:1px
 
 MES["OfferEventSubscriber<br>- subscribeCreateOfferEvent()"]:::subscriber
-MC["MerchantCommandService<br>- linkOfferToMerchant()"]:::service
+MC["MerchantCommandService :: <b>linkOfferToMerchant()</b>
+<div style='text-align:left; font-style: italic;'>
+basedto(merchant)
+{
+#emsp; ...,
+#emsp; data: {
+#emsp;#emsp; <font color=green><b>active_offers</b></font>: [
+#emsp;#emsp; ]
+#emsp; }
+}<br>
+Links an offer to a merchants.<br>
+- fetch the merchant for the <font color=orange>merchant_id</font> from the REST API (using @ApiUtils)<br>
+- add the new offer id in the <font color=green>active_offers</font> list of the merchant.
+</div>
+"]:::service
 end
 
 %% Customer Subscriber
@@ -83,7 +99,16 @@ subgraph Customer_Write_Microservice
 style Customer_Write_Microservice fill:#FCE4EC,stroke:#C2185B,stroke-width:1px
 
 CES["OfferEventSubscriber<br>- subscribeCreateOfferEvent()"]:::subscriber
-CC["CustomerCommandService<br>- assignOfferToCustomer()"]:::service
+
+CC["CustomerCommandService<br> :: <b>assignOfferToCustomer()</b>
+<div style='text-align:left; font-style: italic;'>
+Assigns an offer to all eligible customers.
+- fetch all customers from the REST API (using @ApiUtils)
+- pass those customers to the CustomerEligibilityEngineClient an checks their eligibility.
+- if eligible, then enroll them by adding to the enrolled_offer_ids.
+</div>
+"]:::service
+
 CEP["CustomerOfferEventPublisher<br>- publishOfferAssignedEvent()"]:::event
 end
 
