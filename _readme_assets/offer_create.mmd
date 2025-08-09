@@ -157,7 +157,17 @@ COUCHBASE_OFFER["Couchbase<br>(local - Offer)"]:::external
 COUCHBASE_MERCHANT["Couchbase<br>(local - Merchant)"]:::external
 COUCHBASE_CUSTOMER["Couchbase<br>(local - Customer)"]:::external
 COUCHBASE_CAMPAIGN["Couchbase<br>(local - Campaign)"]:::external
-KAFKA1[("Kafka Topic<br>OFFER_CREATED")]:::kafka
+
+KAFKA1[("Kafka Topic<br>OFFER_CREATED
+<div style='text-align:left; background-color:rgb(252, 243, 240); width:180px;'>
+{<br>
+#emsp; <font color=red><b>id</b>:''</font>, <br>
+#emsp; <font color=orange><b>campaign_id</b>:''</font>, <br>
+#emsp; <font color=orange><b>merchant_id</b>:''</font>, <br>
+#emsp; ... <br>
+}
+</div>
+")]:::kafka
 KAFKA2[("Kafka Topic<br>OFFER_ASSIGNED")]:::kafka
 
 %% Flow Steps (Main Command Flow)
