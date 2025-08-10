@@ -406,7 +406,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification:unlinkOffer> Get Merchants By Offer Id",
+							"name": "<verification:unlinkOffer> Get Merchant By Id",
 							"id": "25453210-53d2415d-6dad-44de-8121-21b9e071c8d8",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
