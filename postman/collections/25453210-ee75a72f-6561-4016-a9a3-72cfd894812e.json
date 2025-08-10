@@ -357,6 +357,32 @@
 						},
 						{
 							"name": "<verification:status_CANCELLED> Get Offers By Campaign Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ba1fcd28-8c5d-464d-83d0-d039f45a49f7",
+										"exec": [
+											"// Parse the JSON response\r",
+											"let jsonData = pm.response.json();\r",
+											"\r",
+											"// Extract merchant_id values\r",
+											"let merchantIds = jsonData.map(item => item.data.merchant_id);\r",
+											"\r",
+											"// Remove duplicates using Set\r",
+											"let uniqueMerchantIds = [...new Set(merchantIds)];\r",
+											"\r",
+											"// Save to environment variable as JSON string\r",
+											"pm.environment.set(\"merchant_ids\", JSON.stringify(uniqueMerchantIds));\r",
+											"\r",
+											"// Log for debugging\r",
+											"console.log(\"Unique Merchant IDs:\", uniqueMerchantIds);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "25453210-5e59b1f3-e8e1-41cf-af6e-5d5a360985a2",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -407,16 +433,25 @@
 							"response": []
 						},
 						{
-							"name": "<verification:unlinkOffer> Get Merchant By Id",
+							"name": "<verification:unlinkOffers> Get Merchants By Ids",
 							"id": "25453210-22139dde-d0de-4a59-911e-af28065d2848",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{merchant_ids}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "http://localhost:8080/api/merchants/merchant::2",
+									"raw": "http://localhost:8080/api/merchants/by-ids",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -425,7 +460,7 @@
 									"path": [
 										"api",
 										"merchants",
-										"merchant::2"
+										"by-ids"
 									]
 								}
 							},
