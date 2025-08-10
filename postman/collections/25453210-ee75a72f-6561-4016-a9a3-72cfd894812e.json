@@ -470,7 +470,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification:unassignOffers> Get Customers By Ids",
+							"name": "<verification:unassignOffers> Get Customers By Offer Ids",
 							"id": "25453210-e445f5a4-5f39-4f7c-9a5d-30605f4adee1",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
