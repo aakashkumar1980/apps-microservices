@@ -381,7 +381,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification:status_CANCELLED & no offers> Get Campaign By Id",
+							"name": "<verification:status_CANCELLED & unlinkOffer> Get Campaign By Id",
 							"id": "25453210-e150fb87-f513-4bdc-9cd5-86c62c1bbb57",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
