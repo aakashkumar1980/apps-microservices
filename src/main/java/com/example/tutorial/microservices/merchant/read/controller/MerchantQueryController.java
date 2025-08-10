@@ -7,11 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +24,8 @@ public class MerchantQueryController {
 
   /**
    * Retrieves all merchants.
+   *
+   * @return a list of all merchants wrapped in BaseDto.
    */
   @GetMapping
   public ResponseEntity<List<BaseDto<Merchant>>> getAllMerchants() {
@@ -36,6 +36,9 @@ public class MerchantQueryController {
 
   /**
    * Retrieves a merchant by its ID.
+   *
+   * @param id the ID of the merchant to retrieve.
+   * @return the merchant wrapped in BaseDto if found, or a 404 Not Found response if not found.
    */
   @GetMapping("/{id}")
   public ResponseEntity<BaseDto<Merchant>> getMerchantById(@PathVariable String id) {
@@ -48,4 +51,23 @@ public class MerchantQueryController {
       return ResponseEntity.notFound().build();
     }
   }
+
+  // -- Additional Endpoints for supporting operations  --
+  /**
+   * Retrieves merchants by a list of IDs.
+   *
+   * @param ids the list of merchant IDs to retrieve.
+   * @return a list of merchants wrapped in BaseDto for each ID found.
+   */
+  @PostMapping("/by-ids")
+  public ResponseEntity<List<BaseDto<Merchant>>> getMerchantsByIds(@RequestBody List<String> ids) {
+    List<BaseDto<Merchant>> merchants = new ArrayList<BaseDto<Merchant>>();
+    for (String id : ids) {
+      merchants.add(getMerchantById(id).getBody());
+    }
+
+    log.info("Total merchants found by IDs: {}", merchants.size());
+    return ResponseEntity.ok(merchants);
+  }
+
 }
