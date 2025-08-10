@@ -478,6 +478,11 @@
 			"key": "customer_id",
 			"value": "",
 			"type": "default"
+		},
+		{
+			"key": "newoffer_campaign_id",
+			"value": "6",
+			"type": "default"
 		}
 	]
 }
