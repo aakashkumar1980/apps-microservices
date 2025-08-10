@@ -380,7 +380,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification> Get Offers By Campaign Id",
+							"name": "<verification:status_CANCELLED> Get Offers By Campaign Id",
 							"id": "25453210-5e59b1f3-e8e1-41cf-af6e-5d5a360985a2",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
