@@ -52,13 +52,7 @@ public class MerchantQueryController {
     }
   }
 
-  // -- Additional Endpoints for supporting operations  --
-  /**
-   * Retrieves merchants by a list of IDs.
-   *
-   * @param ids the list of merchant IDs to retrieve.
-   * @return a list of merchants wrapped in BaseDto for each ID found.
-   */
+  // -- Additional Endpoints for supporting operations  -- //
   @PostMapping("/by-ids")
   public ResponseEntity<List<BaseDto<Merchant>>> getMerchantsByIds(@RequestBody List<String> ids) {
     List<BaseDto<Merchant>> merchants = new ArrayList<BaseDto<Merchant>>();

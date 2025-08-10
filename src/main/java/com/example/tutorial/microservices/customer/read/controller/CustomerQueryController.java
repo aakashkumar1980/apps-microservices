@@ -7,11 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,4 +64,17 @@ public class CustomerQueryController {
       return ResponseEntity.noContent().build();
     }
   }
+
+  // -- Additional Endpoints for supporting operations  -- //
+  @PostMapping("/offers/by-ids")
+  public ResponseEntity<List<BaseDto<Customer>>> getCustomersByOfferIds(@RequestBody List<String> offerIds) {
+    List<BaseDto<Customer>> customers = new ArrayList<BaseDto<Customer>>();
+    for (String offerId : offerIds) {
+      customers.addAll(customerQueryService.getCustomersByOfferId(offerId));
+    }
+
+    log.info("Total customers found by offer IDs: {}", customers.size());
+    return ResponseEntity.ok(customers);
+  }
+
 }
