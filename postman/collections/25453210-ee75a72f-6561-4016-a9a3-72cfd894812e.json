@@ -355,31 +355,6 @@
 							"response": []
 						},
 						{
-							"name": "<verification:status_CANCELLED> Get Campaign By Id",
-							"id": "25453210-e150fb87-f513-4bdc-9cd5-86c62c1bbb57",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/campaigns/{{newoffer_campaign_id}}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"campaigns",
-										"{{newoffer_campaign_id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "<verification:status_CANCELLED> Get Offers By Campaign Id",
 							"id": "25453210-5e59b1f3-e8e1-41cf-af6e-5d5a360985a2",
 							"protocolProfileBehavior": {
@@ -398,6 +373,31 @@
 									"path": [
 										"api",
 										"offers",
+										"campaigns",
+										"{{newoffer_campaign_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "<verification:status_CANCELLED> Get Campaign By Id",
+							"id": "25453210-e150fb87-f513-4bdc-9cd5-86c62c1bbb57",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/campaigns/{{newoffer_campaign_id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
 										"campaigns",
 										"{{newoffer_campaign_id}}"
 									]
