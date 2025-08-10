@@ -439,10 +439,10 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/merchants/{{merchant_ids}}",
+									"raw": "http://localhost:8080/api/merchants/by-ids",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -451,7 +451,7 @@
 									"path": [
 										"api",
 										"merchants",
-										"{{merchant_ids}}"
+										"by-ids"
 									]
 								}
 							},
