@@ -480,7 +480,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{{merchant_ids}}",
+									"raw": "{{offer_ids}}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -488,7 +488,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/merchants/by-ids",
+									"raw": "http://localhost:8080/api/customers/offers/by-ids",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -496,7 +496,8 @@
 									"port": "8080",
 									"path": [
 										"api",
-										"merchants",
+										"customers",
+										"offers",
 										"by-ids"
 									]
 								}
