@@ -25,7 +25,7 @@
     "data": {
       "name": "Back to School Essentials",
       "description": "Special offers on school supplies, backpacks, and stationery for students.",
-      "status": "DRAFT",
+      "status": "ACTIVE",
       "start_date": "2025-07-14T00:00:00",
       "end_date": "2025-08-12T00:00:00",
       "budget": 9615.87,

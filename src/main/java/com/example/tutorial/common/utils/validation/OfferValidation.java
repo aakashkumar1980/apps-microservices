@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -110,7 +111,10 @@ public class OfferValidation {
     } else {
       log.debug("No offers found for campaign ID: {}", campaignId);
     }
-    return totalDiscountAmount;
+
+    // round up to two decimal places
+    BigDecimal rounded = new BigDecimal(totalDiscountAmount).setScale(2, RoundingMode.CEILING);
+    return rounded.doubleValue();
   }
 
   /**
