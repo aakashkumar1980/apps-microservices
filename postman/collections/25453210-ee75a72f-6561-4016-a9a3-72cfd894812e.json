@@ -272,31 +272,6 @@
 							"response": []
 						},
 						{
-							"name": "<verification:linkOffer> Get Merchant By Id Copy",
-							"id": "25453210-22139dde-d0de-4a59-911e-af28065d2848",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/merchants/merchant::2",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"merchants",
-										"merchant::2"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "<verification:assignOffer> Get Customers By Offer Id",
 							"id": "25453210-fea49ade-02cb-4b63-b01c-5829df52eb8c",
 							"protocolProfileBehavior": {
@@ -426,6 +401,31 @@
 										"api",
 										"campaigns",
 										"{{newoffer_campaign_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "<verification:linkOffer> Get Merchant By Id Copy",
+							"id": "25453210-22139dde-d0de-4a59-911e-af28065d2848",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/merchants/merchant::2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"merchants",
+										"merchant::2"
 									]
 								}
 							},
