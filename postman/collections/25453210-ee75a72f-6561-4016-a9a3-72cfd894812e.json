@@ -383,6 +383,32 @@
 					"id": "25453210-edea0ae0-5885-4f0a-95e8-18abeadd471f"
 				},
 				{
+					"name": "<verification> Get Campaigns By Offer Id Copy",
+					"id": "25453210-5e59b1f3-e8e1-41cf-af6e-5d5a360985a2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/campaigns/offers/{{created_offer_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"campaigns",
+								"offers",
+								"{{created_offer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get All Merchants",
 					"id": "25453210-cd525dc4-540d-4866-a3c3-22254b413721",
 					"protocolProfileBehavior": {
