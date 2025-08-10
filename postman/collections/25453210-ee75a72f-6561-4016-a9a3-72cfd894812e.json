@@ -353,6 +353,31 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get Customer By Id Copy",
+							"id": "25453210-e150fb87-f513-4bdc-9cd5-86c62c1bbb57",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/customers/{{customer_id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"customers",
+										"{{customer_id}}"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"id": "25453210-edea0ae0-5885-4f0a-95e8-18abeadd471f"
@@ -408,31 +433,6 @@
 				{
 					"name": "Get Customer By Id",
 					"id": "25453210-0618a159-34f3-41da-977b-5671bfd8cfd9",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/customers/{{customer_id}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"customers",
-								"{{customer_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer By Id Copy",
-					"id": "25453210-e150fb87-f513-4bdc-9cd5-86c62c1bbb57",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
