@@ -366,17 +366,20 @@
 											"// Parse the JSON response\r",
 											"let jsonData = pm.response.json();\r",
 											"\r",
+											"// Extract offer_id values\r",
+											"let offerIds = jsonData.map(item => item.id);\r",
+											"// Save to environment variable as JSON string\r",
+											"pm.environment.set(\"offer_ids\", JSON.stringify(offerIds));\r",
+											"console.info(\"offer_ids:\", pm.environment.get(\"offer_ids\"));\r",
+											"\r",
+											"\r",
 											"// Extract merchant_id values\r",
 											"let merchantIds = jsonData.map(item => item.data.merchant_id);\r",
-											"\r",
 											"// Remove duplicates using Set\r",
 											"let uniqueMerchantIds = [...new Set(merchantIds)];\r",
-											"\r",
 											"// Save to environment variable as JSON string\r",
 											"pm.environment.set(\"merchant_ids\", JSON.stringify(uniqueMerchantIds));\r",
-											"\r",
-											"// Log for debugging\r",
-											"console.log(\"Unique Merchant IDs:\", uniqueMerchantIds);"
+											"console.info(\"merchant_ids:\", pm.environment.get(\"merchant_ids\"));"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -460,6 +463,41 @@
 									"path": [
 										"api",
 										"merchants",
+										"by-ids"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "<verification:unassignOffers> Get Customers By Offer Ids",
+							"id": "25453210-e445f5a4-5f39-4f7c-9a5d-30605f4adee1",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{offer_ids}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/customers/offers/by-ids",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"customers",
+										"offers",
 										"by-ids"
 									]
 								}
