@@ -468,6 +468,40 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "<verification:unlinkOffers> Get Merchants By Ids Copy",
+							"id": "25453210-e445f5a4-5f39-4f7c-9a5d-30605f4adee1",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{merchant_ids}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/merchants/by-ids",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"merchants",
+										"by-ids"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"id": "25453210-edea0ae0-5885-4f0a-95e8-18abeadd471f"
