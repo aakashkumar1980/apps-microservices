@@ -272,7 +272,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification:assign_offer> Get Customers By Offer Id",
+							"name": "<verification:assignOffer> Get Customers By Offer Id",
 							"id": "25453210-fea49ade-02cb-4b63-b01c-5829df52eb8c",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
