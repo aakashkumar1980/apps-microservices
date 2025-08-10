@@ -375,8 +375,7 @@
 											"// Save to environment variable as JSON string\r",
 											"pm.environment.set(\"merchant_ids\", JSON.stringify(uniqueMerchantIds));\r",
 											"\r",
-											"// Log for debugging\r",
-											"console.log(\"Unique Merchant IDs:\", uniqueMerchantIds);"
+											"console.info(\"merchant_ids:\", pm.environment.get(\"merchant_ids\"));"
 										],
 										"type": "text/javascript",
 										"packages": {}
