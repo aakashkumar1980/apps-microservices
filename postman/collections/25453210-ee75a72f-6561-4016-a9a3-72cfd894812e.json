@@ -433,7 +433,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification:unlinkOffer> Get Merchants By Ids",
+							"name": "<verification:unlinkOffers> Get Merchants By Ids",
 							"id": "25453210-22139dde-d0de-4a59-911e-af28065d2848",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
