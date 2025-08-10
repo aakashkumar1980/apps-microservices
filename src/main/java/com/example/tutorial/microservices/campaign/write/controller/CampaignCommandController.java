@@ -54,7 +54,7 @@ public class CampaignCommandController {
      * @param id the ID of the campaign to be cancelled
      * @return a response entity with a success message
      */
-    @PutMapping("/{id}/cancel")
+    @DeleteMapping("/{id}/cancel")
     public ResponseEntity<String> cancelCampaign(@PathVariable String id) {
         log.info("Received request to cancel campaign with ID: {}", id);
 

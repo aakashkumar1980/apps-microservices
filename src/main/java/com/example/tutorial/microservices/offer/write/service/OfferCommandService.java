@@ -106,7 +106,6 @@ public class OfferCommandService {
 
     /** PERSIST DATA **/
     // retrieve all offers associated with the given campaign ID
-    log.info("Retrieving offers for campaign ID: {}", campaignId);
     List<BaseDto<Offer>> offersByCampaign = apiUtils.fetchDtoList(
         (offersApiUrl+"/campaigns/"+campaignId), new TypeReference<List<BaseDto<Offer>>>() {});
     if (CollectionUtils.isNotEmpty(offersByCampaign)) {

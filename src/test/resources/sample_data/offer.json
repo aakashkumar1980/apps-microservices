@@ -108,7 +108,7 @@
       "name": "Travel & Adventure Reward Points",
       "description": "Earn reward points on travel bookings in Travel & Adventure campaign.",
       "campaign_id": "campaign::6",
-      "merchant_id": "merchant::2",
+      "merchant_id": "merchant::4",
       "type": "REWARD_POINTS",
       "discount_amount": 65.87,
       "currency": "USD",
