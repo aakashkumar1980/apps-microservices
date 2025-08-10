@@ -582,6 +582,79 @@
 				}
 			],
 			"id": "25453210-f3a6b790-c3f7-4b27-bd59-ce8bce9ee6b1"
+		},
+		{
+			"name": "Get All Campaigns",
+			"id": "25453210-7944766a-ee56-450c-96ed-0ff2e9968d69",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Campaign By Id",
+			"id": "25453210-d45b5c20-d0ef-40cf-8ace-b2e4d16fae84",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{campaign_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{campaign_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Offers",
+			"id": "25453210-20a62f1a-7261-4bd2-a0be-2694be320c06",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/offers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"offers"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
