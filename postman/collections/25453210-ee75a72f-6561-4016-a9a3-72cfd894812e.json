@@ -247,7 +247,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification> Get Merchant By Id",
+							"name": "<verification:linkOffer> Get Merchant By Id",
 							"id": "25453210-6e874f1c-727f-4a49-9bca-e500b1bf3ccf",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
