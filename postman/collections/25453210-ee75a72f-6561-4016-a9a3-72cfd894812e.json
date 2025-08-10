@@ -224,7 +224,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Travel & Adventure Reward Points\",\r\n    \"description\": \"Earn reward points on travel bookings in Travel & Adventure campaign.\",\r\n    \"campaign_id\": {{newoffer_campaign_id}},\r\n    \"merchant_id\": \"merchant::2\",\r\n    \"type\": \"REWARD_POINTS\",\r\n    \"discount_amount\": 65.87,\r\n    \"currency\": \"USD\",\r\n    \"valid_from\": \"2025-08-15T00:00:00\",\r\n    \"valid_to\": \"2025-09-07T00:00:00\",\r\n    \"max_redemptions\": 473,\r\n    \"status\": \"ACTIVE\",\r\n    \"segment_criteria\": \"GOLD\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Travel & Adventure Reward Points\",\r\n    \"description\": \"Earn reward points on travel bookings in Travel & Adventure campaign.\",\r\n    \"campaign_id\": \"{{newoffer_campaign_id}}\",\r\n    \"merchant_id\": \"merchant::2\",\r\n    \"type\": \"REWARD_POINTS\",\r\n    \"discount_amount\": 65.87,\r\n    \"currency\": \"USD\",\r\n    \"valid_from\": \"2025-08-15T00:00:00\",\r\n    \"valid_to\": \"2025-09-07T00:00:00\",\r\n    \"max_redemptions\": 473,\r\n    \"status\": \"ACTIVE\",\r\n    \"segment_criteria\": \"GOLD\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -247,7 +247,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification> Get Merchant By Id",
+							"name": "<verification:linkOffer> Get Merchant By Id",
 							"id": "25453210-6e874f1c-727f-4a49-9bca-e500b1bf3ccf",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -272,7 +272,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification> Get Customers By Offer Id",
+							"name": "<verification:assignOffer> Get Customers By Offer Id",
 							"id": "25453210-fea49ade-02cb-4b63-b01c-5829df52eb8c",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -298,7 +298,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification> Get Campaigns By Offer Id",
+							"name": "<verification:linkOffer> Get Campaign By Offer Id",
 							"id": "25453210-a8a3c155-dbd8-462e-b428-e33d859b5c79",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -339,7 +339,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/campaigns/{{newoffer_campaign_id}}",
+									"raw": "http://localhost:8080/api/campaigns/{{newoffer_campaign_id}}/cancel",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -348,6 +348,33 @@
 									"path": [
 										"api",
 										"campaigns",
+										"{{newoffer_campaign_id}}",
+										"cancel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "<verification:status_CANCELLED> Get Offers By Campaign Id",
+							"id": "25453210-5e59b1f3-e8e1-41cf-af6e-5d5a360985a2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/offers/campaigns/{{newoffer_campaign_id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"offers",
+										"campaigns",
 										"{{newoffer_campaign_id}}"
 									]
 								}
@@ -355,7 +382,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification> Get Campaign By Id",
+							"name": "<verification:status_CANCELLED & unlinkOffers> Get Campaign By Id",
 							"id": "25453210-e150fb87-f513-4bdc-9cd5-86c62c1bbb57",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -374,6 +401,31 @@
 										"api",
 										"campaigns",
 										"{{newoffer_campaign_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "<verification:unlinkOffer> Get Merchant By Id",
+							"id": "25453210-22139dde-d0de-4a59-911e-af28065d2848",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/merchants/merchant::2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"merchants",
+										"merchant::2"
 									]
 								}
 							},
