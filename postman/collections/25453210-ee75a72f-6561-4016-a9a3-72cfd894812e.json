@@ -355,7 +355,7 @@
 							"response": []
 						},
 						{
-							"name": "Get Customer By Id Copy",
+							"name": "<verification> Get Campaign By Id",
 							"id": "25453210-e150fb87-f513-4bdc-9cd5-86c62c1bbb57",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
