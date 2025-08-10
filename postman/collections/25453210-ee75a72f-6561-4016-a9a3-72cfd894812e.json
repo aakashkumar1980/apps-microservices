@@ -383,7 +383,7 @@
 					"id": "25453210-edea0ae0-5885-4f0a-95e8-18abeadd471f"
 				},
 				{
-					"name": "<verification> Get Campaigns By Offer Id Copy",
+					"name": "<verification> Get Offers By Campaign Id",
 					"id": "25453210-5e59b1f3-e8e1-41cf-af6e-5d5a360985a2",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
