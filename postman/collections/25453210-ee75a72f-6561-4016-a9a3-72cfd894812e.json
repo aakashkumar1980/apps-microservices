@@ -404,31 +404,6 @@
 								}
 							},
 							"response": []
-						},
-						{
-							"name": "<verification:unlinkOffer> Get Merchant By Id",
-							"id": "25453210-53d2415d-6dad-44de-8121-21b9e071c8d8",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8080/api/merchants/merchant::2",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"merchants",
-										"merchant::2"
-									]
-								}
-							},
-							"response": []
 						}
 					],
 					"id": "25453210-edea0ae0-5885-4f0a-95e8-18abeadd471f"
