@@ -4,6 +4,7 @@ import com.example.tutorial.common.dto.BaseDto;
 import com.example.tutorial.common.dto.KafkaEventType;
 import com.example.tutorial.common.dto.customer.Customer;
 import com.example.tutorial.common.dto.customer.events.OfferAssignedEvent;
+import com.example.tutorial.common.dto.customer.events.OfferUnassignedEvent;
 import com.example.tutorial.common.utils.KafkaUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,14 +61,14 @@ public class CustomerOfferEventPublisher {
    * @param unassignedCustomers The list of customers who are no longer eligible for the offer.
    */
   public void publishOfferUnassignedEvent(String offerId, List<BaseDto<Customer>> unassignedCustomers) {
-    OfferAssignedEvent offerAssignedEvent = new OfferAssignedEvent(
+    OfferUnassignedEvent offerUnassignedEvent = new OfferUnassignedEvent(
         offerId,
         unassignedCustomers.stream().map(BaseDto::getId).toList(),
         java.time.LocalDateTime.now(),
         KafkaEventType.CUSTOMER_OFFER_UNASSIGNED
     );
 
-    log.info("Publishing OfferUnassignedEvent: {}", offerAssignedEvent);
-    kafkaUtils.publishEvent(offerAssignedEvent.getKafkaEventType().name(), offerAssignedEvent.getOfferId(), offerAssignedEvent);
+    log.info("Publishing OfferUnassignedEvent: {}", offerUnassignedEvent);
+    kafkaUtils.publishEvent(offerUnassignedEvent.getKafkaEventType().name(), offerUnassignedEvent.getOfferId(), offerUnassignedEvent);
   }
 }
