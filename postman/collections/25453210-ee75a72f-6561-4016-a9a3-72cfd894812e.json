@@ -298,7 +298,7 @@
 							"response": []
 						},
 						{
-							"name": "<verification> Get Campaigns By Offer Id",
+							"name": "<verification> Get Campaign By Offer Id",
 							"id": "25453210-a8a3c155-dbd8-462e-b428-e33d859b5c79",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
