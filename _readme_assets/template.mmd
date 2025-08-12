@@ -1,0 +1,94 @@
+%%{ init: { "flowchart": { "htmlLabels": true, "wrappingWidth": 500 } } }%%
+flowchart TD
+
+%% REST Client
+POSTMAN["POST /$uri
+  <div style='text-align: left'>
+    {
+    }
+  </div>
+"]:::external
+
+%% KAFKA PUBLISHER
+subgraph $MicroservicePublisher
+style $MicroservicePublisher fill:#FFF9C4,stroke:#333,stroke-width:1px
+  MPCC["$CommandController<br> - $controllerFunction()"]:::controller
+  MPCS["$CommandService<br> - $serviceFunction()"]:::service
+
+  MPBS["$BusinessService<br> - $serviceFunction()
+    <div style='text-align:left; font-style: italic;'>
+      <div style='background-color:rgb(252, 251, 240); width:300px;'>
+        basedto($model).json
+        {
+          #emsp; ...,
+          #emsp; data: {
+          #emsp; }
+        }<br>
+      </div>
+      $SUMMARY
+      - $details
+    </div>
+  "]:::service
+
+  MPCR["$CommandRepository<br> - $repositoryFunction()"]:::repository
+  MPEP["$EventPublisher<br> - $publisherEventFunction()"]:::event
+end
+
+%% KAFKA SUBSCRIBERS
+subgraph $MicroserviceSubscriberX
+style $MicroserviceSubscriberX fill:#F1F8E9,stroke:#689F38,stroke-width:1px
+  MSES["$EventSubscriber<br> - $subscriberEventFunction()"]:::subscriber
+
+  MSCS["$CommandService<br> - $serviceFunction()
+    <div style='text-align:left; font-style: italic;'>
+      <div style='background-color:rgb(252, 251, 240); width:300px;'>
+        basedto($model).json
+        {
+          #emsp; ...,
+          #emsp; data: {
+          #emsp; }
+        }<br>
+      </div>
+      $SUMMARY
+      - $details
+    </div>
+  "]:::service
+end
+
+%% External Systems
+CHBMP["Couchbase DB<br>($MicroservicePublisher)"]:::external
+CHBMSX["Couchbase DB<br>($MicroserviceSubscriberX)"]:::external
+
+KAFKA[("Kafka Topic<br>$TOPIC
+  <div style='text-align:left; background-color:rgb(252, 243, 240); width:180px;'>
+    event($event).json
+    {
+      #emsp; <font color=red><b>id</b>:''</font>,
+      #emsp; ...
+    }
+  </div>
+")]:::kafka
+
+%% Flow Steps (Main Command Flow)
+POSTMAN -->|1: Pass JSON to the controller | MPCC
+MPCC -->|2: Delegate the call to the service| MPCS
+MPCS -->|3: Business Function| MPBS
+MPCS -->|6: Save Model| MPCR
+MPCR -->|7: Save to DB| CHBMP
+MPCS -->|8: Publish $TOPIC| MPEP
+MPEP -->|9: Send to Kafka| KAFKA
+
+%% Subscriptions via Kafka $TOPIC
+KAFKA --> MSES
+MSES -->|1: Cache Event| MSCS
+MSCS -->|2: Update Model| CHBMSX
+
+
+%% Styling
+classDef controller fill:#AED581,stroke:#33691E,stroke-width:1px;
+classDef service fill:#FFF3E0,stroke:#F57C00,stroke-width:1px;
+classDef repository fill:#E0F2F1,stroke:#00796B,stroke-width:1px;
+classDef event fill:#F8BBD0,stroke:#AD1457,stroke-width:1px,stroke-dasharray: 5 5;
+classDef subscriber fill:#EDE7F6,stroke:#512DA8,stroke-width:1px;
+classDef external fill:#FFFFFF,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5;
+classDef kafka fill:#FFFFFF,stroke:red,stroke-width:1px,stroke-dasharray: 5 5;
