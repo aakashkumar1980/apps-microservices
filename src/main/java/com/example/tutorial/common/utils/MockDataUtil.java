@@ -50,7 +50,7 @@ public class MockDataUtil {
     c2.setId(2L);
     c2.setName("Back to School");
     c2.setDescription("Promotions for school supplies and backpacks.");
-    c2.setStatus(CampaignStatus.valueOf("PLANNED"));
+    c2.setStatus(CampaignStatus.SCHEDULED); // changed from PLANNED
     c2.setStartDate(LocalDateTime.parse("2024-07-15T00:00:00"));
     c2.setEndDate(LocalDateTime.parse("2024-08-15T00:00:00"));
     c2.setBudget(java.math.BigDecimal.valueOf(30000.0));
@@ -60,7 +60,7 @@ public class MockDataUtil {
     c3.setId(3L);
     c3.setName("Black Friday Blast");
     c3.setDescription("Biggest deals of the year on electronics.");
-    c3.setStatus(CampaignStatus.valueOf("PLANNED"));
+    c3.setStatus(CampaignStatus.SCHEDULED); // changed from PLANNED
     c3.setStartDate(LocalDateTime.parse("2024-11-25T00:00:00"));
     c3.setEndDate(LocalDateTime.parse("2024-11-29T00:00:00"));
     c3.setBudget(java.math.BigDecimal.valueOf(120000.0));
@@ -120,7 +120,7 @@ public class MockDataUtil {
     c9.setId(9L);
     c9.setName("Travel Bonanza");
     c9.setDescription("Discounts on travel packages and accessories.");
-    c9.setStatus(CampaignStatus.valueOf("PLANNED"));
+    c9.setStatus(CampaignStatus.SCHEDULED); // changed from PLANNED
     c9.setStartDate(LocalDateTime.parse("2024-10-01T00:00:00"));
     c9.setEndDate(LocalDateTime.parse("2024-10-31T00:00:00"));
     c9.setBudget(java.math.BigDecimal.valueOf(70000.0));
@@ -130,11 +130,32 @@ public class MockDataUtil {
     c10.setId(10L);
     c10.setName("Clearance Event");
     c10.setDescription("End of season clearance on all items.");
-    c10.setStatus(CampaignStatus.valueOf("INACTIVE"));
+    c10.setStatus(CampaignStatus.EXPIRED); // changed from INACTIVE
     c10.setStartDate(LocalDateTime.parse("2024-08-01T00:00:00"));
     c10.setEndDate(LocalDateTime.parse("2024-08-15T00:00:00"));
     c10.setBudget(java.math.BigDecimal.valueOf(20000.0));
     campaigns.add(c10);
+
+    // Optionally, add more campaigns to demonstrate PAUSED and CANCELLED statuses:
+    Campaign c11 = new Campaign();
+    c11.setId(11L);
+    c11.setName("Paused Campaign Example");
+    c11.setDescription("A campaign that is currently paused.");
+    c11.setStatus(CampaignStatus.PAUSED);
+    c11.setStartDate(LocalDateTime.parse("2024-06-10T00:00:00"));
+    c11.setEndDate(LocalDateTime.parse("2024-06-20T00:00:00"));
+    c11.setBudget(java.math.BigDecimal.valueOf(15000.0));
+    campaigns.add(c11);
+
+    Campaign c12 = new Campaign();
+    c12.setId(12L);
+    c12.setName("Cancelled Campaign Example");
+    c12.setDescription("A campaign that was cancelled before completion.");
+    c12.setStatus(CampaignStatus.CANCELLED);
+    c12.setStartDate(LocalDateTime.parse("2024-07-01T00:00:00"));
+    c12.setEndDate(LocalDateTime.parse("2024-07-10T00:00:00"));
+    c12.setBudget(java.math.BigDecimal.valueOf(10000.0));
+    campaigns.add(c12);
 
     return campaigns;
   };
