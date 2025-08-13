@@ -29,7 +29,7 @@ plugins {
 java {
   toolchain {
     /**
-     * Sets the Java language version to 21.
+     * Sets the Java language version to 24.
      */
     languageVersion = JavaLanguageVersion.of(24)
   }
@@ -85,4 +85,9 @@ tasks.named('bootJar', org.springframework.boot.gradle.tasks.bundling.BootJar) {
    * Replace with your actual entry-point class.
    */
   mainClass.set('com.example.tutorial.Application')
+}
+
+/** TESTING **/
+test {
+    useJUnitPlatform()
 }
