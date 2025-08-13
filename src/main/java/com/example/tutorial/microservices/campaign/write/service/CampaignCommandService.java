@@ -23,6 +23,10 @@ public class CampaignCommandService {
   public Long createCampaign(Campaign campaign) {
       List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
       campaigns.add(campaign);
+
+      if (campaign.getId() == null) {
+        campaign.setId((long) (Math.random() * 1000)); // Example of generating a random ID
+      }
       return campaign.getId();
     }
 
