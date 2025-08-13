@@ -32,15 +32,16 @@ style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
       <div style='background-color:rgb(252, 251, 240); width:300px;'>
         basedto(campaign).json
         {
-        #emsp; ...,
-        #emsp; data: {
-        #emsp;#emsp; <font color=blue><b>status</b></font>: 'PAUSED',
-        #emsp;#emsp; <font color=blue><b>end_date</b></font>: '2025-08-12T00:00:00'
-        #emsp; }
+          #emsp; <font color=orange>id</font>,
+          #emsp; ...,
+          #emsp; data: {
+          #emsp;#emsp; <font color=blue><b>status</b></font>: 'PAUSED',
+          #emsp;#emsp; <font color=blue><b>end_date</b></font>: '2025-08-12T00:00:00'
+          #emsp; }
         }<br>
       </div>
       VALIDATE CAMPAIGN
-      - first checks if the <font color=orange><b>campaign_id</b> EXISTS</font> in the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
+      - first checks if the <font color=orange><b>campaign_id (id)</b> EXISTS</font> in the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
       - if found, it validates the campaign <font color=blue><b>status</b>=ACTIVE and <b>end_date</b> NOT PASSED</font>.<br>
       - else, throw RequestValidationException if validations fails.
     </div>
@@ -48,8 +49,15 @@ style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
 
   MV["MerchantValidation<br> - validateMerchant()
     <div style='text-align:left; font-style: italic;'>
+      <div style='background-color:rgb(252, 251, 240); width:300px;'>
+        basedto(merchant).json
+        {
+          #emsp; <font color=orange>id</font>,
+          #emsp; ...
+        }<br>
+      </div>
       VALIDATE MERCHANT
-      - first checks if the <font color=orange><b>merchant_id</b> EXISTS</font> in the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
+      - first checks if the <font color=orange><b>merchant_id (id)</b> EXISTS</font> in the Redis Cache or gets it from the REST API (using @CacheUtils).<br>
       - else, throw RequestValidationException.
     </div>
   "]:::service
@@ -76,16 +84,16 @@ style Offer_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
   OEP["OfferEventPublisher<br> - publishCreateOfferEvent()"]:::event
 end
 
-COUCHBASE_OFFER[("Couchbase<br>(local - Offer)")]:::external
+COUCHBASE_OFFER[("Couchbase DB<br>(bucket: offer)")]:::external
 
-KAFKA1[["Kafka Topic<br>OFFER_CREATED
-  <div style='text-align:left; background-color:rgb(252, 243, 240); width:180px;'>
-    event(offerevent).json <br>
-    {<br>
-      #emsp; <font color=red><b>id</b>:''</font>, <br>
-      #emsp; <font color=orange><b>campaign_id</b>:''</font>, <br>
-      #emsp; <font color=orange><b>merchant_id</b>:''</font>, <br>
-      #emsp; ... <br>
+KAFKA1[["kafka topic: OFFER_CREATED
+  <div style='text-align:left; background-color:#fcf3f0; width:180px;'>
+    event(offerevent).json
+    {
+      #emsp; <font color=red><b>id</b>:''</font>,
+      #emsp; <font color=orange><b>campaign_id</b>:''</font>,
+      #emsp; <font color=orange><b>merchant_id</b>:''</font>,
+      #emsp; ...
     }
   </div>
 "]]:::kafka
@@ -129,7 +137,7 @@ style Merchant_Write_Microservice fill:#F1F8E9,stroke:#689F38,stroke-width:1px
   "]:::service
 end
 
-COUCHBASE_MERCHANT[("Couchbase<br>(local - Merchant)")]:::db
+COUCHBASE_MERCHANT[("Couchbase DB<br>(bucket: merchant)")]:::db
 
 %% Flow Steps (Merchant Write Flow)
 KAFKA1 --> MES
@@ -166,8 +174,8 @@ style Customer_Write_Microservice fill:#FCE4EC,stroke:#C2185B,stroke-width:1px
   CEP["CustomerOfferEventPublisher<br> - publishOfferAssignedEvent()"]:::event
 end
 
-COUCHBASE_CUSTOMER[("Couchbase<br>(local - Customer)")]:::db
-KAFKA2[["Kafka Topic<br>OFFER_ASSIGNED"]]:::kafka
+COUCHBASE_CUSTOMER[("Couchbase DB<br>(bucket: customer)")]:::db
+KAFKA2[["kafka topic: OFFER_ASSIGNED"]]:::kafka
 
 %% Flow Steps (Customer Write Flow)
 KAFKA1 --> CES
@@ -203,7 +211,7 @@ style Campaign_Write_Microservice fill:#BBDEFB,stroke:#1976D2,stroke-width:1px
   "]:::service
 end
 
-COUCHBASE_CAMPAIGN[("Couchbase<br>(local - Campaign)")]:::db
+COUCHBASE_CAMPAIGN[("Couchbase DB<br>(bucket: campaign)")]:::db
 
 %% Flow Steps (Campaign Write Flow)
 KAFKA1 --> CAS
@@ -221,6 +229,6 @@ classDef util fill:#E1BEE7,stroke:#6A1B9A,stroke-width:1px;
 classDef event fill:#F8BBD0,stroke:#AD1457,stroke-width:1px,stroke-dasharray: 5 5;
 classDef subscriber fill:#EDE7F6,stroke:#512DA8,stroke-width:1px;
 classDef external fill:#FFFFFF,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5;
-classDef kafka fill:#FFFFFF,stroke:red,stroke-width:1px,stroke-dasharray: 5 5;
+classDef kafka fill:#fcf3f0,stroke:red,stroke-width:1px,stroke-dasharray: 5 5;
 classDef db fill:#FFFFFF,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5;
 

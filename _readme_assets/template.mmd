@@ -35,7 +35,7 @@ style $MicroservicePublisher fill:#FFF9C4,stroke:#333,stroke-width:1px
   MPEP["$EventPublisher<br> - $publisherEventFunction()"]:::event
 end
 
-KAFKA[["afka topic: $TOPIC
+KAFKA[["kafka topic: $TOPIC
   <div style='text-align:left; background-color:#fcf3f0; width:180px;'>
     event($event).json
     {
@@ -80,7 +80,7 @@ style $MicroserviceSubscriberX fill:#F1F8E9,stroke:#689F38,stroke-width:1px
   "]:::service
 end
 
-CHBMSX[("Couchbase DB<br>($MicroserviceSubscriberX)")]:::db
+CHBMSX[("Couchbase DB<br>(bucket: $MicroserviceSubscriberX)")]:::db
 
 %% Flow Steps (SubscribersX Flow)
 KAFKA --> MSES
