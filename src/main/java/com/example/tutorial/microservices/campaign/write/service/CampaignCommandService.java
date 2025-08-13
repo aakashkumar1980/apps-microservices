@@ -1,4 +1,4 @@
-package com.example.tutorial.microservices_campaign_write.service;
+package com.example.tutorial.microservices.campaign.write.service;
 
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
