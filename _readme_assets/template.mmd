@@ -1,7 +1,9 @@
 %%{ init: { "flowchart": { "htmlLabels": true, "wrappingWidth": 500 } } }%%
 flowchart TD
 
-%% REST Client
+%% %%%%%%%%%%%%%%%%%%%%% %%
+%% MicroservicePublisher %%
+%% %%%%%%%%%%%%%%%%%%%%% %%
 POSTMAN["POST /$uri
   <div style='text-align: left'>
     {
@@ -9,7 +11,6 @@ POSTMAN["POST /$uri
   </div>
 "]:::external
 
-%% KAFKA PUBLISHER
 subgraph $MicroservicePublisher
 style $MicroservicePublisher fill:#FFF9C4,stroke:#333,stroke-width:1px
   MPCC["$CommandController<br> - $controllerFunction()"]:::controller
@@ -56,8 +57,9 @@ MPCS -->|8: publish event| MPEP
 MPEP -->|9: send to kafka topic| KAFKA
 
 
-
-%% KAFKA SUBSCRIBERS
+%% %%%%%%%%%%%%%%%%%%%%%%% %%
+%% MicroserviceSubscriberX %%
+%% %%%%%%%%%%%%%%%%%%%%%%% %%
 subgraph $MicroserviceSubscriberX
 style $MicroserviceSubscriberX fill:#F1F8E9,stroke:#689F38,stroke-width:1px
   MSES["$EventSubscriber<br> - $subscriberEventFunction()"]:::subscriber
@@ -86,7 +88,10 @@ MSES -->|1: cache event| MSCS
 MSCS -->|2: update data model| CHBMSX
 
 
-%% Styling
+
+%% $$$$$$$ $$
+%% Styling %%
+%% $$$$$$$ $$
 classDef controller fill:#AED581,stroke:#33691E,stroke-width:1px;
 classDef service fill:#FFF3E0,stroke:#F57C00,stroke-width:1px;
 classDef repository fill:#E0F2F1,stroke:#00796B,stroke-width:1px;

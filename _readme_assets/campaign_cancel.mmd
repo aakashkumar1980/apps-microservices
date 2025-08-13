@@ -1,0 +1,239 @@
+%%{ init: { "flowchart": { "htmlLabels": true, "wrappingWidth": 520 } } }%%
+flowchart TD
+
+%% ========= REST (DELETE) =========
+POSTMAN["DELETE /api/campaigns/{id}/cancel
+"]:::external
+
+%% ========= Campaign Publisher =========
+subgraph CampaignPublisher
+style CampaignPublisher fill:#FFF9C4,stroke:#333,stroke-width:1px
+  MPCC["CampaignCommandController<br> - cancelCampaign()"]:::controller
+
+  MPCS["CampaignCommandService<br> - cancelCampaign()
+  <div style='text-align:left; font-style: italic;'>
+    <div style='background-color:rgb(252, 251, 240); width:300px;'>
+      basedto(campaign).json
+      {
+        &emsp; <font color=orange><b>id</b></font>: 'campaign::1',
+        &emsp; data: {
+        &emsp;&emsp; <font color=blue><b>status</b></font>: 'PAUSED'
+        &emsp; }
+      }<br/>
+    </div>
+    CANCEL CAMPAIGN
+    - first, fetch original campaign by <font color=orange><b>id</b></font> from REST API (using @ApiUtils).<br/>
+    - then, set the <font color=blue><b>status</b> = CANCELLED</font>.<br/>
+    - finally save and publish the event.
+  </div>
+  "]:::service
+
+  MPCR["CampaignCommandRepository<br> - save()"]:::repository
+  MPEP["CampaignEventPublisher<br> - publishCancelCampaignEvent()"]:::event
+end
+
+CHBMP[("Couchbase DB<br/>(bucket: campaign)")]:::db
+
+KAFKA_CC[["kafka topic: CAMPAIGN_CANCELLED
+  <div style='text-align:left; background-color:#fcf3f0; width:320px;'>
+    event(CampaignEvent).json
+    {
+      &emsp; <font color=orange><b>id</b></font>: 'campaign::1',
+      &emsp; ...
+    }
+  </div>
+"]]:::kafka
+
+POSTMAN -->|"1: forward {id} path param"| MPCC
+MPCC    -->|"2: delegate to service"| MPCS
+MPCS    -->|"3: save data model"| MPCR
+MPCR    -->|"4: write to DB"| CHBMP
+MPCS    -->|"5: publish event"| MPEP
+MPEP    -->|"6: send to kafka topic"| KAFKA_CC
+
+
+%% ========= Offer Subscriber (consumes CAMPAIGN_CANCELLED, produces OFFER_CANCELLED) =========
+subgraph OfferSubscriber
+style OfferSubscriber fill:#E3F2FD,stroke:#333,stroke-width:1px
+
+  OSUB["CampaignEventSubscriber<br> - onCampaignCancelled(event)"]:::controller
+
+  OSVC["OfferCommandService<br> - cancelOffers(campaignId)
+  <div style='text-align:left; font-style: italic;'>
+    <div style='background-color:rgb(252, 251, 240); width:320px;'>
+      basedto(offer).json<br/>
+      {<br/>
+      &emsp; <font color=orange><b>id</b></font>: 'offer::101',<br/>
+      &emsp; data: {<br/>
+      &emsp;&emsp; <font color=orange><b>campaign_id</b></font>: 'campaign::1',<br/>
+      &emsp;&emsp; <font color=orange><b>discount_amount</b></font>: 150,<br/>
+      &emsp;&emsp; merchant_id: 'merchant::9'<br/>
+      &emsp; }<br/>
+      }<br/>
+    </div>
+    CANCEL OFFERS FOR CAMPAIGN<br/>
+    - fetch all offers by <font color=orange><b>campaign_id</b></font> (ApiUtils/repo).<br/>
+    - set status = CANCELLED for each offer; save.<br/>
+    - publish <b>OFFER_CANCELLED</b> per offer with key=<font color=orange><b>id</b></font>.
+  </div>
+  "]:::service
+
+  OREP["OfferCommandRepository<br> - save(offer)"]:::repository
+  OPUB["OfferEventPublisher<br> - publishCancelOfferEvent(offer)"]:::event
+end
+
+OUT_DB_OFFER[("Couchbase DB<br/>(bucket: offer)")]:::db
+
+OUT_KAFKA_OC["📦 topic: OFFER_CANCELLED
+  <div style='text-align:left; background-color:#fcf3f0; width:340px;'>
+    event(OfferEvent).json<br/>
+    {<br/>
+    &emsp; <font color=orange><b>id</b></font>: 'offer::101',<br/>
+    &emsp; <font color=orange><b>campaignId</b></font>: 'campaign::1',<br/>
+    &emsp; merchantId: 'merchant::9',<br/>
+    &emsp; <font color=orange><b>discountAmount</b></font>: 150,<br/>
+    &emsp; <b>kafkaEventType</b>: 'OFFER_CANCELLED',<br/>
+    &emsp; occurredAt: '2025-07-15T00:00:00Z'<br/>
+    }<br/>
+  </div>
+"]:::kafka
+
+KAFKA_CC -->|"1: consume"| OSUB
+OSUB     -->|"2: delegate"| OSVC
+OSVC     -->|"3: repository.save (each offer)"| OREP
+OREP     -->|"4: write to DB"| OUT_DB_OFFER
+OSVC     -->|"5: publish OFFER_CANCELLED (each offer)"| OPUB
+OPUB     -->|"6: send to Kafka"| OUT_KAFKA_OC
+
+
+%% ========= Campaign Subscriber (consumes OFFER_CANCELLED to unlink offer from campaign) =========
+subgraph CampaignSubscriber
+style CampaignSubscriber fill:#FFF9C4,stroke:#333,stroke-width:1px
+
+  CSUB["OfferEventSubscriber<br> - onOfferCancelled(event)"]:::controller
+
+  CSVC["CampaignCommandService<br> - unlinkOfferFromCampaign(campaignId, offerId)
+  <div style='text-align:left; font-style: italic;'>
+    <div style='background-color:rgb(252, 251, 240); width:320px;'>
+      basedto(campaign).json<br/>
+      {<br/>
+      &emsp; <font color=orange><b>id</b></font>: 'campaign::1',<br/>
+      &emsp; data: {<br/>
+      &emsp;&emsp; offerIds: ['offer::101', 'offer::102']<br/>
+      &emsp; }<br/>
+      }<br/>
+    </div>
+    UNLINK OFFER FROM CAMPAIGN<br/>
+    - fetch campaign by <font color=orange><b>campaignId</b></font>.<br/>
+    - remove <font color=orange><b>offerId</b></font> from data.offerIds if present.<br/>
+    - repository.save(updated).
+  </div>
+  "]:::service
+
+  CREP["CampaignCommandRepository<br> - save(campaign)"]:::repository
+end
+
+OUT_DB_CAMP2[("Couchbase DB<br/>(bucket: campaign)")]:::db
+
+OUT_KAFKA_OC -->|"1: consume"| CSUB
+CSUB        -->|"2: delegate"| CSVC
+CSVC        -->|"3: repository.save"| CREP
+CREP        -->|"4: write to DB"| OUT_DB_CAMP2
+
+
+%% ========= Customer Subscriber (consumes OFFER_CANCELLED, emits CUSTOMER_OFFER_UNASSIGNED) =========
+subgraph CustomerSubscriber
+style CustomerSubscriber fill:#E8F5E9,stroke:#333,stroke-width:1px
+
+  CUSUB["OfferEventSubscriber<br> - onOfferCancelled(event)"]:::controller
+
+  CUSVC["CustomerCommandService<br> - unassignOfferFromCustomer(offerId)
+  <div style='text-align:left; font-style: italic;'>
+    <div style='background-color:rgb(252, 251, 240); width:320px;'>
+      basedto(customer).json<br/>
+      {<br/>
+      &emsp; <font color=orange><b>id</b></font>: 'customer::501',<br/>
+      &emsp; data: {<br/>
+      &emsp;&emsp; enrolledOfferIds: ['offer::101', 'offer::103']<br/>
+      &emsp; }<br/>
+      }<br/>
+    </div>
+    UNASSIGN OFFER FROM CUSTOMERS<br/>
+    - find customers with enrolledOfferIds containing <font color=orange><b>offerId</b></font>.<br/>
+    - remove offerId; repository.save(customer) for each.<br/>
+    - if any changed, publish <b>CUSTOMER_OFFER_UNASSIGNED</b> with key=<font color=orange><b>offerId</b></font>.
+  </div>
+  "]:::service
+
+  CUREP["CustomerCommandRepository<br> - save(customer)"]:::repository
+  CUPUB["CustomerOfferEventPublisher<br> - publishOfferUnassignedEvent(offerId, customerIds)"]:::event
+end
+
+OUT_DB_CUST[("Couchbase DB<br/>(bucket: customer)")]:::db
+
+OUT_KAFKA_COA["📦 topic: CUSTOMER_OFFER_UNASSIGNED
+  <div style='text-align:left; background-color:#fcf3f0; width:360px;'>
+    event(OfferAssignedEvent).json<br/>
+    {<br/>
+    &emsp; <font color=orange><b>offerId</b></font>: 'offer::101',<br/>
+    &emsp; customerIds: ['customer::501','customer::777'],<br/>
+    &emsp; <b>kafkaEventType</b>: 'CUSTOMER_OFFER_UNASSIGNED',<br/>
+    &emsp; occurredAt: '2025-07-15T00:00:00Z'<br/>
+    }<br/>
+  </div>
+"]:::kafka
+
+OUT_KAFKA_OC  -->|"1: consume"| CUSUB
+CUSUB         -->|"2: delegate"| CUSVC
+CUSVC         -->|"3: repository.save (each updated customer)"| CUREP
+CUREP         -->|"4: write to DB"| OUT_DB_CUST
+CUSVC         -->|"5: publish CUSTOMER_OFFER_UNASSIGNED (if any)"| CUPUB
+CUPUB         -->|"6: send to Kafka"| OUT_KAFKA_COA
+
+
+%% ========= Merchant Subscriber (consumes OFFER_CANCELLED) =========
+subgraph MerchantSubscriber
+style MerchantSubscriber fill:#FFF3E0,stroke:#333,stroke-width:1px
+
+  MSUB["OfferEventSubscriber<br> - onOfferCancelled(event)"]:::controller
+
+  MSVC["MerchantCommandService<br> - unlinkOfferFromMerchant(merchantId, offerId)
+  <div style='text-align:left; font-style: italic;'>
+    <div style='background-color:rgb(252, 251, 240); width:320px;'>
+      basedto(merchant).json<br/>
+      {<br/>
+      &emsp; <font color=orange><b>id</b></font>: 'merchant::9',<br/>
+      &emsp; data: {<br/>
+      &emsp;&emsp; activeOffers: ['offer::101','offer::222']<br/>
+      &emsp; }<br/>
+      }<br/>
+    </div>
+    UNLINK OFFER FROM MERCHANT<br/>
+    - fetch merchant by <font color=orange><b>merchantId</b></font>.<br/>
+    - remove <font color=orange><b>offerId</b></font> from data.activeOffers if present.<br/>
+    - repository.save(updated).
+  </div>
+  "]:::service
+
+  MREP["MerchantCommandRepository<br> - save(merchant)"]:::repository
+end
+
+OUT_DB_MERCH[("Couchbase DB<br/>(bucket: merchant)")]:::db
+
+OUT_KAFKA_OC -->|"1: consume"| MSUB
+MSUB         -->|"2: delegate"| MSVC
+MSVC         -->|"3: repository.save"| MREP
+MREP         -->|"4: write to DB"| OUT_DB_MERCH
+
+
+
+%% Styling
+classDef controller fill:#AED581,stroke:#33691E,stroke-width:1px;
+classDef service fill:#FFF3E0,stroke:#F57C00,stroke-width:1px;
+classDef repository fill:#E0F2F1,stroke:#00796B,stroke-width:1px;
+classDef event fill:#F8BBD0,stroke:#AD1457,stroke-width:1px,stroke-dasharray: 5 5;
+classDef subscriber fill:#EDE7F6,stroke:#512DA8,stroke-width:1px;
+classDef external fill:#FFFFFF,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5;
+classDef kafka fill:#fcf3f0,stroke:red,stroke-width:1px,stroke-dasharray: 5 5;
+classDef db fill:#FFFFFF,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5;
+
