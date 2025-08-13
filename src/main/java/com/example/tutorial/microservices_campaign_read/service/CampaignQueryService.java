@@ -2,6 +2,8 @@ package com.example.tutorial.microservices_campaign_read.service;
 
 import com.example.tutorial.common.dto.campaign.Campaign;
 import com.example.tutorial.common.utils.MockDataUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ import java.util.Optional;
 
 @Service
 public class CampaignQueryService {
+
+  private static final Logger log = LoggerFactory.getLogger(CampaignQueryService.class);
 
   @Autowired
   private MockDataUtil mockDataUtil;
@@ -23,15 +27,18 @@ public class CampaignQueryService {
   }
 
   /**
-   * Returns a campaign by its ID.
-   * @param id Campaign ID
-   * @return Optional containing the Campaign if found, otherwise empty
+   * Retrieves a campaign by its unique ID.
    *
-   * NOTE: Optional is used to handle cases where the campaign might not exist.
-   * It helps avoid null checks and makes the code cleaner. The general syntax are:
-   * Optional<Type> optionalVariable = Optional.ofNullable(value) returns an empty Optional if value is null.
-   * Optional<Type> optionalVariable = Optional.of(value) throws a NullPointerException if value is null, so use when you are sure the value is never null;
-   * Optional<Type> optionalVariable = Optional.empty();
+   * @param id the unique identifier of the campaign
+   * @return an {@link Optional} containing the found {@link Campaign}, or {@link Optional#empty()} if not found
+   *
+   * <p>Uses {@code Optional} to avoid null checks and improve code readability.
+   * <ul>
+   *   <li>{@code Optional.ofNullable(value)} returns an empty {@code Optional} if value is null.</li>
+   *   <li>{@code Optional.of(value)} throws {@code NullPointerException} if value is null.</li>
+   *   <li>{@code Optional.empty()} returns an empty {@code Optional}.</li>
+   * </ul>
+   * </p>
    */
   public Optional<Campaign> getCampaignById(Long id) {
     for (Campaign c : mockDataUtil.campaignSupplier.get()) {

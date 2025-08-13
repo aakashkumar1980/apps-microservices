@@ -43,7 +43,7 @@ public class MockDataUtil {
     c1.setStatus(CampaignStatus.valueOf("ACTIVE"));
     c1.setStartDate(LocalDateTime.parse("2024-06-01T00:00:00"));
     c1.setEndDate(LocalDateTime.parse("2024-06-30T00:00:00"));
-    c1.setBudget(50000.0);
+    c1.setBudget(java.math.BigDecimal.valueOf(50000.0));
     campaigns.add(c1);
 
     Campaign c2 = new Campaign();
@@ -53,7 +53,7 @@ public class MockDataUtil {
     c2.setStatus(CampaignStatus.valueOf("PLANNED"));
     c2.setStartDate(LocalDateTime.parse("2024-07-15T00:00:00"));
     c2.setEndDate(LocalDateTime.parse("2024-08-15T00:00:00"));
-    c2.setBudget(30000.0);
+    c2.setBudget(java.math.BigDecimal.valueOf(30000.0));
     campaigns.add(c2);
 
     Campaign c3 = new Campaign();
@@ -63,7 +63,7 @@ public class MockDataUtil {
     c3.setStatus(CampaignStatus.valueOf("PLANNED"));
     c3.setStartDate(LocalDateTime.parse("2024-11-25T00:00:00"));
     c3.setEndDate(LocalDateTime.parse("2024-11-29T00:00:00"));
-    c3.setBudget(120000.0);
+    c3.setBudget(java.math.BigDecimal.valueOf(120000.0));
     campaigns.add(c3);
 
     Campaign c4 = new Campaign();
@@ -73,7 +73,7 @@ public class MockDataUtil {
     c4.setStatus(CampaignStatus.valueOf("ACTIVE"));
     c4.setStartDate(LocalDateTime.parse("2024-12-01T00:00:00"));
     c4.setEndDate(LocalDateTime.parse("2024-12-31T00:00:00"));
-    c4.setBudget(80000.0);
+    c4.setBudget(java.math.BigDecimal.valueOf(80000.0));
     campaigns.add(c4);
 
     Campaign c5 = new Campaign();
@@ -83,7 +83,7 @@ public class MockDataUtil {
     c5.setStatus(CampaignStatus.valueOf("DRAFT"));
     c5.setStartDate(LocalDateTime.parse("2025-01-01T00:00:00"));
     c5.setEndDate(LocalDateTime.parse("2025-01-10T00:00:00"));
-    c5.setBudget(25000.0);
+    c5.setBudget(java.math.BigDecimal.valueOf(25000.0));
     campaigns.add(c5);
 
     Campaign c6 = new Campaign();
@@ -93,7 +93,7 @@ public class MockDataUtil {
     c6.setStatus(CampaignStatus.valueOf("ACTIVE"));
     c6.setStartDate(LocalDateTime.parse("2024-03-10T00:00:00"));
     c6.setEndDate(LocalDateTime.parse("2024-04-10T00:00:00"));
-    c6.setBudget(40000.0);
+    c6.setBudget(java.math.BigDecimal.valueOf(40000.0));
     campaigns.add(c6);
 
     Campaign c7 = new Campaign();
@@ -103,7 +103,7 @@ public class MockDataUtil {
     c7.setStatus(CampaignStatus.valueOf("COMPLETED"));
     c7.setStartDate(LocalDateTime.parse("2024-05-01T00:00:00"));
     c7.setEndDate(LocalDateTime.parse("2024-05-07T00:00:00"));
-    c7.setBudget(60000.0);
+    c7.setBudget(java.math.BigDecimal.valueOf(60000.0));
     campaigns.add(c7);
 
     Campaign c8 = new Campaign();
@@ -113,7 +113,7 @@ public class MockDataUtil {
     c8.setStatus(CampaignStatus.valueOf("ACTIVE"));
     c8.setStartDate(LocalDateTime.parse("2024-09-01T00:00:00"));
     c8.setEndDate(LocalDateTime.parse("2024-09-30T00:00:00"));
-    c8.setBudget(35000.0);
+    c8.setBudget(java.math.BigDecimal.valueOf(35000.0));
     campaigns.add(c8);
 
     Campaign c9 = new Campaign();
@@ -123,7 +123,7 @@ public class MockDataUtil {
     c9.setStatus(CampaignStatus.valueOf("PLANNED"));
     c9.setStartDate(LocalDateTime.parse("2024-10-01T00:00:00"));
     c9.setEndDate(LocalDateTime.parse("2024-10-31T00:00:00"));
-    c9.setBudget(70000.0);
+    c9.setBudget(java.math.BigDecimal.valueOf(70000.0));
     campaigns.add(c9);
 
     Campaign c10 = new Campaign();
@@ -133,7 +133,7 @@ public class MockDataUtil {
     c10.setStatus(CampaignStatus.valueOf("INACTIVE"));
     c10.setStartDate(LocalDateTime.parse("2024-08-01T00:00:00"));
     c10.setEndDate(LocalDateTime.parse("2024-08-15T00:00:00"));
-    c10.setBudget(20000.0);
+    c10.setBudget(java.math.BigDecimal.valueOf(20000.0));
     campaigns.add(c10);
 
     return campaigns;
