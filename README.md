@@ -44,7 +44,7 @@ Gradle is a tool that helps you build, test, and package your code. Think of it 
   ```
 ---
 
-## What are Plugins?
+### What are Plugins?
 
 Plugins are like apps for Gradle. They add features. For example:
 - The **Spring Boot plugin** helps package your app so it can run easily.
