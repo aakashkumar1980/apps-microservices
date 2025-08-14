@@ -15,8 +15,8 @@
   }
   
   # Example of creating objects without Spring DI
-  ClassA aObject = new ClassA(); 
-  ClassB bObject = new ClassB(aObject);
+  Campaign campaign = new Campaign(); 
+  Offer offer = new Offer(campaign);
   ```
 
 ### Spring Framework DI (Dependency Injection) and IOC (Inversion of Control)
@@ -38,13 +38,36 @@
   }
   
   # Example of creating objects with Spring DI
-  ClassA aObject = applicationContext.getBean(ClassA.class); 
-  ClassB bObject = applicationContext.getBean(ClassB.class);
+  Campaign campaign = applicationContext.getBean(Campaign.class); 
+  Offer offer = applicationContext.getBean(Offer.class);
   ```
 NOTE: 
 - IOC is a design principle where the control of object creation and management is inverted from the application code to a framework (like Spring). This allows for better separation of concerns, easier testing, and more flexible code.
 - Dependency Injection (DI) is a specific implementation of IOC where dependencies are provided to a class rather than the class creating them itself. In Spring, this is typically done using annotations like `@Autowired`.
-
+- Scopes in Spring define the lifecycle of beans. Common scopes include:
+  - `singleton`: One instance per Spring container (default).<br>
+    ```java
+    Campaign campaign = applicationContext.getBean(Campaign.class); 
+    # here, the same instance of Campaign is returned every time.
+    ```
+  - `prototype`: A new instance every time requested.<br/>
+    for this scope, you can use `@Scope("prototype")` annotation e.g.
+      ```java
+      @Component
+      @Scope("prototype")
+      public class Campaign {
+          public Campaign() {
+          }
+      }
+    
+      Campaign campaign1 = applicationContext.getBean(Campaign.class);
+      Campaign campaign2 = applicationContext.getBean(Campaign.class);
+      ...
+      # here, each call to getBean() returns a new instance of Campaign.
+      ```
+    - `request`: One instance per HTTP request (for web applications).
+    - `session`: One instance per HTTP session (for web applications).
+    - `application`: One instance per ServletContext (for web applications).
 
 
 
