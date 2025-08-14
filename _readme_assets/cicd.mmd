@@ -1,0 +1,57 @@
+flowchart LR
+  subgraph GH["GitHub Actions (Orchestrator)"]
+    JNTRG["2: Invoke Jenkins Build Job:::action"]
+    GA["1: Start E1 Deploy:::action"]
+    ROLL["13: Rollout Status &amp; Health Checks\n<small>oc rollout status, probes</small>:::deploy"]
+    PUSH2OCP["12: Deploy Image to OpenShift\n<small>oc login/apply, kustomize/Helm</small>:::deploy"]
+  end
+  subgraph JENKINS["Jenkins (Build Stage)"]
+    BLD["4: Build & Unit Tests:::build"]
+    CHK["3: Checkout Code from GitHub:::ci"]
+    RES["5: Resolve Dependencies via Artifactory:::repo"]
+    SONAR["6: Code Quality & Security Gate:::scan"]
+    SEC["7: Additional Security Scans:::scan"]
+    PUBJAR["8: Publish JAR to Artifactory (Maven repo):::repo"]
+    MVN[("Maven Repository")]
+  end
+  subgraph DOCKER["Docker"]
+    ISCAN["10: Image Scan:::scan"]
+    IMG["9: Build Docker Image from JAR:::build"]
+    PUSHIMG["11: Push Image to Docker Registry:::repo"]
+  end
+  subgraph ARTIFACTORY["Artifactory/MavenCentral"]
+    AF_MVN[["Maven Repository:::repo"]]
+    AF_DKR[["Docker Registry:::repo"]]
+  end
+  subgraph OPENSHIFT["OpenShift"]
+    OCP_NS[("Target Project/Namespace:::deploy")]
+  end
+  GA --> JNTRG & JNTRG
+  PUSH2OCP --> ROLL & ROLL
+  CHK --> BLD
+  BLD --> RES & SONAR & SEC & PUBJAR
+  RES -.-> MVN & AF_MVN
+  IMG --> ISCAN
+  JNTRG --> CHK
+  PUBJAR --> IMG
+  ISCAN --> PUSHIMG
+  PUSHIMG --> PUSH2OCP
+  ROLL --> OCP_NS
+  PUBJAR -.-> AF_MVN
+  PUSHIMG -.-> AF_DKR
+
+  MVN:::repo
+  classDef action fill:#b9fbc0,stroke:#0f5132,stroke-width:1px,color:#000
+  classDef ci fill:#a3c4f3,stroke:#055160,stroke-width:1px,color:#000
+  classDef build fill:#ffdd94,stroke:#664d03,stroke-width:1px,color:#000
+  classDef repo fill:#fbb1bd,stroke:#842029,stroke-width:1px,color:#000
+  classDef scan fill:#d3d3d3,stroke:#41464b,stroke-width:1px,color:#000
+  classDef deploy fill:#9bf6ff,stroke:#084298,stroke-width:1px,color:#000
+  style PUSHIMG fill:#00C853
+  style GH fill:#BBDEFB
+  style JENKINS fill:#FFF9C4
+  style DOCKER fill:#C8E6C9
+  style OPENSHIFT fill:#FFCDD2
+  style ARTIFACTORY fill:#FFCDD2
+
+

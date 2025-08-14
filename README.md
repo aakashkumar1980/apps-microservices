@@ -155,4 +155,6 @@ The structure  of the tomcat server is as follows:
   $ java -jar example_spring_boot.jar
   ```
 
+## CICD Complete  Process
+![](_readme_assets/cicd.png)
 ---
