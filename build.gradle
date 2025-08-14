@@ -79,15 +79,9 @@ dependencies {
    * Commons IO — file handling utilities.
    */
   implementation "commons-io:commons-io:${ioUtilsVersion}"
+
   
-  
-  
-  
-  
-  
-  
-  
-    /** TESTING **/
+  /** TESTING **/
   /**
    * Spring Boot starter for testing (JUnit, Mockito, etc.).
    */
@@ -102,7 +96,7 @@ tasks.named('bootJar', org.springframework.boot.gradle.tasks.bundling.BootJar) {
    * Specify the main class for the bootJar task.
    * Replace with your actual entry-point class.
    */
-  mainClass.set('com.example.tutorial.Application')
+  mainClass.set('com.example.tutorial.SpringbootStartupApi')
 }
 
 /** TESTING **/
