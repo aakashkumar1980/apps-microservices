@@ -55,7 +55,7 @@ Plugins are like apps for Gradle. They add features. For example:
   It is a third party server that is integrated in the CI/CD pipeline to ensure code quality before deployment.
   The server connection is configured in the Jenkins portal by the DevOps team, and developers can run the analysis locally using the SonarQube Gradle plugin. 
   Below is the link about the SonarQube server and its usage:
-> ![](https://www.tatvasoft.com/blog/wp-content/uploads/2020/10/How-to-Integrate-SonarQube-with-Jenkins-1.jpg)
+  ![](https://www.tatvasoft.com/blog/wp-content/uploads/2020/10/How-to-Integrate-SonarQube-with-Jenkins-1.jpg)
 
 ---
 
