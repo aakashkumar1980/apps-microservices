@@ -1,5 +1,54 @@
-# Spring Boot REST API Microservice Tutorial
+# Spring Framework DI (Dependency Injection) and IOC (Inversion of Control).
 
+### Normal Java Code
+  ```java
+  public class Campaign {
+      public Campaign() {
+      }
+  }
+  
+  public class Offer {
+      public Campaign campaign;
+      public Offer(public Campaign campaign) {
+          this.campaign = campaign;
+      }
+  }
+  
+  # Example of creating objects without Spring DI
+  ClassA aObject = new ClassA(); 
+  ClassB bObject = new ClassB(aObject);
+  ```
+
+### Spring Framework DI (Dependency Injection) and IOC (Inversion of Control)
+  ```java
+  @Component
+  public class Campaign {
+      public Campaign() {
+      }
+  }
+  
+  @Component
+  public class Offer {
+      private final Campaign campaign;
+      
+      @Autowired // Spring will inject the Campaign bean here
+      public Offer(Campaign campaign) {
+          this.campaign = campaign;
+      }
+  }
+  
+  # Example of creating objects with Spring DI
+  ClassA aObject = applicationContext.getBean(ClassA.class); 
+  ClassB bObject = applicationContext.getBean(ClassB.class);
+  ```
+NOTE: 
+- IOC is a design principle where the control of object creation and management is inverted from the application code to a framework (like Spring). This allows for better separation of concerns, easier testing, and more flexible code.
+- Dependency Injection (DI) is a specific implementation of IOC where dependencies are provided to a class rather than the class creating them itself. In Spring, this is typically done using annotations like `@Autowired`.
+
+
+
+
+# Spring Boot REST API Microservice Tutorial
 This project demonstrates how to build a REST API microservice from scratch using Spring Boot. The API manages campaigns and follows a layered architecture with clear separation of concerns.
 
 ## Steps to Create the REST API
