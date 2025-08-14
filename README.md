@@ -67,27 +67,57 @@ Plugins are like apps for Gradle. They add features. For example:
 4. **Package**: Bundles everything into a jar file <i>(jar is a kind of compressed zip file)</i>.
 5. **Run/Deploy**: Starts your application.
 
-Gradle and Maven follow these steps automatically when you run commands like `gradle build` or `mvn package`.
-
-```bash
-# Clean and build the project
-./gradlew clean build
-```
+  Gradle and Maven follow these steps automatically when you run commands like `gradle build` or `mvn package`.
+  ```bash
+  # Clean and build the project
+  ./gradlew clean build
+  ```
 
 ### How is a Spring Boot Jar Assembled?
 
 - Gradle uses the **bootJar** task to create a special jar file.
 - The jar includes your code, libraries, and a manifest file.
-- The **main class** (entry point) is set in the Gradle file (`com.example.tutorial.Application`).
+- The **main class** (entry point) is set in the Gradle file (`com.example.tutorial.SpringbootStartupApi`).
 - When you run the jar, Java looks for this main class and starts your app from there.
-
-> **Example: Main Class Declaration**
-```kotlin
-springBoot {
-    mainClass.set("com.example.tutorial.Application")
-}
-```
-*// This tells Spring Boot which class to run first.*
+  ```kotlin
+  tasks.named('bootJar', org.springframework.boot.gradle.tasks.bundling.BootJar) {
+    mainClass.set('com.example.tutorial.SpringbootStartupApi')
+  }
+  ```
+  
+  This is the typical structure of the the spring boot jar file.
+  ```plaintext
+  example_spring_boot.jar
+  ├── META-INF/
+  │   └── MANIFEST.MF
+  |         # This is the entry point for the application i.e. it launches the jar file.
+  |         Main-Class: org.springframework.boot.loader.launch.JarLauncher
+  |         # This is the main class of the spring boot application.
+  |         Start-Class: com.example.tutorial.SpringbootStartupApi
+  |         Spring-Boot-Classes: BOOT-INF/classes/
+  |         Spring-Boot-Lib: BOOT-INF/lib/
+  ├── org/
+  │   └── springframework/
+  │       └── boot/
+  │           └── loader/ (Spring Boot's loader classes)
+  │               └── ... (Actual launcher classes: JarLauncher, WarLauncher, etc.)
+  |
+  |
+  |   ##### MAIN APPLICATION CODE ###
+  └── BOOT-INF/
+  |   └── classes/ (Your compiled application classes and resources)
+  │       └── com/
+  │           └── example/
+  │               └── tutorial/
+  │                   └── SpringbootStartupApi.class
+  |                   application.properties
+  |                   ...
+  └── lib/ (All your application's dependency JARs)
+      ├── spring-boot-3.5.0.jar
+      ├── spring-core-6.2.7.jar
+      ├── commons-lang3-2.19.0.jar
+      └── ...
+  ```
 
 ---
 
