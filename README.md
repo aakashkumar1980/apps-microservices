@@ -155,6 +155,9 @@ The structure  of the tomcat server is as follows:
   $ java -jar example_spring_boot.jar
   ```
 
-## CICD Complete  Process
+## CICD Complete Process
 ![](_readme_assets/cicd.png)
+
+### Bare Metal Servers VS Virtual Machines (like VMware, VirtualBox) VS Containers (like Docker)
+![](_readme_assets/containers.png)
 ---
