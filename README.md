@@ -62,23 +62,19 @@ Plugins are like apps for Gradle. They add features. For example:
 ## Build Lifecycle (How Gradle/Maven Build Projects)
 
 1. **Clean**: Removes old build files.
-2. **Compile**: Turns your source code into bytecode.
+2. **Compile**: Turns your source code into bytecode <i>(i.e *.java -> *.class)</i>.
 3. **Test**: Runs your unit tests.
-4. **Package**: Bundles everything into a jar file.
+4. **Package**: Bundles everything into a jar file <i>(jar is a kind of compressed zip file)</i>.
 5. **Run/Deploy**: Starts your application.
 
 Gradle and Maven follow these steps automatically when you run commands like `gradle build` or `mvn package`.
 
-> **Example: Build Commands**
 ```bash
 # Clean and build the project
 ./gradlew clean build
 ```
-*// This command cleans old files and builds your project.*
 
----
-
-## How is a Spring Boot Jar Assembled?
+### How is a Spring Boot Jar Assembled?
 
 - Gradle uses the **bootJar** task to create a special jar file.
 - The jar includes your code, libraries, and a manifest file.
