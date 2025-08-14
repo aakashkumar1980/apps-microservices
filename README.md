@@ -1,4 +1,4 @@
-# GRADLE
+# BUILD
 
 ## What is Gradle?
 
@@ -120,66 +120,39 @@ Plugins are like apps for Gradle. They add features. For example:
   ```
 
 ---
+<br/>
 
-## How Does Tomcat Start the Application?
+# DEPLOYMENT
 
-- **Tomcat** is a web server that runs Java web apps.
-- Spring Boot includes an embedded Tomcat server inside the jar.
-- When you run the jar (`java -jar yourapp.jar`), Tomcat starts automatically.
-- Tomcat looks for the main class, which starts Spring Boot, and sets up your REST API endpoints.
+## What is a Tomcat Server?
 
-![Tomcat Architecture](https://upload.wikimedia.org/wikipedia/commons/4/4e/Apache_Tomcat_logo.svg)
-
-> **Example: Spring Boot Main Class**
-```java
-@SpringBootApplication
-public class Application {
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args); // Starts Tomcat and your app
-    }
-}
-```
-*// This is the entry point for your Spring Boot app.*
-
----
-
-## What is Tomcat Server?
-
-Tomcat is like a waiter in a restaurant. It listens for requests (like "give me data!") and passes them to your app. It then returns the response to whoever asked.
-
----
-
-## How to Deploy a Spring Boot Jar
-
-1. Build your jar file using Gradle (`gradle bootJar`).
-2. Copy the jar to your server.
-3. Run it with: `java -jar yourapp.jar`
-4. Tomcat starts, and your API is live!
-
-> **Example: Running the Jar**
-```bash
-java -jar build/libs/yourapp.jar
-```
-*// This starts your Spring Boot application.*
+Tomcat is a web server that runs Java applications. It listens for HTTP requests and serves responses. Tomcat is often used to run Spring Boot applications, especially when they are packaged as executable jar files.
+- In the standard web application mode, tomcat is used to deploy web applications in the form of WAR files only.
+The structure  of the tomcat server is as follows:
+  ```plaintext
+  tomcat/
+  ├── bin/ (Scripts to start/stop Tomcat)
+  |    # starts the Tomcat server
+  |    startup.sh
+  |    # stops the Tomcat server
+  |    stop.sh
+  |    ...
+  ├── conf/ (Configuration files)
+  ├── lib/ (Libraries used by Tomcat)
+  ├── logs/ (Log files)
+  ├── webapps/ (Deployed web applications)
+  |    # your web applications in WAR format which is again a form of zip compressed file but heavy.
+  |    example_webapp1.war
+  |    example_webapp2.war
+  |    ...
+  ├── work/ (Temporary files created by Tomcat)
+  └── temp/ (Temporary files used by Tomcat)
+  ```
+- In the case of Spring Boot, this tomcat server is <u>embedded</u> inside the jar file, so you don't need to install it separately. When you run your Spring Boot application, it starts its own Tomcat server.
+  No need to deploy a separate WAR file; just run the jar file, and Tomcat is ready to serve your application.
+  ```shell
+  # To run your Spring Boot application with embedded Tomcat
+  $ java -jar example_spring_boot.jar
+  ```
 
 ---
-
-## Real-World Example
-
-Imagine you built a REST API for a library. You write code, Gradle packages it, and you run the jar. Tomcat starts, and people can ask your API for book info!
-
-> **Example: Simple REST Controller**
-```java
-@RestController
-public class BookController {
-    @GetMapping("/books/{id}")
-    public Book getBook(@PathVariable Long id) {
-        // ...fetch book from database...
-        return new Book(id, "Spring in Action");
-    }
-}
-```
-*// This endpoint returns book info for a given ID.*
-
----
-
