@@ -5,17 +5,145 @@ This project demonstrates how to build a REST API microservice from scratch usin
 ## Steps to Create the REST API
 
 1. **Initialize the Spring Boot Project**
-   - Use [Spring Initializr](https://start.spring.io/) or your IDE to create a new Spring Boot project.
+   - Create gradle files and setup base project structure like 
+     - <project_folder>/src/main/java
+     - <project_folder>/src/main/resources
+     <br/><br/>
+     - <project_folder>/src/test/java
+     - <project_folder>/src/test/resources
+     <br/><br/>
+     - <project_folder>/build.gradle
+     - <project_folder>/gradle.properties
+     - <project_folder>/settings.gradle
    - Add dependencies for `spring-boot-starter-web` and any utilities (e.g., Apache Commons).
+---
 
 2. **Define the Data Model**
    - Create DTO classes (e.g., `Campaign`) to represent your domain objects.
+   - Example:
+     ```java
+     public class Campaign {
+       private Long id;
+       private String name;
+       // ...other fields...
+       // getters and setters
+     }
+     ```
 
 3. **Implement the Service Layer**
    - Write service classes for business logic (e.g., `CampaignCommandService`, `CampaignQueryService`).
+   - **Annotation Explanations:**
+   - `@Service`: Marks the class as a Spring service component.
+     ```java
+     @Service // Marks this class as a Spring service component
+     public class CampaignCommandService {
+       public Long createCampaign(Campaign campaign) {
+         // Add campaign to mock list and return ID
+         return campaign.getId();
+       }
+     }
+     ```
 
 4. **Create Controller Classes**
-   - Implement REST controllers for handling HTTP requests (e.g., `CampaignCommandController`, `CampaignQueryController`).
+   - The API uses two controllers to separate read and write operations:
+     - **CampaignCommandController**: Handles write operations (Create, Update, Delete).
+     - **CampaignQueryController**: Handles read operations (Retrieve/List).
+
+   - **Annotation Explanations:**
+     - `@RestController`: Marks the class as a REST controller, combining `@Controller` and `@ResponseBody` for JSON responses.
+     - `@RequestMapping`: Sets the base URL for all endpoints in the controller.<br/><br/>
+     
+     - `@Autowired`: Injects the required service bean.<br/><br/>
+     
+     - `@PostMapping`, `@PutMapping`, `@DeleteMapping`, `@GetMapping`: Map HTTP methods to handler methods.
+     - `@RequestBody`: Binds the HTTP request body to a method parameter (used for JSON payloads).
+     - `@PathVariable`: Binds a URI template variable to a method parameter.<br/><br/>
+     
+   - **Write Operations (Create, Update, Delete):**
+     ```java
+     /**
+      * REST controller for campaign write operations (create, update, delete).
+      * Demonstrates use of @RestController, @RequestMapping, @Autowired, @RequestBody, @PathVariable.
+      */
+     @RestController
+     @RequestMapping("/api/campaigns")
+     public class CampaignCommandController {
+
+       @Autowired
+       private CampaignCommandService campaignCommandService;
+
+       /**
+        * Creates a new campaign.
+        * @param campaign Campaign data from request body. (@RequestBody binds JSON to Campaign)
+        * @return Success message with created campaign ID.
+        */
+       @PostMapping
+       public ResponseEntity<String> createCampaign(@RequestBody Campaign campaign) {
+         Long id = campaignCommandService.createCampaign(campaign);
+         return ResponseEntity.ok("Created with ID: " + id);
+       }
+
+       /**
+        * Updates an existing campaign.
+        * @param id Campaign ID from path. (@PathVariable binds URI variable to id)
+        * @param campaign Updated campaign data. (@RequestBody binds JSON to Campaign)
+        * @return Success message.
+        */
+       @PutMapping("/{id}")
+       public ResponseEntity<String> updateCampaign(@PathVariable Long id, @RequestBody Campaign campaign) {
+         campaignCommandService.updateCampaign(id, campaign);
+         return ResponseEntity.ok("Campaign updated successfully");
+       }
+
+       /**
+        * Deletes a campaign by ID.
+        * @param id Campaign ID from path. (@PathVariable binds URI variable to id)
+        * @return Success message.
+        */
+       @DeleteMapping("/{id}")
+       public ResponseEntity<String> deleteCampaign(@PathVariable Long id) {
+         campaignCommandService.deleteCampaign(id);
+         return ResponseEntity.ok("Campaign deleted successfully");
+       }
+     }
+     ```
+
+   - **Read Operations (Retrieve/List):**
+     ```java
+     /**
+      * REST controller for campaign read operations (retrieve/list).
+      * Demonstrates use of @RestController, @RequestMapping, @Autowired, @PathVariable.
+      */
+     @RestController
+     @RequestMapping("/api/campaigns")
+     public class CampaignQueryController {
+
+       @Autowired
+       private CampaignQueryService campaignQueryService;
+
+       /**
+        * Retrieves all campaigns.
+        * @return List of all campaigns.
+        */
+       @GetMapping
+       public ResponseEntity<List<Campaign>> getAllCampaigns() {
+         List<Campaign> allCampaigns = campaignQueryService.getAllCampaigns();
+         return ResponseEntity.ok(allCampaigns);
+       }
+
+       /**
+        * Retrieves a campaign by its ID.
+        * @param id Campaign ID from path. (@PathVariable binds URI variable to id)
+        * @return Campaign data or 404 if not found.
+        */
+       @GetMapping("/{id}")
+       public ResponseEntity<Campaign> getCampaignById(@PathVariable Long id) {
+         Optional<Campaign> campaignOptional = campaignQueryService.getCampaignById(id);
+         return campaignOptional.map(ResponseEntity::ok)
+                                .orElseGet(() -> ResponseEntity.notFound().build());
+       }
+     }
+     ```
 
 5. **Configure Persistence (Mock or Real DB)**
    - For demonstration, use mock data utilities. For production, integrate with a database (e.g., Couchbase).
@@ -23,138 +151,17 @@ This project demonstrates how to build a REST API microservice from scratch usin
 6. **Test the API**
    - Use tools like Postman or curl to test endpoints for creating, updating, retrieving, and deleting campaigns.
 
-7. **(Optional) Add Event Publishing and Kafka Integration**
-   - Extend the architecture to publish events and handle asynchronous flows.
-
-## Architecture & Flow
-
-Below is a mermaid diagram illustrating the microservice flow for both publisher and subscriber patterns:
-
-```mermaid
-%%{ init: { "flowchart": { "htmlLabels": true, "wrappingWidth": 500 } } }%%
-flowchart TD
-
-%% %%%%%%%%%%%%%%%%%%%%% %%
-%% MicroservicePublisher %%
-%% %%%%%%%%%%%%%%%%%%%%% %%
-POSTMAN["POST /$uri
-  <div style='text-align: left'>
-    {
-    }
-  </div>
-"]:::external
-
-subgraph $MicroservicePublisher
-style $MicroservicePublisher fill:#FFF9C4,stroke:#333,stroke-width:1px
-  MPCC["$CommandController<br> - $controllerFunction()"]:::controller
-  MPCS["$CommandService<br> - $serviceFunction()"]:::service
-
-  MPBS["$BusinessService<br> - $serviceFunction()
-    <div style='text-align:left; font-style: italic;'>
-      <div style='background-color:rgb(252, 251, 240); width:300px;'>
-        basedto($model).json
-        {
-          #emsp; ...,
-          #emsp; data: {
-          #emsp; }
-        }<br>
-      </div>
-      $SUMMARY
-      - $details
-    </div>
-  "]:::service
-
-  MPCR["$CommandRepository<br> - $repositoryFunction()"]:::repository
-  MPEP["$EventPublisher<br> - $publisherEventFunction()"]:::event
-end
-
-KAFKA[["kafka topic: $TOPIC
-  <div style='text-align:left; background-color:#fcf3f0; width:180px;'>
-    event($event).json
-    {
-      #emsp; <font color=red><b>id</b>:''</font>,
-      #emsp; ...
-    }
-  </div>
-"]]:::kafka
-
-CHBMP[("Couchbase DB<br>(bucket: $MicroservicePublisher)")]:::db
-
-%% Flow Steps (Main Command Flow)
-POSTMAN -->|1: forward json body | MPCC
-MPCC -->|2: delegate to service| MPCS
-MPCS -->|3: call business function| MPBS
-MPCS -->|6: save data model| MPCR
-MPCR -->|7: write to DB| CHBMP
-MPCS -->|8: publish event| MPEP
-MPEP -->|9: send to kafka topic| KAFKA
-
-
-%% %%%%%%%%%%%%%%%%%%%%%%% %%
-%% MicroserviceSubscriberX %%
-%% %%%%%%%%%%%%%%%%%%%%%%% %%
-subgraph $MicroserviceSubscriberX
-style $MicroserviceSubscriberX fill:#F1F8E9,stroke:#689F38,stroke-width:1px
-  MSES["$EventSubscriber<br> - $subscriberEventFunction()"]:::subscriber
-
-  MSCS["$CommandService<br> - $serviceFunction()
-    <div style='text-align:left; font-style: italic;'>
-      <div style='background-color:rgb(252, 251, 240); width:300px;'>
-        basedto($model).json
-        {
-          #emsp; ...,
-          #emsp; data: {
-          #emsp; }
-        }<br>
-      </div>
-      $SUMMARY
-      - $details
-    </div>
-  "]:::service
-end
-
-CHBMSX[("Couchbase DB<br>(bucket: $MicroserviceSubscriberX)")]:::db
-
-%% Flow Steps (SubscribersX Flow)
-KAFKA --> MSES
-MSES -->|1: cache event| MSCS
-MSCS -->|2: update data model| CHBMSX
-
-
-
-%% $$$$$$$ $$
-%% Styling %%
-%% $$$$$$$ $$
-classDef controller fill:#AED581,stroke:#33691E,stroke-width:1px;
-classDef service fill:#FFF3E0,stroke:#F57C00,stroke-width:1px;
-classDef repository fill:#E0F2F1,stroke:#00796B,stroke-width:1px;
-classDef event fill:#F8BBD0,stroke:#AD1457,stroke-width:1px,stroke-dasharray: 5 5;
-classDef subscriber fill:#EDE7F6,stroke:#512DA8,stroke-width:1px;
-classDef external fill:#FFFFFF,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5;
-classDef kafka fill:#fcf3f0,stroke:red,stroke-width:1px,stroke-dasharray: 5 5;
-classDef db fill:#FFFFFF,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5;
-```
-
 ## Example Endpoints
-
 - `POST /api/campaigns` — Create a campaign
-- `GET /api/campaigns` — List all campaigns
+- `GET /api/campaigns` �� List all campaigns
 - `GET /api/campaigns/{id}` — Get campaign by ID
 - `PUT /api/campaigns/{id}` — Update campaign
 - `DELETE /api/campaigns/{id}` — Delete campaign
 
 ## How to Run
-
 1. Build the project:  
    `./gradlew build`
 2. Start the application:  
    `./gradlew bootRun`
 3. Test endpoints using Postman or curl.
-
-## Next Steps
-
-- Integrate with a real database (e.g., Couchbase, PostgreSQL).
-- Add event publishing and Kafka integration for distributed microservices.
-- Implement authentication and authorization.
-
 
