@@ -132,12 +132,7 @@ This project demonstrates how to build a REST API microservice from scratch usin
      `@Service`: Marks the class as a Spring service component. Same as <i>@Component</i>, but specifically indicates that the class provides business logic.
      ```java
      @Service
-     public class CampaignCommandService {
-       public Long createCampaign(Campaign campaign) {
-         ...
-         return campaign.getId();
-       }
-     }
+     public class CampaignCommandService {}
      ```
 
 4. **Create Controller Classes**
