@@ -38,6 +38,7 @@ public class CampaignCommandController {
 
     /**
      * Update an existing campaign. This endpoint is used to update an existing campaign.
+     * TODO: Add validation to ensure the campaign exists before updating.
      *
      * @param id the ID of the campaign to be updated
      * @param campaign the updated campaign data
@@ -53,6 +54,7 @@ public class CampaignCommandController {
 
     /**
      * Delete a campaign by ID. This endpoint is used to delete a campaign.
+     * TODO: Add validation to ensure the campaign exists before deleting.
      *
      * @param id the ID of the campaign to be deleted
      * @return ResponseEntity with HTTP status 204 (No Content) if successful

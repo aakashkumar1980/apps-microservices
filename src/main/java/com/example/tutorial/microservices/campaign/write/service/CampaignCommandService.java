@@ -2,6 +2,8 @@ package com.example.tutorial.microservices.campaign.write.service;
 
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.utils.MockDataUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.Optional;
 @Service
 public class CampaignCommandService {
 
+  private static final Logger log = LoggerFactory.getLogger(CampaignCommandService.class);
   @Autowired
   private MockDataUtil mockDataUtil;
 
@@ -27,6 +30,7 @@ public class CampaignCommandService {
       // generate a random ID for mock data
       if (campaign.getId() == null) {
         campaign.setId((long) (Math.random() * 1000));
+        mockDataUtil.addCampaign(campaign);
       }
       return Optional.of(campaign);
     }
@@ -52,9 +56,12 @@ public class CampaignCommandService {
       exCampaign.setStartDate(campaign.getStartDate());
       exCampaign.setEndDate(campaign.getEndDate());
       exCampaign.setBudget(campaign.getBudget());
-    }
+      return existingCampaign;
 
-    return existingCampaign;
+    } else {
+      log.warn("Campaign with ID {} not found for update", id);
+      return Optional.empty();
+    }
   }
 
   private Optional<Campaign> getCampaignById(
@@ -64,7 +71,6 @@ public class CampaignCommandService {
             return Optional.of(c);
         }
     }
-
     return Optional.empty();
   }
 
@@ -83,5 +89,6 @@ public class CampaignCommandService {
         return;
       }
     }
+    log.warn("Campaign with ID {} not found for deletion", id);
   }
 }

@@ -154,6 +154,7 @@ This project demonstrates how to build a REST API microservice from scratch usin
 
      method-level annotations:
      - `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping` : Map HTTP methods to handler methods.
+        > NOTE: "Idempotent" HTTP methods like GET, PUT, and DELETE should not change the state of the entity, while POST is used for creating new resources.
      - `ResponseEntity` : Represents the HTTP response, allowing you to set status codes and headers. e.g.:
        - (Read) GET > `ResponseEntity.ok(campaign)` returns a 200 OK response with the body serialized to JSON.
        - (Read) GET by id > `ResponseEntity.notFound().build()` <br/><br/>

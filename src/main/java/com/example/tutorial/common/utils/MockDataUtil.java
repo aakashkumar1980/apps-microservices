@@ -12,6 +12,17 @@ import java.util.function.Supplier;
 @Component
 public class MockDataUtil {
 
+  public static List<Campaign> campaigns = new ArrayList<>();
+
+  /**
+   * Adds a campaign to the mock data list.
+   *
+   * @param campaign the Campaign object to be added
+   */
+  public void addCampaign(Campaign campaign) {
+    campaigns.add(campaign);
+  }
+
   /**
    * Generates a list of mock Campaign objects for testing purposes.
    * * @return A Supplier that provides a list of Campaign objects.
@@ -34,8 +45,11 @@ public class MockDataUtil {
    * };
    */
   public Supplier<List<Campaign>> campaignSupplier = () -> {
-    List<Campaign> campaigns = new ArrayList<>();
+    if(!campaigns.isEmpty()) {
+      return campaigns; // return existing campaigns if already populated
+    }
 
+    // create and populate the list of Campaign objects
     Campaign c1 = new Campaign();
     c1.setId(1L);
     c1.setName("Summer Sale 2024");
