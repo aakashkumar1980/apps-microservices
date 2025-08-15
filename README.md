@@ -154,9 +154,10 @@ This project demonstrates how to build a REST API microservice from scratch usin
      method-level annotations:
      - `@PostMapping`, `@PutMapping`, `@DeleteMapping`, `@GetMapping`: Map HTTP methods to handler methods. <br/><br/>
      
-     argument-level annotations:
+     argument-level annotations (REST API inputs):
      - `@RequestBody`: Binds the HTTP request body to a method parameter (used for JSON payloads).
-     - `@PathVariable`: Binds a URI template variable to a method parameter.<br/><br/>
+     - `@PathVariable`: Binds a URI template variable to a method parameter. (e.g. `/api/campaigns/{id}` where `{id}` is a path variable).
+     - `@RequestParam`: Binds a query parameter to a method parameter (e.g. `/api/campaigns?status=active` where `status` is a query parameter).<br/><br/>
      
    - **Write Operations (Create, Update, Delete):**
      ```java
