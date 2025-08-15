@@ -160,7 +160,7 @@ The structure  of the tomcat server is as follows:
   ```
   <br/>
 
-## CICD Complete Process
+## CI/CD Complete Process
 ![](_readme_assets/cicd.png)
 
 ### Bare Metal Servers VS Virtual Machines (like VMware, VirtualBox) VS Containers (like Docker)
