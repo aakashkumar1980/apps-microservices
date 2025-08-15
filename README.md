@@ -109,7 +109,7 @@ This project demonstrates how to build a REST API microservice from scratch usin
      - <project_folder>/build.gradle
      - <project_folder>/gradle.properties
      - <project_folder>/settings.gradle
-   - Add dependencies for `spring-boot-starter-web` and any utilities (e.g., Apache Commons).
+   - Add dependencies for `spring-boot-starter-web` and any utilities (e.g., Apache Commons) in the `build.gradle` file.
 
 2. **Define the Data Model**
    - Create DTO classes (e.g., `Campaign`) to represent your domain objects.
