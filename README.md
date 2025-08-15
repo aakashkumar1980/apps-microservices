@@ -158,7 +158,12 @@ This project demonstrates how to build a REST API microservice from scratch usin
       <br/>
 
      method-level annotations:
-     - `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping` : Map HTTP methods to handler methods. <br/>
+     - `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping` : Map HTTP methods to handler methods.
+     - `ResponseEntity` : Represents the HTTP response, allowing you to set status codes and headers.
+        e.g. ResponseEntity.ok(campaign) returns a 200 OK response with the campaign object serialized to JSON.
+             ResponseEntity.status(HttpStatus.CREATED).body(campaign) returns a 201 Created response with the campaign object serialized to JSON.
+             ResponseEntity.status(HttpStatus.NO_CONTENT).build() returns a 204 No Content response with no body.
+             ResponseEntity.notFound().build() returns a 404 Not Found response with no body.
 
      argument-level annotations (REST API inputs):
      - `@RequestBody`: Binds the HTTP request body to a method parameter (used for JSON payloads).
@@ -174,6 +179,9 @@ This project demonstrates how to build a REST API microservice from scratch usin
          @GetMapping("/{id}")
          public ResponseEntity<Campaign> getCampaignById(@PathVariable Long id) {}
          
+         GET /api/campaigns/status?value=ACTIVE
+         @GetMapping("/status")
+         public ResponseEntity<List<Campaign>> getCampaignsByStatus(@RequestParam String value) {}
      ```
 
 5. **Configure Persistence (Mock or Real DB)**
