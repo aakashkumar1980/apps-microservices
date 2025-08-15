@@ -54,6 +54,9 @@
 
   - using `ApplicationContext` to get beans
     ```java
+    @Autowired
+    private ApplicationContext applicationContext;
+    
     Campaign campaign = applicationContext.getBean(Campaign.class); 
     Offer offer = applicationContext.getBean(Offer.class);
     ```
@@ -76,14 +79,18 @@ NOTE:
           }
       }
     
+      @Autowired
+      private ApplicationContext applicationContext;
+    
       Campaign campaign1 = applicationContext.getBean(Campaign.class);
       Campaign campaign2 = applicationContext.getBean(Campaign.class);
       ...
       # here, each call to getBean() returns a new instance of Campaign.
+        NOTE: @Autowired cannot be used with prototype scope directly, as it will always inject the same instance.
       ```
-    - `request`: One instance per HTTP request (for web applications).
-    - `session`: One instance per HTTP session (for web applications).
-    - `application`: One instance per ServletContext (for web applications).
+  - `request`: One instance per HTTP request (for web applications).
+  - `session`: One instance per HTTP session (for web applications).
+  - `application`: One instance per ServletContext (for web applications).
 
 
 
