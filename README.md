@@ -25,7 +25,8 @@ Gradle is a tool that helps you build, test, and package your code. Think of it 
 - **group, version, description**: Basic info about your project.
 - **repositories**: Places where Gradle looks for libraries (like Maven Central).
 - **dependencies**: Lists the libraries your project needs (like Spring Boot, Apache Commons).<br/><br/>
-- **tasks**: Special instructions for building, testing, or packaging your code.  
+- **tasks**: Special instructions for building, testing, or packaging your code. 
+  Specially used for plugins like SonarQube and Jacoco.
   Tasks can be built-in (like `build`, `test`, `clean`) or custom.  
   You can also configure tasks for plugins, such as running SonarQube analysis or generating code coverage reports.
   ```kotlin
@@ -85,15 +86,17 @@ Plugins are like apps for Gradle. They add features. For example:
   }
   ```
   
-  This is the typical structure of the the spring boot jar file.
+  This is the typical structure of the spring boot jar file.
   ```plaintext
   example_spring_boot.jar
   ├── META-INF/
   │   └── MANIFEST.MF
   |         # This is the entry point for the application i.e. it launches the jar file.
   |         Main-Class: org.springframework.boot.loader.launch.JarLauncher
+  |
   |         # This is the main class of the spring boot application.
   |         Start-Class: com.example.tutorial.SpringbootStartupApi
+  |
   |         Spring-Boot-Classes: BOOT-INF/classes/
   |         Spring-Boot-Lib: BOOT-INF/lib/
   ├── org/
@@ -122,10 +125,10 @@ Plugins are like apps for Gradle. They add features. For example:
 ---
 <br/>
 
+
 # DEPLOYMENT
 
 ## What is a Tomcat Server?
-
 Tomcat is a web server that runs Java applications. It listens for HTTP requests and serves responses. Tomcat is often used to run Spring Boot applications, especially when they are packaged as executable jar files.
 - In the standard web application mode, tomcat is used to deploy web applications in the form of WAR files only.
 The structure  of the tomcat server is as follows:
@@ -148,8 +151,8 @@ The structure  of the tomcat server is as follows:
   ├── work/ (Temporary files created by Tomcat)
   └── temp/ (Temporary files used by Tomcat)
   ```
-- In the case of Spring Boot, this tomcat server is <u>embedded</u> inside the jar file, so you don't need to install it separately. When you run your Spring Boot application, it starts its own Tomcat server.
-  No need to deploy a separate WAR file; just run the jar file, and Tomcat is ready to serve your application.
+- <b>In the case of Spring Boot, this tomcat server is <u>embedded</u> inside the jar file, so you don't need to install it separately. When you run your Spring Boot application, it starts its own Tomcat server.
+  No need to deploy a separate WAR file; just run the jar file, and Tomcat is ready to serve your application.</b>
   ```shell
   # To run your Spring Boot application with embedded Tomcat
   $ java -jar example_spring_boot.jar
