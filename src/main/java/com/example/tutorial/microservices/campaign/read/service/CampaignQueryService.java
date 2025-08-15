@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -43,7 +44,7 @@ public class CampaignQueryService {
    */
   public Optional<Campaign> getCampaignById(Long id) {
     for (Campaign c : mockDataUtil.campaignSupplier.get()) {
-      if (c.getId().equals(id)) {
+      if (Objects.equals(c.getId(), id)) {
         return Optional.of(c);
       }
     }

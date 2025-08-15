@@ -29,6 +29,7 @@ public class CampaignQueryController {
   @GetMapping
   public ResponseEntity<List<Campaign>> getAllCampaigns() {
     List<Campaign> allCampaigns = campaignQueryService.getAllCampaigns();
+
     log.info("Total campaigns found: {}", allCampaigns.size());
     return ResponseEntity.ok(allCampaigns);
   }
@@ -37,11 +38,12 @@ public class CampaignQueryController {
    * Retrieves a campaign by its ID.
    *
    * @param id the ID of the campaign
-   * @return the campaign with the specified ID, or 404 if not found
+   * @return a ResponseEntity containing the campaign object if found, or 404 if not found
    */
   @GetMapping("/{id}")
   public ResponseEntity<Campaign> getCampaignById(@PathVariable Long id) {
     Optional<Campaign> campaignOptional = campaignQueryService.getCampaignById(id);
+
     if (campaignOptional.isPresent()) {
       log.info("Campaign with ID: {} found", id);
       return ResponseEntity.ok(campaignOptional.get());
@@ -56,11 +58,12 @@ public class CampaignQueryController {
    * Retrieves campaigns by their status.
    *
    * @param value the status of the campaigns to retrieve
-   * @return a list of campaigns with the specified status, or 404 if none found
+   * @return a ResponseEntity containing a list of campaigns with the specified status, or 404 if none found
    */
   @GetMapping("/status")
   public ResponseEntity<List<Campaign>> getCampaignsByStatus(@RequestParam String value) {
     List<Campaign> campaigns = campaignQueryService.getCampaignsByStatus(value);
+
     if (campaigns.isEmpty()) {
       log.warn("No campaigns found with status: {}", value);
       return ResponseEntity.notFound().build();
