@@ -148,11 +148,8 @@ This project demonstrates how to build a REST API microservice from scratch usin
    - **Annotation Explanations:**
      - `@RestController`: Marks the class as a REST controller. 
         NOTE: It is a combination of <i>@Controller</i> and <i>@ResponseBody</i> annotations. These annotations indicate that the class handles HTTP requests and responses, and the response body will be serialized to JSON or XML.
-     
      - `@RequestMapping`: Sets the base URL for all endpoints in the controller. e.g. "/api/campaigns".<br/><br/>
-     
-     - `@Autowired`: Injects the required service bean.<br/><br/>
-     
+ 
      - `@PostMapping`, `@PutMapping`, `@DeleteMapping`, `@GetMapping`: Map HTTP methods to handler methods.
      - `@RequestBody`: Binds the HTTP request body to a method parameter (used for JSON payloads).
      - `@PathVariable`: Binds a URI template variable to a method parameter.<br/><br/>
