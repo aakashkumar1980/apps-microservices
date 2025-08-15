@@ -56,6 +56,31 @@
 			"response": []
 		},
 		{
+			"name": "Get Campaign By ID Copy",
+			"id": "25453210-d0bd31b6-ac70-44ad-b92c-0b79bde3d5fa",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{campaignId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Campaign",
 			"id": "25453210-0787e74b-c1ee-4e40-93ae-dadefba39423",
 			"protocolProfileBehavior": {
