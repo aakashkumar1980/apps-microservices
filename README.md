@@ -157,19 +157,19 @@ This project demonstrates how to build a REST API microservice from scratch usin
      ``` 
 
      method-level annotations:
-     - `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping` : Map HTTP methods to handler methods. <br/><br/>
+     - `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping` : Map HTTP methods to handler methods. <br/>
+
+     argument-level annotations (REST API inputs):
+     - `@RequestBody`: Binds the HTTP request body to a method parameter (used for JSON payloads).
+     - `@PathVariable`: Binds a URI template variable to a method parameter. (e.g. `/api/campaigns/{id}` where `{id}` is a path variable).
+     - `@RequestParam`: Binds a query parameter to a method parameter (e.g. `/api/campaigns?status=active` where `status` is a query parameter).<br/><br/>
+
      ```java
          GET /api/campaigns
          @GetMapping 
          public ResponseEntity<List<Campaign>> getAllCampaigns() {}
          
      ```
-     
-     argument-level annotations (REST API inputs):
-     - `@RequestBody`: Binds the HTTP request body to a method parameter (used for JSON payloads).
-     - `@PathVariable`: Binds a URI template variable to a method parameter. (e.g. `/api/campaigns/{id}` where `{id}` is a path variable).
-     - `@RequestParam`: Binds a query parameter to a method parameter (e.g. `/api/campaigns?status=active` where `status` is a query parameter).<br/><br/>
-
 
 5. **Configure Persistence (Mock or Real DB)**
    - For demonstration, use mock data utilities. For production, integrate with a database (e.g., Couchbase).
