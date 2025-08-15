@@ -98,7 +98,6 @@ NOTE:
 This project demonstrates how to build a REST API microservice from scratch using Spring Boot. The API manages campaigns and follows a layered architecture with clear separation of concerns.
 
 ## Steps to Create the REST API
-
 1. **Initialize the Spring Boot Project**
    - Create gradle files and setup base project structure like 
      - <project_folder>/src/main/java
@@ -111,7 +110,6 @@ This project demonstrates how to build a REST API microservice from scratch usin
      - <project_folder>/gradle.properties
      - <project_folder>/settings.gradle
    - Add dependencies for `spring-boot-starter-web` and any utilities (e.g., Apache Commons).
----
 
 2. **Define the Data Model**
    - Create DTO classes (e.g., `Campaign`) to represent your domain objects.
