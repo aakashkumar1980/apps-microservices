@@ -56,7 +56,7 @@
 			"response": []
 		},
 		{
-			"name": "Get Campaign By ID Copy",
+			"name": "Get Campaigns By Status",
 			"id": "25453210-d0bd31b6-ac70-44ad-b92c-0b79bde3d5fa",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
