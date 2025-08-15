@@ -29,9 +29,9 @@ plugins {
 java {
   toolchain {
     /**
-     * Sets the Java language version to 24.
+     * Sets the Java language version to 21.
      */
-    languageVersion = JavaLanguageVersion.of(24)
+    languageVersion = JavaLanguageVersion.of(21)
   }
 }
 
