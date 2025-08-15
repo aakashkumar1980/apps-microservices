@@ -156,7 +156,7 @@ This project demonstrates how to build a REST API microservice from scratch usin
      - `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping` : Map HTTP methods to handler methods.
      - `ResponseEntity` : Represents the HTTP response, allowing you to set status codes and headers. e.g.:
        - (Read) GET > `ResponseEntity.ok(campaign)` returns a 200 OK response with the body serialized to JSON.
-       - (Read) GET by id > `ResponseEntity.notFound().build()` <br/>>
+       - (Read) GET by id > `ResponseEntity.notFound().build()` <br/>
        - (Create) POST > `ResponseEntity.status(HttpStatus.CREATED).body(campaign)` returns a 201 Created response with the body serialized to JSON.
        - (Create) POST > `ResponseEntity.status(HttpStatus.CREATED).header("Location", "/api/campaigns/1").body(campaign)` returns a 201 Created response with a Location header pointing to the newly created resource and the body serialized to JSON.<br/>
        - (Update) PUT > `ResponseEntity.ok(campaign)` returns a 200 OK response with the body serialized to JSON.
