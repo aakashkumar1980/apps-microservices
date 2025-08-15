@@ -112,6 +112,37 @@
 			"response": []
 		},
 		{
+			"name": "Get Campaigns By Status Copy",
+			"id": "25453210-420b0ffa-bc9c-4e36-997f-47eebde7d8c7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/status?value=ACTIVE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"status"
+					],
+					"query": [
+						{
+							"key": "value",
+							"value": "ACTIVE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Campaign",
 			"id": "25453210-0787e74b-c1ee-4e40-93ae-dadefba39423",
 			"protocolProfileBehavior": {
