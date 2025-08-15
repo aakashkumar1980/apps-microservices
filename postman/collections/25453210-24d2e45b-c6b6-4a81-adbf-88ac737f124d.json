@@ -150,11 +150,12 @@
 					"script": {
 						"id": "fb17a9a3-d179-4053-a113-b78ef7f600cd",
 						"exec": [
-							"// Capture the Location header value and set it as a variable\r",
+							"// Fixed ReferenceError by defining new_campaign_id\r",
 							"var locationHeader = pm.response.headers.get('Location');\r",
 							"var newId = locationHeader.substring(locationHeader.lastIndexOf('/') + 1);\r",
 							"pm.environment.set('new_campaign_id', newId);\r",
-							"console.log(\"new_campaign_id: \", new_campaign_id);"
+							"console.log(\"new_campaign_id: \", pm.environment.get('new_campaign_id'));\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
