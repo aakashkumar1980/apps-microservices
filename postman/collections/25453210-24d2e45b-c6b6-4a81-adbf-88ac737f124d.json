@@ -152,8 +152,9 @@
 						"exec": [
 							"// Capture the Location header value and set it as a variable\r",
 							"var locationHeader = pm.response.headers.get('Location');\r",
-							"pm.environment.set('location_url', locationHeader);\r",
-							"console.log(\"location_url: \", location_url);"
+							"var newId = locationHeader.substring(locationHeader.lastIndexOf('/') + 1);\r",
+							"pm.environment.set('new_campaign_id', newId);\r",
+							"console.log(\"new_campaign_id: \", new_campaign_id);"
 						],
 						"type": "text/javascript",
 						"packages": {}
