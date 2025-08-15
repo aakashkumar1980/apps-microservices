@@ -65,7 +65,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+					"raw": "http://localhost:8080/api/campaigns/99",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -74,7 +74,7 @@
 					"path": [
 						"api",
 						"campaigns",
-						"{{campaignId}}"
+						"99"
 					]
 				}
 			},
