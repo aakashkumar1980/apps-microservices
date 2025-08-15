@@ -112,7 +112,7 @@ This project demonstrates how to build a REST API microservice from scratch usin
    - Add dependencies for `spring-boot-starter-web` and any utilities (e.g., Apache Commons) in the `build.gradle` file.
 
 2. **Define the Data Model**
-   - Create DTO classes (e.g., `Campaign`) to represent your domain objects.
+   - Create classes (e.g., `Campaign`) to represent your domain objects.
    - Example:
      ```java
      public class Campaign {
@@ -126,12 +126,12 @@ This project demonstrates how to build a REST API microservice from scratch usin
 3. **Implement the Service Layer**
    - Write service classes for business logic (e.g., `CampaignCommandService`, `CampaignQueryService`).
    - **Annotation Explanations:**
-   - `@Service`: Marks the class as a Spring service component.
+     `@Service`: Marks the class as a Spring service component. Same as `@Component`, but specifically indicates that the class provides business logic.
      ```java
-     @Service // Marks this class as a Spring service component
+     @Service
      public class CampaignCommandService {
        public Long createCampaign(Campaign campaign) {
-         // Add campaign to mock list and return ID
+         ...
          return campaign.getId();
        }
      }
