@@ -124,7 +124,9 @@ This project demonstrates how to build a REST API microservice from scratch usin
      ```
 
 3. **Implement the Service Layer**
-   - Write service classes for business logic (e.g., `CampaignCommandService`, `CampaignQueryService`).
+   - Two service classes for business logic:
+     - **CampaignCommandService**: Handles write operations (Create, Update, Delete).
+     - **CampaignQueryService**: Handles read operations (Retrieve, List).
    - **Annotation Explanations:**
      `@Service`: Marks the class as a Spring service component. Same as `@Component`, but specifically indicates that the class provides business logic.
      ```java
