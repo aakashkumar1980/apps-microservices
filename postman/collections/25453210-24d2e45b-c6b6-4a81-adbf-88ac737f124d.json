@@ -112,7 +112,7 @@
 			"response": []
 		},
 		{
-			"name": "Get Campaigns By Status Copy",
+			"name": "Get Campaigns By Status :: WARNING 404_NOT_FOUND",
 			"id": "25453210-420b0ffa-bc9c-4e36-997f-47eebde7d8c7",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
