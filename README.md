@@ -14,7 +14,7 @@
       }
   }
   
-  # Example of creating objects without Spring DI
+  # Example of creating objects
   Campaign campaign = new Campaign(); 
   Offer offer = new Offer(campaign);
   ```
@@ -36,8 +36,22 @@
           this.campaign = campaign;
       }
   }
+  ```
+
+Example of creating objects.
+- using @Autowired annotation
+  ```java
+  # using @Autowired annotation
   
-  # Example of creating objects with Spring DI
+  @Autowired
+  private Campaign campaign;
+  
+  @Autowired
+  private Campaign campaign;  
+  ```
+
+- using `ApplicationContext` to get beans
+  ```java
   Campaign campaign = applicationContext.getBean(Campaign.class); 
   Offer offer = applicationContext.getBean(Offer.class);
   ```
