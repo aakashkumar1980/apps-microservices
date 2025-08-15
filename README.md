@@ -122,7 +122,6 @@ Plugins are like apps for Gradle. They add features. For example:
       └── ...
   ```
 
----
 <br/>
 
 
