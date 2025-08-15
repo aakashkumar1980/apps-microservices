@@ -1,11 +1,9 @@
 # BUILD
 
 ## What is Gradle?
-
 Gradle is a tool that helps you build, test, and package your code. Think of it like a recipe book: it tells your computer how to turn your source code into a finished product (like a jar file).
 
 ## Major Sections of Gradle Files
-
 - **plugins**: These are add-ons that give Gradle extra powers. For example, the `org.springframework.boot` plugin helps Gradle build Spring Boot applications.  
   Other useful plugins include:
   - `org.sonarqube`: Integrates SonarQube for code quality analysis.
@@ -24,7 +22,11 @@ Gradle is a tool that helps you build, test, and package your code. Think of it 
 - **java toolchain**: Tells Gradle which version of Java to use.
 - **group, version, description**: Basic info about your project.
 - **repositories**: Places where Gradle looks for libraries (like Maven Central).
+
+<span style="color: red;">
 - **dependencies**: Lists the libraries your project needs (like Spring Boot, Apache Commons).<br/><br/>
+</span>
+
 - **tasks**: Special instructions for building, testing, or packaging your code. 
   Specially used for plugins like SonarQube and Jacoco.
   Tasks can be built-in (like `build`, `test`, `clean`) or custom.  
