@@ -1,6 +1,6 @@
 # Spring Framework DI (Dependency Injection) and IOC (Inversion of Control).
 
-### Normal Java Code
+## Normal Java Code
   ```java
   public class Campaign {
       public Campaign() {
@@ -13,13 +13,15 @@
           this.campaign = campaign;
       }
   }
-  
-  # Example of creating objects
-  Campaign campaign = new Campaign(); 
-  Offer offer = new Offer(campaign);
   ```
+  Example of creating objects.
+  - using constructor
+    ```java
+    Campaign campaign = new Campaign(); 
+    Offer offer = new Offer(campaign);
+    ```
 
-### Spring Framework DI (Dependency Injection) and IOC (Inversion of Control)
+## Spring Framework DI (Dependency Injection) and IOC (Inversion of Control)
   ```java
   @Component
   public class Campaign {
@@ -38,23 +40,23 @@
   }
   ```
 
-Example of creating objects.
-- using @Autowired annotation
-  ```java
-  # using @Autowired annotation
-  
-  @Autowired
-  private Campaign campaign;
-  
-  @Autowired
-  private Campaign campaign;  
-  ```
+  Example of creating objects.
+  - using @Autowired annotation
+    ```java
+    # using @Autowired annotation
+    
+    @Autowired
+    private Campaign campaign;
+    
+    @Autowired
+    private Campaign campaign;  
+    ```
 
-- using `ApplicationContext` to get beans
-  ```java
-  Campaign campaign = applicationContext.getBean(Campaign.class); 
-  Offer offer = applicationContext.getBean(Offer.class);
-  ```
+  - using `ApplicationContext` to get beans
+    ```java
+    Campaign campaign = applicationContext.getBean(Campaign.class); 
+    Offer offer = applicationContext.getBean(Offer.class);
+    ```
 NOTE: 
 - IOC is a design principle where the control of object creation and management is inverted from the application code to a framework (like Spring). This allows for better separation of concerns, easier testing, and more flexible code.
 - Dependency Injection (DI) is a specific implementation of IOC where dependencies are provided to a class rather than the class creating them itself. In Spring, this is typically done using annotations like `@Autowired`.
