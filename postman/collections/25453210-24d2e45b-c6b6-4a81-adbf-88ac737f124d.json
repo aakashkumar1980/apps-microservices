@@ -121,7 +121,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/campaigns/status?value=ACTIVE",
+					"raw": "http://localhost:8080/api/campaigns/status?value=NONE",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -135,7 +135,7 @@
 					"query": [
 						{
 							"key": "value",
-							"value": "ACTIVE"
+							"value": "NONE"
 						}
 					]
 				}
