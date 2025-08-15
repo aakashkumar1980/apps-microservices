@@ -173,6 +173,8 @@ This project demonstrates how to build a REST API microservice from scratch usin
      - `@RequestParam`: Binds a query parameter to a method parameter (e.g. `/api/campaigns?status=active` where `status` is a query parameter).<br/><br/>
 
      ```java
+         @RestController
+         /** READ Operations **/ 
          GET /api/campaigns
          @GetMapping 
          public ResponseEntity<List<Campaign>> getAllCampaigns() {}
@@ -184,8 +186,23 @@ This project demonstrates how to build a REST API microservice from scratch usin
          GET /api/campaigns/status?value=ACTIVE
          @GetMapping("/status")
          public ResponseEntity<List<Campaign>> getCampaignsByStatus(@RequestParam String value) {}
+        
+     
+         /** WRITE Operations **/
+         POST /api/campaigns
+         @PostMapping
+         public ResponseEntity<String> createCampaign(@RequestBody Campaign campaign) {}
+     
+         /** UPDATE Operations **/
+         PUT /api/campaigns/{id}
+         @PutMapping("/{id}")
+         public ResponseEntity<String> updateCampaign(@PathVariable Long id, @RequestBody Campaign campaign) {}
+     
+         /** DELETE Operations **/
+         DELETE /api/campaigns/{id}
+         @DeleteMapping("/{id}")
+         public ResponseEntity<String> deleteCampaign(@PathVariable Long id) {}
      ```
-
 
 ## How to Run
 1. Build the project:  
