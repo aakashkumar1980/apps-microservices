@@ -3,13 +3,11 @@ package com.example.tutorial.common.exceptions.handler;
 import com.example.tutorial.common.exceptions.ApplicationException;
 import com.example.tutorial.common.exceptions.RequestValidationException;
 import com.example.tutorial.common.exceptions.RequestValidationMessage;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Global exception handler for the application.
@@ -30,15 +28,11 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(ApplicationException.class)
   public ResponseEntity<String> handleApplicationException(ApplicationException ex) {
-    // Determine the HTTP status based on the exception type
-    HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR; // default status
-    if (ex.getClass().isAnnotationPresent(ResponseStatus.class)) {
-      ResponseStatus responseStatus = ex.getClass().getAnnotation(ResponseStatus.class);
-      status = responseStatus.value();
-    }
-
     logger.error("ApplicationException caught: {}", ex.getMessage(), ex);
-    return new ResponseEntity<>("Application error occurred", status);
+
+    return ResponseEntity.internalServerError().body(
+        ex.getMessage()
+    );
   }
 
   /** ********************* **/
