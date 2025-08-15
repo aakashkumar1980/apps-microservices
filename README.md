@@ -186,18 +186,6 @@ This project demonstrates how to build a REST API microservice from scratch usin
          public ResponseEntity<List<Campaign>> getCampaignsByStatus(@RequestParam String value) {}
      ```
 
-5. **Configure Persistence (Mock or Real DB)**
-   - For demonstration, use mock data utilities. For production, integrate with a database (e.g., Couchbase).
-
-6. **Test the API**
-   - Use tools like Postman or curl to test endpoints for creating, updating, retrieving, and deleting campaigns.
-
-## Example Endpoints
-- `POST /api/campaigns` — Create a campaign
-- `GET /api/campaigns` �� List all campaigns
-- `GET /api/campaigns/{id}` — Get campaign by ID
-- `PUT /api/campaigns/{id}` — Update campaign
-- `DELETE /api/campaigns/{id}` — Delete campaign
 
 ## How to Run
 1. Build the project:  
