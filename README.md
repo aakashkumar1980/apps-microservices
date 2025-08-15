@@ -163,9 +163,9 @@ This project demonstrates how to build a REST API microservice from scratch usin
        - (Read) GET > `ResponseEntity.ok(body)` returns a 200 OK response with the body serialized to JSON.
        - (Read) GET by id > `ResponseEntity.notFound().build()` returns a 404 Not Found response with no body.
        - (Create) POST > `ResponseEntity.status(HttpStatus.CREATED).body(body)` returns a 201 Created response with the body serialized to JSON.
+       - (Create) POST > `ResponseEntity.status(HttpStatus.CREATED).header("Location", "/api/campaigns/1").body(body)` returns a 201 Created response with a Location header pointing to the newly created resource and the body serialized to JSON.
        - (Update) PUT > `ResponseEntity.ok(body)` returns a 200 OK response with the body serialized to JSON.
        - (Delete) DELETE > `ResponseEntity.status(HttpStatus.NO_CONTENT).build()` returns a 204 No Content response with no body.
-       
              
      argument-level annotations (REST API inputs):
      - `@RequestBody`: Binds the HTTP request body to a method parameter (used for JSON payloads).
