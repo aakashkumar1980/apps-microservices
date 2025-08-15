@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -40,10 +39,14 @@ public class CampaignCommandService {
    */
   public void updateCampaign(Long id, Campaign campaign) {
     List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
-    // Use streams to find the campaign with the given ID
-    Optional<Campaign> existingCampaign = campaigns.stream()
-        .filter(c -> c.getId().equals(id))
-        .findFirst();
+    // Find the campaign with the given ID
+    Optional<Campaign> existingCampaign = Optional.empty();
+    for (Campaign c : campaigns) {
+        if (c.getId().equals(id)) {
+            existingCampaign = Optional.of(c);
+            break;
+        }
+    }
 
     // If the campaign exists, update its fields
     if (existingCampaign.isPresent()) {
@@ -69,7 +72,12 @@ public class CampaignCommandService {
    */
   public void deleteCampaign(Long id) {
     List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
-    // Use removeIf with streams for concise removal
-    campaigns.removeIf(c -> c.getId().equals(id));
+    // Find and remove the campaign with the given ID
+    for (int i = 0; i < campaigns.size(); i++) {
+      if (campaigns.get(i).getId().equals(id)) {
+        campaigns.remove(i);
+        break;
+      }
+    }
   }
 }
