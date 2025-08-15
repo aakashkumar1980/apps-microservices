@@ -1,6 +1,6 @@
 package com.example.tutorial.microservices.campaign.write.service;
 
-import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.exceptions.RequestValidationException;
 import com.example.tutorial.common.exceptions.RequestValidationMessage;
 import com.example.tutorial.common.utils.MockDataUtil;
