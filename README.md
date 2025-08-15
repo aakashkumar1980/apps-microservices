@@ -150,12 +150,12 @@ This project demonstrates how to build a REST API microservice from scratch usin
      - `@RestController`: Marks the class as a REST controller. 
         NOTE: It is a combination of <i>@Controller</i> and <i>@ResponseBody</i> annotations. These annotations indicate that the class handles HTTP requests and responses, and the response body will be serialized to JSON or XML.
      - `@RequestMapping`: Sets the base URL for all endpoints in the controller. e.g. "/api/campaigns".<br/><br/>
-      ```java
-        @RestController
-        @RequestMapping("/api/campaigns")
-        public class CampaignCommandController {
-          ...     
-      ``` 
+     ```java
+       @RestController
+       @RequestMapping("/api/campaigns")
+       public class CampaignCommandController {
+         ...     
+     ``` 
 
      method-level annotations:
      - `@PostMapping`, `@PutMapping`, `@DeleteMapping`, `@GetMapping`: Map HTTP methods to handler methods. <br/><br/>
@@ -165,90 +165,6 @@ This project demonstrates how to build a REST API microservice from scratch usin
      - `@PathVariable`: Binds a URI template variable to a method parameter. (e.g. `/api/campaigns/{id}` where `{id}` is a path variable).
      - `@RequestParam`: Binds a query parameter to a method parameter (e.g. `/api/campaigns?status=active` where `status` is a query parameter).<br/><br/>
 
-     ```java
-     /**
-      * REST controller for campaign write operations (create, update, delete).
-      * Demonstrates use of @RestController, @RequestMapping, @Autowired, @RequestBody, @PathVariable.
-      */
-     @RestController
-     @RequestMapping("/api/campaigns")
-     public class CampaignCommandController {
-
-       @Autowired
-       private CampaignCommandService campaignCommandService;
-
-       /**
-        * Creates a new campaign.
-        * @param campaign Campaign data from request body. (@RequestBody binds JSON to Campaign)
-        * @return Success message with created campaign ID.
-        */
-       @PostMapping
-       public ResponseEntity<String> createCampaign(@RequestBody Campaign campaign) {
-         Long id = campaignCommandService.createCampaign(campaign);
-         return ResponseEntity.ok("Created with ID: " + id);
-       }
-
-       /**
-        * Updates an existing campaign.
-        * @param id Campaign ID from path. (@PathVariable binds URI variable to id)
-        * @param campaign Updated campaign data. (@RequestBody binds JSON to Campaign)
-        * @return Success message.
-        */
-       @PutMapping("/{id}")
-       public ResponseEntity<String> updateCampaign(@PathVariable Long id, @RequestBody Campaign campaign) {
-         campaignCommandService.updateCampaign(id, campaign);
-         return ResponseEntity.ok("Campaign updated successfully");
-       }
-
-       /**
-        * Deletes a campaign by ID.
-        * @param id Campaign ID from path. (@PathVariable binds URI variable to id)
-        * @return Success message.
-        */
-       @DeleteMapping("/{id}")
-       public ResponseEntity<String> deleteCampaign(@PathVariable Long id) {
-         campaignCommandService.deleteCampaign(id);
-         return ResponseEntity.ok("Campaign deleted successfully");
-       }
-     }
-     ```
-
-   - **Read Operations (Retrieve/List):**
-     ```java
-     /**
-      * REST controller for campaign read operations (retrieve/list).
-      * Demonstrates use of @RestController, @RequestMapping, @Autowired, @PathVariable.
-      */
-     @RestController
-     @RequestMapping("/api/campaigns")
-     public class CampaignQueryController {
-
-       @Autowired
-       private CampaignQueryService campaignQueryService;
-
-       /**
-        * Retrieves all campaigns.
-        * @return List of all campaigns.
-        */
-       @GetMapping
-       public ResponseEntity<List<Campaign>> getAllCampaigns() {
-         List<Campaign> allCampaigns = campaignQueryService.getAllCampaigns();
-         return ResponseEntity.ok(allCampaigns);
-       }
-
-       /**
-        * Retrieves a campaign by its ID.
-        * @param id Campaign ID from path. (@PathVariable binds URI variable to id)
-        * @return Campaign data or 404 if not found.
-        */
-       @GetMapping("/{id}")
-       public ResponseEntity<Campaign> getCampaignById(@PathVariable Long id) {
-         Optional<Campaign> campaignOptional = campaignQueryService.getCampaignById(id);
-         return campaignOptional.map(ResponseEntity::ok)
-                                .orElseGet(() -> ResponseEntity.notFound().build());
-       }
-     }
-     ```
 
 5. **Configure Persistence (Mock or Real DB)**
    - For demonstration, use mock data utilities. For production, integrate with a database (e.g., Couchbase).
