@@ -21,9 +21,9 @@ Gradle is a tool that helps you build, test, and package your code. Think of it 
 
 - **java toolchain**: Tells Gradle which version of Java to use.
 - **group, version, description**: Basic info about your project.
-- **repositories**: Places where Gradle looks for libraries (like Maven Central).
+- **repositories**: Places where Gradle looks for libraries (like Maven Central).<br/><br/>
 
-<!-- DEVELOPMENT -->
+  <-- DEVELOPMENT -->
 - **dependencies**: Lists the libraries your project needs (like Spring Boot, Apache Commons).<br/><br/>
 
 - **tasks**: Special instructions for building, testing, or packaging your code. 
