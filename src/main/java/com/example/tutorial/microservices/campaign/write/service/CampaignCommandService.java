@@ -1,6 +1,6 @@
 package com.example.tutorial.microservices.campaign.write.service;
 
-import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.utils.MockDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

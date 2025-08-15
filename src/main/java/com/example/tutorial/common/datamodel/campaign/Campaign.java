@@ -1,4 +1,4 @@
-package com.example.tutorial.common.dto.campaign;
+package com.example.tutorial.common.datamodel.campaign;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

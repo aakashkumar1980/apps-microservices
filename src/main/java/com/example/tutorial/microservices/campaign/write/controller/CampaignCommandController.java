@@ -1,6 +1,6 @@
 package com.example.tutorial.microservices.campaign.write.controller;
 
-import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.microservices.campaign.write.service.CampaignCommandService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

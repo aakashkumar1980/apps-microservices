@@ -1,6 +1,6 @@
 package com.example.tutorial.microservices.campaign.read.service;
 
-import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.utils.MockDataUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
