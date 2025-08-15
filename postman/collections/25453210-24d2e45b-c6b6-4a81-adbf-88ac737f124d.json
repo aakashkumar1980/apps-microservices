@@ -262,7 +262,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -271,7 +271,7 @@
 					"path": [
 						"api",
 						"campaigns",
-						"{{campaignId}}"
+						"{{new_campaign_id}}"
 					]
 				}
 			},
