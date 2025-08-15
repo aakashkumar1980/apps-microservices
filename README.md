@@ -158,8 +158,7 @@ This project demonstrates how to build a REST API microservice from scratch usin
      - `@RequestBody`: Binds the HTTP request body to a method parameter (used for JSON payloads).
      - `@PathVariable`: Binds a URI template variable to a method parameter. (e.g. `/api/campaigns/{id}` where `{id}` is a path variable).
      - `@RequestParam`: Binds a query parameter to a method parameter (e.g. `/api/campaigns?status=active` where `status` is a query parameter).<br/><br/>
-     
-   - **Write Operations (Create, Update, Delete):**
+
      ```java
      /**
       * REST controller for campaign write operations (create, update, delete).
