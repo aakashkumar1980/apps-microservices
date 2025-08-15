@@ -169,6 +169,10 @@ This project demonstrates how to build a REST API microservice from scratch usin
          GET /api/campaigns
          @GetMapping 
          public ResponseEntity<List<Campaign>> getAllCampaigns() {}
+     
+         GET /api/campaigns/{id}
+         @GetMapping("/{id}")
+         public ResponseEntity<Campaign> getCampaignById(@PathVariable Long id) {}
          
      ```
 
