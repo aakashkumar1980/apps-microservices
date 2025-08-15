@@ -150,7 +150,7 @@ The structure  of the tomcat server is as follows:
   ├── work/ (Temporary files created by Tomcat)
   └── temp/ (Temporary files used by Tomcat)
   ```
-- <b>In the case of <u>Spring Boot</u>, this tomcat server is <u>embedded</u> inside the jar file, so you don't need to install it separately. When you run your Spring Boot application, it starts its own Tomcat server.
+- > <b>In the case of <u>Spring Boot</u>, this tomcat server is <u>embedded</u> inside the jar file, so you don't need to install it separately. When you run your Spring Boot application, it starts its own Tomcat server.
   No need to deploy a separate WAR file; just run the jar file, and Tomcat is ready to serve your application.</b>
   ```shell
   # To run your Spring Boot application with embedded Tomcat
