@@ -206,7 +206,7 @@ This project demonstrates how to build a REST API microservice from scratch usin
 
 ## How to Run
 1. Build the project:  
-   `./gradlew build`
+   `./gradlew clean build`
 2. Start the application:  
    `./gradlew bootRun`
 3. Test endpoints using Postman or curl.
