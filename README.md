@@ -158,6 +158,7 @@ The structure  of the tomcat server is as follows:
   # To run your Spring Boot application with embedded Tomcat
   $ java -jar example_spring_boot.jar
   ```
+  <br/>
 
 ## CICD Complete Process
 ![](_readme_assets/cicd.png)
