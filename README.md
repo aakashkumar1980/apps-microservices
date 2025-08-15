@@ -151,14 +151,19 @@ This project demonstrates how to build a REST API microservice from scratch usin
         NOTE: It is a combination of <i>@Controller</i> and <i>@ResponseBody</i> annotations. These annotations indicate that the class handles HTTP requests and responses, and the response body will be serialized to JSON or XML.
      - `@RequestMapping`: Sets the base URL for all endpoints in the controller. e.g. "/api/campaigns".<br/><br/>
      ```java
-       @RestController
-       @RequestMapping("/api/campaigns")
-       public class CampaignCommandController {
-         ...     
+         @RestController
+         @RequestMapping("/api/campaigns")
+         public class CampaignCommandController {}
      ``` 
 
      method-level annotations:
-     - `@PostMapping`, `@PutMapping`, `@DeleteMapping`, `@GetMapping`: Map HTTP methods to handler methods. <br/><br/>
+     - `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping` : Map HTTP methods to handler methods. <br/><br/>
+     ```java
+         GET /api/campaigns
+         @GetMapping 
+         public ResponseEntity<List<Campaign>> getAllCampaigns() {}
+         
+     ```
      
      argument-level annotations (REST API inputs):
      - `@RequestBody`: Binds the HTTP request body to a method parameter (used for JSON payloads).
