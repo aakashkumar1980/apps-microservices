@@ -51,4 +51,23 @@ public class CampaignQueryController {
       return ResponseEntity.notFound().build();
     }
   }
+
+  /**
+   * Retrieves campaigns by their status.
+   *
+   * @param value the status of the campaigns to retrieve
+   * @return a list of campaigns with the specified status, or 404 if none found
+   */
+  @GetMapping("/status")
+  public ResponseEntity<List<Campaign>> getCampaignsByStatus(@RequestParam String value) {
+    List<Campaign> campaigns = campaignQueryService.getCampaignsByStatus(value);
+    if (campaigns.isEmpty()) {
+      log.warn("No campaigns found with status: {}", value);
+      return ResponseEntity.notFound().build();
+
+    } else {
+      log.info("Found {} campaigns with status: {}", campaigns.size(), value);
+      return ResponseEntity.ok(campaigns);
+    }
+  }
 }

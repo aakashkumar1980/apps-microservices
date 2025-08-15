@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,5 +48,28 @@ public class CampaignQueryService {
       }
     }
     return Optional.empty();
+  }
+
+  /**
+   * Retrieves campaigns by their status.
+   *
+   * @param value the status of the campaigns to retrieve
+   * @return a list of campaigns with the specified status
+   */
+  public List<Campaign> getCampaignsByStatus(String value) {
+    List<Campaign> filteredCampaigns = new ArrayList<>();
+    List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
+    for (Campaign c : campaigns) {
+      if (c.getStatus().name().equalsIgnoreCase(value)) {
+        filteredCampaigns.add(c);
+      }
+    }
+
+    if (filteredCampaigns.isEmpty()) {
+      log.warn("No campaigns found with status: {}", value);
+    } else {
+      log.info("Found {} campaigns with status: {}", filteredCampaigns.size(), value);
+    }
+    return filteredCampaigns;
   }
 }
