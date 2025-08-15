@@ -164,7 +164,6 @@ This project demonstrates how to build a REST API microservice from scratch usin
        - `ResponseEntity.status(HttpStatus.CREATED).body(body)` returns a 201 Created response with the body serialized to JSON.
        - `ResponseEntity.status(HttpStatus.NO_CONTENT).build()` returns a 204 No Content response with no body.
        - `ResponseEntity.notFound().build()` returns a 404 Not Found response with no body.
-               <br/><br/>
              
      argument-level annotations (REST API inputs):
      - `@RequestBody`: Binds the HTTP request body to a method parameter (used for JSON payloads).
