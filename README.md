@@ -127,8 +127,9 @@ This project demonstrates how to build a REST API microservice from scratch usin
    - Two service classes for business logic:
      - **CampaignCommandService**: Handles write operations (Create, Update, Delete).
      - **CampaignQueryService**: Handles read operations (Retrieve, List).
+     
    - **Annotation Explanations:**
-     `@Service`: Marks the class as a Spring service component. Same as `@Component`, but specifically indicates that the class provides business logic.
+     `@Service`: Marks the class as a Spring service component. Same as <i>@Component</i>, but specifically indicates that the class provides business logic.
      ```java
      @Service
      public class CampaignCommandService {
@@ -145,7 +146,9 @@ This project demonstrates how to build a REST API microservice from scratch usin
      - **CampaignQueryController**: Handles read operations (Retrieve/List).
 
    - **Annotation Explanations:**
-     - `@RestController`: Marks the class as a REST controller, combining `@Controller` and `@ResponseBody` for JSON responses.
+     - `@RestController`: Marks the class as a REST controller. 
+        NOTE: It is a combination of <i>@Controller</i> and <i>@ResponseBody</i> annotations. These annotations indicate that the class handles HTTP requests and responses, and the response body will be serialized to JSON or XML.
+     
      - `@RequestMapping`: Sets the base URL for all endpoints in the controller.<br/><br/>
      
      - `@Autowired`: Injects the required service bean.<br/><br/>
