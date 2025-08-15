@@ -144,6 +144,22 @@
 		},
 		{
 			"name": "Create Campaign",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb17a9a3-d179-4053-a113-b78ef7f600cd",
+						"exec": [
+							"// Capture the Location header value and set it as a variable\r",
+							"var locationHeader = pm.response.headers.get('Location');\r",
+							"pm.environment.set('location_url', locationHeader);\r",
+							"console.log(\"location_url: \", location_url);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"id": "25453210-0787e74b-c1ee-4e40-93ae-dadefba39423",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
