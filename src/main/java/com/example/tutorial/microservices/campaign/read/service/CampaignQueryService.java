@@ -1,6 +1,6 @@
 package com.example.tutorial.microservices.campaign.read.service;
 
-import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.utils.MockDataUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,5 +36,25 @@ public class CampaignQueryService {
         .stream()
         .filter(c -> c.getId().equals(id))
         .findFirst();
+  }
+
+  /**
+   * Retrieves campaigns by their status.
+   *
+   * @param value the status of the campaigns to retrieve
+   * @return a list of campaigns with the specified status
+   */
+  public List<Campaign> getCampaignsByStatus(String value) {
+    List<Campaign> filteredCampaigns = mockDataUtil.campaignSupplier.get()
+        .stream()
+        .filter(c -> c.getStatus().name().equalsIgnoreCase(value))
+        .toList();
+
+    if (filteredCampaigns.isEmpty()) {
+      log.warn("No campaigns found with status: {}", value);
+    } else {
+      log.info("Found {} campaigns with status: {}", filteredCampaigns.size(), value);
+    }
+    return filteredCampaigns;
   }
 }

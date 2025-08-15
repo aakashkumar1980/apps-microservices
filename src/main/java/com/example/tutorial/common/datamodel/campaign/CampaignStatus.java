@@ -1,4 +1,4 @@
-package com.example.tutorial.common.dto.campaign;
+package com.example.tutorial.common.datamodel.campaign;
 
 public enum CampaignStatus {
     DRAFT,      // Campaign is being created and not yet finalized

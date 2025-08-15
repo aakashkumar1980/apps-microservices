@@ -1,7 +1,7 @@
 package com.example.tutorial.common.utils;
 
-import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.common.dto.campaign.CampaignStatus;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
