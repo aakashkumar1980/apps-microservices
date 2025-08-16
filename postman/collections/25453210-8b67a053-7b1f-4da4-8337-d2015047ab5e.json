@@ -6,31 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "<validate> Get Campaign By ID",
-			"id": "25453210-4cb7e9d1-d3fd-445f-93f2-053b1dc96ee9",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"campaigns",
-						"{{new_campaign_id}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Update Campaign",
 			"id": "25453210-32ae99fe-114f-4a6e-a456-f503f5679ec9",
 			"protocolProfileBehavior": {
