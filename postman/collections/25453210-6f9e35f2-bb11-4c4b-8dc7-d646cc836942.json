@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Create Campaign :: ERROR 400_BAD_REQUEST(",
+			"name": "Create Campaign :: ERROR 400_BAD_REQUEST(JSON body Format Issues)",
 			"event": [
 				{
 					"listen": "test",
