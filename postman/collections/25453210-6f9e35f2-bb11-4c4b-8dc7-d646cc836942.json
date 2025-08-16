@@ -52,7 +52,7 @@
 			"response": []
 		},
 		{
-			"name": "Create Campaign :: ERROR 400_BAD_REQUEST(JSON body Format Issues) Copy",
+			"name": "Create Campaign :: ERROR 400_BAD_REQUEST(JSON Validation Issues)",
 			"event": [
 				{
 					"listen": "test",
