@@ -40,7 +40,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete Campaign :: ERROR 404_BAD_REQUEST (Data Validation)",
+			"name": "Delete Campaign :: ERROR 400_BAD_REQUEST (Data Validation)",
 			"id": "25453210-4fd2a0cc-fa7b-4af3-bdad-e93126172cf7",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
