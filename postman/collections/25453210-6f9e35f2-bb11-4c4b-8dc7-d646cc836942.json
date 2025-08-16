@@ -50,6 +50,52 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create Campaign :: ERROR 400_BAD_REQUEST(JSON body Format Issues) Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb17a9a3-d179-4053-a113-b78ef7f600cd",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "25453210-47d4653d-e742-4c22-943c-2d32878230ea",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"Test Campaign\",\n        \"description\": \"A test campaign\",\n        \"status\": \"ACTIVE\",\n        \"start_date\": \"2024-06-01T00:00:00\",\n        \"end_date\": \"2024-06-30T23:59:59\",\n        \"budget\": 1000.0\n    }\n]"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
