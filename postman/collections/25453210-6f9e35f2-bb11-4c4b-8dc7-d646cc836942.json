@@ -98,7 +98,7 @@
 			"response": []
 		},
 		{
-			"name": "Create Campaign :: ERROR 400_BAD_REQUEST(JSON Validation Issues) Copy",
+			"name": "Create Campaign",
 			"event": [
 				{
 					"listen": "test",
