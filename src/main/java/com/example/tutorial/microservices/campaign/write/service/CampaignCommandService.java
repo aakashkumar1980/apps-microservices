@@ -27,16 +27,16 @@ public class CampaignCommandService {
    * @return Optional containing the created campaign if successful.
    */
   public Optional<Campaign> createCampaign(Campaign campaign) {
-      List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
-      campaigns.add(campaign);
+    List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
+    campaigns.add(campaign);
 
-      // generate a random ID for mock data
-      if (campaign.getId() == null) {
-        campaign.setId((long) (Math.random() * 1000));
-        mockDataUtil.addCampaign(campaign);
-      }
-      return Optional.of(campaign);
+    // generate a random ID for mock data
+    if (campaign.getId() == null) {
+      campaign.setId((long) (Math.random() * 1000));
+      mockDataUtil.addCampaign(campaign);
     }
+    return Optional.of(campaign);
+  }
 
   /**
    * Update an existing campaign.
