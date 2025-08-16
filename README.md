@@ -2,7 +2,7 @@
 This project implements custom exception handling to provide clear and structured REST API error responses 
 for both technical and application custom validation errors.
 
----
+
 ## Framework
 This project uses Spring Boot's exception handling capabilities, specifically `@ControllerAdvice` 
 and custom exceptions, to manage errors effectively.
