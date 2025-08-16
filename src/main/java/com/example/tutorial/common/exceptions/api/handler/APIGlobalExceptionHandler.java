@@ -45,7 +45,7 @@ public class APIGlobalExceptionHandler {
   /** ********************* **/
 
   /**
-   * <HTTP REST API :: Request body JSON format issues>
+   * <REST API :: HTTP request JSON body - format/syntax issues>
    * This typically happens when the JSON format is incorrect or required fields are missing.
    *
    * @param ex the HttpMessageNotReadableException that was thrown
@@ -64,7 +64,7 @@ public class APIGlobalExceptionHandler {
   }
 
   /**
-   * <HTTP REST API :: Request body JSON validation issues>
+   * <REST API :: HTTP request JSON body - field validation issues>
    * Handles validation errors that occur when request body is of correct format but validation rules fails.
    * This method will extract the validation errors and return them in a structured format.
    *
@@ -72,7 +72,7 @@ public class APIGlobalExceptionHandler {
    * @return a ResponseEntity with a structured validation message and HTTP status 400
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<APIRequestValidationMessage> handleValidationErrors(MethodArgumentNotValidException ex) {
+  public ResponseEntity<APIRequestValidationMessage> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
     logger.error("MethodArgumentNotValidException caught: {}", ex.getMessage(), ex);
 
     Map<String, String> errors = new HashMap<>();
@@ -90,7 +90,7 @@ public class APIGlobalExceptionHandler {
 
 
   /**
-   * <HTTP REST API :: Data validation issues>
+   * <REST API :: Http request JSON body - Data validation issues>
    * Handles APIRequestValidationException specifically, allowing for "custom" handling of data validation errors.
    * This method will log the exception and return a specific error response.
    *
