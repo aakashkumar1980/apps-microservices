@@ -6,55 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "Get All Campaigns",
-			"id": "25453210-d11008ca-7816-496a-aca9-c87e1dba6a7d",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/campaigns",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"campaigns"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Campaign By ID",
-			"id": "25453210-b63d8524-3a2a-4afe-a39f-55cc8397c549",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"campaigns",
-						"{{campaignId}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get Campaign By ID :: WARNING 404_NOT_FOUND",
 			"id": "25453210-74c8a2ba-be15-4c6a-a2b2-79504a1b4a7e",
 			"protocolProfileBehavior": {
