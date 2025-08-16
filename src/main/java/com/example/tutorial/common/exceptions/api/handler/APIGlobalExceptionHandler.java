@@ -1,8 +1,8 @@
-package com.example.tutorial.common.exceptions.handler;
+package com.example.tutorial.common.exceptions.api.handler;
 
-import com.example.tutorial.common.exceptions.ApplicationException;
-import com.example.tutorial.common.exceptions.RequestValidationException;
-import com.example.tutorial.common.exceptions.RequestValidationMessage;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
+import com.example.tutorial.common.exceptions.ApplicationTechnicalException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,9 +20,9 @@ import java.util.Map;
  * It uses Spring's @ControllerAdvice to handle exceptions globally across all controllers.
  */
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class APIGlobalExceptionHandler {
 
-  private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+  private static final Logger logger = LoggerFactory.getLogger(APIGlobalExceptionHandler.class);
 
   /**
    * Handles all exceptions that are not specifically handled by other exception handlers.
@@ -31,42 +31,40 @@ public class GlobalExceptionHandler {
    * @param ex the exception that was thrown
    * @return a ResponseEntity with a generic error message and HTTP status 500
    */
-  @ExceptionHandler(ApplicationException.class)
-  public ResponseEntity<String> handleApplicationException(ApplicationException ex) {
-    logger.error("ApplicationException caught: {}", ex.getMessage(), ex);
+  @ExceptionHandler(ApplicationTechnicalException.class)
+  public ResponseEntity<String> handleApplicationTechnicalException(ApplicationTechnicalException ex) {
+    logger.error("ApplicationTechnicalException caught: {}", ex.getMessage(), ex);
 
     return ResponseEntity.internalServerError().body(
         ex.getMessage()
     );
   }
 
-
-
   /** ********************* **/
   /** VALIDATION EXCEPTIONS **/
   /** ********************* **/
 
   /**
-   * <HTTP REQUEST BODY VALIDATION :: JSON body Format Issues>
+   * <HTTP REST API :: Request body JSON format issues>
    * This typically happens when the JSON format is incorrect or required fields are missing.
    *
    * @param ex the HttpMessageNotReadableException that was thrown
    * @return a ResponseEntity with a structured validation message and HTTP status 400
    */
   @ExceptionHandler(HttpMessageNotReadableException.class)
-  public ResponseEntity<RequestValidationMessage> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+  public ResponseEntity<APIRequestValidationMessage> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
     logger.error("HttpMessageNotReadableException caught: {}", ex.getMessage(), ex);
 
     return ResponseEntity.badRequest().body(
-      new RequestValidationMessage(
-        "Request JSON body is not as per the expected format",
-        Map.of("error", ex.getMessage())
-      )
+        new APIRequestValidationMessage(
+            "Request JSON body is not as per the expected format",
+            Map.of("error", ex.getMessage())
+        )
     );
   }
 
   /**
-   * <HTTP REQUEST BODY VALIDATION :: JSON Validation Issues>
+   * <HTTP REST API :: Request body JSON validation issues>
    * Handles validation errors that occur when request body is of correct format but validation rules fails.
    * This method will extract the validation errors and return them in a structured format.
    *
@@ -74,7 +72,7 @@ public class GlobalExceptionHandler {
    * @return a ResponseEntity with a structured validation message and HTTP status 400
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<RequestValidationMessage> handleValidationErrors(MethodArgumentNotValidException ex) {
+  public ResponseEntity<APIRequestValidationMessage> handleValidationErrors(MethodArgumentNotValidException ex) {
     logger.error("MethodArgumentNotValidException caught: {}", ex.getMessage(), ex);
 
     Map<String, String> errors = new HashMap<>();
@@ -83,28 +81,28 @@ public class GlobalExceptionHandler {
     );
 
     return ResponseEntity.badRequest().body(
-      new RequestValidationMessage(
-        "Api request validation failed",
-        errors
-      )
+        new APIRequestValidationMessage(
+            "Api request validation failed",
+            errors
+        )
     );
   }
 
+
   /**
-   * <APPLICATION CUSTOM EXCEPTION>
-   * Handles custom request validation exceptions.
-   * This method will return the validation message provided in the exception.
+   * <HTTP REST API :: Data validation issues>
+   * Handles APIRequestValidationException specifically, allowing for "custom" handling of data validation errors.
+   * This method will log the exception and return a specific error response.
    *
-   * @param ex the RequestValidationException that was thrown
+   * @param ex the APIRequestValidationException that was thrown
    * @return a ResponseEntity with a specific error message and HTTP status 400
    */
-  @ExceptionHandler(RequestValidationException.class)
-  public ResponseEntity<RequestValidationMessage> handleRequestValidationExceptionResponse(RequestValidationException ex) {
-    logger.warn("RequestValidationException caught: {}", ex.getMessage(), ex);
+  @ExceptionHandler(APIRequestValidationException.class)
+  public ResponseEntity<APIRequestValidationMessage> handleAPIRequestValidationException(APIRequestValidationException ex) {
+    logger.warn("APIRequestValidationException caught: {}", ex.getMessage(), ex);
 
     return ResponseEntity.badRequest().body(
         ex.getRequestValidationMessage()
     );
   }
-
 }

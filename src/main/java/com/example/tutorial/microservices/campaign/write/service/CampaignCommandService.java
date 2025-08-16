@@ -1,8 +1,8 @@
 package com.example.tutorial.microservices.campaign.write.service;
 
 import com.example.tutorial.common.datamodel.campaign.Campaign;
-import com.example.tutorial.common.exceptions.RequestValidationException;
-import com.example.tutorial.common.exceptions.RequestValidationMessage;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
 import com.example.tutorial.common.utils.MockDataUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,11 +63,11 @@ public class CampaignCommandService {
       return existingCampaign;
 
     } else {
-      RequestValidationMessage validationMessage = new RequestValidationMessage(
+      APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
           "Api request validation failed",
           Map.of("error", String.format("Campaign with ID %s not found for update.,", id))
       );
-      throw new RequestValidationException(validationMessage);
+      throw new APIRequestValidationException(validationMessage);
     }
   }
 
@@ -85,7 +85,7 @@ public class CampaignCommandService {
    * Delete a campaign by its ID.
    *
    * @param id the ID of the campaign to delete
-   * @throws RequestValidationException if the campaign with the given ID is not found.
+   * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
   public void deleteCampaign(Long id) {
     List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
@@ -99,10 +99,10 @@ public class CampaignCommandService {
     }
 
     // if the campaign with the given ID is not found, throw an exception
-    RequestValidationMessage validationMessage = new RequestValidationMessage(
+    APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
         "Api request validation failed",
         Map.of("error", String.format("Campaign with ID %s not found or deletion.", id))
     );
-    throw new RequestValidationException(validationMessage);
+    throw new APIRequestValidationException(validationMessage);
   }
 }

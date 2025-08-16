@@ -1,15 +1,15 @@
-package com.example.tutorial.common.exceptions;
+package com.example.tutorial.common.exceptions.api;
 
 import java.util.Map;
 
 /**
  * Represents a validation message for requests, containing a message and a map of errors.
  */
-public class RequestValidationMessage {
+public class APIRequestValidationMessage {
   private String message;
   private Map<String, String> errors;
 
-  public RequestValidationMessage(String message, Map<String, String> errors) {
+  public APIRequestValidationMessage(String message, Map<String, String> errors) {
     this.message = message;
     this.errors = errors;
   }
@@ -31,7 +31,7 @@ public class RequestValidationMessage {
 
   @Override
   public String toString() {
-    return "RequestValidationMessage{" +
+    return "APIRequestValidationMessage{" +
            "message='" + message + '\'' +
            ", errors=" + errors +
            '}';
