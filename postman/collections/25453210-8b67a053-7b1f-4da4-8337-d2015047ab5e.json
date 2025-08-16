@@ -6,62 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "Get Campaign By ID :: WARNING 404_NOT_FOUND",
-			"id": "25453210-74c8a2ba-be15-4c6a-a2b2-79504a1b4a7e",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/campaigns/99",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"campaigns",
-						"99"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Campaigns By Status",
-			"id": "25453210-d0bd31b6-ac70-44ad-b92c-0b79bde3d5fa",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/campaigns/status?value=ACTIVE",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"campaigns",
-						"status"
-					],
-					"query": [
-						{
-							"key": "value",
-							"value": "ACTIVE"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get Campaigns By Status :: WARNING 404_NOT_FOUND",
 			"id": "25453210-420b0ffa-bc9c-4e36-997f-47eebde7d8c7",
 			"protocolProfileBehavior": {
