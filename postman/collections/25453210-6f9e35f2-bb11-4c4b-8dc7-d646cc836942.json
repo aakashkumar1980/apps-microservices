@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Create Campaign",
+			"name": "Create Campaign :: ERROR 400_BAD_REQUEST(",
 			"event": [
 				{
 					"listen": "test",
