@@ -1,11 +1,13 @@
 package com.example.tutorial.common.datamodel.campaign;
 
+import com.example.tutorial.common.utils.validation.ValidCampaign;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@ValidCampaign
 public class Campaign {
   @JsonProperty("id")
   private Long id;
