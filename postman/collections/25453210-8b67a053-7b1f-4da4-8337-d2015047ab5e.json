@@ -24,7 +24,7 @@
 					"raw": "{\n  \"name\": \"Updated Campaign\",\n  \"description\": \"Updated description\",\n  \"status\": \"SCHEDULED\",\n  \"start_date\": \"2024-06-01T00:00:00\",\n  \"end_date\": \"2024-06-30T23:59:59\",\n  \"budget\": 2000.0\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+					"raw": "http://localhost:8080/api/campaigns/99",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -33,7 +33,7 @@
 					"path": [
 						"api",
 						"campaigns",
-						"{{campaignId}}"
+						"99"
 					]
 				}
 			},
