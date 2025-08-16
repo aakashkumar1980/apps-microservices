@@ -2,11 +2,14 @@ package com.example.tutorial.common.exceptions;
 
 import java.util.Map;
 
-public class RequestValidationExceptionResponse {
+/**
+ * Represents a validation message for requests, containing a message and a map of errors.
+ */
+public class RequestValidationMessage {
   private String message;
   private Map<String, String> errors;
 
-  public RequestValidationExceptionResponse(String message, Map<String, String> errors) {
+  public RequestValidationMessage(String message, Map<String, String> errors) {
     this.message = message;
     this.errors = errors;
   }
@@ -24,6 +27,14 @@ public class RequestValidationExceptionResponse {
   }
   public void setErrors(Map<String, String> errors) {
     this.errors = errors;
+  }
+
+  @Override
+  public String toString() {
+    return "RequestValidationMessage{" +
+           "message='" + message + '\'' +
+           ", errors=" + errors +
+           '}';
   }
 
 }
