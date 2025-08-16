@@ -1,4 +1,4 @@
-package com.example.tutorial.common.utils.validation;
+package com.example.tutorial.common.utils.validation.datamodel;
 
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import jakarta.validation.ConstraintValidator;

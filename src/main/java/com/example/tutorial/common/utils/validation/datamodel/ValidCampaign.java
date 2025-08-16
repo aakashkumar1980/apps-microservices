@@ -1,4 +1,4 @@
-package com.example.tutorial.common.utils.validation;
+package com.example.tutorial.common.utils.validation.datamodel;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -13,9 +13,9 @@ import java.lang.annotation.*;
  * ensuring that it meets the required criteria before being processed.
  */
 @Documented
-@Constraint(validatedBy = CampaignValidator.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = CampaignValidator.class)
 public @interface ValidCampaign {
   String message() default "Invalid campaign data";
   Class<?>[] groups() default {};
