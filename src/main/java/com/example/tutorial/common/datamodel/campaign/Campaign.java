@@ -1,7 +1,7 @@
 package com.example.tutorial.common.datamodel.campaign;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,24 +10,33 @@ public class Campaign {
   @JsonProperty("id")
   private Long id;
 
+  @NotBlank
+  @Size(min = 3, max = 100)
   @JsonProperty("name")
   private String name;
 
+  @Size(max = 500)
   @JsonProperty("description")
   private String description;
 
+  @NotNull
+  @FutureOrPresent
   @JsonProperty("start_date")
   private LocalDateTime startDate;
 
+  @NotNull
+  @Future
   @JsonProperty("end_date")
   private LocalDateTime endDate;
 
+  @DecimalMin("0.0")
   @JsonProperty("budget")
   private BigDecimal budget;
 
+  @NotNull
   @JsonProperty("status")
   private CampaignStatus status;
-  
+
   @JsonProperty("offer_ids")
   private List<String> offerIds;
   

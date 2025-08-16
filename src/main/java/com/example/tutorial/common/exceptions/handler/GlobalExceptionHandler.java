@@ -59,7 +59,7 @@ public class GlobalExceptionHandler {
 
     return ResponseEntity.badRequest().body(
       new RequestValidationMessage(
-        "Request body is not readable or is malformed",
+        "Request JSON body is not as per the expected format",
         Map.of("error", ex.getMessage())
       )
     );
