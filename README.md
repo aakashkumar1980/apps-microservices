@@ -7,7 +7,6 @@ for both technical and application custom validation errors.
 The application uses a global exception handler to catch and process these exceptions, ensuring that all errors are handled consistently.
 
 ### Gradle `build.gradle` and REST API Exceptions Handler `APIGlobalExceptionHandler`
-For the REST API process, spring boot provides a way to handle exceptions globally using `@ControllerAdvice`.
 
 ```gradle
 dependencies {
