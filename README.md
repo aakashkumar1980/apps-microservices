@@ -1,40 +1,45 @@
-# Exception Handling (REST API flow)
-This project implements custom exception handling to provide clear and structured REST API error responses 
+This project implements custom exception handling to provide clear and structured error responses 
 for both technical and application custom validation errors.
 
-
-## Framework
-This project uses Spring Boot's exception handling capabilities, specifically `@ControllerAdvice` 
-and custom exceptions, to manage errors effectively.
-
-### Custom Exceptions
-First we define two custom exceptions that will be used to handle errors in the application. This way we can
+# Framework (One Time Setup)
+## Custom Exceptions
+First we define following custom exceptions that will be used to handle errors in the application. This way we can
 distinguish between technical errors and application-specific validation errors.
 
-### 1. `ApplicationException`
-This is a generic exception used for technical errors that occur during the application's operation. 
-It extends `RuntimeException` <sup>(as it shouldn't be caught using try/catch across all the component layers and directly 
+### Generic Exceptions
+All exception extends `RuntimeException` <sup>(as it shouldn't be caught using try/catch across all the component layers and directly
 sent to the global exception handler for processing)</sup>.
 
-It is also annotated with `@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)` which means it will return 
-a 500 Internal Server Error response when thrown.
+#### `ApplicationTechnicalException`
+This is used for technical errors that occur during the application's operation. 
+This can be used to handle checked exceptions like `SQLException`, `IOException`, etc., or any other unexpected runtime exceptions that are not related to user input validation.
 ```java
-@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class ApplicationException extends RuntimeException {}
+public class ApplicationTechnicalException extends RuntimeException {}
 ```
+<br/>
 
-### 2. `RequestValidationException`
-This exception is used specifically for the HTTP Request body validations or Data validations during thr REST API flow..
+#### `ApplicationFunctionalException`
+This is used for functional errors that occur during the application's operation, such as business logic violations.
+```java
+public class ApplicationFunctionalException extends RuntimeException {}
+```
+<br/>
+
+### REST API Exceptions
+#### `RequestValidationException` <sup>(extends ApplicationFunctionalException)</sup>
+This exception is used specifically for the HTTP Request body validations or Data validations during thr REST API flow.
+
+It is annotated with `@ResponseStatus(HttpStatus.BAD_REQUEST)` which means it will return a 400 Bad Request Error response when thrown.
 ```java
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class RequestValidationException extends RuntimeException {
-  private final RequestValidationMessage requestValidationMessage;
+  private final RequestValidationMessage APIRequestValidationMessage;
   ...
 }  
 ```
 
-> This exception uses a custom class `RequestValidationMessage` to encapsulate validation error details, including a message and a map of error fields.
-> #### `RequestValidationMessage`
+This exception uses a custom class `RequestValidationMessage` to encapsulate validation error details, including a message and a map of error fields.
+> `RequestValidationMessage`
 > ```java
 > public class RequestValidationMessage {
 >   private String message;
@@ -53,73 +58,54 @@ public class RequestValidationException extends RuntimeException {
 >  }
 >}
 >```
+<br/>
 
-### Exception Handler
+## Exception Handlers
+The application uses a global exception handler to catch and process these exceptions, ensuring that all errors are handled consistently.
 
-#### `GlobalExceptionHandler`
-- Uses Spring's `@ControllerAdvice` to handle exceptions globally.
-- Handles both `ApplicationException` and `RequestValidationException`:
-  - Logs the error.
-  - Returns structured error responses.
+### Generic Exceptions Handler
+There is no handler for generic exceptions in spring boot, and depending upon the module, custom handlers should be implemented.
 
-### Usage in Service Classes
-
-#### `CampaignCommandService`
-- Throws `RequestValidationException` when a campaign is not found for update or delete operations.
-- Example:
-  ```java
-  if (!existingCampaign.isPresent()) {
-      RequestValidationMessage validationMessage = new RequestValidationMessage(
-          "Api request validation failed",
-          Map.of("error", String.format("Campaign with ID %s not found for update.", id))
-      );
-      throw new RequestValidationException(validationMessage);
-  }
-  ```
-
-### Summary
-
-- All exceptions are handled centrally by `GlobalExceptionHandler`.
-- Validation errors provide detailed feedback via `RequestValidationMessage`.
-- Technical errors are returned as HTTP 500 responses.
-
-## Example Error Response
-
-**Validation Error (HTTP 400):**
-```json
-{
-  "message": "Api request validation failed",
-  "errors": {
-    "error": "Campaign with ID 123 not found for update."
-  }
-}
-```
-
-**Application Error (HTTP 500):**
-```
-Internal Server Error: <error message>
-```
-
-
-
-## Implementation
-In summary, any exceptions thrown in the application's REST API flow will first have to be caught and
-then converted into a structured message format, wrapped into custom exception and then thrown.
+### REST API Exceptions Handler `APIGlobalExceptionHandler`
+For the REST API process, spring boot provides a way to handle exceptions globally using `@ControllerAdvice`.
 
 ```java
-try {
-    // some code that may throw an exception
-    ...
-} catch (Exception e) {
-    // convert to custom exception
-    RequestValidationMessage validationMessage = new RequestValidationMessage(
-        "Api request validation failed",
-        Map.of("error", String.format("Campaign with ID %s not found or deletion.", id))
-    );
-    // throw custom exception
-    throw new RequestValidationException(validationMessage);
+@ControllerAdvice
+public class APIGlobalExceptionHandler {
+ 
+  /** For handling technical exceptions during the REST API flow */
+  @ExceptionHandler(ApplicationTechnicalException.class)
+  public ResponseEntity<String> handleApplicationException(ApplicationTechnicalException ex) {}
+  
+  /** For handling Data validation exceptions during the REST API flow */
+  @ExceptionHandler(APIRequestValidationException.class)
+  public ResponseEntity<APIRequestValidationMessage> handleAPIRequestValidationException(APIRequestValidationException ex) {}
 }
 ```
+<br/><br/>
 
-# Exception Handling (Other flows)
 
+# Implementation (examples)
+As an example, below is the implementation of the Data Validation exception handling in a REST API service.
+
+## Usage in Service Classes `CampaignCommandService`
+```java
+public Optional<Campaign> updateCampaign(Long id, Campaign campaign) {
+  ...
+  APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
+      "Api request validation failed",
+      Map.of("error", String.format("Campaign with ID %s not found for update.,", id))
+  );
+  throw new APIRequestValidationException(validationMessage);
+}  
+```
+
+> JSON (output) ->
+> ```json
+> {
+>  "message": "Api request validation failed",
+>  "errors": {
+>    "error": "Campaign with ID 123 not found for update."
+>  }
+>}
+> ```
