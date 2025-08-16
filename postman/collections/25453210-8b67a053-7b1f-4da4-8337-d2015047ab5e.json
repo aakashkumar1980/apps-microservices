@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Update Campaign :: ERROR 404_BAD_REQUEST",
+			"name": "Update Campaign :: ERROR 404_BAD_REQUEST (Data Validation)",
 			"id": "25453210-32ae99fe-114f-4a6e-a456-f503f5679ec9",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
