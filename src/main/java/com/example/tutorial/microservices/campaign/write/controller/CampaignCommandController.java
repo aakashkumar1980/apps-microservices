@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class CampaignCommandController {
         Optional<Campaign> createdCampaignOptional = campaignCommandService.createCampaign(campaign);
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .header("Location", String.format("/api/campaigns/%d", createdCampaignOptional.get().getId()))
+            .header(HttpHeaders.LOCATION, String.format("/api/campaigns/%d", createdCampaignOptional.get().getId()))
             .body(createdCampaignOptional.get());
     }
 
