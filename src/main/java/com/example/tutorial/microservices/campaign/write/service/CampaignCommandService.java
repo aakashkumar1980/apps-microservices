@@ -44,7 +44,7 @@ public class CampaignCommandService {
    * @param id the ID of the campaign
    * @param campaign the campaign with updated fields
    * @return Optional containing the updated campaign if successful, otherwise empty.
-   * @throws RequestValidationException if the campaign with the given ID is not found.
+   * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
   public Optional<Campaign> updateCampaign(Long id, Campaign campaign) {
     List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
