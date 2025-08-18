@@ -31,7 +31,7 @@ java {
     /**
      * Sets the Java language version to 21.
      */
-    languageVersion = JavaLanguageVersion.of(24)
+    languageVersion = JavaLanguageVersion.of(21)
   }
 }
 
@@ -97,6 +97,12 @@ dependencies {
    */
   implementation "commons-io:commons-io:${ioUtilsVersion}"
 
+
+  /** TESTING **/
+  /**
+   * Spring Boot starter for testing (JUnit, Mockito, etc.).
+   */
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 /** ***************** **/
 /** [END] DEVELOPMENT **/
@@ -107,5 +113,10 @@ tasks.named('bootJar', org.springframework.boot.gradle.tasks.bundling.BootJar) {
    * Specify the main class for the bootJar task.
    * Replace with your actual entry-point class.
    */
-  mainClass.set('com.example.tutorial.Application')
+  mainClass.set('com.example.tutorial.SpringbootStartupApi')
+}
+
+/** TESTING **/
+test {
+    useJUnitPlatform()
 }

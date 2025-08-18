@@ -49,4 +49,5 @@ public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
   public String getBucketName() {
     return bucketName;
   }
+
 }
