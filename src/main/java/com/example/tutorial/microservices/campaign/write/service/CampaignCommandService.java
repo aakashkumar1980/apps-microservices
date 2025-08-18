@@ -25,6 +25,9 @@ public class CampaignCommandService {
   @Autowired
   private CampaignCommandRepository campaignCommandRepository;
 
+  @Autowired
+  private DBUtils dbUtils;
+
   @Value("${campaign.counter.key:campaign_counter}")
   private String campaignCounterKey;
 
@@ -35,7 +38,7 @@ public class CampaignCommandService {
    */
   public Optional<Campaign> createCampaign(Campaign campaign) {
       // Use DBUtils to get a unique sequential ID
-      long counter = DBUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
+      long counter = dbUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
       String id = "campaign::" + counter;
       campaign.setId(id);
       Campaign savedCampaign = campaignCommandRepository.save(campaign);

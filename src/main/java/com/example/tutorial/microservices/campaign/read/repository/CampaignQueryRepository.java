@@ -1,12 +1,13 @@
 package com.example.tutorial.microservices.campaign.read.repository;
 
+import com.example.tutorial.common.datamodel.campaign.Campaign;
 import org.springframework.data.couchbase.repository.CouchbaseRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface CampaignQueryRepository<Campaign> extends CouchbaseRepository<Campaign, String> {
+public interface CampaignQueryRepository extends CouchbaseRepository<Campaign, String> {
 
   /**
    * Finds all campaigns with the specified status.
