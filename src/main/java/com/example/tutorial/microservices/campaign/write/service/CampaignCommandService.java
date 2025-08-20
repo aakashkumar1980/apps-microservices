@@ -55,7 +55,6 @@ public class CampaignCommandService {
    */
   public Optional<Campaign> updateCampaign(String id, Campaign campaign) {
     Optional<Campaign> existingCampaign = campaignCommandRepository.findById(id);
-
     if (existingCampaign.isPresent()) {
       Campaign exCampaign = existingCampaign.get();
       exCampaign.setName(campaign.getName());
@@ -64,7 +63,7 @@ public class CampaignCommandService {
       exCampaign.setStartDate(campaign.getStartDate());
       exCampaign.setEndDate(campaign.getEndDate());
       exCampaign.setBudget(campaign.getBudget());
-      return Optional.ofNullable(campaignCommandRepository.save(exCampaign));
+      return Optional.of(campaignCommandRepository.save(exCampaign));
 
     } else {
       APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
