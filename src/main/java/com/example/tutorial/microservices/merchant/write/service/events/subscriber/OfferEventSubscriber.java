@@ -2,6 +2,7 @@ package com.example.tutorial.microservices.merchant.write.service.events.subscri
 
 import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.datamodel.offer.events.OfferEvent;
+import com.example.tutorial.common.exceptions.ApplicationTechnicalException;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.merchant.ApplicationConstants;
 import com.example.tutorial.microservices.merchant.write.service.MerchantCommandService;
@@ -51,7 +52,7 @@ public class OfferEventSubscriber {
       merchantCommandService.linkOfferToMerchant(offerEvent.getMerchantId(), offerId);
 
     } catch (JsonProcessingException e) {
-      throw new ApplicationException("Error parsing object's value", e);
+      throw new ApplicationTechnicalException("Error parsing object's value", e);
     }
   }
 
@@ -79,7 +80,7 @@ public class OfferEventSubscriber {
       merchantCommandService.unlinkOfferFromMerchant(offerEvent.getMerchantId(), offerId);
 
     } catch (JsonProcessingException e) {
-      throw new ApplicationException("Error parsing object's value", e);
+      throw new ApplicationTechnicalException("Error parsing object's value", e);
     }
   }
 }

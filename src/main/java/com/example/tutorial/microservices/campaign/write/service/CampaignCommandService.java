@@ -3,6 +3,8 @@ package com.example.tutorial.microservices.campaign.write.service;
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -30,9 +33,6 @@ public class CampaignCommandService {
 
   @Autowired
   private CouchbaseTemplate couchbaseTemplate;
-
-  @Value("${campaign.counter.key:campaign_counter}")
-  private String campaignCounterKey;
 
   @Autowired
   private CampaignEventPublisher campaignEventPublisher;
@@ -49,6 +49,9 @@ public class CampaignCommandService {
   @Value("${campaigns.api.url}")
   String campaignsApiUrl;
 
+  @Value("${campaign.counter.key:campaign_counter}")
+  private String campaignCounterKey;
+
   /**
    * Create a new campaign and publish an event to the kafka event bus.
    * TODO: Implement @Retry as this is an internal service call
@@ -56,7 +59,7 @@ public class CampaignCommandService {
    * @param campaign the campaign to create
    * @return the ID of the created campaign
    */
-  public String createCampaign(Campaign campaign) {
+  public Optional<BaseDto<Campaign>> createCampaign(Campaign campaign) {
     log.info("Creating campaign: {}", campaign);
 
     // build the BaseDto for the campaign with default values
@@ -72,21 +75,22 @@ public class CampaignCommandService {
     /** PUBLISH EVENT **/
     // publish the campaign created event to kafka event bus
     campaignEventPublisher.publishCreateCampaignEvent(savedCampaign);
-    return savedCampaign.getId();
+    return Optional.of(savedCampaign);
   }
 
   /**
    * Update an existing campaign and publish an event to the kafka event bus.
    * TODO: Implement @Retry as this is an internal service call
    *
+   * @param id       the ID of the campaign to update
    * @param campaign the BaseDto containing the campaign data to update
    */
-  public void updateCampaign(BaseDto<Campaign> campaign) {
+  public Optional<BaseDto<Campaign>> updateCampaign(String id, BaseDto<Campaign> campaign) {
     log.info("Updating campaign: {}", campaign);
 
     /** DATA VALIDATION **/
     // override offer ids by keeping the original as it shouldn't be changed once assigned
-    campaignValidation.keepOriginalOfferIds(campaign);
+    campaignValidation.keepOriginalOfferIds(id, campaign);
 
     /** PERSIST DATA **/
     // update the updated campaign to the repository
@@ -96,6 +100,7 @@ public class CampaignCommandService {
     /** PUBLISH EVENT **/
     // publish the campaign updated event to kafka event bus
     campaignEventPublisher.publishUpdateCampaignEvent(updatedCampaign);
+    return Optional.of(updatedCampaign);
   }
 
   /**
@@ -117,6 +122,13 @@ public class CampaignCommandService {
       originalCampaign.getData().setStatus(CampaignStatus.CANCELLED);
       // persist the updated campaign
       campaignCommandRepository.save(originalCampaign);
+
+    } else {
+      APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
+          "Api request validation failed",
+          Map.of("error", String.format("Campaign with ID %s not found for cancellation.,",id))
+      );
+      throw new APIRequestValidationException(validationMessage);
     }
 
     /** PUBLISH EVENT **/

@@ -2,6 +2,7 @@ package com.example.tutorial.microservices.offer.write.service.events.subscriber
 
 import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.datamodel.campaign.events.CampaignEvent;
+import com.example.tutorial.common.exceptions.ApplicationTechnicalException;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.offer.ApplicationConstants;
 import com.example.tutorial.microservices.offer.write.service.OfferCommandService;
@@ -47,7 +48,7 @@ public class CampaignEventSubscriber {
       // cache the campaign details in Redis
       cacheUtils.setCache(campaignId, campaignEvent, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
     } catch (JsonProcessingException e) {
-      throw new ApplicationException("Error parsing object's value", e);
+      throw new ApplicationTechnicalException("Error parsing object's value", e);
     }
   }
 
@@ -70,7 +71,7 @@ public class CampaignEventSubscriber {
       // update the campaign details in Redis cache
       cacheUtils.setCache(campaignId, campaignEvent, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
     } catch (JsonProcessingException e) {
-      throw new ApplicationException("Error parsing object's value", e);
+      throw new ApplicationTechnicalException("Error parsing object's value", e);
     }
   }
 
@@ -98,7 +99,7 @@ public class CampaignEventSubscriber {
       offerCommandService.cancelOffers(campaignId);
 
     } catch (JsonProcessingException e) {
-      throw new ApplicationException("Error parsing object's value", e);
+      throw new ApplicationTechnicalException("Error parsing object's value", e);
     }
   }
 }

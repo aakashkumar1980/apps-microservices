@@ -2,6 +2,7 @@ package com.example.tutorial.microservices.campaign.write.service.events.subscri
 
 import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.datamodel.offer.events.OfferEvent;
+import com.example.tutorial.common.exceptions.ApplicationTechnicalException;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.campaign.write.service.CampaignCommandService;
 import com.example.tutorial.microservices.campaign.ApplicationConstants;
@@ -52,7 +53,7 @@ public class OfferEventSubscriber {
       campaignCommandService.linkOfferToCampaign(offerEvent.getCampaignId(), offerId);
 
     } catch (JsonProcessingException e) {
-      throw new ApplicationException("Error parsing object's value", e);
+      throw new ApplicationTechnicalException("Error parsing object's value", e);
     }
   }
 
@@ -80,7 +81,7 @@ public class OfferEventSubscriber {
       campaignCommandService.unlinkOfferFromCampaign(offerEvent.getCampaignId(), offerId);
 
     } catch (JsonProcessingException e) {
-      throw new ApplicationException("Error parsing object's value", e);
+      throw new ApplicationTechnicalException("Error parsing object's value", e);
     }
   }
 }

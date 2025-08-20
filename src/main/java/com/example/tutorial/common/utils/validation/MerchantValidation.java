@@ -4,6 +4,8 @@ import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.merchant.Merchant;
 import com.example.tutorial.common.datamodel.merchant.events.MerchantEvent;
 import com.example.tutorial.common.datamodel.KafkaEventType;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.slf4j.Logger;
@@ -29,10 +31,10 @@ public class MerchantValidation {
   /**
    * Validates the existence of a merchant by its ID.
    * This method first checks if the merchant event is cached in Redis or gets it from the RETS API.
-   * If not found, it throws a RequestValidationException with an appropriate message.
+   * If not found, it throws a APIRequestValidationException with an appropriate message.
    *
    * @param merchantId The ID of the merchant to validate.
-   * @throws RequestValidationException if the merchant does not exist or is not found in the API.
+   * @throws APIRequestValidationException if the merchant does not exist or is not found in the API.
    */
   public void validateMerchant(String merchantId) {
     log.info("Validating existence of merchant with ID: {}", merchantId);
@@ -46,11 +48,11 @@ public class MerchantValidation {
 
     if (merchantEventOptional.isEmpty()) {
       // if the merchant event is not found in cache, throw an exception
-      RequestValidationMessage validationMessage = new RequestValidationMessage(
+      APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
           "Api request validation failed",
           Map.of("error", String.format("Merchant with ID %s does not exist", merchantId))
       );
-      throw new RequestValidationException(validationMessage);
+      throw new APIRequestValidationException(validationMessage);
     }
   }
 

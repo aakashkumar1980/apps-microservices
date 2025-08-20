@@ -1,5 +1,6 @@
 package com.example.tutorial.common.datamodel.campaign;
 
+import com.example.tutorial.common.utils.validation.datamodel.ValidCampaign;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import org.springframework.data.couchbase.core.mapping.Field;
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@ValidCampaign
 public class Campaign {
 
   @NotBlank

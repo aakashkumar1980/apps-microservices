@@ -3,6 +3,7 @@ package com.example.tutorial.common.utils;
 import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.Event;
+import com.example.tutorial.common.exceptions.ApplicationTechnicalException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,7 +58,7 @@ public class CacheUtils <T extends Event> {
     try {
       payloadString = objectMapper.writeValueAsString(payload);
     } catch (JsonProcessingException e) {
-      throw new ApplicationException("Error parsing object's value", e);
+      throw new ApplicationTechnicalException("Error parsing object's value", e);
     }
 
     redisTemplate.opsForValue().set(id, payloadString, cacheLimitHour, TimeUnit.MINUTES); // Specify expiry with TimeUnit
@@ -87,7 +88,7 @@ public class CacheUtils <T extends Event> {
         T cacheObject = objectMapper.readValue(payload, cacheTypeReference);
         return Optional.of(cacheObject);
       } catch (JsonProcessingException e) {
-        throw new ApplicationException("Error parsing object's value", e);
+        throw new ApplicationTechnicalException("Error parsing object's value", e);
       }
 
     /** STEP 2: If the ID is not present in Redis cache, fetch it from the REST API and cache it **/
@@ -100,7 +101,7 @@ public class CacheUtils <T extends Event> {
           try {
             BeanUtils.copyProperties(event, dtoOptional.get().getData());
           } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new ApplicationException("Error parsing object's value", e);
+            throw new ApplicationTechnicalException("Error parsing object's value", e);
           }
           // cache the event in Redis for future use, to avoid multiple calls to the same API
           setCache(id, event, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);
@@ -118,14 +119,14 @@ public class CacheUtils <T extends Event> {
    * Deletes the cache entry for the given ID from Redis.
    * TODO: Implement @Retry as this is a service call
    *
-   * @param campaignId the ID of the cache entry to delete
+   * @param id the ID of the cache entry to delete
    */
-  public void delete(String campaignId) {
-    if (redisTemplate.hasKey(campaignId)) {
-      log.info("Deleting cache entry for ID: {}", campaignId);
-      redisTemplate.delete(campaignId);
+  public void delete(String id) {
+    if (redisTemplate.hasKey(id)) {
+      log.info("Deleting cache entry for ID: {}", id);
+      redisTemplate.delete(id);
     } else {
-      log.warn("No cache entry found for ID: {}", campaignId);
+      log.warn("No cache entry found for ID: {}", id);
     }
   }
 }

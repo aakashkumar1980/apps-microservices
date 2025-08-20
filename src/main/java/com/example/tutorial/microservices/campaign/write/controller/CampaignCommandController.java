@@ -7,8 +7,12 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/campaigns")
@@ -19,46 +23,49 @@ public class CampaignCommandController {
     @Autowired
     private CampaignCommandService campaignCommandService;
 
-
     /**
-     * Handles the creation of a new campaign.
+     * Create a new campaign. This endpoint is used to create a new campaign.
      *
-     * @param campaign the campaign to be created
-     * @return a response entity with the ID of the created campaign
+     * @param campaign the campaign data to be created
+     * @return ResponseEntity with the created campaign and HTTP status 201 (Created)
      */
     @PostMapping
-    public ResponseEntity<String> createCampaign(@Valid @RequestBody Campaign campaign) {
+    public ResponseEntity<BaseDto<Campaign>> createCampaign(@Valid @RequestBody Campaign campaign) {
         log.info("Received request to create campaign: {}", campaign);
 
-        String id = campaignCommandService.createCampaign(campaign);
-        return ResponseEntity.ok(String.format("Campaign created successfully with ID: %s", id));
+        Optional<BaseDto<Campaign>> createdCampaignOptional = campaignCommandService.createCampaign(campaign);
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .header(HttpHeaders.LOCATION, String.format("/api/campaigns/%d", createdCampaignOptional.get().getId()))
+            .body(createdCampaignOptional.get());
     }
 
     /**
-     * Handles the update of an existing campaign.
+     * Update an existing campaign. This endpoint is used to update an existing campaign.
      *
-     * @param campaign the base DTO containing the campaign to be updated
-     * @return a response entity with a success message
+     * @param id the ID of the campaign to be updated
+     * @param campaign the updated campaign data
+     * @return ResponseEntity with the updated campaign and HTTP status 200 (OK)
      */
-    @PutMapping
-    public ResponseEntity<String> updateCampaign(@Valid @RequestBody BaseDto<Campaign> campaign) {
-        log.info("Received request to update campaign: {}", campaign);
+    @PutMapping("/{id}")
+    public ResponseEntity<BaseDto<Campaign>> updateCampaign(@PathVariable String id, @Valid @RequestBody BaseDto<Campaign> campaign) {
+        log.info("Received request to update campaign with ID: {}, Data: {}", id, campaign);
 
-        campaignCommandService.updateCampaign(campaign);
-        return ResponseEntity.ok(String.format("Campaign updated successfully with ID: %s", campaign.getId()));
+        Optional<BaseDto<Campaign>> updatedCampaignOptional = campaignCommandService.updateCampaign(id, campaign);
+        return ResponseEntity.ok(updatedCampaignOptional.get());
     }
 
     /**
-     * Handles the cancellation of a campaign by its ID.
+     * Delete a campaign by ID. This endpoint is used to delete a campaign.
      *
-     * @param id the ID of the campaign to be cancelled
-     * @return a response entity with a success message
+     * @param id the ID of the campaign to be deleted
+     * @return ResponseEntity with HTTP status 204 (No Content) if successful
      */
-    @DeleteMapping("/{id}/cancel")
+    @PutMapping("/{id}/cancel")
     public ResponseEntity<String> cancelCampaign(@PathVariable String id) {
         log.info("Received request to cancel campaign with ID: {}", id);
 
         campaignCommandService.cancelCampaign(id);
-        return ResponseEntity.ok("Campaign cancelled successfully");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

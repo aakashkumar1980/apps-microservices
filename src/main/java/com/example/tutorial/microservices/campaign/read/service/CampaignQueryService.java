@@ -31,7 +31,7 @@ public class CampaignQueryService {
     List<BaseDto<Campaign>> allCampaigns = campaignQueryRepository.getAllCampaigns();
     log.info("Total campaigns fetched: {}", allCampaigns.size());
 
-    return campaignQueryRepository.getAllCampaigns();
+    return allCampaigns;
   }
 
   /**
@@ -49,6 +49,22 @@ public class CampaignQueryService {
     }
 
     return campaign;
+  }
+
+  /**
+   * Retrieves campaigns by their status.
+   *
+   * @param value the status of the campaigns to retrieve
+   * @return a list of campaigns with the specified status
+   */
+  public List<BaseDto<Campaign>> getCampaignsByStatus(String value) {
+    List<BaseDto<Campaign>> campaignsByStatus = campaignQueryRepository.findCampaignByStatus(value);
+    if (campaignsByStatus.isEmpty()) {
+      log.warn("No campaigns found with status '{}'", value);
+    } else {
+      log.info("Campaigns with status '{}' retrieved successfully", value);
+    }
+    return campaignsByStatus;
   }
 
   /**

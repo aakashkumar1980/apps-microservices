@@ -5,6 +5,8 @@ import com.example.tutorial.common.datamodel.KafkaEventType;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.datamodel.campaign.events.CampaignEvent;
 import com.example.tutorial.common.datamodel.offer.Offer;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -44,12 +46,12 @@ public class OfferValidation {
    * sums their discount amounts along with the current offer's discount amount,
    * and compares the total to the campaign's budget.
    * If the total discount amount exceeds the campaign budget, a
-   * {@link RequestValidationException} is thrown.
+   * {@link APIRequestValidationException} is thrown.
    * </p>
    *
    * @param campaignId           the ID of the campaign to validate
    * @param offerDiscountAmount  the discount amount of the current offer
-   * @throws RequestValidationException if the campaign budget has been exceeded
+   * @throws APIRequestValidationException if the campaign budget has been exceeded
    */
   public void validateCampaignBudgetNotExceeded(String campaignId, BigDecimal offerDiscountAmount) {
     log.info("Validating campaign budget for campaign ID: {}", campaignId);
@@ -69,7 +71,7 @@ public class OfferValidation {
    *
    * @param campaignId The ID of the campaign.
    * @return The budget of the campaign.
-   * @throws RequestValidationException if the campaign is not found.
+   * @throws APIRequestValidationException if the campaign is not found.
    */
   private BigDecimal fetchCampaignBudget(String campaignId) {
     Optional<CampaignEvent> campaignEventOptional = cacheUtils.getCache(
@@ -78,8 +80,8 @@ public class OfferValidation {
         new CampaignEvent(campaignId, KafkaEventType.CAMPAIGN_UPDATED)
     );
     if (campaignEventOptional.isEmpty()) {
-      throw new RequestValidationException(
-          new RequestValidationMessage("Campaign not found", Map.of("campaignId", campaignId))
+      throw new APIRequestValidationException(
+          new APIRequestValidationMessage("Campaign not found", Map.of("campaignId", campaignId))
       );
     }
     BigDecimal budget = campaignEventOptional.get().getBudget();
@@ -121,16 +123,16 @@ public class OfferValidation {
    * @param campaignId The ID of the campaign.
    * @param totalDiscountAmount The total discount amount.
    * @param budget The campaign budget.
-   * @throws RequestValidationException if the budget is exceeded.
+   * @throws APIRequestValidationException if the budget is exceeded.
    */
   private void validateBudgetNotExceeded(String campaignId, double totalDiscountAmount, BigDecimal budget) {
     if (BigDecimal.valueOf(totalDiscountAmount).compareTo(budget) > 0) {
-      RequestValidationMessage validationMessage = new RequestValidationMessage(
+      APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
           "Api request validation failed",
           Map.of("error", String.format("Campaign budget exceeded for campaign ID: %s. Total discount amount: %s, Campaign budget: %s",
               campaignId, totalDiscountAmount, budget))
       );
-      throw new RequestValidationException(validationMessage);
+      throw new APIRequestValidationException(validationMessage);
     } else {
       log.info("Campaign budget validation passed for campaign ID: {}", campaignId);
     }
