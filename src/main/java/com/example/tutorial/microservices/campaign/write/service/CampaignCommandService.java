@@ -64,7 +64,7 @@ public class CampaignCommandService {
       exCampaign.setStartDate(campaign.getStartDate());
       exCampaign.setEndDate(campaign.getEndDate());
       exCampaign.setBudget(campaign.getBudget());
-      return Optional.ofNullable(campaignCommandRepository.save(exCampaign));
+      return Optional.of(campaignCommandRepository.save(exCampaign));
 
     } else {
       APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
