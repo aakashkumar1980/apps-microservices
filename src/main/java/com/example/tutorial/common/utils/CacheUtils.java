@@ -1,8 +1,8 @@
 package com.example.tutorial.common.utils;
 
 import com.example.tutorial.common.constants.CacheConstants;
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.Event;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.Event;
 import com.example.tutorial.common.exceptions.ApplicationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -119,14 +119,14 @@ public class CacheUtils <T extends Event> {
    * Deletes the cache entry for the given ID from Redis.
    * TODO: Implement @Retry as this is a service call
    *
-   * @param campaignId the ID of the cache entry to delete
+   * @param id the ID of the cache entry to delete
    */
-  public void delete(String campaignId) {
-    if (redisTemplate.hasKey(campaignId)) {
-      log.info("Deleting cache entry for ID: {}", campaignId);
-      redisTemplate.delete(campaignId);
+  public void delete(String id) {
+    if (redisTemplate.hasKey(id)) {
+      log.info("Deleting cache entry for ID: {}", id);
+      redisTemplate.delete(id);
     } else {
-      log.warn("No cache entry found for ID: {}", campaignId);
+      log.warn("No cache entry found for ID: {}", id);
     }
   }
 }

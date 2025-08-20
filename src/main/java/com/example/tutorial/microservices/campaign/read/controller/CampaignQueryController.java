@@ -1,5 +1,6 @@
 package com.example.tutorial.microservices.campaign.read.controller;
 
+import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.microservices.campaign.read.service.CampaignQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class CampaignQueryController {
    * @return a ResponseEntity containing a list of all campaign objects.
    */
   @GetMapping
-  public ResponseEntity<List<Campaign>> getAllCampaigns() {
-    List<Campaign> allCampaigns = campaignQueryService.getAllCampaigns();
+  public ResponseEntity<List<BaseDto<Campaign>>> getAllCampaigns() {
+    List<BaseDto<Campaign>> allCampaigns = campaignQueryService.getAllCampaigns();
 
     log.info("Total campaigns found: {}", allCampaigns.size());
     return ResponseEntity.ok(allCampaigns);
@@ -41,8 +42,8 @@ public class CampaignQueryController {
    * @return a ResponseEntity containing the campaign object if found, or 404 if not found
    */
   @GetMapping("/{id}")
-  public ResponseEntity<Campaign> getCampaignById(@PathVariable String id) {
-    Optional<Campaign> campaignOptional = campaignQueryService.getCampaignById(id);
+  public ResponseEntity<BaseDto<Campaign>> getCampaignById(@PathVariable String id) {
+    Optional<BaseDto<Campaign>> campaignOptional = campaignQueryService.getCampaignById(id);
 
     if (campaignOptional.isPresent()) {
       log.info("Campaign with ID: {} found", id);
@@ -61,8 +62,8 @@ public class CampaignQueryController {
    * @return a ResponseEntity containing a list of campaigns with the specified status, or 404 if none found
    */
   @GetMapping("/status")
-  public ResponseEntity<List<Campaign>> getCampaignsByStatus(@RequestParam String value) {
-    List<Campaign> campaigns = campaignQueryService.getCampaignsByStatus(value);
+  public ResponseEntity<List<BaseDto<Campaign>>> getCampaignsByStatus(@RequestParam String value) {
+    List<BaseDto<Campaign>> campaigns = campaignQueryService.getCampaignsByStatus(value);
 
     if (campaigns.isEmpty()) {
       log.warn("No campaigns found with status: {}", value);

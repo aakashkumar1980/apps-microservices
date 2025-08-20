@@ -1,5 +1,6 @@
 package com.example.tutorial.microservices.campaign.write.service;
 
+import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
 import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
@@ -33,38 +34,43 @@ public class CampaignCommandService {
 
   /**
    * Create a new campaign.
+   *
    * @param campaign the campaign to create
-   * @return the ID of the created campaign
+   * @return Optional containing the created campaign if successful, otherwise empty.
    */
-  public Optional<Campaign> createCampaign(Campaign campaign) {
-      // Use DBUtils to get a unique sequential ID
-      long counter = dbUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
-      String id = "campaign::" + counter;
-      campaign.setId(id);
-      Campaign savedCampaign = campaignCommandRepository.save(campaign);
-      return Optional.of(savedCampaign);
-    }
+  public Optional<BaseDto<Campaign>> createCampaign(Campaign campaign) {
+    // build the BaseDto for the campaign with default values
+    BaseDto<Campaign> baseCampaign = BaseDto.build(campaign);
+
+    // generate a unique ID for the campaign
+    String id = "campaign::" + dbUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
+    baseCampaign.setId(id);
+    // save the campaign to the repository
+    BaseDto<Campaign> savedCampaign = campaignCommandRepository.save(baseCampaign);
+    return Optional.of(savedCampaign);
+  }
 
   /**
-   * Update an existing campaign.
+   * Update an existing campaign by its ID.
    *
-   * @param id the ID of the campaign
-   * @param campaign the campaign with updated fields
+   * @param id the ID of the campaign to update
+   * @param campaign the updated campaign data
    * @return Optional containing the updated campaign if successful, otherwise empty.
    * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
-  public Optional<Campaign> updateCampaign(String id, Campaign campaign) {
-    Optional<Campaign> existingCampaign = campaignCommandRepository.findById(id);
-
+  public Optional<BaseDto<Campaign>> updateCampaign(String id, BaseDto<Campaign> campaign) {
+    // fetch the existing campaign by ID
+    Optional<BaseDto<Campaign>> existingCampaign = campaignCommandRepository.findById(id);
     if (existingCampaign.isPresent()) {
-      Campaign exCampaign = existingCampaign.get();
-      exCampaign.setName(campaign.getName());
-      exCampaign.setDescription(campaign.getDescription());
-      exCampaign.setStatus(campaign.getStatus());
-      exCampaign.setStartDate(campaign.getStartDate());
-      exCampaign.setEndDate(campaign.getEndDate());
-      exCampaign.setBudget(campaign.getBudget());
-      return Optional.ofNullable(campaignCommandRepository.save(exCampaign));
+      // update the fields of the existing campaign with the new values
+      BaseDto<Campaign> exCampaign = existingCampaign.get();
+      exCampaign.getData().setName(campaign.getData().getName());
+      exCampaign.getData().setDescription(campaign.getData().getDescription());
+      exCampaign.getData().setStatus(campaign.getData().getStatus());
+      exCampaign.getData().setStartDate(campaign.getData().getStartDate());
+      exCampaign.getData().setEndDate(campaign.getData().getEndDate());
+      exCampaign.getData().setBudget(campaign.getData().getBudget());
+      return Optional.of(campaignCommandRepository.save(exCampaign));
 
     } else {
       APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
@@ -82,7 +88,7 @@ public class CampaignCommandService {
    * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
   public void deleteCampaign(String id) {
-    Optional<Campaign> existingCampaign = campaignCommandRepository.findById(id);
+    Optional<BaseDto<Campaign>> existingCampaign = campaignCommandRepository.findById(id);
     if(existingCampaign.isPresent()) {
       campaignCommandRepository.deleteById(id);
 

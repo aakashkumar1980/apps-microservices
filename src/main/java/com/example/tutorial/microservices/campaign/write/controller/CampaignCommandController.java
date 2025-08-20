@@ -1,5 +1,6 @@
 package com.example.tutorial.microservices.campaign.write.controller;
 
+import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.microservices.campaign.write.service.CampaignCommandService;
 import jakarta.validation.Valid;
@@ -24,14 +25,15 @@ public class CampaignCommandController {
 
     /**
      * Create a new campaign. This endpoint is used to create a new campaign.
+     *
      * @param campaign the campaign data to be created
      * @return ResponseEntity with the created campaign and HTTP status 201 (Created)
      */
     @PostMapping
-    public ResponseEntity<Campaign> createCampaign(@Valid @RequestBody Campaign campaign) {
+    public ResponseEntity<BaseDto<Campaign>> createCampaign(@Valid @RequestBody Campaign campaign) {
         log.info("Received request to create campaign: {}", campaign);
 
-        Optional<Campaign> createdCampaignOptional = campaignCommandService.createCampaign(campaign);
+        Optional<BaseDto<Campaign>> createdCampaignOptional = campaignCommandService.createCampaign(campaign);
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .header(HttpHeaders.LOCATION, String.format("/api/campaigns/%d", createdCampaignOptional.get().getId()))
@@ -46,10 +48,10 @@ public class CampaignCommandController {
      * @return ResponseEntity with the updated campaign and HTTP status 200 (OK)
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Campaign> updateCampaign(@PathVariable String id, @Valid @RequestBody Campaign campaign) {
+    public ResponseEntity<BaseDto<Campaign>> updateCampaign(@PathVariable String id, @Valid @RequestBody BaseDto<Campaign> campaign) {
         log.info("Received request to update campaign with ID: {}, Data: {}", id, campaign);
 
-        Optional<Campaign> updatedCampaignOptional = campaignCommandService.updateCampaign(id, campaign);
+        Optional<BaseDto<Campaign>> updatedCampaignOptional = campaignCommandService.updateCampaign(id, campaign);
         return ResponseEntity.ok(updatedCampaignOptional.get());
     }
 

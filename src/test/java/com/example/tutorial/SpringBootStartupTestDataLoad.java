@@ -1,6 +1,7 @@
 package com.example.tutorial;
 
 
+import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,7 +56,7 @@ public class SpringBootStartupTestDataLoad {
   @Test
   public void loadTestData() throws Exception {
     // 1. Load sample data from resources as BaseDto lists
-    List<Campaign> campaigns = readJsonArray("sample_data/campaign.json", new TypeReference<List<Campaign>>() {});
+    List<BaseDto<Campaign>> campaigns = readJsonArray("sample_data/campaign.json", new TypeReference<List<BaseDto<Campaign>>>() {});
 
     // 2. Remove all existing docs for each type (offers, merchants, campaigns)
     campaignRepository.deleteAll();
@@ -74,7 +75,7 @@ public class SpringBootStartupTestDataLoad {
   }
 
   /** PRIVATE METHODS **/
-  private <T> List<T> readJsonArray(String filename, TypeReference<List<T>> typeRef) throws Exception {
+  private <T> List<BaseDto<T>> readJsonArray(String filename, TypeReference<List<BaseDto<T>>> typeRef) throws Exception {
     InputStream is = new ClassPathResource(filename).getInputStream();
     return objectMapper.readValue(is, typeRef);
   }

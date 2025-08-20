@@ -1,5 +1,6 @@
 package com.example.tutorial.microservices.campaign.read.service;
 
+import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.microservices.campaign.read.repository.CampaignQueryRepository;
 import org.slf4j.Logger;
@@ -20,10 +21,14 @@ public class CampaignQueryService {
 
   /**
    * Returns all campaigns.
-   * @return List of Campaigns
+   * NOTE: Here we are not using the CouchbaseRepository's findAll method, because the id for different data models
+   * starts like 'campaign::1', 'offer::1', etc. where the prefix is used to identify the type of document.
+   * Therefore, it needs a custom query to filter by the prefix.
+   *
+   * @return List of BaseDto<Campaign>
    */
-  public List<Campaign> getAllCampaigns() {
-    return campaignQueryRepository.findAll();
+  public List<BaseDto<Campaign>> getAllCampaigns() {
+    return campaignQueryRepository.findByIdStartingWith("campaign::%");
   }
 
   /**
@@ -32,7 +37,7 @@ public class CampaignQueryService {
    * @param id the unique identifier of the campaign
    * @return an {@link Optional} containing the found {@link Campaign}, or {@link Optional#empty()} if not found
    */
-  public Optional<Campaign> getCampaignById(String id) {
+  public Optional<BaseDto<Campaign>> getCampaignById(String id) {
     return campaignQueryRepository.findById(id);
   }
 
@@ -42,7 +47,7 @@ public class CampaignQueryService {
    * @param value the status of the campaigns to retrieve
    * @return a list of campaigns with the specified status
    */
-  public List<Campaign> getCampaignsByStatus(String value) {
-    return campaignQueryRepository.findByStatus(value);
+  public List<BaseDto<Campaign>> getCampaignsByStatus(String value) {
+    return campaignQueryRepository.findCampaignByStatus(value);
   }
 }
