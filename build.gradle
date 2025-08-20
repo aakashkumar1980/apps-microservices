@@ -29,9 +29,9 @@ plugins {
 java {
   toolchain {
     /**
-     * Sets the Java language version to 24.
+     * Sets the Java language version to 21.
      */
-    languageVersion = JavaLanguageVersion.of(24)
+    languageVersion = JavaLanguageVersion.of(21)
   }
 }
 
@@ -89,6 +89,7 @@ dependencies {
    */
   implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+
   /** UTILITIES **/
   /**
    * Apache Commons Lang — utility functions for Strings, Numbers, etc.
@@ -124,7 +125,7 @@ tasks.named('bootJar', org.springframework.boot.gradle.tasks.bundling.BootJar) {
    * Specify the main class for the bootJar task.
    * Replace with your actual entry-point class.
    */
-  mainClass.set('com.example.tutorial.Application')
+  mainClass.set('com.example.tutorial.SpringbootStartupApi')
 }
 
 /** TESTING **/

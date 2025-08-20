@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices.offer.read.controller;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.offer.Offer;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.offer.Offer;
 import com.example.tutorial.microservices.offer.read.service.OfferQueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

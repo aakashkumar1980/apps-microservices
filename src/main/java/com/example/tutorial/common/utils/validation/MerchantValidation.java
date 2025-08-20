@@ -1,11 +1,9 @@
 package com.example.tutorial.common.utils.validation;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.merchant.Merchant;
-import com.example.tutorial.common.dto.merchant.events.MerchantEvent;
-import com.example.tutorial.common.dto.KafkaEventType;
-import com.example.tutorial.common.exceptions.RequestValidationException;
-import com.example.tutorial.common.exceptions.RequestValidationMessage;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.merchant.Merchant;
+import com.example.tutorial.common.datamodel.merchant.events.MerchantEvent;
+import com.example.tutorial.common.datamodel.KafkaEventType;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.slf4j.Logger;

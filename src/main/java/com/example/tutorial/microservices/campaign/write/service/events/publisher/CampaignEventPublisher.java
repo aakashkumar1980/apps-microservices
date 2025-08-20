@@ -1,9 +1,9 @@
 package com.example.tutorial.microservices.campaign.write.service.events.publisher;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.KafkaEventType;
-import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.KafkaEventType;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.events.CampaignEvent;
 import com.example.tutorial.common.utils.KafkaUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

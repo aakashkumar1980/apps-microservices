@@ -1,0 +1,16 @@
+package com.example.tutorial.common.datamodel;
+
+public enum KafkaEventType {
+  CAMPAIGN_CREATED,
+  CAMPAIGN_UPDATED,
+  CAMPAIGN_CANCELLED,
+
+  OFFER_CREATED,
+  OFFER_CANCELLED,
+
+  CUSTOMER_OFFER_ASSIGNED,
+  CUSTOMER_OFFER_UNASSIGNED,
+
+  MERCHANT_UPDATED
+
+}

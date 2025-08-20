@@ -1,9 +1,8 @@
 package com.example.tutorial.common.utils;
 
 import com.example.tutorial.common.constants.CacheConstants;
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.Event;
-import com.example.tutorial.common.exceptions.ApplicationException;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.Event;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

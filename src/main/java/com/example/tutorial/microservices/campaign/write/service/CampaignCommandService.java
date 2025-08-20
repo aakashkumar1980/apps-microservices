@@ -1,8 +1,8 @@
 package com.example.tutorial.microservices.campaign.write.service;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.common.dto.campaign.CampaignStatus;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;

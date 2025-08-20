@@ -1,6 +1,5 @@
 package com.example.tutorial.common.utils;
 
-import com.example.tutorial.common.exceptions.ApplicationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

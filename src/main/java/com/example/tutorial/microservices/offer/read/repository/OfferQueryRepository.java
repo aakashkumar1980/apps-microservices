@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices.offer.read.repository;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.offer.Offer;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.offer.Offer;
 import org.springframework.data.couchbase.repository.CouchbaseRepository;
 import org.springframework.data.couchbase.repository.Query;
 import org.springframework.stereotype.Repository;

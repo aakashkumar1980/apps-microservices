@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices.customer.write.service;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.customer.Customer;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.customer.Customer;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.validation.CustomerEligibilityEngineClient;
 import com.example.tutorial.microservices.customer.write.repository.CustomerCommandRepository;

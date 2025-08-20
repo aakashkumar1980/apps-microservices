@@ -1,6 +1,6 @@
 package com.example.tutorial.microservices.offer.write.controller;
 
-import com.example.tutorial.common.dto.offer.Offer;
+import com.example.tutorial.common.datamodel.offer.Offer;
 import com.example.tutorial.microservices.offer.write.service.OfferCommandService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;

@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices.campaign.write.repository;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
 import org.springframework.data.couchbase.repository.CouchbaseRepository;
 import org.springframework.stereotype.Repository;
 

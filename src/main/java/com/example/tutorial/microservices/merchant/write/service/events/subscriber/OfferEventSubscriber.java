@@ -1,8 +1,7 @@
 package com.example.tutorial.microservices.merchant.write.service.events.subscriber;
 
 import com.example.tutorial.common.constants.CacheConstants;
-import com.example.tutorial.common.dto.offer.events.OfferEvent;
-import com.example.tutorial.common.exceptions.ApplicationException;
+import com.example.tutorial.common.datamodel.offer.events.OfferEvent;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.merchant.ApplicationConstants;
 import com.example.tutorial.microservices.merchant.write.service.MerchantCommandService;

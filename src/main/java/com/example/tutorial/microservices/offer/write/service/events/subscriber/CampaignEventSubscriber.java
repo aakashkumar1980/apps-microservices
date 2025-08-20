@@ -1,8 +1,7 @@
 package com.example.tutorial.microservices.offer.write.service.events.subscriber;
 
 import com.example.tutorial.common.constants.CacheConstants;
-import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
-import com.example.tutorial.common.exceptions.ApplicationException;
+import com.example.tutorial.common.datamodel.campaign.events.CampaignEvent;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.offer.ApplicationConstants;
 import com.example.tutorial.microservices.offer.write.service.OfferCommandService;

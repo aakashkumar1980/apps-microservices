@@ -1,8 +1,8 @@
 package com.example.tutorial.microservices.offer.write.service;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.offer.Offer;
-import com.example.tutorial.common.dto.offer.OfferStatus;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.offer.Offer;
+import com.example.tutorial.common.datamodel.offer.OfferStatus;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;

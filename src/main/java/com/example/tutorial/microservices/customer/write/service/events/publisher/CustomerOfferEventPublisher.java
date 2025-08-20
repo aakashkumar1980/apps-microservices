@@ -1,10 +1,10 @@
 package com.example.tutorial.microservices.customer.write.service.events.publisher;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.KafkaEventType;
-import com.example.tutorial.common.dto.customer.Customer;
-import com.example.tutorial.common.dto.customer.events.OfferAssignedEvent;
-import com.example.tutorial.common.dto.customer.events.OfferUnassignedEvent;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.KafkaEventType;
+import com.example.tutorial.common.datamodel.customer.Customer;
+import com.example.tutorial.common.datamodel.customer.events.OfferAssignedEvent;
+import com.example.tutorial.common.datamodel.customer.events.OfferUnassignedEvent;
 import com.example.tutorial.common.utils.KafkaUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

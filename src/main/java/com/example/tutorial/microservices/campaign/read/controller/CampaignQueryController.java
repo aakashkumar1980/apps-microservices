@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices.campaign.read.controller;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.campaign.Campaign;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.microservices.campaign.read.service.CampaignQueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

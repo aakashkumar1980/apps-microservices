@@ -1,10 +1,10 @@
 package com.example.tutorial;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.common.dto.customer.Customer;
-import com.example.tutorial.common.dto.merchant.Merchant;
-import com.example.tutorial.common.dto.offer.Offer;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
+import com.example.tutorial.common.datamodel.customer.Customer;
+import com.example.tutorial.common.datamodel.merchant.Merchant;
+import com.example.tutorial.common.datamodel.offer.Offer;
 import com.example.tutorial.microservices.customer.read.repository.CustomerQueryRepository;
 import com.example.tutorial.microservices.merchant.read.repository.MerchantQueryRepository;
 import com.fasterxml.jackson.core.type.TypeReference;

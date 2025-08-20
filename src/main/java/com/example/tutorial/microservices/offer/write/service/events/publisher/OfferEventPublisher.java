@@ -1,9 +1,9 @@
 package com.example.tutorial.microservices.offer.write.service.events.publisher;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.KafkaEventType;
-import com.example.tutorial.common.dto.offer.Offer;
-import com.example.tutorial.common.dto.offer.events.OfferEvent;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.KafkaEventType;
+import com.example.tutorial.common.datamodel.offer.Offer;
+import com.example.tutorial.common.datamodel.offer.events.OfferEvent;
 import com.example.tutorial.common.utils.KafkaUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

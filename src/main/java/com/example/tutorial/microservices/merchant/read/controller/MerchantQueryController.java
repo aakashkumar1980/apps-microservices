@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices.merchant.read.controller;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.merchant.Merchant;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.merchant.Merchant;
 import com.example.tutorial.microservices.merchant.read.service.MerchantQueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

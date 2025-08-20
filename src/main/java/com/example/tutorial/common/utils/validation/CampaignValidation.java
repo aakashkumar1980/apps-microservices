@@ -1,12 +1,10 @@
 package com.example.tutorial.common.utils.validation;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.KafkaEventType;
-import com.example.tutorial.common.dto.campaign.Campaign;
-import com.example.tutorial.common.dto.campaign.CampaignStatus;
-import com.example.tutorial.common.dto.campaign.events.CampaignEvent;
-import com.example.tutorial.common.exceptions.RequestValidationException;
-import com.example.tutorial.common.exceptions.RequestValidationMessage;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.KafkaEventType;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
+import com.example.tutorial.common.datamodel.campaign.events.CampaignEvent;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.fasterxml.jackson.core.type.TypeReference;

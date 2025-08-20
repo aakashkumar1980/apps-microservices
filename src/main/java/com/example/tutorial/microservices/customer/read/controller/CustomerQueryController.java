@@ -1,7 +1,7 @@
 package com.example.tutorial.microservices.customer.read.controller;
 
-import com.example.tutorial.common.dto.BaseDto;
-import com.example.tutorial.common.dto.customer.Customer;
+import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.customer.Customer;
 import com.example.tutorial.microservices.customer.read.service.CustomerQueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
