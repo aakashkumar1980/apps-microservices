@@ -62,15 +62,7 @@ public class CampaignCommandService {
     // fetch the existing campaign by ID
     Optional<BaseDto<Campaign>> existingCampaign = campaignCommandRepository.findById(id);
     if (existingCampaign.isPresent()) {
-      // update the fields of the existing campaign with the new values
-      BaseDto<Campaign> exCampaign = existingCampaign.get();
-      exCampaign.getData().setName(campaign.getData().getName());
-      exCampaign.getData().setDescription(campaign.getData().getDescription());
-      exCampaign.getData().setStatus(campaign.getData().getStatus());
-      exCampaign.getData().setStartDate(campaign.getData().getStartDate());
-      exCampaign.getData().setEndDate(campaign.getData().getEndDate());
-      exCampaign.getData().setBudget(campaign.getData().getBudget());
-      return Optional.of(campaignCommandRepository.save(exCampaign));
+      return Optional.of(campaignCommandRepository.save(campaign));
 
     } else {
       APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
