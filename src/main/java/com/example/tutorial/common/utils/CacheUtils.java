@@ -3,7 +3,7 @@ package com.example.tutorial.common.utils;
 import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.Event;
-import com.example.tutorial.common.exceptions.ApplicationException;
+import com.example.tutorial.common.exceptions.ApplicationTechnicalException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -58,7 +58,7 @@ public class CacheUtils <T extends Event> {
     try {
       payloadString = objectMapper.writeValueAsString(payload);
     } catch (JsonProcessingException e) {
-      throw new ApplicationException("Error parsing object's value", e);
+      throw new ApplicationTechnicalException("Error parsing object's value", e);
     }
 
     redisTemplate.opsForValue().set(id, payloadString, cacheLimitHour, TimeUnit.MINUTES); // Specify expiry with TimeUnit
@@ -88,7 +88,7 @@ public class CacheUtils <T extends Event> {
         T cacheObject = objectMapper.readValue(payload, cacheTypeReference);
         return Optional.of(cacheObject);
       } catch (JsonProcessingException e) {
-        throw new ApplicationException("Error parsing object's value", e);
+        throw new ApplicationTechnicalException("Error parsing object's value", e);
       }
 
     /** STEP 2: If the ID is not present in Redis cache, fetch it from the REST API and cache it **/
@@ -101,7 +101,7 @@ public class CacheUtils <T extends Event> {
           try {
             BeanUtils.copyProperties(event, dtoOptional.get().getData());
           } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new ApplicationException("Error parsing object's value", e);
+            throw new ApplicationTechnicalException("Error parsing object's value", e);
           }
           // cache the event in Redis for future use, to avoid multiple calls to the same API
           setCache(id, event, CacheConstants.APPLICATION_CACHE_LIMIT_HOUR);

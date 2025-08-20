@@ -1,7 +1,7 @@
 package com.example.tutorial.common.utils;
 
 import com.example.tutorial.common.datamodel.BaseDto;
-import com.example.tutorial.common.exceptions.ApplicationException;
+import com.example.tutorial.common.exceptions.ApplicationTechnicalException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,7 +59,7 @@ public class APIUtils <T> {
         log.warn("No data found for ID: {} at API: {}", id, apiUrl);
         return Optional.empty();
       } else {
-        throw new ApplicationException(String.format("Error fetching data from API: %s", apiUrl), e);
+        throw new ApplicationTechnicalException(String.format("Error fetching data from API: %s", apiUrl), e);
       }
     }
 
@@ -71,7 +71,7 @@ public class APIUtils <T> {
         BaseDto<T> value = objectMapper.readValue(responseString, dtoTypeReference);
         return Optional.of(value);
       } catch (JsonProcessingException e) {
-        throw new ApplicationException("Error parsing object's value", e);
+        throw new ApplicationTechnicalException("Error parsing object's value", e);
       }
     } else {
       return Optional.empty();
@@ -100,7 +100,7 @@ public class APIUtils <T> {
       try {
         return objectMapper.readValue(responseString, typeReference);
       } catch (JsonProcessingException e) {
-        throw new ApplicationException("Error parsing object's value", e);
+        throw new ApplicationTechnicalException("Error parsing object's value", e);
       }
     } else {
       return List.of();
