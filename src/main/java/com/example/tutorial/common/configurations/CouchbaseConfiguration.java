@@ -1,10 +1,12 @@
 package com.example.tutorial.common.configurations;
 
 import com.couchbase.client.java.env.ClusterEnvironment;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
+import org.springframework.data.couchbase.core.convert.CouchbaseCustomConversions;
 import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
@@ -50,4 +52,8 @@ public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
     return bucketName;
   }
 
+  @Bean(name = "couchbaseCustomConversionsNew")
+  public CouchbaseCustomConversions couchbaseCustomConversionsNew() {
+    return new CouchbaseCustomConversions(java.util.Collections.emptyList());
+  }
 }
