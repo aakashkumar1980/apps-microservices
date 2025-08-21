@@ -80,11 +80,28 @@
 			"response": []
 		}
 	],
-	"variable": [
+	"event": [
 		{
-			"key": "campaignId",
-			"value": "1",
-			"type": "default"
+			"listen": "prerequest",
+			"script": {
+				"id": "a79db673-2e80-46ac-bf71-2b60d355e3a2",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ee2c36a2-9ba8-4467-8840-218f5f2dc272",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
