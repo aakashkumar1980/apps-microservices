@@ -86,7 +86,7 @@
 			"response": []
 		},
 		{
-			"name": "Get Campaign By Offer",
+			"name": "Get Campaigns By Offer",
 			"id": "25453210-836282f1-3cf9-4791-9cc8-afaabb547268",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
