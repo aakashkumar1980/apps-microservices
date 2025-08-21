@@ -208,7 +208,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"Updated Campaign\",\n  \"description\": \"Updated description\",\n  \"status\": \"SCHEDULED\",\n  \"start_date\": \"2026-06-01T00:00:00\",\n  \"end_date\": \"2026-06-30T23:59:59\",\n  \"budget\": 2000.0\n}"
+					"raw": "{\n    \"id\": \"campaign::1\",\n    \"created_at\": \"2026-07-13T00:00:00\",\n    \"updated_at\": \"2026-07-13T00:00:00\",\n    \"version\": 1,\n    \"data\": {\n        \"name\": \"Summer Savings Blast\",\n        \"description\": \"Enjoy huge discounts on electronics and home appliances this summer.\",\n        \"start_date\": \"2026-07-14T00:00:00\",\n        \"end_date\": \"2026-08-12T00:00:00\",\n        \"budget\": 500.00,\n        \"status\": \"PAUSED\",\n        \"offer_ids\": [\n            \"offer::1\",\n            \"offer::8\"\n        ]\n    }\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
