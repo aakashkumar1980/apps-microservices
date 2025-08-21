@@ -2,6 +2,7 @@ package com.example.tutorial.microservices.campaign.read.service;
 
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
 import com.example.tutorial.microservices.campaign.read.repository.CampaignQueryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,61 +22,51 @@ public class CampaignQueryService {
 
   /**
    * Returns all campaigns.
-   * NOTE: Here we are not using the CouchbaseRepository's findAll method, because the id for different data models
-   * starts like 'campaign::1', 'offer::1', etc. where the prefix is used to identify the type of document.
-   * Therefore, it needs a custom query to filter by the prefix.
    *
    * @return List of BaseDto<Campaign>
    */
   public List<BaseDto<Campaign>> getAllCampaigns() {
-    List<BaseDto<Campaign>> allCampaigns = campaignQueryRepository.getAllCampaigns();
-    log.info("Total campaigns fetched: {}", allCampaigns.size());
-
-    return allCampaigns;
+    List<BaseDto<Campaign>> campaigns = campaignQueryRepository.getAllCampaigns();
+    log.info("Retrieved {} campaigns", campaigns.size());
+    return campaigns;
   }
 
   /**
-   * Returns a campaign by its ID.
+   * Retrieves a campaign by its unique ID.
    *
-   * @param id the ID of the campaign
-   * @return Optional containing the BaseDto<Campaign> if found, or empty if not found
+   * @param id the unique identifier of the campaign
+   * @return an {@link Optional} containing the found {@link Campaign}, or {@link Optional#empty()} if not found
    */
   public Optional<BaseDto<Campaign>> getCampaignById(String id) {
     Optional<BaseDto<Campaign>> campaign = campaignQueryRepository.findById(id);
-    if (campaign.isPresent()) {
-      log.info("Campaign with ID: {} found", id);
-    } else {
-      log.warn("Campaign with ID: {} not found", id);
-    }
-
+    campaign.ifPresentOrElse(
+        c -> log.info("Campaign found with ID: {}", id),
+        () -> log.warn("No campaign found with ID: {}", id)
+    );
     return campaign;
   }
 
   /**
    * Retrieves campaigns by their status.
    *
-   * @param value the status of the campaigns to retrieve
+   * @param status the status of the campaigns to retrieve
    * @return a list of campaigns with the specified status
    */
-  public List<BaseDto<Campaign>> getCampaignsByStatus(String value) {
-    List<BaseDto<Campaign>> campaignsByStatus = campaignQueryRepository.findCampaignByStatus(value);
-    if (campaignsByStatus.isEmpty()) {
-      log.warn("No campaigns found with status '{}'", value);
-    } else {
-      log.info("Campaigns with status '{}' retrieved successfully", value);
-    }
-    return campaignsByStatus;
+  public List<BaseDto<Campaign>> getCampaignsByStatus(CampaignStatus status) {
+    List<BaseDto<Campaign>> campaigns = campaignQueryRepository.getCampaignsByStatus(status);
+    log.info("Retrieved {} campaigns with status: {}", campaigns.size(), status);
+    return campaigns;
   }
 
   /**
-   * Returns a list of campaigns associated with a specific offer ID.
+   * Retrieves campaigns that contain a specific offer ID.
    *
-   * @param offerId the ID of the offer
-   * @return List of BaseDto<Campaign> associated with the given offer ID
+   * @param offerId the offer ID to search for in campaigns
+   * @return a list of campaigns that contain the specified offer ID
    */
   public List<BaseDto<Campaign>> getCampaignsByOfferId(String offerId) {
     List<BaseDto<Campaign>> campaigns = campaignQueryRepository.getCampaignsByOfferId(offerId);
-    log.info("Total campaigns fetched for offer ID {}: {}", offerId, campaigns.size());
+    log.info("Retrieved {} campaigns with offer ID: {}", campaigns.size(), offerId);
     return campaigns;
   }
 }

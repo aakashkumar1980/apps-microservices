@@ -41,6 +41,7 @@ public class CustomerQueryController {
     if (customerOptional.isPresent()) {
       log.info("Customer with ID: {} found", id);
       return ResponseEntity.ok(customerOptional.get());
+
     } else {
       log.warn("Customer with ID: {} not found", id);
       return ResponseEntity.notFound().build();
@@ -59,6 +60,7 @@ public class CustomerQueryController {
     if (!customers.isEmpty()) {
       log.info("Found {} customers for offer ID: {}", customers.size(), offerId);
       return ResponseEntity.ok(customers);
+
     } else {
       log.warn("No customers found for offer ID: {}", offerId);
       return ResponseEntity.noContent().build();

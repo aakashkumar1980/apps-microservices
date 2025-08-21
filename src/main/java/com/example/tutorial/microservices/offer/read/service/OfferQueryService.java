@@ -21,9 +21,6 @@ public class OfferQueryService {
 
   /**
    * Retrieves all offers from the repository.
-   * NOTE: Here we are not using the CouchbaseRepository's findAll method, because the id for different data models
-   * starts like 'campaign::1', 'offer::1', etc. where the prefix is used to identify the type of document.
-   * Therefore, it needs a custom query to filter by the prefix.
    *
    * @return a list of BaseDto containing Offer objects.
    */
@@ -51,9 +48,6 @@ public class OfferQueryService {
 
   /**
    * Retrieves all offers associated with a specific campaign ID.
-   * NOTE: This method uses a custom query to filter offers by campaign ID, as the campaignId is stored inside
-   * the data field which is generic and also the id for different data models and starts like 'campaign::1',
-   * 'offer::1', etc. Therefore, the filtering should be first on id and then on the campaignId field.
    *
    * @param campaignId the ID of the campaign to filter offers by.
    * @return a list of BaseDto containing Offer objects associated with the specified campaign ID.

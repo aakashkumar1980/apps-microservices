@@ -29,10 +29,10 @@ public class CustomerCommandService {
   private CustomerEligibilityEngineClient customerEligibilityEngineClient;
 
   @Autowired
-  private APIUtils apiUtils;
+  private CustomerOfferEventPublisher customerOfferEventPublisher;
 
   @Autowired
-  private CustomerOfferEventPublisher customerOfferEventPublisher;
+  private APIUtils apiUtils;
 
   @Value("${customers.api.url}")
   private String customersApiUrl;

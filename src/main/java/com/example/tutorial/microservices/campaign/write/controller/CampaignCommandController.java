@@ -18,54 +18,55 @@ import java.util.Optional;
 @RequestMapping("/api/campaigns")
 public class CampaignCommandController {
 
-    private static final Logger log = LoggerFactory.getLogger(CampaignCommandController.class);
+  private static final Logger log = LoggerFactory.getLogger(CampaignCommandController.class);
 
-    @Autowired
-    private CampaignCommandService campaignCommandService;
+  @Autowired
+  private CampaignCommandService campaignCommandService;
 
-    /**
-     * Create a new campaign. This endpoint is used to create a new campaign.
-     *
-     * @param campaign the campaign data to be created
-     * @return ResponseEntity with the created campaign and HTTP status 201 (Created)
-     */
-    @PostMapping
-    public ResponseEntity<BaseDto<Campaign>> createCampaign(@Valid @RequestBody Campaign campaign) {
-        log.info("Received request to create campaign: {}", campaign);
+  /**
+   * Create a new campaign. This endpoint is used to create a new campaign.
+   *
+   * @param campaign the campaign data to be created
+   * @return ResponseEntity with the created campaign and HTTP status 201 (Created)
+   */
+  @PostMapping
+  public ResponseEntity<BaseDto<Campaign>> createCampaign(@Valid @RequestBody Campaign campaign) {
+    log.info("Received request to create campaign: {}", campaign);
 
-        Optional<BaseDto<Campaign>> createdCampaignOptional = campaignCommandService.createCampaign(campaign);
-        return ResponseEntity
-            .status(HttpStatus.CREATED)
-            .header(HttpHeaders.LOCATION, String.format("/api/campaigns/%d", createdCampaignOptional.get().getId()))
-            .body(createdCampaignOptional.get());
-    }
+    Optional<BaseDto<Campaign>> createdCampaignOptional = campaignCommandService.createCampaign(campaign);
+    return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .header(HttpHeaders.LOCATION, String.format("/api/campaigns/%s", createdCampaignOptional.get().getId()))
+        .body(createdCampaignOptional.get());
+  }
 
-    /**
-     * Update an existing campaign. This endpoint is used to update an existing campaign.
-     *
-     * @param id the ID of the campaign to be updated
-     * @param campaign the updated campaign data
-     * @return ResponseEntity with the updated campaign and HTTP status 200 (OK)
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<BaseDto<Campaign>> updateCampaign(@PathVariable String id, @Valid @RequestBody BaseDto<Campaign> campaign) {
-        log.info("Received request to update campaign with ID: {}, Data: {}", id, campaign);
+  /**
+   * Update an existing campaign. This endpoint is used to update an existing campaign.
+   *
+   * @param id the ID of the campaign to be updated
+   * @param campaign the updated campaign data
+   * @return ResponseEntity with the updated campaign and HTTP status 200 (OK)
+   */
+  @PutMapping("/{id}")
+  public ResponseEntity<BaseDto<Campaign>> updateCampaign(@PathVariable String id, @Valid @RequestBody BaseDto<Campaign> campaign) {
+    log.info("Received request to update campaign with ID: {}, Data: {}", id, campaign);
 
-        Optional<BaseDto<Campaign>> updatedCampaignOptional = campaignCommandService.updateCampaign(id, campaign);
-        return ResponseEntity.ok(updatedCampaignOptional.get());
-    }
+    Optional<BaseDto<Campaign>> updatedCampaignOptional = campaignCommandService.updateCampaign(id, campaign);
+    return ResponseEntity.ok(updatedCampaignOptional.get());
+  }
 
-    /**
-     * Delete a campaign by ID. This endpoint is used to delete a campaign.
-     *
-     * @param id the ID of the campaign to be deleted
-     * @return ResponseEntity with HTTP status 204 (No Content) if successful
-     */
-    @PutMapping("/{id}/cancel")
-    public ResponseEntity<String> cancelCampaign(@PathVariable String id) {
-        log.info("Received request to cancel campaign with ID: {}", id);
+  /**
+   * Cancel a campaign by ID. This endpoint is used to cancel a campaign.
+   * The URI is /api/campaigns/cancel/{id}
+   *
+   * @param id the ID of the campaign to be cancelled
+   * @return ResponseEntity with HTTP status 204 (No Content) if successful
+   */
+  @PutMapping("/cancel/{id}")
+  public ResponseEntity<String> cancelCampaign(@PathVariable String id) {
+    log.info("Received request to cancel campaign with ID: {}", id);
 
-        campaignCommandService.cancelCampaign(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
+    campaignCommandService.cancelCampaign(id);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
 }

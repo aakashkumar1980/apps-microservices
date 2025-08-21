@@ -32,17 +32,11 @@ public class OfferCommandService {
   @Autowired
   private OfferCommandRepository offerCommandRepository;
 
-  @Value("${offer.counter.key:offer_counter}")
-  private String offerCounterKey;
-
   @Autowired
   private CouchbaseTemplate couchbaseTemplate;
 
   @Autowired
   private DBUtils dbUtils;
-
-  @Value("${campaigns.api.url}")
-  private String campaignsApiUrl;
 
   @Autowired
   private CampaignValidation campaignValidation;
@@ -56,11 +50,18 @@ public class OfferCommandService {
   @Autowired
   private OfferEventPublisher offerEventPublisher;
 
+  @Autowired
+  private APIUtils apiUtils;
+
+  @Value("${offer.counter.key:offer_counter}")
+  private String offerCounterKey;
+
+  @Value("${campaigns.api.url}")
+  private String campaignsApiUrl;
+
   @Value("${offers.api.url}")
   private String offersApiUrl;
 
-  @Autowired
-  private APIUtils apiUtils;
 
   /**
    * Creates a new offer and saves it to the repository.

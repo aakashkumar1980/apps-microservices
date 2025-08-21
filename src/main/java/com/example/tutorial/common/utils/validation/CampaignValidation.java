@@ -42,7 +42,7 @@ public class CampaignValidation {
    *
    * @param id The ID of the campaign to update.
    * @param campaign The BaseDto containing the campaign data.
-   * @throws APIRequestValidationException
+   * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
   public void keepOriginalOfferIds(String id, BaseDto<Campaign> campaign) {
     log.info("Overriding offer IDs for campaign: {}", id);

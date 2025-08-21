@@ -57,7 +57,7 @@ public class CampaignCommandService {
    * TODO: Implement @Retry as this is an internal service call
    *
    * @param campaign the campaign to create
-   * @return the ID of the created campaign
+   * @return Optional containing the created campaign if successful, otherwise empty.
    */
   public Optional<BaseDto<Campaign>> createCampaign(Campaign campaign) {
     log.info("Creating campaign: {}", campaign);
@@ -84,9 +84,11 @@ public class CampaignCommandService {
    *
    * @param id       the ID of the campaign to update
    * @param campaign the BaseDto containing the campaign data to update
+   * @return Optional containing the updated campaign if successful, otherwise empty.
+   * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
   public Optional<BaseDto<Campaign>> updateCampaign(String id, BaseDto<Campaign> campaign) {
-    log.info("Updating campaign: {}", campaign);
+    log.info("Updating campaign with ID {}: {}", id, campaign);
 
     /** DATA VALIDATION **/
     // override offer ids by keeping the original as it shouldn't be changed once assigned
@@ -110,7 +112,7 @@ public class CampaignCommandService {
    * @param id the ID of the campaign to delete
    */
   public void cancelCampaign(String id) {
-    log.info("Cancelling campaign with ID: {}", id);
+    log.info("Cancelling campaign with ID {}", id);
 
     /** PERSIST DATA **/
     // get the original campaign by ID

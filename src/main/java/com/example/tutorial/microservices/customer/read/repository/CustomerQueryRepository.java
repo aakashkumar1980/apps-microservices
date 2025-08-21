@@ -24,7 +24,10 @@ public interface CustomerQueryRepository extends CouchbaseRepository<BaseDto<Cus
    * @param offerId the ID of the customer's enrollment
    * @return Optional containing the BaseDto<Customer> if found, or empty if not found
    */
-  @Query("#{#n1ql.selectEntity} WHERE #{#n1ql.filter} AND META().id LIKE 'customer::%' AND ANY offerId IN data.enrolled_offer_ids SATISFIES offerId = $1 END")
+  @Query("" +
+      "#{#n1ql.selectEntity} WHERE #{#n1ql.filter} AND META().id LIKE 'customer::%' " +
+      "AND ANY offerId IN data.enrolled_offer_ids SATISFIES offerId = $1 END"
+  )
   List<BaseDto<Customer>> getCustomersByOfferId(String offerId);
 }
 
