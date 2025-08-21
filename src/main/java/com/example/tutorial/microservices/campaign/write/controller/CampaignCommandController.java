@@ -34,7 +34,7 @@ public class CampaignCommandController {
         Optional<Campaign> createdCampaignOptional = campaignCommandService.createCampaign(campaign);
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .header(HttpHeaders.LOCATION, String.format("/api/campaigns/%d", createdCampaignOptional.get().getId()))
+            .header(HttpHeaders.LOCATION, String.format("/api/campaigns/%s", createdCampaignOptional.get().getId()))
             .body(createdCampaignOptional.get());
     }
 
