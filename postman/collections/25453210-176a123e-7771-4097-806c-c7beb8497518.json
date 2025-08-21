@@ -115,6 +115,141 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create Campaign",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb17a9a3-d179-4053-a113-b78ef7f600cd",
+						"exec": [
+							"// Fixed ReferenceError by defining new_campaign_id\r",
+							"var locationHeader = pm.response.headers.get('Location');\r",
+							"var newId = locationHeader.substring(locationHeader.lastIndexOf('/') + 1);\r",
+							"pm.environment.set('new_campaign_id', newId);\r",
+							"console.log(\"new_campaign_id: \", pm.environment.get('new_campaign_id'));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "25453210-af93b037-d36c-439e-a817-fc69285e98c0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Test Campaign\",\n  \"description\": \"A test campaign\",\n  \"status\": \"ACTIVE\",\n  \"start_date\": \"2026-06-01T00:00:00\",\n  \"end_date\": \"2026-06-30T23:59:59\",\n  \"budget\": 1000.0\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "<validate> Get Campaign By ID",
+			"id": "25453210-1f46aaf5-e4e6-4cc2-8b9a-5abc1f9765f7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{new_campaign_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Campaign",
+			"id": "25453210-d10ee962-73b5-48d2-a6c1-790392f6fe09",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Updated Campaign\",\n  \"description\": \"Updated description\",\n  \"status\": \"SCHEDULED\",\n  \"start_date\": \"2026-06-01T00:00:00\",\n  \"end_date\": \"2026-06-30T23:59:59\",\n  \"budget\": 2000.0\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{campaignId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Campaign Copy",
+			"id": "25453210-eef4d341-ddc8-4913-abd6-5f417e5ab08d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{new_campaign_id}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
