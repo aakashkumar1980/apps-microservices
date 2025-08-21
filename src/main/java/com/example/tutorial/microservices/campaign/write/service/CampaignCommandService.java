@@ -72,9 +72,8 @@ public class CampaignCommandService {
     Optional<BaseDto<Campaign>> existingCampaignOptional = apiUtils.fetchDtoById(
         campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {});
     if (existingCampaignOptional.isPresent()) {
-      BaseDto<Campaign> existingCampaign = existingCampaignOptional.get();
-      existingCampaign.setUpdatedAt(LocalDateTime.now());
-      return Optional.of(campaignCommandRepository.save(existingCampaign));
+      campaign.setUpdatedAt(LocalDateTime.now());
+      return Optional.of(campaignCommandRepository.save(campaign));
 
     } else {
       APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
