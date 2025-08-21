@@ -6,6 +6,30 @@
 	},
 	"item": [
 		{
+			"name": "Get All Campaigns Copy",
+			"id": "25453210-4d089ba7-a818-478b-9731-c8f05f123b1f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Campaign By ID Copy",
 			"id": "25453210-1c8a3b49-b130-4853-bd16-9b41a51b49f7",
 			"protocolProfileBehavior": {
