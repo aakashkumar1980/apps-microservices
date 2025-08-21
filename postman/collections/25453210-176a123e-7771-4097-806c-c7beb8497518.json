@@ -117,7 +117,7 @@
 			"response": []
 		},
 		{
-			"name": "Create Campaign Copy",
+			"name": "Create Campaign",
 			"event": [
 				{
 					"listen": "test",
