@@ -55,6 +55,31 @@
 			"response": []
 		},
 		{
+			"name": "Get Campaign By ID Copy",
+			"id": "25453210-1c8a3b49-b130-4853-bd16-9b41a51b49f7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{campaignId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Campaigns By Status",
 			"id": "25453210-ba3c693a-06ee-4aea-a620-08c69beeee63",
 			"protocolProfileBehavior": {
@@ -86,8 +111,70 @@
 			"response": []
 		},
 		{
+			"name": "Get Campaigns By Status Copy",
+			"id": "25453210-bf583d4b-a939-4553-b704-dc7c7b2b809d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/status?status={{status}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"status"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "{{status}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Campaigns By Offer",
 			"id": "25453210-836282f1-3cf9-4791-9cc8-afaabb547268",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/offer?offerId={{offerId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"offer"
+					],
+					"query": [
+						{
+							"key": "offerId",
+							"value": "{{offerId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Campaigns By Offer Copy",
+			"id": "25453210-9434f99a-5167-4c1f-b9ce-b11abb760c84",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
