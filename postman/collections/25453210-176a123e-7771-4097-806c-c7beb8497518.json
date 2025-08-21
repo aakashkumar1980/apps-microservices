@@ -95,7 +95,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/campaigns/status?status={{status}}",
+					"raw": "http://localhost:8080/api/campaigns/offer?offerId={{offerId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -104,12 +104,12 @@
 					"path": [
 						"api",
 						"campaigns",
-						"status"
+						"offer"
 					],
 					"query": [
 						{
-							"key": "status",
-							"value": "{{status}}"
+							"key": "offerId",
+							"value": "{{offerId}}"
 						}
 					]
 				}
