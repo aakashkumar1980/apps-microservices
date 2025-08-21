@@ -64,7 +64,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/campaigns/status?status={{status}}",
+					"raw": "http://localhost:8080/api/campaigns/status/{{status}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -73,13 +73,8 @@
 					"path": [
 						"api",
 						"campaigns",
-						"status"
-					],
-					"query": [
-						{
-							"key": "status",
-							"value": "{{status}}"
-						}
+						"status",
+						"{{status}}"
 					]
 				}
 			},
