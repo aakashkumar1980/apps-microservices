@@ -227,7 +227,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete Campaign Copy",
+			"name": "Delete Campaign",
 			"id": "25453210-9ce24e36-f802-492c-8a94-c1f1d53bf70c",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
