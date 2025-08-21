@@ -28,6 +28,31 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get Campaign By ID",
+			"id": "25453210-ae113e37-aa28-4298-bf14-db36959afb9a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{campaignId}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
