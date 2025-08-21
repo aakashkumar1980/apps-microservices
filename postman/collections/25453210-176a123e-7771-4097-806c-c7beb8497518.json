@@ -53,6 +53,38 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get Campaign By ID Copy",
+			"id": "25453210-ba3c693a-06ee-4aea-a620-08c69beeee63",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{campaignId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "campaignId",
+			"value": "1",
+			"type": "default"
 		}
 	]
 }
