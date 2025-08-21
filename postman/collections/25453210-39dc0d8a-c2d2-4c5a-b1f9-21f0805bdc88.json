@@ -225,6 +225,31 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Delete Campaign Copy",
+			"id": "25453210-9ce24e36-f802-492c-8a94-c1f1d53bf70c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{new_campaign_id}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
