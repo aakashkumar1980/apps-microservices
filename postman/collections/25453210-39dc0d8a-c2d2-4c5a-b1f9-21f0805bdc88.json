@@ -166,6 +166,31 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "<validate> Get Campaign By ID Copy",
+			"id": "25453210-7f34c1e6-1b04-4dd2-a84a-d452f7f17be4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{new_campaign_id}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
