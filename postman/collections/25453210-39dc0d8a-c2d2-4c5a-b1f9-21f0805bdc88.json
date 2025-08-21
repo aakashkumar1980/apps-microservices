@@ -191,6 +191,40 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Update Campaign",
+			"id": "25453210-331e2ca9-6f5c-43ff-8fad-1f4efd3bdf39",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Updated Campaign\",\n  \"description\": \"Updated description\",\n  \"status\": \"SCHEDULED\",\n  \"start_date\": \"2026-06-01T00:00:00\",\n  \"end_date\": \"2026-06-30T23:59:59\",\n  \"budget\": 2000.0\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{campaignId}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
