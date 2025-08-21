@@ -1,6 +1,7 @@
 package com.example.tutorial.microservices.campaign.read.service;
 
 import com.example.tutorial.common.datamodel.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
 import com.example.tutorial.microservices.campaign.read.repository.CampaignQueryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,10 +40,20 @@ public class CampaignQueryService {
   /**
    * Retrieves campaigns by their status.
    *
-   * @param value the status of the campaigns to retrieve
+   * @param status the status of the campaigns to retrieve
    * @return a list of campaigns with the specified status
    */
-  public List<Campaign> getCampaignsByStatus(String value) {
-    return campaignQueryRepository.findByStatus(value);
+  public List<Campaign> getCampaignsByStatus(CampaignStatus status) {
+    return campaignQueryRepository.getCampaignsByStatus(status);
+  }
+
+  /**
+   * Retrieves campaigns that contain a specific offer ID.
+   *
+   * @param offerId the offer ID to search for in campaigns
+   * @return a list of campaigns that contain the specified offer ID
+   */
+  public List<Campaign> getCampaignsByOfferId(String offerId) {
+    return campaignQueryRepository.getCampaignsByOfferId(offerId);
   }
 }
