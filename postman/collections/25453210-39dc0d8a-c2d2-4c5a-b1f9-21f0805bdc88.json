@@ -168,7 +168,7 @@
 			"response": []
 		},
 		{
-			"name": "<validate> Get Campaign By ID Copy",
+			"name": "<validate> Get Campaign By ID",
 			"id": "25453210-7f34c1e6-1b04-4dd2-a84a-d452f7f17be4",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
