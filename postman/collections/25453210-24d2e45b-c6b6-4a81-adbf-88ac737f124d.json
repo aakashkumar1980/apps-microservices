@@ -56,31 +56,6 @@
 			"response": []
 		},
 		{
-			"name": "Get Campaign By ID Copy",
-			"id": "25453210-ae113e37-aa28-4298-bf14-db36959afb9a",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"campaigns",
-						"{{campaignId}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get Campaign By ID :: WARNING 404_NOT_FOUND",
 			"id": "25453210-74c8a2ba-be15-4c6a-a2b2-79504a1b4a7e",
 			"protocolProfileBehavior": {
