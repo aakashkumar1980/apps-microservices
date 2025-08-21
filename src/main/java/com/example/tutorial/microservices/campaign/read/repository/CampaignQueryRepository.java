@@ -41,7 +41,6 @@ public interface CampaignQueryRepository extends CouchbaseRepository<BaseDto<Cam
    */
   @Query("" +
       "#{#n1ql.selectEntity} WHERE #{#n1ql.filter} AND META().id LIKE 'campaign::%' " +
-      "AND ANY v IN offer_ids SATISFIES v = $1 END"
-  )
+      "AND ANY offerId IN data.offer_ids SATISFIES offerId = $offerId END")
   List<BaseDto<Campaign>> getCampaignsByOfferId(String offerId);
 }
