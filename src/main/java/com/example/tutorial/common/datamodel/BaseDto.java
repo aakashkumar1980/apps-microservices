@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
@@ -53,13 +54,16 @@ public class BaseDto<T> {
 
   @JsonProperty("created_at")
   @NotNull(message = "Created date is required")
+  @Field("created_at")
   private LocalDateTime createdAt;
 
   @JsonProperty("updated_at")
+  @Field("updated_at")
   private LocalDateTime updatedAt;
 
   @JsonProperty("version")
   @NotNull(message = "Version is required")
+  @Field("version")
   private Integer version;
 
   /**
@@ -77,6 +81,7 @@ public class BaseDto<T> {
    */
   @JsonProperty("data")
   @NotNull(message = "Data is required")
+  @Field("data")
   private T data;
 
   /**
