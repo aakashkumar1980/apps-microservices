@@ -55,7 +55,7 @@
 			"response": []
 		},
 		{
-			"name": "Get Campaigns By Status Copy",
+			"name": "Get Campaigns By Status",
 			"id": "25453210-bf583d4b-a939-4553-b704-dc7c7b2b809d",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -86,7 +86,7 @@
 			"response": []
 		},
 		{
-			"name": "Get Campaigns By Offer Copy",
+			"name": "Get Campaigns By Offer",
 			"id": "25453210-9434f99a-5167-4c1f-b9ce-b11abb760c84",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
