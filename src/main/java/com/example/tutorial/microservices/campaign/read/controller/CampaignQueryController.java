@@ -59,13 +59,13 @@ public class CampaignQueryController {
 
   /**
    * Retrieves campaigns by their status.
-   * The URI is /api/campaigns/status?status={status}.
+   * The URI is /api/campaigns/status/{status}.
    *
    * @param status the status of the campaigns to retrieve
    * @return a ResponseEntity containing a list of campaigns with the specified status, or 404 if none found
    */
-  @GetMapping("/status")
-  public ResponseEntity<List<BaseDto<Campaign>>> getCampaignsByStatus(@RequestParam CampaignStatus status) {
+  @GetMapping("/status/{status}")
+  public ResponseEntity<List<BaseDto<Campaign>>> getCampaignsByStatus(@PathVariable CampaignStatus status) {
     List<BaseDto<Campaign>> campaigns = campaignQueryService.getCampaignsByStatus(status);
     if (!campaigns.isEmpty()) {
       log.info("Found {} campaigns with status: {}", campaigns.size(), status);
