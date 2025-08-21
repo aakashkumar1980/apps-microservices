@@ -115,6 +115,141 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create Campaign",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb17a9a3-d179-4053-a113-b78ef7f600cd",
+						"exec": [
+							"// Fixed ReferenceError by defining new_campaign_id\r",
+							"var locationHeader = pm.response.headers.get('Location');\r",
+							"var newId = locationHeader.substring(locationHeader.lastIndexOf('/') + 1);\r",
+							"pm.environment.set('new_campaign_id', newId);\r",
+							"console.log(\"new_campaign_id: \", pm.environment.get('new_campaign_id'));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "25453210-f54ffa3f-fc30-4eb4-ac99-b086a49211ab",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Test Campaign\",\n  \"description\": \"A test campaign\",\n  \"status\": \"ACTIVE\",\n  \"start_date\": \"2026-06-01T00:00:00\",\n  \"end_date\": \"2026-06-30T23:59:59\",\n  \"budget\": 1000.0\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "<validate> Get Campaign By ID",
+			"id": "25453210-7f34c1e6-1b04-4dd2-a84a-d452f7f17be4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{new_campaign_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Campaign",
+			"id": "25453210-331e2ca9-6f5c-43ff-8fad-1f4efd3bdf39",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"campaign::1\",\n    \"created_at\": \"2026-07-13T00:00:00\",\n    \"updated_at\": \"2026-07-13T00:00:00\",\n    \"version\": 1,\n    \"data\": {\n        \"name\": \"Summer Savings Blast\",\n        \"description\": \"Enjoy huge discounts on electronics and home appliances this summer.\",\n        \"start_date\": \"2026-07-14T00:00:00\",\n        \"end_date\": \"2026-08-12T00:00:00\",\n        \"budget\": 500.00,\n        \"status\": \"PAUSED\",\n        \"offer_ids\": [\n            \"offer::1\",\n            \"offer::8\"\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{campaignId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{campaignId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Campaign",
+			"id": "25453210-9ce24e36-f802-492c-8a94-c1f1d53bf70c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{new_campaign_id}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
