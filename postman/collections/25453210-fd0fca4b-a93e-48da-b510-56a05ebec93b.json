@@ -228,7 +228,7 @@
 			"name": "parallel",
 			"item": [
 				{
-					"name": "Create Campaign Copy",
+					"name": "Create Campaign",
 					"event": [
 						{
 							"listen": "test",
@@ -438,31 +438,6 @@
 				}
 			],
 			"id": "25453210-c83b7c33-50a8-442d-9ec1-f8f3ea42df96"
-		},
-		{
-			"name": "<validate> Get Campaign By ID",
-			"id": "25453210-426dcf8f-e0b0-4c3b-9402-13f07a94fd46",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"campaigns",
-						"{{new_campaign_id}}"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }
