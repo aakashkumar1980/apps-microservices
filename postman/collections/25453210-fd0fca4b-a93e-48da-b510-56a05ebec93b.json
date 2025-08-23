@@ -150,7 +150,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Campaign <user_2> :: ERROR_CONFLICT(Versioning Issue) Copy",
+			"name": "Update Campaign <user_2> :: OK",
 			"id": "25453210-02bc8d54-ff3c-4514-b50c-b622a6610110",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
