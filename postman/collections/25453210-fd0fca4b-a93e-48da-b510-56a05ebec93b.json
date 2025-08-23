@@ -82,7 +82,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Campaign <user_1>",
+			"name": "Update Campaign <user_1> :: OK",
 			"id": "25453210-a28d3ac5-e2d4-4d86-9bb7-eb7fd7005546",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -118,6 +118,40 @@
 		{
 			"name": "Update Campaign <user_2> :: ERROR_CONFLICT(Versioning Issue)",
 			"id": "25453210-121616ab-1f37-4ac3-8900-2019da708a13",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"{{new_campaign_id}}\",\n    \"version\": 1,\n    \"name\": \"Test Campaign\",\n    \"description\": \"A test campaign\",\n    \"start_date\": \"2026-06-01T00:00:00\",\n    \"end_date\": \"2026-06-30T23:59:59\",\n    \"budget\": 200.0,\n    \"status\": \"ACTIVE\",\n    \"offer_ids\": null\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{new_campaign_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Campaign <user_2> :: ERROR_CONFLICT(Versioning Issue) Copy",
+			"id": "25453210-02bc8d54-ff3c-4514-b50c-b622a6610110",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
