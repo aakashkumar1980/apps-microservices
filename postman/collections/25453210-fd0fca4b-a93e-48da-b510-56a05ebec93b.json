@@ -255,7 +255,7 @@
 							"const baseUrl = \"http://localhost:8080\";\r",
 							"const id      = pm.environment.get(\"new_campaign_id\");\r",
 							"const version = pm.environment.get(\"campaign_version\");\r",
-							"const nextVersion = parseInt(version) + 1;\r",
+							"const nextVersion = parseInt(version) + 2;\r",
 							"\r",
 							"// Your target endpoint + body (both concurrent PUTs use the SAME version)\r",
 							"const url  = `${baseUrl}/api/campaigns/${id}`;\r",
@@ -385,7 +385,7 @@
 							"\r",
 							"fire(\"A\");\r",
 							"fire(\"B\");\r",
-							"nextFire(\"C\");"
+							"setTimeout(() => nextFire(\"C\"), 1000);"
 						],
 						"type": "text/javascript",
 						"packages": {}
