@@ -6,6 +6,11 @@
 	},
 	"item": [
 		{
+			"name": "New Folder",
+			"item": [],
+			"id": "25453210-137a5c4c-62f5-4a55-a01c-f656b1dce172"
+		},
+		{
 			"name": "Create Campaign",
 			"event": [
 				{
