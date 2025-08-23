@@ -3,9 +3,12 @@ package com.example.tutorial.microservices.campaign.write.service;
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
+import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
 import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
 import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
+import com.example.tutorial.common.exceptions.api.APIRequestVersionConflictException;
 import com.example.tutorial.common.utils.APIUtils;
+import com.example.tutorial.common.utils.ApplicationUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
@@ -15,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +49,9 @@ public class CampaignCommandService {
 
   @Autowired
   private APIUtils apiUtils;
+
+  @Autowired
+  private ApplicationUtils applicationUtils;
 
   @Value("${campaigns.api.url}")
   String campaignsApiUrl;
@@ -82,11 +89,13 @@ public class CampaignCommandService {
    * Update an existing campaign and publish an event to the kafka event bus.
    * TODO: Implement @Retry as this is an internal service call
    *
-   * @param id       the ID of the campaign to update
-   * @param campaign the BaseDto containing the campaign data to update
+   * @param id the ID of the campaign
+   * @param campaign the campaign with updated fields
    * @return Optional containing the updated campaign if successful, otherwise empty.
-   * @throws APIRequestValidationException if the campaign with the given ID is not found.
+   * @throws APIRequestValidationException if the campaign with the given ID is not found,
+   * or if there is a version conflict.
    */
+  @SuppressWarnings("unchecked")
   public Optional<BaseDto<Campaign>> updateCampaign(String id, BaseDto<Campaign> campaign) {
     log.info("Updating campaign with ID {}: {}", id, campaign);
 
@@ -95,47 +104,77 @@ public class CampaignCommandService {
     campaignValidation.keepOriginalOfferIds(id, campaign);
 
     /** PERSIST DATA **/
-    // update the updated campaign to the repository
-    campaign.setUpdatedAt(LocalDateTime.now());
-    BaseDto<Campaign> updatedCampaign = campaignCommandRepository.save(campaign);
+    try {
+      return (Optional<BaseDto<Campaign>>) apiUtils.fetchDtoById(campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {})
+          .map(existingCampaignObj -> {
+            BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) existingCampaignObj;
 
-    /** PUBLISH EVENT **/
-    // publish the campaign updated event to kafka event bus
-    campaignEventPublisher.publishUpdateCampaignEvent(updatedCampaign);
-    return Optional.of(updatedCampaign);
+            /** STEP 1: Check version for optimistic locking **/
+            Integer existingVersion = applicationUtils.validateAndGetExistingVersion(id, campaign, existingCampaign);
+            /** STEP 2: Apply updates of the existing data-model **/
+            applicationUtils.copyProperties(existingCampaign.getData(), campaign.getData());
+            existingCampaign.setUpdatedAt(LocalDateTime.now());
+            // increment version for optimistic locking
+            existingCampaign.setVersion(existingVersion + 1);
+
+            try {
+              BaseDto<Campaign> updatedCampaign = campaignCommandRepository.save(existingCampaign);
+
+              /** PUBLISH EVENT **/
+              // publish the campaign updated event to kafka event bus
+              campaignEventPublisher.publishUpdateCampaignEvent(updatedCampaign);
+              return updatedCampaign;
+            } catch (OptimisticLockingFailureException e) {
+              throw new APIRequestVersionConflictException(
+                  new APIRequestValidationMessage(
+                      "Api request validation failed",
+                      Map.of("error", String.format("Campaign with ID %s has been modified by another process. " +
+                          "Please retrieve the latest version and try again.", id))
+                  )
+              );
+            }
+          })
+          .map(Optional::of)
+          .orElseThrow(() -> new APIRequestValidationException(
+              new APIRequestValidationMessage("Api request validation failed",
+                  Map.of("error", String.format("Campaign with ID %s not found for update.", id)))
+          ));
+    } catch (Throwable e) {
+      throw ((ApplicationFunctionalException) e);
+    }
   }
+
+
 
   /**
    * Cancel a campaign by its ID and publish an event to the kafka event bus.
    * TODO: Implement @Retry as this is an internal service call
    *
    * @param id the ID of the campaign to delete
+   * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
+  @SuppressWarnings("unchecked")
   public void cancelCampaign(String id) {
     log.info("Cancelling campaign with ID {}", id);
 
-    /** PERSIST DATA **/
-    // get the original campaign by ID
-    Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchDtoById(
-        campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {});
-    if (originalCampaignOptional.isPresent()) {
-      BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
-      // set the status to CANCELLED
-      originalCampaign.getData().setStatus(CampaignStatus.CANCELLED);
-      // persist the updated campaign
-      campaignCommandRepository.save(originalCampaign);
+    apiUtils.fetchDtoById(campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {})
+        .ifPresentOrElse(existingCampaignObj -> {
+            BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) existingCampaignObj;
 
-    } else {
-      APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
-          "Api request validation failed",
-          Map.of("error", String.format("Campaign with ID %s not found for cancellation.,",id))
-      );
-      throw new APIRequestValidationException(validationMessage);
-    }
+            /** PERSIST DATA **/
+            existingCampaign.getData().setStatus(CampaignStatus.CANCELLED);
+            campaignCommandRepository.save(existingCampaign);
+            /** PUBLISH EVENT **/
+            campaignEventPublisher.publishCancelCampaignEvent(id);
 
-    /** PUBLISH EVENT **/
-    // publish the campaign created event to kafka event bus
-    campaignEventPublisher.publishCancelCampaignEvent(id);
+          }, () -> {
+            throw new APIRequestValidationException(
+                new APIRequestValidationMessage(
+                    "Api request validation failed",
+                    Map.of("error", String.format("Campaign with ID %s not found for cancellation.", id)))
+            );
+          }
+        );
   }
 
   /**
@@ -146,28 +185,30 @@ public class CampaignCommandService {
    * @param campaignId the ID of the campaign
    * @param offerId    the ID of the offer to link
    */
+  @SuppressWarnings("unchecked")
   public void linkOfferToCampaign(String campaignId, String offerId) {
     log.info("Linking offer {} to campaign {}", offerId, campaignId);
 
     /** PERSIST DATA **/
     // fetch the original campaign by ID
-    Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchDtoById(
-        campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {});
-    if (originalCampaignOptional.isPresent()) {
-      BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
-      // get the existing offer ID list from the campaign
-      List<String> existingOfferIds = originalCampaign.getData().getOfferIds();
-      if(!existingOfferIds.contains(offerId)) {
-        // if the offer is not already linked, add it to the campaign
-        log.debug("Adding offer {} to campaign {}", offerId, campaignId);
-        existingOfferIds.add(offerId);
-        // update the campaign with the new offer ID
-        campaignCommandRepository.save(originalCampaign);
+    apiUtils.fetchDtoById(campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {})
+        .ifPresentOrElse(existingCampaignObj -> {
+            BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) existingCampaignObj;
 
-      } else {
-        log.warn("Offer {} is already linked to campaign {}", offerId, campaignId);
-      }
-    }
+            List<String> existingOfferIds = existingCampaign.getData().getOfferIds();
+            if (existingOfferIds.stream().noneMatch(offerId::equals)) {
+              log.debug("Adding offer {} to campaign {}", offerId, campaignId);
+              existingOfferIds.add(offerId);
+              campaignCommandRepository.save(existingCampaign);
+
+            } else {
+              log.warn("Offer {} is already linked to campaign {}", offerId, campaignId);
+            }
+
+          }, () -> {
+            log.warn("Campaign with ID {} not found for linking offer {}", campaignId, offerId);
+          }
+        );
 
   }
 
@@ -179,27 +220,29 @@ public class CampaignCommandService {
    * @param campaignId the ID of the campaign
    * @param offerId    the ID of the offer to unlink
    */
+  @SuppressWarnings("unchecked")
   public void unlinkOfferFromCampaign(String campaignId, String offerId) {
     log.info("Unlinking offer {} from campaign {}", offerId, campaignId);
 
     /** PERSIST DATA **/
     // fetch the original campaign by ID
-    Optional<BaseDto<Campaign>> originalCampaignOptional = apiUtils.fetchDtoById(
-        campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {});
-    if (originalCampaignOptional.isPresent()) {
-      BaseDto<Campaign> originalCampaign = originalCampaignOptional.get();
-      // get the existing offer ID list from the campaign
-      List<String> existingOfferIds = originalCampaign.getData().getOfferIds();
-      if(existingOfferIds.contains(offerId)) {
-        // if the offer is already linked, remove it from the campaign
-        log.debug("Removing offer {} from campaign {}", offerId, campaignId);
-        existingOfferIds.remove(offerId);
-        // update the campaign with the new offer ID
-        campaignCommandRepository.save(originalCampaign);
+    apiUtils.fetchDtoById(campaignsApiUrl, campaignId, new TypeReference<BaseDto<Campaign>>() {})
+        .ifPresentOrElse(existingCampaignObj -> {
+            BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) existingCampaignObj;
 
-      } else {
-        log.warn("Offer {} is not linked to campaign {}", offerId, campaignId);
-      }
-    }
+            List<String> existingOfferIds = existingCampaign.getData().getOfferIds();
+            if (existingOfferIds.stream().anyMatch(offerId::equals)) {
+              log.debug("Removing offer {} from campaign {}", offerId, campaignId);
+              existingOfferIds.removeIf(offerId::equals);
+              campaignCommandRepository.save(existingCampaign);
+
+            } else {
+              log.warn("Offer {} is not linked to campaign {}", offerId, campaignId);
+            }
+
+          }, () -> {
+            log.warn("Campaign with ID {} not found for unlinking offer {}", campaignId, offerId);
+          }
+        );
   }
 }

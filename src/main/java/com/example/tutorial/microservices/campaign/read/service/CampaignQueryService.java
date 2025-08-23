@@ -22,6 +22,9 @@ public class CampaignQueryService {
 
   /**
    * Returns all campaigns.
+   * NOTE: Here we are not using the CouchbaseRepository's findAll method, because the id for different data models
+   * starts like 'campaign::1', 'offer::1', etc. where the prefix is used to identify the type of document.
+   * Therefore, it needs a custom query to filter by the prefix.
    *
    * @return List of BaseDto<Campaign>
    */

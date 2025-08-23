@@ -80,12 +80,12 @@ public class CampaignQueryController {
 
   /**
    * Retrieves campaigns that contain a specific offer ID.
-   * The URI is /api/campaigns/offers?offerId={offerId}.
+   * The URI is /api/campaigns/offer?offerId={offerId}.
    *
    * @param offerId the offer ID to search for in campaigns
    * @return a ResponseEntity containing a list of campaigns that contain the specified offer ID, or 404 if none found
    */
-  @GetMapping("/offers")
+  @GetMapping("/offer")
   public ResponseEntity<List<BaseDto<Campaign>>> getCampaignsByOfferId(@RequestParam String offerId) {
     List<BaseDto<Campaign>> campaigns = campaignQueryService.getCampaignsByOfferId(offerId);
     if (!campaigns.isEmpty()) {
