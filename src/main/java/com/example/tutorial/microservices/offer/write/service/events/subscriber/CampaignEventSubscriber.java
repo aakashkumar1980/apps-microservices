@@ -35,7 +35,7 @@ public class CampaignEventSubscriber {
    *
    * @param payload the JSON payload of the CampaignCreated event
    */
-  @KafkaListener(topics = "CAMPAIGN_CREATED", groupId = "offer-microservice")
+  @KafkaListener(topics = "CAMPAIGN_CREATED", groupId = ApplicationConstants.APPLICATION_NAME)
   public void subscribeCreateCampaignEvent(String payload) {
     log.info("Received CampaignCreated event: {}", payload);
 
@@ -58,7 +58,7 @@ public class CampaignEventSubscriber {
    *
    * @param payload the JSON payload of the CampaignUpdated event
    */
-  @KafkaListener(topics = "CAMPAIGN_UPDATED", groupId = "offer-microservice")
+  @KafkaListener(topics = "CAMPAIGN_UPDATED", groupId = ApplicationConstants.APPLICATION_NAME)
   public void subscribeUpdateCampaignEvent(String payload) {
     log.info("Received CampaignUpdated event: {}", payload);
 
