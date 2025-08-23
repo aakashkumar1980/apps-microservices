@@ -18,7 +18,13 @@
 							"var newId = locationHeader.substring(locationHeader.lastIndexOf('/') + 1);\r",
 							"pm.environment.set('new_campaign_id', newId);\r",
 							"console.log(\"new_campaign_id: \", pm.environment.get('new_campaign_id'));\r",
-							""
+							"\r",
+							"let body = pm.response.text();\r",
+							"let match = body.match(/\"version\":\\s*(\\d+)/);\r",
+							"if (match) {\r",
+							"    pm.environment.set(\"campaign_version\", match[1]);\r",
+							"}\r",
+							"console.log(\"campaign_version: \", pm.environment.get('campaign_version'));"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -83,6 +89,24 @@
 		},
 		{
 			"name": "Update Campaign <user_1> :: OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93a9afff-3380-4da0-a414-9aa8d54a8cc8",
+						"exec": [
+							"let body = pm.response.text();\r",
+							"let match = body.match(/\"version\":\\s*(\\d+)/);\r",
+							"if (match) {\r",
+							"    pm.environment.set(\"campaign_version\", match[1]);\r",
+							"}\r",
+							"console.log(\"campaign_version: \", pm.environment.get('campaign_version'));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"id": "25453210-a28d3ac5-e2d4-4d86-9bb7-eb7fd7005546",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
