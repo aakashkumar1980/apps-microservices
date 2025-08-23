@@ -140,7 +140,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Campaign <user_2> :: ERROR_CONFLICT(Versioning Issue)",
+			"name": "Update Campaign <user_2> :: ERROR_CONFLICT",
 			"event": [
 				{
 					"listen": "test",
