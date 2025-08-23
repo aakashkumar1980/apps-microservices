@@ -70,6 +70,7 @@ public class CampaignCommandService {
    * @throws APIRequestValidationException if the campaign with the given ID is not found,
    * or if there is a version conflict.
    */
+  @SuppressWarnings("unchecked")
   public Optional<BaseDto<Campaign>> updateCampaign(String id, BaseDto<Campaign> campaign) {
     // fetch the existing campaign by ID
     BaseDto<Campaign> existingCampaign = null;
@@ -88,7 +89,7 @@ public class CampaignCommandService {
     Integer currentVersion = campaign.getVersion(); // from client body
     Integer existingVersion  = existingCampaign.getVersion(); // from DB
     if (currentVersion == null || !currentVersion.equals(existingVersion)) {
-      throw new APIRequestValidationException(
+      throw new APIRequestVersionConflictException(
           new APIRequestValidationMessage("Api request validation failed",
               Map.of("error", "Campaign %s has changed (expected version=%s). Please reload and retry."
                   .formatted(id, existingVersion))));
