@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "25453210-fd0fca4b-a93e-48da-b510-56a05ebec93b",
+		"name": "m3c2_nosql-couchbasedb-versioning",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Campaign",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb17a9a3-d179-4053-a113-b78ef7f600cd",
+						"exec": [
+							"// Fixed ReferenceError by defining new_campaign_id\r",
+							"var locationHeader = pm.response.headers.get('Location');\r",
+							"var newId = locationHeader.substring(locationHeader.lastIndexOf('/') + 1);\r",
+							"pm.environment.set('new_campaign_id', newId);\r",
+							"console.log(\"new_campaign_id: \", pm.environment.get('new_campaign_id'));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "25453210-9bad7ab0-b295-4994-b8e8-8fbe65b07d00",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Test Campaign\",\n  \"description\": \"A test campaign\",\n  \"status\": \"ACTIVE\",\n  \"start_date\": \"2026-06-01T00:00:00\",\n  \"end_date\": \"2026-06-30T23:59:59\",\n  \"budget\": 1000.0\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "<validate> Get Campaign By ID",
+			"id": "25453210-426dcf8f-e0b0-4c3b-9402-13f07a94fd46",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{new_campaign_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
