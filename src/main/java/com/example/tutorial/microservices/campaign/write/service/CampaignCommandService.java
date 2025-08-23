@@ -104,16 +104,17 @@ public class CampaignCommandService {
    * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
   public void deleteCampaign(String id) {
-    Optional<Campaign> existingCampaign = campaignCommandRepository.findById(id);
-    if(existingCampaign.isPresent()) {
-      campaignCommandRepository.deleteById(id);
+    campaignCommandRepository.findById(id)
+        .ifPresentOrElse(
+            c -> campaignCommandRepository.deleteById(id),
+            () -> {
+              APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
+                  "Api request validation failed",
+                  Map.of("error", String.format("Campaign with ID %s not found for delete.", id))
+              );
+              throw new APIRequestValidationException(validationMessage);
+            }
+        );
 
-    } else {
-      APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
-          "Api request validation failed",
-          Map.of("error", String.format("Campaign with ID %s not found for delete.,", id))
-      );
-      throw new APIRequestValidationException(validationMessage);
-    }
   }
 }
