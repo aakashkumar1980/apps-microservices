@@ -1,6 +1,7 @@
 package com.example.tutorial.common.datamodel.campaign;
 
 import com.example.tutorial.common.utils.validation.datamodel.ValidCampaign;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import org.springframework.data.annotation.Id;
@@ -28,7 +29,8 @@ public class Campaign {
    * lost updates in concurrent environments.
    */
   @Version
-  private long cas;
+  @JsonIgnore
+  private Long cas;
 
   @JsonProperty("version")
   @Field("version")
@@ -78,10 +80,10 @@ public class Campaign {
     this.id = id;
   }
 
-  public long getCas() {
+  public Long getCas() {
     return cas;
   }
-  public void setCas(long cas) {
+  public void setCas(Long cas) {
     this.cas = cas;
   }
 

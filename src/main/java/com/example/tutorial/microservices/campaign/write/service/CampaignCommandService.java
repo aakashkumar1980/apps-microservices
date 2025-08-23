@@ -43,8 +43,7 @@ public class CampaignCommandService {
       String id = "campaign::" + counter;
       campaign.setId(id);
       campaign.setVersion(1); // initialize version to 1
-      Campaign savedCampaign = campaignCommandRepository.save(campaign);
-      return Optional.of(savedCampaign);
+      return Optional.of(campaignCommandRepository.save(campaign));
     }
 
   /**
