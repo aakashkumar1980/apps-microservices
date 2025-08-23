@@ -244,7 +244,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Campaign <race_condition-visualization_tab>",
+			"name": "Update Campaign <user1/2 race_condition-visualization_tab>",
 			"event": [
 				{
 					"listen": "test",
