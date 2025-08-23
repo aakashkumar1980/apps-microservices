@@ -226,7 +226,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Campaign <race_condition> Copy",
+			"name": "Update Campaign <race_condition-visualization_tab>",
 			"event": [
 				{
 					"listen": "test",
