@@ -4,6 +4,7 @@ import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
 import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
+import com.example.tutorial.common.exceptions.api.APIRequestVersionConflictException;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
 
@@ -60,27 +62,56 @@ public class CampaignCommandService {
   }
 
   /**
-   * Update an existing campaign by its ID.
+   * Update an existing campaign.
    *
-   * @param id the ID of the campaign to update
-   * @param campaign the updated campaign data
+   * @param id the ID of the campaign
+   * @param campaign the campaign with updated fields
    * @return Optional containing the updated campaign if successful, otherwise empty.
-   * @throws APIRequestValidationException if the campaign with the given ID is not found.
+   * @throws APIRequestValidationException if the campaign with the given ID is not found,
+   * or if there is a version conflict.
    */
-  public Optional<BaseDto<Campaign>> updateCampaign(String id, BaseDto<Campaign> campaign) {
+  public Optional<BaseDto<Campaign>> updateCampaign(String id, BaseDto<Campaign> campaign) throws Throwable {
     // fetch the existing campaign by ID
-    Optional<BaseDto<Campaign>> existingCampaignOptional = apiUtils.fetchDtoById(
-        campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {});
-    if (existingCampaignOptional.isPresent()) {
-      campaign.setUpdatedAt(LocalDateTime.now());
-      return Optional.of(campaignCommandRepository.save(campaign));
+    BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) apiUtils.fetchDtoById(
+            campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {})
+        .orElseThrow(() -> new APIRequestValidationException(
+            new APIRequestValidationMessage("Api request validation failed",
+                Map.of("error", String.format("Campaign with ID %s not found for update.", id))))
+        );
 
-    } else {
-      APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
-          "Api request validation failed",
-          Map.of("error", String.format("Campaign with ID %s not found for update.,", id))
+    /** STEP 1: Check version for optimistic locking **/
+    Integer currentVersion = campaign.getVersion(); // from client body
+    Integer existingVersion  = existingCampaign.getVersion(); // from DB
+    if (currentVersion == null || !currentVersion.equals(existingVersion)) {
+      throw new APIRequestValidationException(
+          new APIRequestValidationMessage("Api request validation failed",
+              Map.of("error", "Campaign %s has changed (expected version=%s). Please reload and retry."
+                  .formatted(id, existingVersion))));
+    }
+
+    /** STEP 2: Apply updates of the existing data-model **/
+    existingCampaign.setUpdatedAt(LocalDateTime.now());
+    existingCampaign.getData().setName(campaign.getData().getName());
+    existingCampaign.getData().setDescription(campaign.getData().getDescription());
+    existingCampaign.getData().setStartDate(campaign.getData().getStartDate());
+    existingCampaign.getData().setEndDate(campaign.getData().getEndDate());
+    existingCampaign.getData().setBudget(campaign.getData().getBudget());
+    existingCampaign.getData().setStatus(campaign.getData().getStatus());
+    existingCampaign.getData().setOfferIds(campaign.getData().getOfferIds());
+    // increment version for optimistic locking
+    existingCampaign.setVersion(existingVersion+1);
+
+    try {
+      /** STEP 3: Save the updated data-model **/
+      return Optional.of(campaignCommandRepository.save(existingCampaign));
+    } catch (OptimisticLockingFailureException e) {
+      throw new APIRequestVersionConflictException(
+          new APIRequestValidationMessage(
+              "Api request validation failed",
+              Map.of("error", String.format("Campaign with ID %s has been modified by another process. " +
+                  "Please retrieve the latest version and try again.", id))
+          )
       );
-      throw new APIRequestValidationException(validationMessage);
     }
   }
 
@@ -91,18 +122,18 @@ public class CampaignCommandService {
    * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
   public void deleteCampaign(String id) {
-    // fetch the existing campaign by ID
-    Optional<BaseDto<Campaign>> existingCampaignOptional = apiUtils.fetchDtoById(
-        campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {});
-    if (existingCampaignOptional.isPresent()) {
-      campaignCommandRepository.deleteById(id);
+    campaignCommandRepository.findById(id)
+        .ifPresentOrElse(
+            c -> campaignCommandRepository.deleteById(id),
+            () -> {
+              throw new APIRequestValidationException(
+                  new APIRequestValidationMessage(
+                      "Api request validation failed",
+                      Map.of("error", String.format("Campaign with ID %s not found for delete.", id))
+                  )
+              );
+            }
+        );
 
-    } else {
-      APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
-          "Api request validation failed",
-          Map.of("error", String.format("Campaign with ID %s not found for delete.,", id))
-      );
-      throw new APIRequestValidationException(validationMessage);
-    }
   }
 }
