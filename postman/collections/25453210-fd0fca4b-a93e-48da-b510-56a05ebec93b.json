@@ -318,9 +318,9 @@
 						"id": "096190c0-e0ef-4e13-a333-c7ac9aa2255f",
 						"exec": [
 							"// ---------- config ----------\r",
-							"const baseUrl = pm.environment.get(\"baseUrl\");\r",
-							"const id      = pm.environment.get(\"id\");\r",
-							"const version = parseInt(pm.environment.get(\"version\"), 10);\r",
+							"const baseUrl = \"http://localhost:8080\";\r",
+							"const id      = pm.environment.get(\"new_campaign_id\");\r",
+							"const version = pm.environment.get(\"campaign_version\");\r",
 							"\r",
 							"// Your target endpoint + body (both concurrent PUTs use the SAME version)\r",
 							"const url  = `${baseUrl}/api/campaigns/${id}`;\r",
