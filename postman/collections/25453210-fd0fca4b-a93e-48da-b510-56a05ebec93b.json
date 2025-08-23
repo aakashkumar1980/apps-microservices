@@ -168,6 +168,11 @@
 			"id": "25453210-137a5c4c-62f5-4a55-a01c-f656b1dce172"
 		},
 		{
+			"name": "New Folder",
+			"item": [],
+			"id": "25453210-c83b7c33-50a8-442d-9ec1-f8f3ea42df96"
+		},
+		{
 			"name": "Create Campaign",
 			"event": [
 				{
