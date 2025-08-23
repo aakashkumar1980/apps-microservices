@@ -3,6 +3,8 @@ package com.example.tutorial.common.exceptions.api.handler;
 import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
 import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
 import com.example.tutorial.common.exceptions.ApplicationTechnicalException;
+import com.example.tutorial.common.exceptions.api.APIRequestVersionConflictException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -102,6 +104,23 @@ public class APIGlobalExceptionHandler {
     logger.warn("APIRequestValidationException caught: {}", ex.getMessage(), ex);
 
     return ResponseEntity.badRequest().body(
+        ex.getRequestValidationMessage()
+    );
+  }
+
+  /**
+   * <REST API :: Http request JSON body - Version conflict issues>
+   * Handles APIRequestVersionConflictException specifically, allowing for "custom" handling of version conflict errors.
+   * This method will log the exception and return a specific error response.
+   *
+   * @param ex the APIRequestVersionConflictException that was thrown
+   * @return a ResponseEntity with a specific error message and HTTP status 409
+   */
+  @ExceptionHandler(APIRequestVersionConflictException.class)
+  public ResponseEntity<APIRequestValidationMessage> handleAPIRequestVersionConflictException(APIRequestVersionConflictException ex) {
+    logger.warn("APIRequestVersionConflictException caught: {}", ex.getMessage(), ex);
+
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(
         ex.getRequestValidationMessage()
     );
   }
