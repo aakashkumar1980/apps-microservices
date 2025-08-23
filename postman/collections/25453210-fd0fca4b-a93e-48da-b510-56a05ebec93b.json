@@ -193,6 +193,24 @@
 		},
 		{
 			"name": "Update Campaign <user_2> :: OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "25415af1-8cdd-422b-9038-fe0cce72e823",
+						"exec": [
+							"let body = pm.response.text();\r",
+							"let match = body.match(/\"version\":\\s*(\\d+)/);\r",
+							"if (match) {\r",
+							"    pm.environment.set(\"campaign_version\", match[1]);\r",
+							"}\r",
+							"console.log(\"campaign_version: \", pm.environment.get('campaign_version'));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"id": "25453210-02bc8d54-ff3c-4514-b50c-b622a6610110",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
