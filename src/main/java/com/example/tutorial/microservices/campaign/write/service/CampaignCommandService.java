@@ -68,7 +68,7 @@ public class CampaignCommandService {
     Integer currentVersion = campaign.getVersion(); // from client body
     Integer existingVersion  = existingCampaign.getVersion(); // from DB
     if (currentVersion == null || !currentVersion.equals(existingVersion)) {
-      throw new APIRequestValidationException(
+      throw new APIRequestVersionConflictException(
           new APIRequestValidationMessage("Api request validation failed",
               Map.of("error", "Campaign %s has changed (expected version=%s). Please reload and retry."
                   .formatted(id, existingVersion))));
