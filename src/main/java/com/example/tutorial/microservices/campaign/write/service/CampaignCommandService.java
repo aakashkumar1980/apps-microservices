@@ -3,6 +3,7 @@ package com.example.tutorial.microservices.campaign.write.service;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
 import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
+import com.example.tutorial.common.exceptions.api.APIRequestVersionConflictException;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
 import org.slf4j.Logger;
@@ -93,7 +94,7 @@ public class CampaignCommandService {
           Map.of("error", String.format("Campaign with ID %s has been modified by another process. " +
               "Please retrieve the latest version and try again.", id))
       );
-      throw new APIRequestValidationException(validationMessage);
+      throw new APIRequestVersionConflictException(validationMessage);
     }
   }
 
