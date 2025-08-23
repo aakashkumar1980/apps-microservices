@@ -1,6 +1,5 @@
 package com.example.tutorial.common.datamodel;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
@@ -62,7 +61,6 @@ public class BaseDto<T> {
    * lost updates in concurrent environments.
    */
   @Version
-  @JsonIgnore
   private Long cas;
 
   @JsonProperty("version")

@@ -70,14 +70,19 @@ public class CampaignCommandService {
    * @throws APIRequestValidationException if the campaign with the given ID is not found,
    * or if there is a version conflict.
    */
-  public Optional<BaseDto<Campaign>> updateCampaign(String id, BaseDto<Campaign> campaign) throws Throwable {
+  public Optional<BaseDto<Campaign>> updateCampaign(String id, BaseDto<Campaign> campaign) {
     // fetch the existing campaign by ID
-    BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) apiUtils.fetchDtoById(
-            campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {})
-        .orElseThrow(() -> new APIRequestValidationException(
-            new APIRequestValidationMessage("Api request validation failed",
-                Map.of("error", String.format("Campaign with ID %s not found for update.", id))))
-        );
+    BaseDto<Campaign> existingCampaign = null;
+    try {
+      existingCampaign = (BaseDto<Campaign>) apiUtils
+          .fetchDtoById(campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {})
+          .orElseThrow(() -> new APIRequestValidationException(
+              new APIRequestValidationMessage("Api request validation failed",
+                  Map.of("error", String.format("Campaign with ID %s not found for update.", id))))
+          );
+    } catch (Throwable e) {
+      throw ((APIRequestValidationException)e);
+    }
 
     /** STEP 1: Check version for optimistic locking **/
     Integer currentVersion = campaign.getVersion(); // from client body
