@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,7 @@ public class CampaignCommandService {
       long counter = dbUtils.getUniqueCounter(couchbaseTemplate, campaignCounterKey);
       String id = "campaign::" + counter;
       campaign.setId(id);
+      campaign.setVersion(1); // initialize version to 1
       Campaign savedCampaign = campaignCommandRepository.save(campaign);
       return Optional.of(savedCampaign);
     }
@@ -51,13 +53,25 @@ public class CampaignCommandService {
    * @param id the ID of the campaign
    * @param campaign the campaign with updated fields
    * @return Optional containing the updated campaign if successful, otherwise empty.
-   * @throws APIRequestValidationException if the campaign with the given ID is not found.
+   * @throws APIRequestValidationException if the campaign with the given ID is not found,
+   * or if there is a version conflict.
    */
   public Optional<Campaign> updateCampaign(String id, Campaign campaign) {
     Optional<Campaign> existingCampaign = campaignCommandRepository.findById(id);
     if (existingCampaign.isPresent()) {
-      return Optional.of(campaignCommandRepository.save(campaign));
+      // app visible counter (optional)
+      campaign.setVersion((campaign.getVersion() == null ? 0 : campaign.getVersion()) + 1);
 
+      try {
+        return Optional.of(campaignCommandRepository.save(campaign));
+      } catch (OptimisticLockingFailureException e) {
+        APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
+            "Api request validation failed",
+            Map.of("error", String.format("Campaign with ID %s has been modified by another process. " +
+                "Please retrieve the latest version and try again.", id))
+        );
+        throw new APIRequestValidationException(validationMessage);
+      }
     } else {
       APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
           "Api request validation failed",

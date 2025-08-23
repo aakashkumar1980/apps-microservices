@@ -4,6 +4,7 @@ import com.example.tutorial.common.utils.validation.datamodel.ValidCampaign;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
@@ -18,6 +19,20 @@ public class Campaign {
   @Field("id")
   @Id
   private String id;
+
+  /**
+   * CAS (Compare-And-Swap) field for optimistic locking.
+   * This field is automatically managed by Couchbase and should not be set manually.
+   * In couchbase, the CAS value is a unique identifier that changes every time the document is updated.
+   * It is used to ensure that updates to a document are based on the most recent version, preventing
+   * lost updates in concurrent environments.
+   */
+  @Version
+  private long cas;
+
+  @JsonProperty("version")
+  @Field("version")
+  private Integer version;
 
   @NotBlank
   @Size(min = 3, max = 100)
@@ -61,6 +76,20 @@ public class Campaign {
   }
   public void setId(String id) {
     this.id = id;
+  }
+
+  public long getCas() {
+    return cas;
+  }
+  public void setCas(long cas) {
+    this.cas = cas;
+  }
+
+  public Integer getVersion() {
+    return version;
+  }
+  public void setVersion(Integer version) {
+    this.version = version;
   }
 
   public String getName() {
@@ -108,6 +137,8 @@ public class Campaign {
   public String toString() {
     return "Campaign{" +
         "id=" + id +
+        ", cas=" + cas +
+        ", version=" + version +
         ", name='" + name + '\'' +
         ", description='" + description + '\'' +
         ", startDate=" + startDate +
