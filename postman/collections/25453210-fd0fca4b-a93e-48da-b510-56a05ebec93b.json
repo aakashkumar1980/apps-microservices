@@ -308,53 +308,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "Update Campaign <race_condition_flow>",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "93a9afff-3380-4da0-a414-9aa8d54a8cc8",
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"id": "25453210-9c81d17f-2374-44c8-b6cd-573a486db2f9",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"id\": \"campaign::26\",\n    \"version\": 3,\n    \"name\": \"Test Campaign\",\n    \"description\": \"A test campaign\",\n    \"start_date\": \"2026-06-01T00:00:00\",\n    \"end_date\": \"2026-06-30T23:59:59\",\n    \"budget\": 500.0,\n    \"status\": \"ACTIVE\",\n    \"offer_ids\": null\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/campaigns/campaign::26",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"campaigns",
-						"campaign::26"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }
