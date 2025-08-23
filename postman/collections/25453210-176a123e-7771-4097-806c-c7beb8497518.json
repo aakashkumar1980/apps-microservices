@@ -188,6 +188,31 @@
 			"response": []
 		},
 		{
+			"name": "<validate> Get Campaign By ID Copy",
+			"id": "25453210-426dcf8f-e0b0-4c3b-9402-13f07a94fd46",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"campaigns",
+						"{{new_campaign_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update Campaign",
 			"id": "25453210-d10ee962-73b5-48d2-a6c1-790392f6fe09",
 			"protocolProfileBehavior": {
