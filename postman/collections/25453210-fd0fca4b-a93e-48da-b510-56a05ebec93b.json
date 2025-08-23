@@ -317,12 +317,7 @@
 					"script": {
 						"id": "93a9afff-3380-4da0-a414-9aa8d54a8cc8",
 						"exec": [
-							"let body = pm.response.text();\r",
-							"let match = body.match(/\"version\":\\s*(\\d+)/);\r",
-							"if (match) {\r",
-							"    pm.environment.set(\"campaign_version\", match[1]);\r",
-							"}\r",
-							"console.log(\"campaign_version: \", pm.environment.get('campaign_version'));"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -343,10 +338,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"{{new_campaign_id}}\",\n    \"version\": {{campaign_version}},\n    \"name\": \"Test Campaign\",\n    \"description\": \"A test campaign\",\n    \"start_date\": \"2026-06-01T00:00:00\",\n    \"end_date\": \"2026-06-30T23:59:59\",\n    \"budget\": 500.0,\n    \"status\": \"ACTIVE\",\n    \"offer_ids\": null\n}"
+					"raw": "{\n    \"id\": \"campaign::26\",\n    \"version\": 2,\n    \"name\": \"Test Campaign\",\n    \"description\": \"A test campaign\",\n    \"start_date\": \"2026-06-01T00:00:00\",\n    \"end_date\": \"2026-06-30T23:59:59\",\n    \"budget\": 500.0,\n    \"status\": \"ACTIVE\",\n    \"offer_ids\": null\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
+					"raw": "http://localhost:8080/api/campaigns/campaign::26",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -355,7 +350,7 @@
 					"path": [
 						"api",
 						"campaigns",
-						"{{new_campaign_id}}"
+						"campaign::26"
 					]
 				}
 			},
