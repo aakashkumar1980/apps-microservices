@@ -24,6 +24,7 @@ public class CampaignQueryController {
 
   /**
    * Retrieves all campaigns.
+   * The URI is /api/campaigns
    *
    * @return a ResponseEntity containing a list of all campaign objects.
    */
@@ -37,6 +38,7 @@ public class CampaignQueryController {
 
   /**
    * Retrieves a campaign by its ID.
+   * The URI is /api/campaigns/{id}
    *
    * @param id the ID of the campaign
    * @return a ResponseEntity containing the campaign object if found, or 404 if not found
@@ -57,6 +59,7 @@ public class CampaignQueryController {
 
   /**
    * Retrieves campaigns by their status.
+   * The URI is /api/campaigns/status?status={status}
    *
    * @param status the status of the campaigns to retrieve
    * @return a ResponseEntity containing a list of campaigns with the specified status, or 404 if none found
