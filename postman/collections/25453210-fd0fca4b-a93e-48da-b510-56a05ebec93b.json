@@ -141,6 +141,24 @@
 		},
 		{
 			"name": "Update Campaign <user_2> :: ERROR_CONFLICT(Versioning Issue)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df16cd75-5360-4a00-a0d7-dd08deebafec",
+						"exec": [
+							"let body = pm.response.text();\r",
+							"let match = body.match(/\"version\":\\s*(\\d+)/);\r",
+							"if (match) {\r",
+							"    pm.environment.set(\"campaign_version\", match[1]);\r",
+							"}\r",
+							"console.log(\"campaign_version: \", pm.environment.get('campaign_version'));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"id": "25453210-121616ab-1f37-4ac3-8900-2019da708a13",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
