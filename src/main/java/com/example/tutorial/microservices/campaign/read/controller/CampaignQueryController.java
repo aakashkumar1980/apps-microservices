@@ -1,6 +1,7 @@
 package com.example.tutorial.microservices.campaign.read.controller;
 
 import com.example.tutorial.common.datamodel.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
 import com.example.tutorial.microservices.campaign.read.service.CampaignQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,19 +58,19 @@ public class CampaignQueryController {
   /**
    * Retrieves campaigns by their status.
    *
-   * @param value the status of the campaigns to retrieve
+   * @param status the status of the campaigns to retrieve
    * @return a ResponseEntity containing a list of campaigns with the specified status, or 404 if none found
    */
   @GetMapping("/status")
-  public ResponseEntity<List<Campaign>> getCampaignsByStatus(@RequestParam String value) {
-    List<Campaign> campaigns = campaignQueryService.getCampaignsByStatus(value);
+  public ResponseEntity<List<Campaign>> getCampaignsByStatus(@RequestParam CampaignStatus status) {
+    List<Campaign> campaigns = campaignQueryService.getCampaignsByStatus(status);
 
     if (campaigns.isEmpty()) {
-      log.warn("No campaigns found with status: {}", value);
+      log.warn("No campaigns found with status: {}", status);
       return ResponseEntity.notFound().build();
 
     } else {
-      log.info("Found {} campaigns with status: {}", campaigns.size(), value);
+      log.info("Found {} campaigns with status: {}", campaigns.size(), status);
       return ResponseEntity.ok(campaigns);
     }
   }
