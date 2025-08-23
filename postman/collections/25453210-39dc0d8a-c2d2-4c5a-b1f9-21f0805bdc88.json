@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "25453210-39dc0d8a-c2d2-4c5a-b1f9-21f0805bdc88",
-		"name": "m3c3_redis_cache",
+		"name": "m3c4_redis_cache",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -31,7 +31,7 @@
 		},
 		{
 			"name": "Get Campaign By ID",
-			"id": "25453210-1c8a3b49-b130-4853-bd16-9b41a51b49f7",
+			"id": "25453210-86627ce3-b782-435e-a88b-191a6a42ce03",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -56,7 +56,7 @@
 		},
 		{
 			"name": "Get Campaigns By Status",
-			"id": "25453210-bf583d4b-a939-4553-b704-dc7c7b2b809d",
+			"id": "25453210-7a84d226-c985-4c3c-9c17-e511c000509f",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -82,7 +82,7 @@
 		},
 		{
 			"name": "Get Campaigns By Offer",
-			"id": "25453210-9434f99a-5167-4c1f-b9ce-b11abb760c84",
+			"id": "25453210-b4d85041-211f-4aee-9723-caeccf803579",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -189,7 +189,7 @@
 		},
 		{
 			"name": "Update Campaign",
-			"id": "25453210-331e2ca9-6f5c-43ff-8fad-1f4efd3bdf39",
+			"id": "25453210-69d309b9-dc73-4c46-a8b7-9ef7b1790f5d",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
