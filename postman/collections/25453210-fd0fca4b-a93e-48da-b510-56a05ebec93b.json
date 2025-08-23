@@ -226,7 +226,7 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "Update Campaign <race_condition>",
 			"id": "25453210-e77cdeb6-c5b0-4d5a-8d85-9f815d42cb73",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
