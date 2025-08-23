@@ -56,25 +56,42 @@ public class CampaignCommandService {
    * or if there is a version conflict.
    */
   public Optional<Campaign> updateCampaign(String id, Campaign campaign) {
-    Optional<Campaign> existingCampaign = campaignCommandRepository.findById(id);
-    if (existingCampaign.isPresent()) {
-      // app visible counter (optional)
-      campaign.setVersion((campaign.getVersion() == null ? 0 : campaign.getVersion()) + 1);
-
-      try {
-        return Optional.of(campaignCommandRepository.save(campaign));
-      } catch (OptimisticLockingFailureException e) {
-        APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
-            "Api request validation failed",
-            Map.of("error", String.format("Campaign with ID %s has been modified by another process. " +
-                "Please retrieve the latest version and try again.", id))
+    Campaign existingCampaign = campaignCommandRepository
+        .findById(id)
+        .orElseThrow(() -> new APIRequestValidationException(
+            new APIRequestValidationMessage("Api request validation failed",
+                Map.of("error", "Campaign with ID %s not found for update.".formatted(id))))
         );
-        throw new APIRequestValidationException(validationMessage);
-      }
-    } else {
+
+    /** STEP 1: Check version for optimistic locking **/
+    Integer currentVersion = campaign.getVersion(); // from client body
+    Integer existingVersion  = existingCampaign.getVersion(); // from DB
+    if (currentVersion == null || !currentVersion.equals(existingVersion)) {
+      throw new APIRequestValidationException(
+          new APIRequestValidationMessage("Api request validation failed",
+              Map.of("error", "Campaign %s has changed (expected version=%s). Please reload and retry."
+                  .formatted(id, existingVersion))));
+    }
+
+    /** STEP 2: Apply updates of the existing data-model **/
+    existingCampaign.setName(campaign.getName());
+    existingCampaign.setDescription(campaign.getDescription());
+    existingCampaign.setStartDate(campaign.getStartDate());
+    existingCampaign.setEndDate(campaign.getEndDate());
+    existingCampaign.setBudget(campaign.getBudget());
+    existingCampaign.setStatus(campaign.getStatus());
+    existingCampaign.setOfferIds(campaign.getOfferIds());
+    // increment version for optimistic locking
+    existingCampaign.setVersion(existingVersion+1);
+
+    try {
+      /** STEP 3: Save the updated data-model **/
+      return Optional.of(campaignCommandRepository.save(existingCampaign));
+    } catch (OptimisticLockingFailureException e) {
       APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
           "Api request validation failed",
-          Map.of("error", String.format("Campaign with ID %s not found for update.,", id))
+          Map.of("error", String.format("Campaign with ID %s has been modified by another process. " +
+              "Please retrieve the latest version and try again.", id))
       );
       throw new APIRequestValidationException(validationMessage);
     }
