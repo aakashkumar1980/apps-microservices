@@ -82,7 +82,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Campaign1",
+			"name": "Update Campaign <user_1>",
 			"id": "25453210-a28d3ac5-e2d4-4d86-9bb7-eb7fd7005546",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
