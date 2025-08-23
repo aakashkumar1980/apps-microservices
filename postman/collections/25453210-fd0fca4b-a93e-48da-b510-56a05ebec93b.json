@@ -310,7 +310,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Campaign <user_1> :: OK Copy",
+			"name": "Update Campaign <race_condition_flow>",
 			"event": [
 				{
 					"listen": "test",
