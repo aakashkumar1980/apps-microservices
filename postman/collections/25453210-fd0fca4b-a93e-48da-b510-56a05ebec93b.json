@@ -116,7 +116,7 @@
 			"response": []
 		},
 		{
-			"name": "Update Campaign :: ERROR_CONFLICT(Versioning Issue) Copy",
+			"name": "Update Campaign :: ERROR_CONFLICT(Versioning Issue)",
 			"id": "25453210-121616ab-1f37-4ac3-8900-2019da708a13",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
