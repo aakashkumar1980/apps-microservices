@@ -121,7 +121,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"{{new_campaign_id}}\",\n    \"version\": 1,\n    \"name\": \"Test Campaign\",\n    \"description\": \"A test campaign\",\n    \"start_date\": \"2026-06-01T00:00:00\",\n    \"end_date\": \"2026-06-30T23:59:59\",\n    \"budget\": 500.0,\n    \"status\": \"ACTIVE\",\n    \"offer_ids\": null\n}"
+					"raw": "{\n    \"id\": \"{{new_campaign_id}}\",\n    \"version\": {{campaign_version}},\n    \"name\": \"Test Campaign\",\n    \"description\": \"A test campaign\",\n    \"start_date\": \"2026-06-01T00:00:00\",\n    \"end_date\": \"2026-06-30T23:59:59\",\n    \"budget\": 500.0,\n    \"status\": \"ACTIVE\",\n    \"offer_ids\": null\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/campaigns/{{new_campaign_id}}",
