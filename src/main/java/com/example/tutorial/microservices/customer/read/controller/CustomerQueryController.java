@@ -3,6 +3,7 @@ package com.example.tutorial.microservices.customer.read.controller;
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.customer.Customer;
 import com.example.tutorial.microservices.customer.read.service.CustomerQueryService;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class CustomerQueryController {
   @GetMapping("/offers/{offerId}")
   public ResponseEntity<List<BaseDto<Customer>>> getCustomersByOfferId(@PathVariable String offerId) {
     List<BaseDto<Customer>> customers = customerQueryService.getCustomersByOfferId(offerId);
-    if (!customers.isEmpty()) {
+    if (CollectionUtils.isNotEmpty(customers)) {
       log.info("Found {} customers for offer ID: {}", customers.size(), offerId);
       return ResponseEntity.ok(customers);
 

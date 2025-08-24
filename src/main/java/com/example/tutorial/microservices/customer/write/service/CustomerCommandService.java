@@ -7,6 +7,7 @@ import com.example.tutorial.common.utils.validation.CustomerEligibilityEngineCli
 import com.example.tutorial.microservices.customer.write.repository.CustomerCommandRepository;
 import com.example.tutorial.microservices.customer.write.service.events.publisher.CustomerOfferEventPublisher;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +78,7 @@ public class CustomerCommandService {
     });
 
     /** PUBLISH EVENT **/
-    if (!eligibleCustomers.isEmpty()) {
+    if (CollectionUtils.isNotEmpty(eligibleCustomers)) {
       customerOfferEventPublisher.publishOfferAssignedEvent(offerId, eligibleCustomers);
     }
   }
@@ -121,7 +122,7 @@ public class CustomerCommandService {
     });
 
     /** PUBLISH EVENT **/
-    if (!unassignedCustomers.isEmpty()) {
+    if (CollectionUtils.isNotEmpty(unassignedCustomers)) {
       customerOfferEventPublisher.publishOfferUnassignedEvent(offerId, unassignedCustomers);
     }
   }

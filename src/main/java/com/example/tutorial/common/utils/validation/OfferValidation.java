@@ -10,6 +10,7 @@ import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,7 +104,7 @@ public class OfferValidation {
         offersApiUrl + "/campaigns/" + campaignId,
         new TypeReference<List<BaseDto<Offer>>>() {}
     );
-    if (!allOffersByCampaignId.isEmpty()) {
+    if (CollectionUtils.isNotEmpty(allOffersByCampaignId)) {
       totalDiscountAmount += allOffersByCampaignId.stream()
           .mapToDouble(offer -> offer.getData().getDiscountAmount().doubleValue())
           .sum();

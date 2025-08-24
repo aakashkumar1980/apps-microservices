@@ -106,21 +106,17 @@ public class OfferCommandService {
     log.info("Cancelling offers for campaign ID: {}", campaignId);
 
     /** PERSIST DATA **/
-    // retrieve all offers associated with the given campaign ID
     List<BaseDto<Offer>> offersByCampaign = apiUtils.fetchDtoList(
-        (offersApiUrl+"/campaigns/"+campaignId), new TypeReference<List<BaseDto<Offer>>>() {});
+        offersApiUrl + "/campaigns/" + campaignId, new TypeReference<List<BaseDto<Offer>>>() {});
     if (CollectionUtils.isNotEmpty(offersByCampaign)) {
-      // iterate through the filtered offers and set their status to CANCELLED
       offersByCampaign.forEach(offer -> {
+        /** STEP 1: Cancel each offer by updating its status **/
         offer.getData().setStatus(OfferStatus.CANCELLED);
-
-        log.info("Cancelling offer with ID: {}", offer.getId());
+        log.info("Cancelled offer with ID: {}", offer.getId());
+        /** STEP 2: Save the updated offer **/
         offerCommandRepository.save(offer);
-      });
 
-      /** PUBLISH EVENTS **/
-      // publish an event for each cancelled offers
-      offersByCampaign.forEach(offer -> {
+        /** PUBLISH EVENTS **/
         offerEventPublisher.publishCancelOfferEvent(offer);
       });
 

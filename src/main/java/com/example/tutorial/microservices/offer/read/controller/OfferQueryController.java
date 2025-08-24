@@ -3,6 +3,7 @@ package com.example.tutorial.microservices.offer.read.controller;
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.offer.Offer;
 import com.example.tutorial.microservices.offer.read.service.OfferQueryService;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,9 +63,10 @@ public class OfferQueryController {
   @GetMapping("/campaigns/{campaignId}")
   public ResponseEntity<List<BaseDto<Offer>>> getOffersByCampaignId(@PathVariable String campaignId) {
     List<BaseDto<Offer>> offersByCampaign = offerQueryService.getOffersByCampaignId(campaignId);
-    if (!offersByCampaign.isEmpty()) {
+    if (CollectionUtils.isNotEmpty(offersByCampaign)) {
       log.info("Found {} offers for campaign ID: {}", offersByCampaign.size(), campaignId);
       return ResponseEntity.ok(offersByCampaign);
+
     } else {
       log.warn("No offers found for campaign ID: {}", campaignId);
       return ResponseEntity.noContent().build();
