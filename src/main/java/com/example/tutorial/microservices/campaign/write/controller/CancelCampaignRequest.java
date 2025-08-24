@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CancelCampaignRequest {
 
-  @JsonProperty("cancellationReason")
+  @JsonProperty("cancellation_reason")
   private String cancellationReason;
   @JsonProperty("cancelled_by")
   private String cancelledBy;
