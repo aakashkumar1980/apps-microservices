@@ -11,6 +11,7 @@ import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.ApplicationUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
+import com.example.tutorial.microservices.campaign.write.controller.CancelCampaignRequest;
 import com.example.tutorial.microservices.campaign.write.repository.CampaignCommandRepository;
 import com.example.tutorial.microservices.campaign.write.service.events.publisher.CampaignEventPublisher;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -152,10 +153,11 @@ public class CampaignCommandService {
    * TODO: Implement @Retry as this is an internal service call
    *
    * @param id the ID of the campaign to delete
+   * @param request the request containing cancellation details
    * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
   @SuppressWarnings("unchecked")
-  public void cancelCampaign(String id) {
+  public void cancelCampaign(String id, CancelCampaignRequest request) {
     log.info("Cancelling campaign with ID {}", id);
 
     apiUtils.fetchDtoById(campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {})
@@ -165,6 +167,11 @@ public class CampaignCommandService {
             /** PERSIST DATA **/
             /** STEP 1: Update the status of the campaign to CANCELLED **/
             existingCampaign.getData().setStatus(CampaignStatus.CANCELLED);
+            existingCampaign.getData().setCancellationReason(request.getCancellationReason());
+
+            existingCampaign.setUpdatedBy(request.getCancelledBy());
+            existingCampaign.setUpdatedAt(LocalDateTime.now());
+
             /** STEP 2: Save the updated data-model **/
             campaignCommandRepository.save(existingCampaign);
             /** PUBLISH EVENT **/

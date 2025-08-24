@@ -48,7 +48,9 @@ public class CampaignCommandController {
    * @return ResponseEntity with the updated campaign and HTTP status 200 (OK)
    */
   @PutMapping("/{id}")
-  public ResponseEntity<BaseDto<Campaign>> updateCampaign(@PathVariable String id, @Valid @RequestBody BaseDto<Campaign> campaign) {
+  public ResponseEntity<BaseDto<Campaign>> updateCampaign(
+      @PathVariable String id,
+      @Valid @RequestBody BaseDto<Campaign> campaign) {
     log.info("Received request to update campaign with ID: {}, Data: {}", id, campaign);
 
     Optional<BaseDto<Campaign>> updatedCampaignOptional = campaignCommandService.updateCampaign(id, campaign);
@@ -60,13 +62,16 @@ public class CampaignCommandController {
    * The URI is /api/campaigns/cancel/{id}
    *
    * @param id the ID of the campaign to be cancelled
+   * @param request the request to cancel the campaign
    * @return ResponseEntity with HTTP status 204 (No Content) if successful
    */
   @PutMapping("/cancel/{id}")
-  public ResponseEntity<String> cancelCampaign(@PathVariable String id) {
-    log.info("Received request to cancel campaign with ID: {}", id);
+  public ResponseEntity<String> cancelCampaign(
+      @PathVariable String id,
+      @RequestBody CancelCampaignRequest request) {
+    log.info("Received request to cancel campaign with ID: {}, Cancellation Reason: {}", id, request.getCancellationReason());
 
-    campaignCommandService.cancelCampaign(id);
+    campaignCommandService.cancelCampaign(id, request);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 }
