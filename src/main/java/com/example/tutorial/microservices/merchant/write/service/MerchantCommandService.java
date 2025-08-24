@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MerchantCommandService {
@@ -35,27 +34,28 @@ public class MerchantCommandService {
    * @param merchantId
    * @param offerId
    */
+  @SuppressWarnings("unchecked")
   public void linkOfferToMerchant(String merchantId, String offerId) {
     log.info("Linking offer {} to merchant {}", offerId, merchantId);
 
     /** PERSIST DATA **/
-    // fetch the original merchant by ID
-    Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchDtoById(
-        merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {});
-    if (originalMerchantOptional.isPresent()) {
-      BaseDto<Merchant> originalMerchant = originalMerchantOptional.get();
-      // get the active offers list from the merchant, and add the offerId if it is not already present
-      List<String> activeOfferIds = originalMerchant.getData().getActiveOffers();
-      if(!activeOfferIds.contains(offerId)) {
-        activeOfferIds.add(offerId);
-        log.info("Adding offer {} to merchant {}", offerId, merchantId);
-        // save the updated merchant
-        merchantCommandRepository.save(originalMerchant);
+    apiUtils.fetchDtoById(merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {})
+      .ifPresentOrElse(merchantObj -> {
+        BaseDto<Merchant> merchant = (BaseDto<Merchant>) merchantObj;
 
-      } else {
-        log.warn("Offer {} is already linked to campaign {}", offerId, merchantId);
-      }
-    }
+        /** STEP 1: Check if the offer is already linked. If not, add it to the list **/
+        List<String> activeOfferIds = merchant.getData().getActiveOffers();
+        if (activeOfferIds.stream().noneMatch(offerId::equals)) {
+          /** STEP 2: Link the offer to the merchant **/
+          activeOfferIds.add(offerId);
+          log.info("Adding offer {} to merchant {}", offerId, merchantId);
+          /** STEP 3: Save the updated merchant **/
+          merchantCommandRepository.save(merchant);
+
+        } else {
+          log.warn("Offer {} is already linked to merchant {}", offerId, merchantId);
+        }
+      }, () -> log.warn("Merchant with ID {} not found for linking offer {}", merchantId, offerId));
   }
 
   /**
@@ -65,25 +65,26 @@ public class MerchantCommandService {
    * @param merchantId
    * @param offerId
    */
+  @SuppressWarnings("unchecked")
   public void unlinkOfferFromMerchant(String merchantId, String offerId) {
     log.info("Unlinking offer {} from merchant {}", offerId, merchantId);
 
     /** PERSIST DATA **/
-    // fetch the original merchant by ID
-    Optional<BaseDto<Merchant>> originalMerchantOptional = apiUtils.fetchDtoById(
-        merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {});
-    if (originalMerchantOptional.isPresent()) {
-      BaseDto<Merchant> originalMerchant = originalMerchantOptional.get();
-      // get the active offers list from the merchant, and remove the offerId if it is present
-      List<String> activeOfferIds = originalMerchant.getData().getActiveOffers();
-      if(activeOfferIds.contains(offerId)) {
-        activeOfferIds.remove(offerId);
-        log.info("Removing offer {} from merchant {}", offerId, merchantId);
-        // save the updated merchant
-        merchantCommandRepository.save(originalMerchant);
-      } else {
-        log.warn("Offer {} is not linked to campaign {}", offerId, merchantId);
-      }
-    }
+    apiUtils.fetchDtoById(merchantsApiUrl, merchantId, new TypeReference<BaseDto<Merchant>>() {})
+      .ifPresentOrElse(merchantObj -> {
+        BaseDto<Merchant> merchant = (BaseDto<Merchant>) merchantObj;
+
+        /** STEP 1: Check if the offer is linked. If yes, remove it from the list **/
+        List<String> activeOfferIds = merchant.getData().getActiveOffers();
+        if (activeOfferIds.stream().anyMatch(offerId::equals)) {
+          /** STEP 2: Unlink the offer from the merchant **/
+          activeOfferIds.removeIf(offerId::equals);
+          log.info("Removing offer {} from merchant {}", offerId, merchantId);
+          /** STEP 3: Save the updated merchant **/
+          merchantCommandRepository.save(merchant);
+        } else {
+          log.warn("Offer {} is not linked to merchant {}", offerId, merchantId);
+        }
+      }, () -> log.warn("Merchant with ID {} not found for unlinking offer {}", merchantId, offerId));
   }
 }

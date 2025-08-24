@@ -118,6 +118,7 @@ public class CampaignCommandService {
             existingCampaign.setVersion(existingVersion + 1);
 
             try {
+              /** STEP 3: Save the updated data-model **/
               BaseDto<Campaign> updatedCampaign = campaignCommandRepository.save(existingCampaign);
 
               /** PUBLISH EVENT **/
@@ -162,7 +163,9 @@ public class CampaignCommandService {
             BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) existingCampaignObj;
 
             /** PERSIST DATA **/
+            /** STEP 1: Update the status of the campaign to CANCELLED **/
             existingCampaign.getData().setStatus(CampaignStatus.CANCELLED);
+            /** STEP 2: Save the updated data-model **/
             campaignCommandRepository.save(existingCampaign);
             /** PUBLISH EVENT **/
             campaignEventPublisher.publishCancelCampaignEvent(id);
@@ -195,10 +198,13 @@ public class CampaignCommandService {
         .ifPresentOrElse(existingCampaignObj -> {
             BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) existingCampaignObj;
 
+            /** STEP 1: extract existing offer IDs and check if the offer is already linked **/
             List<String> existingOfferIds = existingCampaign.getData().getOfferIds();
             if (existingOfferIds.stream().noneMatch(offerId::equals)) {
+              /** STEP 2: Add the offer ID to the campaign's list of offer IDs **/
               log.debug("Adding offer {} to campaign {}", offerId, campaignId);
               existingOfferIds.add(offerId);
+              /** STEP 3: Save the updated data-model **/
               campaignCommandRepository.save(existingCampaign);
 
             } else {
@@ -209,7 +215,6 @@ public class CampaignCommandService {
             log.warn("Campaign with ID {} not found for linking offer {}", campaignId, offerId);
           }
         );
-
   }
 
   /**
@@ -230,10 +235,13 @@ public class CampaignCommandService {
         .ifPresentOrElse(existingCampaignObj -> {
             BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) existingCampaignObj;
 
+            /** STEP 1: extract existing offer IDs and check if the offer is linked **/
             List<String> existingOfferIds = existingCampaign.getData().getOfferIds();
             if (existingOfferIds.stream().anyMatch(offerId::equals)) {
+              /** STEP 2: Remove the offer ID from the campaign's list of offer IDs **/
               log.debug("Removing offer {} from campaign {}", offerId, campaignId);
               existingOfferIds.removeIf(offerId::equals);
+              /** STEP 3: Save the updated data-model **/
               campaignCommandRepository.save(existingCampaign);
 
             } else {

@@ -7,14 +7,12 @@ import com.example.tutorial.common.utils.validation.CustomerEligibilityEngineCli
 import com.example.tutorial.microservices.customer.write.repository.CustomerCommandRepository;
 import com.example.tutorial.microservices.customer.write.service.events.publisher.CustomerOfferEventPublisher;
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,35 +48,36 @@ public class CustomerCommandService {
    * @param offerId the ID of the offer to assign
    * @return a list of {@code BaseDto<Customer>} containing all customers who were assigned the offer
    */
+  @SuppressWarnings("unchecked")
   public void assignOfferToCustomer(String offerId) {
     log.info("Assigning offer {} to eligible customers", offerId);
-    List<BaseDto<Customer>> eligibleCustomers = new ArrayList<BaseDto<Customer>>();
+
+    List<BaseDto<Customer>> eligibleCustomers = apiUtils.fetchDtoList(
+        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {})
+      .stream()
+        /** DATA VALIDATION **/
+        .filter(customerObj -> {
+          BaseDto<Customer> customer = (BaseDto<Customer>) customerObj;
+          log.debug("Checking eligibility for customer {} for offer {}", customer.getId(), offerId);
+
+          /** STEP 1: Check if customer is eligible for the offer.
+           * If eligible, proceed to assign the offer **/
+          boolean eligible = customerEligibilityEngineClient.isEligible(customer.getId(), offerId);
+          if (!eligible) log.warn("Customer {} is not eligible for offer {}", customer.getId(), offerId);
+          return eligible;
+        }).toList();
 
     /** PERSIST DATA **/
-    // fetch all customers and iterate through them
-    List<BaseDto<Customer>> allCustomers = apiUtils.fetchDtoList(
-        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
-    allCustomers.forEach(customer -> {
-      // check if the customer is eligible for the offer
-      log.debug("Checking eligibility for customer {} for offer {}", customer.getId(), offerId);
-      boolean eligible = customerEligibilityEngineClient.isEligible(customer.getId(), offerId);
-      if (eligible) {
-        log.info("Customer {} is eligible for offer {}", customer.getId(), offerId);
-        // if eligible, add the offer ID to the customer's enrolled offers
-        customer.getData().getEnrolledOfferIds().add(offerId);
-        // save the updated customer back to the repository
-        customerCommandRepository.save(customer);
-        eligibleCustomers.add(customer);
-
-      } else {
-        log.warn("Customer {} is not eligible for offer {}", customer.getId(), offerId);
-        // TODO: Logic to handle ineligibility, e.g., notifying the customer or logging
-      }
+    eligibleCustomers.forEach(customerDto -> {
+      log.info("Customer {} is eligible for offer {}", customerDto.getId(), offerId);
+      /** STEP 2: Assign offer to customer **/
+      customerDto.getData().getEnrolledOfferIds().add(offerId);
+      /** STEP 3: Save updated customer **/
+      customerCommandRepository.save(customerDto);
     });
 
     /** PUBLISH EVENT **/
-    // publish the offer assignment event, which can be used by other services like ""Recommendation Engine" etc.
-    if(CollectionUtils.isNotEmpty(eligibleCustomers)) {
+    if (!eligibleCustomers.isEmpty()) {
       customerOfferEventPublisher.publishOfferAssignedEvent(offerId, eligibleCustomers);
     }
   }
@@ -94,35 +93,36 @@ public class CustomerCommandService {
    *
    * @param offerId The ID of the offer to be unassigned.
    */
+  @SuppressWarnings("unchecked")
   public void unassignOfferFromCustomer(String offerId) {
     log.info("Unassigning offer {} from customers", offerId);
-    List<BaseDto<Customer>> unassignedCustomers = new ArrayList<BaseDto<Customer>>();
+
+    List<BaseDto<Customer>> unassignedCustomers = apiUtils.fetchDtoList(
+        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {})
+      .stream()
+        /** DATA VALIDATION **/
+        .filter(customerObj -> {
+          BaseDto<Customer> customer = (BaseDto<Customer>) customerObj;
+
+          /** STEP 1: Check if customer has the offer enrolled.
+           * If yes, proceed to unassign the offer **/
+          boolean hasOffer = customer.getData().getEnrolledOfferIds().contains(offerId);
+          if (!hasOffer) log.warn("Customer {} does not have offer {} enrolled", customer.getId(), offerId);
+          return hasOffer;
+        }).toList();
 
     /** PERSIST DATA **/
-    // retrieve all customers from the repository
-    List<BaseDto<Customer>> allCustomers = apiUtils.fetchDtoList(
-        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {});
-    // iterate through each customer to remove the offer ID from their enrolled offers
-    allCustomers.forEach(customer -> {
-      // check if the customer has the offer ID in their enrolled offers, then only remove it, else log a warning
-      List<String> enrolledOfferIds= customer.getData().getEnrolledOfferIds();
-      if(enrolledOfferIds.contains(offerId)) {
-        log.info("Removing offer {} from customer {}", offerId, customer.getId());
-        enrolledOfferIds.remove(offerId);
-        // save the updated customer back to the repository
-        customerCommandRepository.save(customer);
-        unassignedCustomers.add(customer);
-
-      } else {
-        log.warn("Customer {} does not have offer {} enrolled", customer.getId(), offerId);
-        return; // Skip to the next customer if the offer is not enrolled
-      }
-
-      /** PUBLISH EVENT **/
-      // Publish the offer unassignment event, which can be used by other services like "Recommendation Engine" etc.
-      if (CollectionUtils.isNotEmpty(unassignedCustomers)) {
-        customerOfferEventPublisher.publishOfferUnassignedEvent(offerId, unassignedCustomers);
-      }
+    unassignedCustomers.forEach(customerDto -> {
+      /** STEP 2: Unassign offer from customer **/
+      log.info("Removing offer {} from customer {}", offerId, customerDto.getId());
+      customerDto.getData().getEnrolledOfferIds().remove(offerId);
+      /** STEP 3: Save updated customer **/
+      customerCommandRepository.save(customerDto);
     });
+
+    /** PUBLISH EVENT **/
+    if (!unassignedCustomers.isEmpty()) {
+      customerOfferEventPublisher.publishOfferUnassignedEvent(offerId, unassignedCustomers);
+    }
   }
 }
