@@ -107,7 +107,7 @@ public class OfferCommandService {
 
     /** PERSIST DATA **/
     List<BaseDto<Offer>> offersByCampaign = apiUtils.fetchDtoList(
-        offersApiUrl + "/campaigns/" + campaignId, new TypeReference<List<BaseDto<Offer>>>() {});
+        offersApiUrl + "/campaign/" + campaignId, new TypeReference<List<BaseDto<Offer>>>() {});
     if (CollectionUtils.isNotEmpty(offersByCampaign)) {
       offersByCampaign.forEach(offer -> {
         /** STEP 1: Cancel each offer by updating its status **/

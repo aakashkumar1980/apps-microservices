@@ -60,7 +60,7 @@ public class OfferQueryController {
    * @param campaignId the ID of the campaign to filter offers by.
    * @return ResponseEntity containing a list of BaseDto<Offer> objects associated with the specified campaign ID.
    */
-  @GetMapping("/campaigns/{campaignId}")
+  @GetMapping("/campaign/{campaignId}")
   public ResponseEntity<List<BaseDto<Offer>>> getOffersByCampaignId(@PathVariable String campaignId) {
     List<BaseDto<Offer>> offersByCampaign = offerQueryService.getOffersByCampaignId(campaignId);
     if (CollectionUtils.isNotEmpty(offersByCampaign)) {
