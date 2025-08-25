@@ -45,8 +45,6 @@ public class OfferEventPublisher {
         offer.getId(),
         offer.getData().getCampaignId(),
         offer.getData().getMerchantId(),
-        offer.getData().getDiscountAmount(),
-        offer.getData().getSegmentCriteria(),
         KafkaEventType.OFFER_CANCELLED
     );
 

@@ -35,6 +35,12 @@ public class OfferEvent extends Event {
     super(kafkaEventType);
     this.id = id;
   }
+  public OfferEvent(String id, String campaignId, String merchantId, KafkaEventType kafkaEventType) {
+    super(kafkaEventType);
+    this.id = id;
+    this.campaignId = campaignId;
+    this.merchantId = merchantId;
+  }
   public OfferEvent(String id, String campaignId, String merchantId, BigDecimal discountAmount, Segment segmentCriteria, KafkaEventType kafkaEventType) {
     super(kafkaEventType);
     this.id = id;

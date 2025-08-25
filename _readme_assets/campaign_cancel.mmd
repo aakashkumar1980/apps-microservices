@@ -85,7 +85,7 @@ style Offer_Write_Microservice fill:#F1F8E9,stroke:#689F38,stroke-width:1px
     </div>
   "]:::service
 
-  OEP["OfferEventPublisher<br> - publishOfferCancelledEvent()"]:::event
+  OEP["OfferEventPublisher<br> - publishCancelOfferEvent()"]:::event
 end
 
 COUCHBASE_OFFER_SUB[("Couchbase DB<br>(bucket: offer)")]:::db
@@ -94,10 +94,9 @@ KAFKA_OC[["kafka topic: OFFER_CANCELLED
   <div style='text-align:left; background-color:#fcf3f0; width:180px;'>
     event(offerevent).json
     {
-      #emsp; <font color=red><b>offer_id</b>:''</font>,
+      #emsp; <font color=red><b>id</b>:''</font>,
       #emsp; <font color=orange><b>campaign_id</b>:''</font>,
-      #emsp; reason:'campaign-cancelled',
-      #emsp; timestamp:'...'
+      #emsp; <font color=orange><b>merchant_id</b>:''</font>
     }
   </div>
 "]]:::kafka
