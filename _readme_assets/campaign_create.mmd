@@ -4,60 +4,60 @@ flowchart TD
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
 %% Campaign Write Microservice %%
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
-  POSTMAN["POST /campaigns
+POSTMAN["POST /campaigns
   <div style='text-align: left'>
-{
-#emsp; name: 'Summer Savings Blast',
-#emsp; description: 'Enjoy huge discounts...',
-#emsp; status: 'PLANNED',
-#emsp; start_date: '2025-08-01T00:00:00',
-#emsp; end_date: '2025-09-30T23:59:59',
-#emsp; budget: 10000
-}
-</div>
+    {
+      #emsp; name: 'Summer Savings Blast',
+      #emsp; description: 'Enjoy huge discounts...',
+      #emsp; status: 'PLANNED',
+      #emsp; start_date: '2025-08-01T00:00:00',
+      #emsp; end_date: '2025-09-30T23:59:59',
+      #emsp; budget: 10000
+    }
+  </div>
 "]:::external
 
 subgraph Campaign_Write_Microservice
 style Campaign_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
-CCC["CampaignCommandController<br> - createCampaign()"]:::controller
-CCS["CampaignCommandService<br> - createCampaign()
-<div style='text-align:left; font-style: italic;'>
-<div style='background-color:rgb(252, 251, 240); width:300px;'>
-basedto(campaign).json
-{
-#emsp; <font color=orange>id</font>,
-#emsp; ...,
-#emsp; data: {
-#emsp;#emsp; name: 'Summer Savings Blast',
-#emsp;#emsp; description: 'Enjoy huge discounts...',
-#emsp;#emsp; status: 'PLANNED',
-#emsp;#emsp; start_date: '2025-08-01T00:00:00',
-#emsp;#emsp; end_date: '2025-09-30T23:59:59',
-#emsp;#emsp; budget: 10000
-#emsp; }
-}<br>
-</div>
-CREATE CAMPAIGN
-</div>
-"]:::service
+  CCC["CampaignCommandController<br> - createCampaign()"]:::controller
+  CCS["CampaignCommandService<br> - createCampaign()
+    <div style='text-align:left; font-style: italic;'>
+      <div style='background-color:rgb(252, 251, 240); width:300px;'>
+        basedto(campaign).json
+        {
+          #emsp; <font color=orange>id</font>,
+          #emsp; ...,
+          #emsp; data: {
+          #emsp;#emsp; name: 'Summer Savings Blast',
+          #emsp;#emsp; description: 'Enjoy huge discounts...',
+          #emsp;#emsp; status: 'PLANNED',
+          #emsp;#emsp; start_date: '2025-08-01T00:00:00',
+          #emsp;#emsp; end_date: '2025-09-30T23:59:59',
+          #emsp;#emsp; budget: 10000
+          #emsp; }
+        }<br>
+      </div>
+      CREATE CAMPAIGN
+    </div>
+  "]:::service
 
-CCR["CampaignCommandRepository<br> - save()"]:::repository
-CEP["CampaignEventPublisher<br> - publishCreateCampaignEvent()"]:::event
+  CCR["CampaignCommandRepository<br> - save()"]:::repository
+  CEP["CampaignEventPublisher<br> - publishCreateCampaignEvent()"]:::event
 end
 
 COUCHBASE_CAMPAIGN_CMD[("Couchbase DB<br>(bucket: campaign)")]:::db
 
 KAFKA_CC[["kafka topic: CAMPAIGN_CREATED
-<div style='text-align:left; background-color:#fcf3f0; width:300px;'>
-event(campaignevent).json
-{
-#emsp; <font color=red><b>id</b>:''</font>,
-#emsp; status:'PLANNED',
-#emsp; start_date:'2025-08-01T00:00:00',
-#emsp; end_date:'2025-09-30T23:59:59',
-#emsp; budget:10000
-}
-</div>
+  <div style='text-align:left; background-color:#fcf3f0; width:300px;'>
+    event(campaignevent).json
+    {
+      #emsp; <font color=red><b>id</b>:''</font>,
+      #emsp; status:'PLANNED',
+      #emsp; start_date:'2025-08-01T00:00:00',
+      #emsp; end_date:'2025-09-30T23:59:59',
+      #emsp; budget:10000
+    }
+  </div>
 "]]:::kafka
 
 %% Flow Steps (Main Command Flow)
