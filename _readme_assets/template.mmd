@@ -84,7 +84,7 @@ CHBMSX[("Couchbase DB<br>(bucket: $MicroserviceSubscriberX)")]:::db
 
 %% Flow Steps (SubscribersX Flow)
 KAFKA --> MSES
-MSES -->|1: cache event| MSCS
+MSES -->|1: delegate to service| MSCS
 MSCS -->|2: update data model| CHBMSX
 
 

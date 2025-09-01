@@ -116,9 +116,9 @@ OEP -->|9: send to kafka topic| KAFKA1
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
 subgraph Merchant_Write_Microservice
 style Merchant_Write_Microservice fill:#F1F8E9,stroke:#689F38,stroke-width:1px
-  MES["OfferEventSubscriber<br> - subscribeCreateOfferEvent()"]:::subscriber
+  MES["OfferEventSubscriber<br> - subscribeOfferCreatedEvent()"]:::subscriber
 
-  MC["MerchantCommandService<br> - linkOfferToMerchant()
+  MC["MerchantCommandService<br> - addToActiveOffers()
     <div style='text-align:left; font-style: italic;'>
       <div style='background-color:rgb(252, 251, 240); width:300px;'>
         basedto(merchant).json
@@ -130,7 +130,7 @@ style Merchant_Write_Microservice fill:#F1F8E9,stroke:#689F38,stroke-width:1px
         #emsp; }
         }<br>
       </div>
-      LINK OFFER
+      ADD OFFER
       - fetch the merchant for the <font color=orange><b>merchant_id</b></font> from the REST API (using @ApiUtils)<br>
       - add the new <font color=red>offer <b>id</b></font> in the <font color=olive><b>active_offers</b></font> list of the merchant.
     </div>
@@ -150,9 +150,9 @@ MC -->|2: update data model| COUCHBASE_MERCHANT
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
 subgraph Customer_Write_Microservice
 style Customer_Write_Microservice fill:#FCE4EC,stroke:#C2185B,stroke-width:1px
-  CES["OfferEventSubscriber<br> - subscribeCreateOfferEvent()"]:::subscriber
+  CES["OfferEventSubscriber<br> - subscribeOfferCreatedEvent()"]:::subscriber
 
-  CC["CustomerCommandService<br> - assignOfferToCustomer()</b>
+  CC["CustomerCommandService<br> - addToEnrolledOffers()</b>
     <div style='text-align:left; font-style: italic;'>
       <div style='background-color:rgb(252, 251, 240); width:300px;'>
         basedto(customer).json
@@ -164,18 +164,27 @@ style Customer_Write_Microservice fill:#FCE4EC,stroke:#C2185B,stroke-width:1px
         #emsp; }
         }<br>
       </div>
-      ASSIGN OFFER
+      ADD OFFER
       - fetch ALL customers from the REST API (using @ApiUtils)<br>
       - pass those customers to the @CustomerEligibilityEngineClient an checks their eligibility.<br>
       - if eligible, then enroll them by adding the new <font color=red>offer <b>id</b></font> to the <font color=green><b>enrolled_offers</b></font>.
     </div>
   "]:::service
 
-  CEP["CustomerOfferEventPublisher<br> - publishOfferAssignedEvent()"]:::event
+  CEP["CustomerOfferEventPublisher<br> - publishOfferEnrollmentEvent()"]:::event
 end
 
 COUCHBASE_CUSTOMER[("Couchbase DB<br>(bucket: customer)")]:::db
-KAFKA2[["kafka topic: OFFER_ASSIGNED"]]:::kafka
+KAFKA2[["kafka topic: CUSTOMER_OFFER_ENROLLED
+  <div style='text-align:left; background-color:#fcf3f0; width:180px;'>
+    event(offerenrollmentevent).json
+    {
+      #emsp; <font color=red><b>offerId</b>:''</font>,
+      #emsp; <font color=orange><b>customerIds</b></font>:[
+      #emsp; ]
+    }
+  </div>
+"]]:::kafka
 
 %% Flow Steps (Customer Write Flow)
 KAFKA1 --> CES
@@ -190,9 +199,9 @@ CEP -->|4: send to kafka topic| KAFKA2
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
 subgraph Campaign_Write_Microservice
 style Campaign_Write_Microservice fill:#BBDEFB,stroke:#1976D2,stroke-width:1px
-  CAS["OfferEventSubscriber<br> - subscribeCreateOfferEvent()"]:::subscriber
+  CAS["OfferEventSubscriber<br> - subscribeOfferCreatedEvent()"]:::subscriber
 
-  CCS["CampaignCommandService<br> - linkOfferToCampaign()
+  CCS["CampaignCommandService<br> - addToLinkedOffers()
     <div style='text-align:left; font-style:italic;'>
       <div style='background-color:rgb(252, 251, 240); width:300px;'>
         basedto(campaign).json
@@ -204,7 +213,7 @@ style Campaign_Write_Microservice fill:#BBDEFB,stroke:#1976D2,stroke-width:1px
         #emsp; }
         }<br>
       </div>
-      LINK OFFER
+      ADD OFFER
       - fetch the campaign for the <font color=orange><b>campaign_id</b></font> from the REST API (using @ApiUtils)<br>
       - add the new <font color=red>offer <b>id</b></font> in the <font color=navy><b>linked_offers</b></font> list of the merchant.
     </div>

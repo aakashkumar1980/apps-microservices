@@ -38,6 +38,8 @@ public class CustomerCommandService {
 
   /**
    * Assigns an offer to all eligible customers.
+   * TODO: Optimize by making paginated calls to avoid fetching all customers at once.
+   *
    * <pre>
    * This method retrieves all customers from the repository and checks each customer's eligibility for the specified offer
    * using the {@code CustomerEligibilityEngineClient}.
@@ -53,6 +55,7 @@ public class CustomerCommandService {
   public void addToEnrolledOffers(String offerId) {
     log.info("Assigning offer {} to eligible customers", offerId);
 
+    /** TODO: OPTIMIZATION: Make paginated call **/
     List<BaseDto<Customer>> eligibleCustomers = apiUtils.fetchDtoList(
         customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {})
       .stream()
@@ -79,7 +82,7 @@ public class CustomerCommandService {
 
     /** PUBLISH EVENT **/
     if (CollectionUtils.isNotEmpty(eligibleCustomers)) {
-      customerOfferEventPublisher.publishOfferAssignedEvent(offerId, eligibleCustomers);
+      customerOfferEventPublisher.publishOfferEnrollmentEvent(offerId, eligibleCustomers);
     }
   }
 

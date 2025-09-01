@@ -40,7 +40,7 @@ public class CustomerOfferEventPublisher {
    * @param offerId The ID of the offer being assigned.
    * @param eligibleCustomers The list of eligible customers for the offer.
    */
-  public void publishOfferAssignedEvent(String offerId, List<BaseDto<Customer>> eligibleCustomers) {
+  public void publishOfferEnrollmentEvent(String offerId, List<BaseDto<Customer>> eligibleCustomers) {
     OfferEnrollmentEvent offerEnrollmentEvent = new OfferEnrollmentEvent(
         offerId,
         eligibleCustomers.stream().map(BaseDto::getId).toList(),
