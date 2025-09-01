@@ -77,7 +77,7 @@ public class OfferEventSubscriber {
 
       /** BUSINESS LOGIC **/
       // unlink the offer from the merchant
-      merchantCommandService.unlinkOfferFromMerchant(offerEvent.getMerchantId(), offerId);
+      merchantCommandService.removeActiveOfferFromMerchant(offerEvent.getMerchantId(), offerId);
 
     } catch (JsonProcessingException e) {
       throw new ApplicationTechnicalException("Error parsing object's value", e);

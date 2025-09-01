@@ -1,9 +1,9 @@
 %%{ init: { "flowchart": { "htmlLabels": true, "wrappingWidth": 500 } } }%%
 flowchart TD
 
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
-%% Campaign Write Microservice  %%  (PUBLISHER)
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+%% Campaign Write Microservice  %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
 POSTMAN["PUT /campaigns/cancel/{<font color=orange><b>id</b></font>}
   <div style='text-align: left'>
     {
@@ -62,7 +62,7 @@ CEP -->|6: send to kafka topic| KAFKA_CC
 
 
 %% %%%%%%%%%%%%%%%%%%%%%%%% %%
-%% Offer Write Microservice %%  (SUBSCRIBER of CAMPAIGN_CANCELLED)
+%% Offer Write Microservice %%
 %% %%%%%%%%%%%%%%%%%%%%%%%% %%
 subgraph Offer_Write_Microservice
 style Offer_Write_Microservice fill:#F1F8E9,stroke:#689F38,stroke-width:1px
@@ -103,7 +103,7 @@ KAFKA_OC[["kafka topic: OFFER_CANCELLED
 
 %% Flow Steps (Offer Write Flow)
 KAFKA_CC --> OCES
-OCES -->|1: cache event| OCS
+OCES -->|1: delegate to service| OCS
 OCS -->|2: update data model| COUCHBASE_OFFER_SUB
 OCS -->|3: publish event| OEP
 OEP -->|4: send to kafka topic| KAFKA_OC
@@ -111,13 +111,13 @@ OEP -->|4: send to kafka topic| KAFKA_OC
 
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
-%% Merchant Write Microservice %% (SUBSCRIBER of OFFER_CANCELLED)
+%% Merchant Write Microservice %%
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
 subgraph Merchant_Write_Microservice
 style Merchant_Write_Microservice fill:#F1F8E9,stroke:#689F38,stroke-width:1px
-  MES["OfferEventSubscriber<br> - subscribeOfferCancelledEvent()"]:::subscriber
+  MES["OfferEventSubscriber<br> - subscribeCancelOfferEvent()"]:::subscriber
 
-  MC["MerchantCommandService<br> - removeOffer()
+  MC["MerchantCommandService<br> - removeActiveOfferFromMerchant()
     <div style='text-align:left; font-style: italic;'>
       <div style='background-color:rgb(252, 251, 240); width:300px;'>
         basedto(merchant).json
@@ -125,13 +125,14 @@ style Merchant_Write_Microservice fill:#F1F8E9,stroke:#689F38,stroke-width:1px
         #emsp; ...,
         #emsp; data: {
         #emsp;#emsp; <font color=olive><b>active_offers</b></font>: [
+        #emsp;#emsp;#emsp;#emsp; <font color=red><s>id</s></font>
         #emsp;#emsp; ]
         #emsp; }
         }<br>
       </div>
-      REMOVE OFFER
-      - fetch merchant(s) linked to <font color=red>offer <b>id</b></font>.<br>
-      - remove it from <font color=olive><b>active_offers</b></font>; OCC save.
+      REMOVE ACTIVE OFFER
+      - fetch the merchant by <font color=orange><b>merchant_id (id)</b></font> from the REST API (using @ApiUtils).<br>
+      - remove the offer <font color=red><b>id</b></font> from the <font color=olive><b>active_offers</b></font> list.
     </div>
   "]:::service
 end
@@ -140,13 +141,13 @@ COUCHBASE_MERCHANT_SUB[("Couchbase DB<br>(bucket: merchant)")]:::db
 
 %% Flow Steps (Merchant Write Flow)
 KAFKA_OC --> MES
-MES -->|1: cache event| MC
+MES -->|1: delegate to service| MC
 MC -->|2: update data model| COUCHBASE_MERCHANT_SUB
 
 
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
-%% Customer Write Microservice %% (SUBSCRIBER of OFFER_CANCELLED)
+%% Customer Write Microservice %%
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
 subgraph Customer_Write_Microservice
 style Customer_Write_Microservice fill:#FCE4EC,stroke:#C2185B,stroke-width:1px
@@ -175,13 +176,13 @@ COUCHBASE_CUSTOMER_SUB[("Couchbase DB<br>(bucket: customer)")]:::db
 
 %% Flow Steps (Customer Write Flow)
 KAFKA_OC --> CES
-CES -->|1: cache event| CC
+CES -->|1: delegate to service| CC
 CC -->|2: update data model| COUCHBASE_CUSTOMER_SUB
 
 
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
-%% Campaign Write Microservice %% (BOOK-KEEPING on OFFER_CANCELLED)
+%% Campaign Write Microservice %%
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%% %%
 subgraph Campaign_Write_Microservice_Bookkeeping
 style Campaign_Write_Microservice_Bookkeeping fill:#BBDEFB,stroke:#1976D2,stroke-width:1px
@@ -210,7 +211,7 @@ COUCHBASE_CAMPAIGN_BK[("Couchbase DB<br>(bucket: campaign)")]:::db
 
 %% Flow Steps (Campaign Book-keeping Flow)
 KAFKA_OC --> CAS
-CAS -->|1: cache event| CBS
+CAS -->|1: delegate to service| CBS
 CBS -->|2: update data model| COUCHBASE_CAMPAIGN_BK
 
 

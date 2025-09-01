@@ -141,7 +141,7 @@ COUCHBASE_MERCHANT[("Couchbase DB<br>(bucket: merchant)")]:::db
 
 %% Flow Steps (Merchant Write Flow)
 KAFKA1 --> MES
-MES -->|1: cache event| MC
+MES -->|1: delegate to service| MC
 MC -->|2: update data model| COUCHBASE_MERCHANT
 
 
@@ -179,7 +179,7 @@ KAFKA2[["kafka topic: OFFER_ASSIGNED"]]:::kafka
 
 %% Flow Steps (Customer Write Flow)
 KAFKA1 --> CES
-CES -->|1: cache event| CC
+CES -->|1: delegate to service| CC
 CC -->|2: update data model| COUCHBASE_CUSTOMER
 CC -->|3: publish event| CEP
 CEP -->|4: send to kafka topic| KAFKA2
@@ -215,7 +215,7 @@ COUCHBASE_CAMPAIGN[("Couchbase DB<br>(bucket: campaign)")]:::db
 
 %% Flow Steps (Campaign Write Flow)
 KAFKA1 --> CAS
-CAS -->|1: cache event| CCS
+CAS -->|1: delegate to service| CCS
 CCS -->|2: update data model| COUCHBASE_CAMPAIGN
 
 

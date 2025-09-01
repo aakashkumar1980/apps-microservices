@@ -59,14 +59,14 @@ public class MerchantCommandService {
   }
 
   /**
-   * Unlinks an offer from a merchant by removing the offer ID from the merchant's active offers list.
+   * Remove the offer from the merchant's active offers list.
    * TODO: Implement @Retry as this is an internal service call
    *
    * @param merchantId
    * @param offerId
    */
   @SuppressWarnings("unchecked")
-  public void unlinkOfferFromMerchant(String merchantId, String offerId) {
+  public void removeActiveOfferFromMerchant(String merchantId, String offerId) {
     log.info("Unlinking offer {} from merchant {}", offerId, merchantId);
 
     /** PERSIST DATA **/
