@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * </p>
  *
  * @param <T extends Event> the type of event to be cached, and it should be a subclass of Event,
- * e.g. CampaignEvent, OfferAssignedEvent, etc. to restrict the type of objects that can be cached.
+ * e.g. CampaignEvent, OfferEnrollmentEvent, etc. to restrict the type of objects that can be cached.
  */
 @Component
 public class CacheUtils <T extends Event> {

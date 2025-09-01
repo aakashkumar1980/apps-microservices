@@ -28,14 +28,14 @@ public class MerchantCommandService {
   String merchantsApiUrl;
 
   /**
-   * Links an offer to a merchant by updating the merchant's active offers list.
+   * Adds the offer to the active offers list.
    * TODO: Implement @Retry as this is an internal service call
    *
    * @param merchantId
    * @param offerId
    */
   @SuppressWarnings("unchecked")
-  public void linkOfferToMerchant(String merchantId, String offerId) {
+  public void addToActiveOffers(String merchantId, String offerId) {
     log.info("Linking offer {} to merchant {}", offerId, merchantId);
 
     /** PERSIST DATA **/
@@ -66,7 +66,7 @@ public class MerchantCommandService {
    * @param offerId
    */
   @SuppressWarnings("unchecked")
-  public void removeActiveOfferFromMerchant(String merchantId, String offerId) {
+  public void removeFromActiveOffers(String merchantId, String offerId) {
     log.info("Unlinking offer {} from merchant {}", offerId, merchantId);
 
     /** PERSIST DATA **/

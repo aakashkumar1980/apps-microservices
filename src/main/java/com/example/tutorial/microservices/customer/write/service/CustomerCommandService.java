@@ -50,7 +50,7 @@ public class CustomerCommandService {
    * @return a list of {@code BaseDto<Customer>} containing all customers who were assigned the offer
    */
   @SuppressWarnings("unchecked")
-  public void assignOfferToCustomer(String offerId) {
+  public void addToEnrolledOffers(String offerId) {
     log.info("Assigning offer {} to eligible customers", offerId);
 
     List<BaseDto<Customer>> eligibleCustomers = apiUtils.fetchDtoList(
@@ -95,25 +95,15 @@ public class CustomerCommandService {
    * @param offerId The ID of the offer to be unassigned.
    */
   @SuppressWarnings("unchecked")
-  public void unassignOfferFromCustomer(String offerId) {
+  public void removeFromEnrolledOffers(String offerId) {
     log.info("Unassigning offer {} from customers", offerId);
 
-    List<BaseDto<Customer>> unassignedCustomers = apiUtils.fetchDtoList(
-        customersApiUrl, new TypeReference<List<BaseDto<Customer>>>() {})
-      .stream()
-        /** DATA VALIDATION **/
-        .filter(customerObj -> {
-          BaseDto<Customer> customer = (BaseDto<Customer>) customerObj;
-
-          /** STEP 1: Check if customer has the offer enrolled.
-           * If yes, proceed to unassign the offer **/
-          boolean hasOffer = customer.getData().getEnrolledOfferIds().contains(offerId);
-          if (!hasOffer) log.warn("Customer {} does not have offer {} enrolled", customer.getId(), offerId);
-          return hasOffer;
-        }).toList();
+    /** STEP 1: Fetch customers who have the offer assigned **/
+    List<BaseDto<Customer>> customersHavingOffers = apiUtils.fetchDtoList(
+        (customersApiUrl+"/offers/"+offerId), new TypeReference<List<BaseDto<Customer>>>() {});
 
     /** PERSIST DATA **/
-    unassignedCustomers.forEach(customerDto -> {
+    customersHavingOffers.forEach(customerDto -> {
       /** STEP 2: Unassign offer from customer **/
       log.info("Removing offer {} from customer {}", offerId, customerDto.getId());
       customerDto.getData().getEnrolledOfferIds().remove(offerId);
@@ -122,8 +112,8 @@ public class CustomerCommandService {
     });
 
     /** PUBLISH EVENT **/
-    if (CollectionUtils.isNotEmpty(unassignedCustomers)) {
-      customerOfferEventPublisher.publishOfferUnassignedEvent(offerId, unassignedCustomers);
+    if (CollectionUtils.isNotEmpty(customersHavingOffers)) {
+      customerOfferEventPublisher.publishOfferDisenrollmentEvent(offerId, customersHavingOffers);
     }
   }
 }

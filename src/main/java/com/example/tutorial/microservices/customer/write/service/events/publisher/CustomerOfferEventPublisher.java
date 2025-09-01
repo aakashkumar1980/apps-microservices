@@ -3,8 +3,8 @@ package com.example.tutorial.microservices.customer.write.service.events.publish
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.KafkaEventType;
 import com.example.tutorial.common.datamodel.customer.Customer;
-import com.example.tutorial.common.datamodel.customer.events.OfferAssignedEvent;
-import com.example.tutorial.common.datamodel.customer.events.OfferUnassignedEvent;
+import com.example.tutorial.common.datamodel.customer.events.OfferEnrollmentEvent;
+import com.example.tutorial.common.datamodel.customer.events.OfferDisenrollmentEvent;
 import com.example.tutorial.common.utils.KafkaUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class CustomerOfferEventPublisher {
 
   /**
    * <p>
-   * Publishes an OfferAssignedEvent to Kafka. This is used by the "Recommendation Engine"
+   * Publishes an OfferEnrollmentEvent to Kafka. This is used by the "Recommendation Engine"
    * for offer personalization which includes ranking, filtering, or tailoring offers based on
    * customer data such as purchase history, browsing behavior, preferences, or demographics. for example,
    * </p>
@@ -41,34 +41,34 @@ public class CustomerOfferEventPublisher {
    * @param eligibleCustomers The list of eligible customers for the offer.
    */
   public void publishOfferAssignedEvent(String offerId, List<BaseDto<Customer>> eligibleCustomers) {
-    OfferAssignedEvent offerAssignedEvent = new OfferAssignedEvent(
+    OfferEnrollmentEvent offerEnrollmentEvent = new OfferEnrollmentEvent(
         offerId,
         eligibleCustomers.stream().map(BaseDto::getId).toList(),
         java.time.LocalDateTime.now(),
-        KafkaEventType.CUSTOMER_OFFER_ASSIGNED
+        KafkaEventType.CUSTOMER_OFFER_ENROLLED
     );
 
-    log.info("Publishing OfferAssignedEvent: {}", offerAssignedEvent);
-    kafkaUtils.publishEvent(offerAssignedEvent.getKafkaEventType().name(), offerAssignedEvent.getOfferId(), offerAssignedEvent);
+    log.info("Publishing OfferEnrollmentEvent: {}", offerEnrollmentEvent);
+    kafkaUtils.publishEvent(offerEnrollmentEvent.getKafkaEventType().name(), offerEnrollmentEvent.getOfferId(), offerEnrollmentEvent);
   }
 
   /**
-   * Publishes an OfferUnassignedEvent to Kafka. This is used when a customer is no longer eligible
+   * Publishes an OfferDisenrollmentEvent to Kafka. This is used when a customer is no longer eligible
    * for an offer, or the offer has been removed. This is used by the "Recommendation Engine" to update
    * its recommendations.
    *
    * @param offerId The ID of the offer being unassigned.
    * @param unassignedCustomers The list of customers who are no longer eligible for the offer.
    */
-  public void publishOfferUnassignedEvent(String offerId, List<BaseDto<Customer>> unassignedCustomers) {
-    OfferUnassignedEvent offerUnassignedEvent = new OfferUnassignedEvent(
+  public void publishOfferDisenrollmentEvent(String offerId, List<BaseDto<Customer>> unassignedCustomers) {
+    OfferDisenrollmentEvent offerDisenrollmentEvent = new OfferDisenrollmentEvent(
         offerId,
         unassignedCustomers.stream().map(BaseDto::getId).toList(),
         java.time.LocalDateTime.now(),
-        KafkaEventType.CUSTOMER_OFFER_UNASSIGNED
+        KafkaEventType.CUSTOMER_OFFER_DISENROLLED
     );
 
-    log.info("Publishing OfferUnassignedEvent: {}", offerUnassignedEvent);
-    kafkaUtils.publishEvent(offerUnassignedEvent.getKafkaEventType().name(), offerUnassignedEvent.getOfferId(), offerUnassignedEvent);
+    log.info("Publishing OfferDisenrollmentEvent: {}", offerDisenrollmentEvent);
+    kafkaUtils.publishEvent(offerDisenrollmentEvent.getKafkaEventType().name(), offerDisenrollmentEvent.getOfferId(), offerDisenrollmentEvent);
   }
 }

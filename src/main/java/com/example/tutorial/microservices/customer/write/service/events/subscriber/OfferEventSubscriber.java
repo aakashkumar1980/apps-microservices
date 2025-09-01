@@ -36,7 +36,7 @@ public class OfferEventSubscriber {
    * @param payload The JSON payload of the OfferCreated event.
    */
   @KafkaListener(topics = "OFFER_CREATED", groupId = ApplicationConstants.APPLICATION_NAME)
-  public void subscribeCreateOfferEvent(String payload) {
+  public void subscribeOfferCreatedEvent(String payload) {
     log.info("Received OfferCreated event: {}", payload);
 
     OfferEvent offerEvent = null;
@@ -50,7 +50,7 @@ public class OfferEventSubscriber {
 
       /** BUSNESS LOGIC **/
       // check if the customer is eligible for the offer. If eligible, assign the offer to the customer.
-      customerCommandService.assignOfferToCustomer(offerId);
+      customerCommandService.addToEnrolledOffers(offerId);
 
     } catch (JsonProcessingException e) {
       throw new ApplicationTechnicalException("Error parsing object's value", e);
@@ -64,7 +64,7 @@ public class OfferEventSubscriber {
    * @param payload The JSON payload of the OfferCancelled event.
    */
   @KafkaListener(topics = "OFFER_CANCELLED", groupId = ApplicationConstants.APPLICATION_NAME)
-  public void subscribeCancelOfferEvent(String payload) {
+  public void subscribeOfferCancelledEvent(String payload) {
     log.info("Received OfferCancelled event: {}", payload);
 
     OfferEvent offerEvent = null;
@@ -78,7 +78,7 @@ public class OfferEventSubscriber {
 
       /** BUSINESS LOGIC **/
       // unassign the offer from the customers
-      customerCommandService.unassignOfferFromCustomer(offerId);
+      customerCommandService.removeFromEnrolledOffers(offerId);
 
     } catch (JsonProcessingException e) {
       throw new ApplicationTechnicalException("Error parsing object's value", e);

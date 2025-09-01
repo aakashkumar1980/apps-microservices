@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OfferAssignedEvent extends Event {
+public class OfferEnrollmentEvent extends Event {
 
   @JsonProperty("offer_id")
   private String offerId;
@@ -20,8 +20,8 @@ public class OfferAssignedEvent extends Event {
   @JsonProperty("assigned_at")
   private LocalDateTime assignedAt;
 
-  public OfferAssignedEvent() {}
-  public OfferAssignedEvent(String offerId, List<String> customerIds, LocalDateTime assignedAt, KafkaEventType kafkaEventType) {
+  public OfferEnrollmentEvent() {}
+  public OfferEnrollmentEvent(String offerId, List<String> customerIds, LocalDateTime assignedAt, KafkaEventType kafkaEventType) {
     super(kafkaEventType);
     this.offerId = offerId;
     this.customerIds = customerIds;
@@ -52,7 +52,7 @@ public class OfferAssignedEvent extends Event {
 
   @Override
   public String toString() {
-    return "OfferAssignedEvent{" +
+    return "OfferEnrollmentEvent{" +
         "customerIds=" + customerIds +
         ", offerId='" + offerId + '\'' +
         ", assignedAt=" + assignedAt +
