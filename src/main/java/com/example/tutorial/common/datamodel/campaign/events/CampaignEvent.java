@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CampaignEvent extends Event {
 
-  @JsonProperty("campaign_id")
-  private String campaignId;
+  @JsonProperty("id")
+  private String id;
 
   @JsonProperty("status")
   private CampaignStatus status;
@@ -28,13 +28,13 @@ public class CampaignEvent extends Event {
   private BigDecimal budget;
 
   public CampaignEvent() {}
-  public CampaignEvent(String campaignId, KafkaEventType kafkaEventType) {
+  public CampaignEvent(String id, KafkaEventType kafkaEventType) {
     super(kafkaEventType);
-    this.campaignId = campaignId;
+    this.id = id;
   }
-  public CampaignEvent(String campaignId, CampaignStatus status, LocalDateTime startDate, LocalDateTime endDate, BigDecimal budget, KafkaEventType kafkaEventType) {
+  public CampaignEvent(String id, CampaignStatus status, LocalDateTime startDate, LocalDateTime endDate, BigDecimal budget, KafkaEventType kafkaEventType) {
     super(kafkaEventType);
-    this.campaignId = campaignId;
+    this.id = id;
     this.status = status;
     this.startDate = startDate;
     this.endDate = endDate;
@@ -42,11 +42,11 @@ public class CampaignEvent extends Event {
   }
 
   // Getters and Setters
-  public String getCampaignId() {
-    return campaignId;
+  public String getId() {
+    return id;
   }
-  public void setCampaignId(String campaignId) {
-    this.campaignId = campaignId;
+  public void setId(String id) {
+    this.id = id;
   }
 
   public CampaignStatus getStatus() {
@@ -80,7 +80,7 @@ public class CampaignEvent extends Event {
   @Override
   public String toString() {
     return "CampaignEvent{" +
-        "campaignId='" + campaignId + '\'' +
+        "id='" + id + '\'' +
         ", status='" + status + '\'' +
         ", startDate=" + startDate +
         ", endDate=" + endDate +

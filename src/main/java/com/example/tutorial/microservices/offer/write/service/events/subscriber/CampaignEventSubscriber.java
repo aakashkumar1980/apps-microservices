@@ -42,7 +42,7 @@ public class CampaignEventSubscriber {
     CampaignEvent campaignEvent = null;
     try {
       campaignEvent = objectMapper.readValue(payload, CampaignEvent.class);
-      String campaignId = campaignEvent.getCampaignId();
+      String campaignId = campaignEvent.getId();
 
       /** CACHE DATA **/
       // cache the campaign details in Redis
@@ -65,7 +65,7 @@ public class CampaignEventSubscriber {
     CampaignEvent campaignEvent = null;
     try {
       campaignEvent = objectMapper.readValue(payload, CampaignEvent.class);
-      String campaignId = campaignEvent.getCampaignId();
+      String campaignId = campaignEvent.getId();
 
       /** CACHE DATA **/
       // update the campaign details in Redis cache
@@ -88,7 +88,7 @@ public class CampaignEventSubscriber {
     CampaignEvent campaignEvent = null;
     try {
       campaignEvent = objectMapper.readValue(payload, CampaignEvent.class);
-      String campaignId = campaignEvent.getCampaignId();
+      String campaignId = campaignEvent.getId();
 
       /** CLEAR CACHE DATA **/
       // remove the campaign from Redis cache

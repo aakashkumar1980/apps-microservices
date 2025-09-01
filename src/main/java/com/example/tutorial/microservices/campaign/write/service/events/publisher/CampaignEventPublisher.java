@@ -36,7 +36,7 @@ public class CampaignEventPublisher {
     );
 
     log.info("Publishing campaign creation event: {}", campaignEvent);
-    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getCampaignId(), campaignEvent);
+    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getId(), campaignEvent);
   }
 
   /**
@@ -54,7 +54,7 @@ public class CampaignEventPublisher {
     );
 
     log.info("Publishing campaign update event: {}", campaignEvent);
-    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getCampaignId(), campaignEvent);
+    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getId(), campaignEvent);
   }
 
   /**
@@ -68,6 +68,6 @@ public class CampaignEventPublisher {
     );
 
     log.info("Publishing campaign cancel event: {}", campaignEvent);
-    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getCampaignId(), campaignEvent);
+    kafkaUtils.publishEvent(campaignEvent.getKafkaEventType().name(), campaignEvent.getId(), campaignEvent);
   }
 }

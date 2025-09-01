@@ -73,7 +73,7 @@ Here’s the list of all classes and their properties in a clean, readable forma
 ### **Offer**
 
 * offerId
-* campaignId
+* id
 * merchantId
 * rewardType
 * rewardValue
@@ -120,7 +120,7 @@ Here’s the list of all classes and their properties in a clean, readable forma
 
 ### **Campaign**
 
-* campaignId
+* id
 * campaignName
 * campaignStatus
 * description
