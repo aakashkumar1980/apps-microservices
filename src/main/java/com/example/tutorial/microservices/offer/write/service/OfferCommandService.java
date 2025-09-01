@@ -3,11 +3,14 @@ package com.example.tutorial.microservices.offer.write.service;
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.offer.Offer;
 import com.example.tutorial.common.datamodel.offer.OfferStatus;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationException;
+import com.example.tutorial.common.exceptions.api.APIRequestValidationMessage;
 import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.DBUtils;
 import com.example.tutorial.common.utils.validation.CampaignValidation;
 import com.example.tutorial.common.utils.validation.MerchantValidation;
 import com.example.tutorial.common.utils.validation.OfferValidation;
+import com.example.tutorial.microservices.offer.write.controller.CancelOfferRequest;
 import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
 import com.example.tutorial.microservices.offer.write.service.events.publisher.OfferEventPublisher;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -19,7 +22,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Service for managing offer commands, including deactivating offers associated with a campaign.
@@ -123,6 +128,42 @@ public class OfferCommandService {
     } else {
       log.warn("No offers found for campaign ID: {}", campaignId);
     }
+  }
+
+  /**
+   * Cancels a specific offer by its ID.
+   *
+   * @param id the ID of the offer to be cancelled
+   * @param request the request containing cancellation details
+   */
+  public void cancelOffer(String id, CancelOfferRequest request) {
+    log.info("Cancelling offers with ID {}", id);
+
+    apiUtils.fetchDtoById(offersApiUrl, id, new TypeReference<BaseDto<Offer>>() {})
+        .ifPresentOrElse(existingOfferObj -> {
+              BaseDto<Offer> existingOffer = (BaseDto<Offer>) existingOfferObj;
+
+              /** PERSIST DATA **/
+              /** STEP 1: Update the status of the campaign to CANCELLED **/
+              existingOffer.getData().setStatus(OfferStatus.CANCELLED);
+              existingOffer.getData().setCancellationReason(request.getCancellationReason());
+
+              existingOffer.setUpdatedBy(request.getCancelledBy());
+              existingOffer.setUpdatedAt(LocalDateTime.now());
+
+              /** STEP 2: Save the updated data-model **/
+              offerCommandRepository.save(existingOffer);
+              /** PUBLISH EVENT **/
+              offerEventPublisher.publishCancelOfferEvent(existingOffer);
+
+            }, () -> {
+              throw new APIRequestValidationException(
+                  new APIRequestValidationMessage(
+                      "Api request validation failed",
+                      Map.of("error", String.format("Offer with ID %s not found for cancellation.", id)))
+              );
+            }
+        );
   }
 
 }

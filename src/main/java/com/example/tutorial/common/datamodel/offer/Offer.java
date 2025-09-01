@@ -40,6 +40,10 @@ public class Offer {
   @Field("status")
   private OfferStatus status;
 
+  @JsonProperty("cancellation_reason")
+  @Field("cancellation_reason")
+  private String cancellationReason;
+
   @DecimalMin("0.0")
   @JsonProperty("discount_amount")
   @Field("discount_amount")
@@ -91,6 +95,9 @@ public class Offer {
   public OfferStatus getStatus() { return status; }
   public void setStatus(OfferStatus status) { this.status = status; }
 
+  public String getCancellationReason() { return cancellationReason; }
+  public void setCancellationReason(String cancellationReason) { this.cancellationReason = cancellationReason; }
+
   public BigDecimal getDiscountAmount() { return discountAmount; }
   public void setDiscountAmount(BigDecimal discountAmount) { this.discountAmount = discountAmount; }
 
@@ -118,6 +125,7 @@ public class Offer {
         ", merchantId='" + merchantId + '\'' +
         ", type=" + type +
         ", status=" + status +
+        ", cancellationReason='" + cancellationReason + '\'' +
         ", discountAmount=" + discountAmount +
         ", segmentCriteria=" + segmentCriteria +
         ", currency='" + currency + '\'' +

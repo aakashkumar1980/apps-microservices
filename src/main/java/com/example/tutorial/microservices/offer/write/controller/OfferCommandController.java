@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class OfferCommandController {
 
   /**
    * Handles the creation of a new offer.
+   * The URI is /api/offers
    *
    * @param offer the offer to be created
    * @return a response entity with the ID of the created offer
@@ -32,4 +34,21 @@ public class OfferCommandController {
     return ResponseEntity.ok(String.format("Offer created successfully with ID: %s", id));
   }
 
+  /**
+   * Cancel a Offer by ID. This endpoint is used to cancel a offer.
+   * The URI is /api/offers/cancel/{id}
+   *
+   * @param id the ID of the offer to be cancelled
+   * @param request the request to cancel the offer
+   * @return ResponseEntity with HTTP status 204 (No Content) if successful
+   */
+  @PutMapping("/cancel/{id}")
+  public ResponseEntity<String> cancelOffer(
+      @PathVariable String id,
+      @RequestBody CancelOfferRequest request) {
+    log.info("Received request to cancel offer with ID: {}, Cancellation Reason: {}", id, request.getCancellationReason());
+
+    offerCommandService.cancelOffer(id, request);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
 }
