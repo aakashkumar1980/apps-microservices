@@ -22,9 +22,9 @@ public class Customer {
   @Field("phone_number")
   private String phoneNumber;
 
-  @JsonProperty("enrolled_offer_ids")
-  @Field("enrolled_offer_ids")
-  private List<String> enrolledOfferIds;
+  @JsonProperty("enrolled_offers")
+  @Field("enrolled_offers")
+  private List<String> enrolledOffers;
 
   public String getName() { return name; }
   public void setName(String name) { this.name = name; }
@@ -32,8 +32,8 @@ public class Customer {
   public void setEmail(String email) { this.email = email; }
   public String getPhoneNumber() { return phoneNumber; }
   public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-  public List<String> getEnrolledOfferIds() { return enrolledOfferIds; }
-  public void setEnrolledOfferIds(List<String> enrolledOfferIds) { this.enrolledOfferIds = enrolledOfferIds; }
+  public List<String> getEnrolledOffers() { return enrolledOffers; }
+  public void setEnrolledOffers(List<String> enrolledOffers) { this.enrolledOffers = enrolledOffers; }
 
   @Override
   public String toString() {
@@ -41,7 +41,7 @@ public class Customer {
         "name='" + name + '\'' +
         ", email='" + email + '\'' +
         ", phoneNumber='" + phoneNumber + '\'' +
-        ", enrolledOfferIds=" + enrolledOfferIds +
+        ", enrolledOffers=" + enrolledOffers +
         '}';
   }
 }

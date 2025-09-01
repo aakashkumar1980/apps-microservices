@@ -46,8 +46,8 @@ public class Customer {
     
 
     
-    @JsonProperty("enrolled_offer_ids")
-    @Field("enrolled_offer_ids")
+    @JsonProperty("enrolled_offers")
+    @Field("enrolled_offers")
     private List<String> enrolledOfferIds;
     
 

@@ -9,7 +9,7 @@ Here’s the list of all classes and their properties in a clean, readable forma
 * email
 * phoneNumber
 * preferredChannel
-* enrolledOfferIds
+* enrolledOffers
 
 ---
 
@@ -129,5 +129,5 @@ Here’s the list of all classes and their properties in a clean, readable forma
 * endDate
 * createdBy
 * createdAt
-* offerIds
+* linkedOffers
 

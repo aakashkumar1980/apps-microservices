@@ -49,9 +49,9 @@ public class Campaign {
   @Field("cancellation_reason")
   private String cancellationReason;
 
-  @JsonProperty("offer_ids")
-  @Field("offer_ids")
-  private List<String> offerIds;
+  @JsonProperty("linked_offers")
+  @Field("linked_offers")
+  private List<String> linkedOffers;
 
   public String getName() { return name; }
   public void setName(String name) { this.name = name; }
@@ -74,8 +74,8 @@ public class Campaign {
   public String getCancellationReason() { return cancellationReason; }
   public void setCancellationReason(String cancellationReason) { this.cancellationReason = cancellationReason; }
 
-  public List<String> getOfferIds() { return offerIds; }
-  public void setOfferIds(List<String> offerIds) { this.offerIds = offerIds; }
+  public List<String> getLinkedOffers() { return linkedOffers; }
+  public void setLinkedOffers(List<String> linkedOffers) { this.linkedOffers = linkedOffers; }
 
   @Override
   public String toString() {
@@ -87,7 +87,7 @@ public class Campaign {
         ", budget=" + budget +
         ", status=" + status +
         ", cancellationReason='" + cancellationReason +
-        ", offerIds=" + offerIds +
+        ", linkedOffers=" + linkedOffers +
         '}';
   }
 }

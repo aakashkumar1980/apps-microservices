@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
  *        "start_date": "2023-10-01T00:00:00",
  *        "end_date": "2023-10-31T23:59:59",
  *        "budget": 2390.07,
- *        "offer_ids": [
+ *        "linked_offers": [
  *          "offer::1"
  *         ]
  *      }

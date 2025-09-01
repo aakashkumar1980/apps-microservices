@@ -42,7 +42,7 @@ public class Campaign {
     @DecimalMin(value = "100.00", message = "Budget must be greater than $100.00")
     private Double budget;
 
-    @JsonProperty("offer_ids")
+    @JsonProperty("linked_offers")
     private List<String> offerIds;
 
     public Campaign() {}

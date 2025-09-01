@@ -72,7 +72,7 @@ public class CustomerCommandService {
     eligibleCustomers.forEach(customerDto -> {
       log.info("Customer {} is eligible for offer {}", customerDto.getId(), offerId);
       /** STEP 2: Assign offer to customer **/
-      customerDto.getData().getEnrolledOfferIds().add(offerId);
+      customerDto.getData().getEnrolledOffers().add(offerId);
       /** STEP 3: Save updated customer **/
       customerCommandRepository.save(customerDto);
     });
@@ -106,7 +106,7 @@ public class CustomerCommandService {
     customersHavingOffers.forEach(customerDto -> {
       /** STEP 2: Unassign offer from customer **/
       log.info("Removing offer {} from customer {}", offerId, customerDto.getId());
-      customerDto.getData().getEnrolledOfferIds().remove(offerId);
+      customerDto.getData().getEnrolledOffers().remove(offerId);
       /** STEP 3: Save updated customer **/
       customerCommandRepository.save(customerDto);
     });

@@ -20,10 +20,10 @@ flowchart TD
     end
     POSTMAN["Postman<br>PUT /api/campaigns/:id"] -- 1: PUT request<br>to update campaign --> CCC
     CCC -- 2: Pass to service --> CCS
-    CCS -- 3: Validate offerIds --> VAL
+    CCS -- 3: Validate linkedOffers --> VAL
     VAL -- 4: Fetch original campaign --> APIU
     APIU -- "5: No - Call REST API" --> REST
-    APIU -- 6: Set offerIds from original --> VAL
+    APIU -- 6: Set linkedOffers from original --> VAL
     CCS -- 7: Save campaign --> CCR
     CCR -- 8: Write to Couchbase --> CB1["Couchbase<br>campaign document"]
     CCS -- 9: Publish Kafka event --> CEP

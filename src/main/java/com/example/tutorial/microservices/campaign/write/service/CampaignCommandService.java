@@ -206,7 +206,7 @@ public class CampaignCommandService {
             BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) existingCampaignObj;
 
             /** STEP 1: extract existing offer IDs and check if the offer is already linked **/
-            List<String> existingOfferIds = existingCampaign.getData().getOfferIds();
+            List<String> existingOfferIds = existingCampaign.getData().getLinkedOffers();
             if (existingOfferIds.stream().noneMatch(offerId::equals)) {
               /** STEP 2: Add the offer ID to the campaign's list of offer IDs **/
               log.debug("Adding offer {} to campaign {}", offerId, campaignId);
@@ -243,7 +243,7 @@ public class CampaignCommandService {
             BaseDto<Campaign> existingCampaign = (BaseDto<Campaign>) existingCampaignObj;
 
             /** STEP 1: extract existing offer IDs and check if the offer is linked **/
-            List<String> existingOfferIds = existingCampaign.getData().getOfferIds();
+            List<String> existingOfferIds = existingCampaign.getData().getLinkedOffers();
             if (existingOfferIds.stream().anyMatch(offerId::equals)) {
               /** STEP 2: Remove the offer ID from the campaign's list of offer IDs **/
               log.debug("Removing offer {} from campaign {}", offerId, campaignId);

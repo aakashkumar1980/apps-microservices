@@ -369,8 +369,8 @@
 											"// Extract offer_id values\r",
 											"let offerIds = jsonData.map(item => item.id);\r",
 											"// Save to environment variable as JSON string\r",
-											"pm.environment.set(\"offer_ids\", JSON.stringify(offerIds));\r",
-											"console.info(\"offer_ids:\", pm.environment.get(\"offer_ids\"));\r",
+											"pm.environment.set(\"linked_offers\", JSON.stringify(offerIds));\r",
+											"console.info(\"linked_offers:\", pm.environment.get(\"linked_offers\"));\r",
 											"\r",
 											"\r",
 											"// Extract merchant_id values\r",
@@ -480,7 +480,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{{offer_ids}}",
+									"raw": "{{linked_offers}}",
 									"options": {
 										"raw": {
 											"language": "json"

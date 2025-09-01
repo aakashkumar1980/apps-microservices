@@ -159,7 +159,7 @@ style Customer_Write_Microservice fill:#FCE4EC,stroke:#C2185B,stroke-width:1px
         {
         #emsp; ...,
         #emsp; data: {
-        #emsp;#emsp; <font color=green><b>enrolled_offer_ids</b></font>: [
+        #emsp;#emsp; <font color=green><b>enrolled_offers</b></font>: [
         #emsp;#emsp; ]
         #emsp; }
         }<br>
@@ -167,7 +167,7 @@ style Customer_Write_Microservice fill:#FCE4EC,stroke:#C2185B,stroke-width:1px
       ASSIGN OFFER
       - fetch ALL customers from the REST API (using @ApiUtils)<br>
       - pass those customers to the @CustomerEligibilityEngineClient an checks their eligibility.<br>
-      - if eligible, then enroll them by adding the new <font color=red>offer <b>id</b></font> to the <font color=green><b>enrolled_offer_ids</b></font>.
+      - if eligible, then enroll them by adding the new <font color=red>offer <b>id</b></font> to the <font color=green><b>enrolled_offers</b></font>.
     </div>
   "]:::service
 
@@ -199,14 +199,14 @@ style Campaign_Write_Microservice fill:#BBDEFB,stroke:#1976D2,stroke-width:1px
         {
         #emsp; ...,
         #emsp; data: {
-        #emsp;#emsp; <font color=navy><b>offer_ids</b></font>: [
+        #emsp;#emsp; <font color=navy><b>linked_offers</b></font>: [
         #emsp;#emsp; ]
         #emsp; }
         }<br>
       </div>
       LINK OFFER
       - fetch the campaign for the <font color=orange><b>campaign_id</b></font> from the REST API (using @ApiUtils)<br>
-      - add the new <font color=red>offer <b>id</b></font> in the <font color=navy><b>offer_ids</b></font> list of the merchant.
+      - add the new <font color=red>offer <b>id</b></font> in the <font color=navy><b>linked_offers</b></font> list of the merchant.
     </div>
   "]:::service
 end

@@ -51,8 +51,8 @@ public class CampaignValidation {
         campaignsApiUrl, id, new TypeReference<BaseDto<Campaign>>() {});
     if (originalCampaignOptional.isPresent()) {
       log.debug("Overridden offer IDs for campaign: {} with the original campaign: {}",
-          campaign.getData().getOfferIds(), originalCampaignOptional.get().getData().getOfferIds());
-      campaign.getData().setOfferIds(originalCampaignOptional.get().getData().getOfferIds());
+          campaign.getData().getLinkedOffers(), originalCampaignOptional.get().getData().getLinkedOffers());
+      campaign.getData().setLinkedOffers(originalCampaignOptional.get().getData().getLinkedOffers());
 
     } else {
       APIRequestValidationMessage validationMessage = new APIRequestValidationMessage(
