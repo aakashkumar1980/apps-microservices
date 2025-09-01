@@ -182,8 +182,8 @@ KAFKA_COD[["kafka topic: CUSTOMER_OFFER_DISENROLLED
     event(offerdisenrollmentevent).json
     {
       #emsp; <font color=red><b>offerId</b>:''</font>,
-      #emsp; <font color=orange><b>customerIds</b>:[
-      #emsp;]</font>
+      #emsp; <font color=orange><b>customerIds</b></font>:[
+      #emsp;]
     }
   </div>
 "]]:::kafka
@@ -204,21 +204,22 @@ subgraph Campaign_Write_Microservice_Bookkeeping
 style Campaign_Write_Microservice_Bookkeeping fill:#BBDEFB,stroke:#1976D2,stroke-width:1px
   CAS["OfferEventSubscriber<br> - subscribeOfferCancelledEvent()"]:::subscriber
 
-  CBS["CampaignCommandService<br> - unlinkOfferFromCampaign()
+  CBS["CampaignCommandService<br> - removeFromLinkedOffers()
     <div style='text-align:left; font-style:italic;'>
       <div style='background-color:rgb(252, 251, 240); width:300px;'>
         basedto(campaign).json
         {
         #emsp; ...,
         #emsp; data: {
-        #emsp;#emsp; <font color=navy><b>offer_ids</b></font>: [
+        #emsp;#emsp; <font color=navy><b>linked_offers</b></font>: [
+        #emsp;#emsp;#emsp;#emsp; <font color=red><s>id</s></font>
         #emsp;#emsp; ]
         #emsp; }
         }<br>
       </div>
-      UNLINK OFFER
-      - remove the <font color=red>offer <b>id</b></font> from <font color=navy><b>offer_ids</b></font> (if tracked).<br>
-      - OCC save.
+      REMOVE OFFER
+      - fetch the campaign by <font color=orange><b>campaign_id (id)</b></font> from the REST API (using @ApiUtils).<br>
+      - remove the offer <font color=red><b>id</b></font> from the <font color=olive><b>linked_offers</b></font> list.
     </div>
   "]:::service
 end

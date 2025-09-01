@@ -36,7 +36,7 @@ public class OfferEventSubscriber {
    * @param payload The JSON payload of the OfferCreated event.
    */
   @KafkaListener(topics = "OFFER_CREATED", groupId = ApplicationConstants.APPLICATION_NAME)
-  public void subscribeCreateOfferEvent(String payload) {
+  public void subscribeOfferCreatedEvent(String payload) {
     log.info("Received OfferCreated event: {}", payload);
 
     OfferEvent offerEvent = null;
@@ -50,7 +50,7 @@ public class OfferEventSubscriber {
 
       /** BUSINESS LOGIC **/
       // link the offers to the Campaign
-      campaignCommandService.linkOfferToCampaign(offerEvent.getCampaignId(), offerId);
+      campaignCommandService.addToLinkedOffers(offerEvent.getCampaignId(), offerId);
 
     } catch (JsonProcessingException e) {
       throw new ApplicationTechnicalException("Error parsing object's value", e);
@@ -64,7 +64,7 @@ public class OfferEventSubscriber {
    * @param payload The JSON payload of the OfferCancelled event.
    */
   @KafkaListener(topics = "OFFER_CANCELLED", groupId = ApplicationConstants.APPLICATION_NAME)
-  public void subscribeCancelOfferEvent(String payload) {
+  public void subscribeOfferCancelledEvent(String payload) {
     log.info("Received OfferCancelled event: {}", payload);
 
     OfferEvent offerEvent = null;
@@ -78,7 +78,7 @@ public class OfferEventSubscriber {
 
       /** BUSINESS LOGIC **/
       // unlink the offers from the Campaign
-      campaignCommandService.unlinkOfferFromCampaign(offerEvent.getCampaignId(), offerId);
+      campaignCommandService.removeFromLinkedOffers(offerEvent.getCampaignId(), offerId);
 
     } catch (JsonProcessingException e) {
       throw new ApplicationTechnicalException("Error parsing object's value", e);

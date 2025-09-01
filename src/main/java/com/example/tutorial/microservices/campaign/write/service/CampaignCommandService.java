@@ -196,7 +196,7 @@ public class CampaignCommandService {
    * @param offerId    the ID of the offer to link
    */
   @SuppressWarnings("unchecked")
-  public void linkOfferToCampaign(String campaignId, String offerId) {
+  public void addToLinkedOffers(String campaignId, String offerId) {
     log.info("Linking offer {} to campaign {}", offerId, campaignId);
 
     /** PERSIST DATA **/
@@ -233,7 +233,7 @@ public class CampaignCommandService {
    * @param offerId    the ID of the offer to unlink
    */
   @SuppressWarnings("unchecked")
-  public void unlinkOfferFromCampaign(String campaignId, String offerId) {
+  public void removeFromLinkedOffers(String campaignId, String offerId) {
     log.info("Unlinking offer {} from campaign {}", offerId, campaignId);
 
     /** PERSIST DATA **/
