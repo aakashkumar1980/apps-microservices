@@ -3,6 +3,7 @@ package com.example.tutorial.microservices.campaign.read.controller;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
 import com.example.tutorial.microservices.campaign.read.service.CampaignQueryService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class CampaignQueryController {
 
   /**
    * Retrieves all campaigns.
-   * The URI is /api/campaigns
+   * The URI is /api/campaigns.
    *
    * @return a ResponseEntity containing a list of all campaign objects.
    */
@@ -38,15 +39,14 @@ public class CampaignQueryController {
 
   /**
    * Retrieves a campaign by its ID.
-   * The URI is /api/campaigns/{id}
+   * The URI is /api/campaigns/{id}.
    *
    * @param id the ID of the campaign
    * @return a ResponseEntity containing the campaign object if found, or 404 if not found
    */
   @GetMapping("/{id}")
-  public ResponseEntity<Campaign> getCampaignById(@PathVariable Long id) {
+  public ResponseEntity<Campaign> getCampaignById(@PathVariable String id) {
     Optional<Campaign> campaignOptional = campaignQueryService.getCampaignById(id);
-
     if (campaignOptional.isPresent()) {
       log.info("Campaign with ID: {} found", id);
       return ResponseEntity.ok(campaignOptional.get());
@@ -68,7 +68,7 @@ public class CampaignQueryController {
   public ResponseEntity<List<Campaign>> getCampaignsByStatus(@RequestParam CampaignStatus status) {
     List<Campaign> campaigns = campaignQueryService.getCampaignsByStatus(status);
 
-    if (campaigns.isEmpty()) {
+    if (CollectionUtils.isEmpty(campaigns)) {
       log.warn("No campaigns found with status: {}", status);
       return ResponseEntity.notFound().build();
 

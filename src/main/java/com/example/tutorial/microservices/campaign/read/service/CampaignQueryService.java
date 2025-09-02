@@ -43,7 +43,7 @@ public class CampaignQueryService {
    * </ul>
    * </p>
    */
-  public Optional<Campaign> getCampaignById(Long id) {
+  public Optional<Campaign> getCampaignById(String id) {
     for (Campaign c : mockDataUtil.campaignSupplier.get()) {
       if (Objects.equals(c.getId(), id)) {
         return Optional.of(c);
