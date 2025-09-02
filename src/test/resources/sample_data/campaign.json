@@ -7,7 +7,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 2390.07,
-    "offer_ids": [
+    "linked_offers": [
       "offer::1",
       "offer::8"
     ]
@@ -20,7 +20,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 9615.87,
-    "offer_ids": [
+    "linked_offers": [
       "offer::2",
       "offer::23"
     ]
@@ -33,7 +33,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-01T00:00:00",
     "budget": 6026.17,
-    "offer_ids": [
+    "linked_offers": [
       "offer::3"
     ]
   },
@@ -45,7 +45,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 9770.07,
-    "offer_ids": [
+    "linked_offers": [
       "offer::4"
     ]
   },
@@ -57,7 +57,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 9860.07,
-    "offer_ids": [
+    "linked_offers": [
       "offer::5"
     ]
   },
@@ -69,7 +69,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 5473.24,
-    "offer_ids": [
+    "linked_offers": [
       "offer::6"
     ]
   },
@@ -81,7 +81,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 2091.33,
-    "offer_ids": [
+    "linked_offers": [
       "offer::7"
     ]
   },
@@ -93,7 +93,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 7308.41,
-    "offer_ids": [
+    "linked_offers": [
       "offer::8"
     ]
   },
@@ -105,7 +105,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 7690.3,
-    "offer_ids": [
+    "linked_offers": [
       "offer::9"
     ]
   },
@@ -117,7 +117,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 3551.53,
-    "offer_ids": [
+    "linked_offers": [
       "offer::10"
     ]
   },
@@ -129,7 +129,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 1716.35,
-    "offer_ids": [
+    "linked_offers": [
       "offer::11"
     ]
   },
@@ -141,7 +141,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 4056.14,
-    "offer_ids": [
+    "linked_offers": [
       "offer::12"
     ]
   },
@@ -153,7 +153,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 2532.32,
-    "offer_ids": [
+    "linked_offers": [
       "offer::13"
     ]
   },
@@ -165,7 +165,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 2917.86,
-    "offer_ids": [
+    "linked_offers": [
       "offer::14"
     ]
   },
@@ -177,7 +177,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 8147.12,
-    "offer_ids": [
+    "linked_offers": [
       "offer::15"
     ]
   },
@@ -189,7 +189,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 8752.02,
-    "offer_ids": [
+    "linked_offers": [
       "offer::16"
     ]
   },
@@ -201,7 +201,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 6898.87,
-    "offer_ids": [
+    "linked_offers": [
       "offer::17"
     ]
   },
@@ -213,7 +213,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 8074.41,
-    "offer_ids": [
+    "linked_offers": [
       "offer::18"
     ]
   },
@@ -225,7 +225,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 4121.59,
-    "offer_ids": [
+    "linked_offers": [
       "offer::19"
     ]
   },
@@ -237,7 +237,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 9803.75,
-    "offer_ids": [
+    "linked_offers": [
       "offer::20"
     ]
   },
@@ -249,7 +249,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 7665.58,
-    "offer_ids": [
+    "linked_offers": [
       "offer::21"
     ]
   },
@@ -261,7 +261,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 4090.44,
-    "offer_ids": [
+    "linked_offers": [
       "offer::22"
     ]
   },
@@ -273,7 +273,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 5673.1,
-    "offer_ids": [
+    "linked_offers": [
       "offer::23"
     ]
   },
@@ -285,7 +285,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 2830.65,
-    "offer_ids": [
+    "linked_offers": [
       "offer::24"
     ]
   },
@@ -297,7 +297,7 @@
     "start_date": "2026-07-14T00:00:00",
     "end_date": "2026-08-12T00:00:00",
     "budget": 3158.07,
-    "offer_ids": [
+    "linked_offers": [
       "offer::25"
     ]
   }

@@ -31,7 +31,7 @@ public interface CampaignQueryRepository extends CouchbaseRepository<Campaign, S
    */
   @Query("" +
       "#{#n1ql.selectEntity} WHERE #{#n1ql.filter} " +
-      "AND ANY v IN offer_ids SATISFIES v = $1 END"
+      "AND ANY v IN linked_offers SATISFIES v = $1 END"
   )
   List<Campaign> getCampaignsByOfferId(String offerId);
 }
