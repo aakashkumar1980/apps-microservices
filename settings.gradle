@@ -5,6 +5,7 @@
 pluginManagement {
     repositories {
         mavenCentral()
+        gradlePluginPortal()
 
         // Placeholder for company-provided (in-house Artifactory) repository
         /** maven {

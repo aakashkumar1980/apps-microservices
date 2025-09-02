@@ -1,8 +1,6 @@
 package com.example.tutorial.common.exceptions.api;
 
 import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 /**
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * This typically occurs when the resource being updated has been modified
  * by another process since it was last retrieved.
  */
-@ResponseStatus(HttpStatus.CONFLICT)
 public class APIRequestVersionConflictException extends ApplicationFunctionalException {
   private final APIRequestValidationMessage APIRequestValidationMessage;
 
