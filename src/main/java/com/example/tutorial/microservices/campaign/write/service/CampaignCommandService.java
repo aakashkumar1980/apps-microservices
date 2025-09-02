@@ -32,7 +32,7 @@ public class CampaignCommandService {
 
     // generate a random ID for mock data
     if (campaign.getId() == null) {
-      campaign.setId((long) (Math.random() * 1000));
+      campaign.setId("campaign:"+(long) (Math.random() * 1000));
       mockDataUtil.addCampaign(campaign);
     }
     return Optional.of(campaign);
@@ -46,7 +46,7 @@ public class CampaignCommandService {
    * @return Optional containing the updated campaign if successful, otherwise empty.
    * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
-  public Optional<Campaign> updateCampaign(Long id, Campaign campaign) {
+  public Optional<Campaign> updateCampaign(String id, Campaign campaign) {
     List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
 
     // find the campaign with the given ID
@@ -72,7 +72,7 @@ public class CampaignCommandService {
   }
 
   private Optional<Campaign> getCampaignById(
-      Long id, List<Campaign> campaigns) {
+      String id, List<Campaign> campaigns) {
     for (Campaign c : campaigns) {
         if (Objects.equals(c.getId(), id)) {
             return Optional.of(c);
@@ -87,7 +87,7 @@ public class CampaignCommandService {
    * @param id the ID of the campaign to delete
    * @throws APIRequestValidationException if the campaign with the given ID is not found.
    */
-  public void deleteCampaign(Long id) {
+  public void deleteCampaign(String id) {
     List<Campaign> campaigns = mockDataUtil.campaignSupplier.get();
 
     // find and remove the campaign with the given ID

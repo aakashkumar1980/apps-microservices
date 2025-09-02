@@ -40,7 +40,7 @@ public class APIGlobalExceptionHandler {
   /** ********************* **/
   /**
    * <REST API :: Http request JSON body - Data validation issues>
-   * Handles APIRequestValidationException specifically, allowing for "custom" handling of API-related errors.
+   * Handles APIRequestValidationException specifically, allowing for "custom" handling of data validation errors.
    * This method will log the exception and return a specific error response.
    *
    * @param ex the APIRequestValidationException that was thrown
