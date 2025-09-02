@@ -45,9 +45,9 @@ public class Campaign {
   @Field("status")
   private CampaignStatus status;
 
-  @JsonProperty("offer_ids")
-  @Field("offer_ids")
-  private List<String> offerIds;
+  @JsonProperty("linked_offers")
+  @Field("linked_offers")
+  private List<String> linkedOffers;
 
   public String getName() { return name; }
   public void setName(String name) { this.name = name; }
@@ -67,8 +67,8 @@ public class Campaign {
   public CampaignStatus getStatus() { return status; }
   public void setStatus(CampaignStatus status) { this.status = status; }
 
-  public List<String> getOfferIds() { return offerIds; }
-  public void setOfferIds(List<String> offerIds) { this.offerIds = offerIds; }
+  public List<String> getLinkedOffers() { return linkedOffers; }
+  public void setLinkedOffers(List<String> linkedOffers) { this.linkedOffers = linkedOffers; }
 
   @Override
   public String toString() {
@@ -79,7 +79,7 @@ public class Campaign {
         ", endDate=" + endDate +
         ", budget=" + budget +
         ", status=" + status +
-        ", offerIds=" + offerIds +
+        ", linkedOffers=" + linkedOffers +
         '}';
   }
 }

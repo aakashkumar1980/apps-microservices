@@ -103,7 +103,7 @@ public class CampaignCommandService {
     existingCampaign.getData().setEndDate(campaign.getData().getEndDate());
     existingCampaign.getData().setBudget(campaign.getData().getBudget());
     existingCampaign.getData().setStatus(campaign.getData().getStatus());
-    existingCampaign.getData().setOfferIds(campaign.getData().getOfferIds());
+    existingCampaign.getData().setLinkedOffers(campaign.getData().getLinkedOffers());
     // increment version for optimistic locking
     existingCampaign.setVersion(existingVersion+1);
 
