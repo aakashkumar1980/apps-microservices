@@ -2,6 +2,7 @@ package com.example.tutorial.common.datamodel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
+import org.apache.commons.lang3.ClassUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.couchbase.core.mapping.Document;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * Base Data Transfer Object (DTO) class that can be embedded by other DTOs.
- * It includes common fields such as id, createdAt, updatedAt, version, and data. example dto for Campaign:
+ * It includes common fields such as id, createdAt, updatedAt, version, and data. example datamodel for Campaign:
  * <pre>
  *   {@code
  *    {
@@ -72,9 +73,17 @@ public class BaseDto<T> {
   @Field("created_at")
   private LocalDateTime createdAt;
 
+  @JsonProperty("created_by")
+  @Field("created_by")
+  private String createdBy;
+
   @JsonProperty("updated_at")
   @Field("updated_at")
   private LocalDateTime updatedAt;
+
+  @JsonProperty("updated_by")
+  @Field("updated_by")
+  private String updatedBy;
 
   /**
    * The `data` field is generic, allowing flexibility in the type of data it holds (e.g., Campaign, Offer, etc.).
@@ -105,6 +114,7 @@ public class BaseDto<T> {
     BaseDto<T> dto = new BaseDto<>();
     dto.setData(data);
     dto.setCreatedAt(LocalDateTime.now());
+    dto.setCreatedBy(String.format(ClassUtils.getSimpleName(data) + " Microservice"));
     dto.setVersion(1);
     return dto;
   }
@@ -121,8 +131,12 @@ public class BaseDto<T> {
   public void setVersion(Integer version) {this.version = version;}
   public LocalDateTime getCreatedAt() {return createdAt;}
   public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
+  public String getCreatedBy() {return createdBy;}
+  public void setCreatedBy(String createdBy) {this.createdBy = createdBy;}
   public LocalDateTime getUpdatedAt() {return updatedAt;}
   public void setUpdatedAt(LocalDateTime updatedAt) {this.updatedAt = updatedAt;}
+  public String getUpdatedBy() {return updatedBy;}
+  public void setUpdatedBy(String updatedBy) {this.updatedBy = updatedBy;}
   public T getData() {return data;}
   public void setData(T data) {this.data = data;}
 
@@ -133,7 +147,9 @@ public class BaseDto<T> {
             ", cas=" + cas +
             ", version=" + version +
            ", createdAt='" + createdAt + '\'' +
+          ", createdBy='" + createdBy + '\'' +
            ", updatedAt='" + updatedAt + '\'' +
+          ", updatedBy='" + updatedBy + '\'' +
            ", data=" + data +
            '}';
   }

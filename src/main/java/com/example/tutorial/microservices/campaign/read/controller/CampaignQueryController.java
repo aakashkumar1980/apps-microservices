@@ -4,6 +4,7 @@ import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
 import com.example.tutorial.microservices.campaign.read.service.CampaignQueryService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +68,7 @@ public class CampaignQueryController {
   @GetMapping("/status/{status}")
   public ResponseEntity<List<BaseDto<Campaign>>> getCampaignsByStatus(@PathVariable CampaignStatus status) {
     List<BaseDto<Campaign>> campaigns = campaignQueryService.getCampaignsByStatus(status);
-    if (!campaigns.isEmpty()) {
+    if (CollectionUtils.isNotEmpty(campaigns)) {
       log.info("Found {} campaigns with status: {}", campaigns.size(), status);
       return ResponseEntity.ok(campaigns);
 
@@ -88,7 +89,7 @@ public class CampaignQueryController {
   @GetMapping("/offer")
   public ResponseEntity<List<BaseDto<Campaign>>> getCampaignsByOfferId(@RequestParam String offerId) {
     List<BaseDto<Campaign>> campaigns = campaignQueryService.getCampaignsByOfferId(offerId);
-    if (!campaigns.isEmpty()) {
+    if (CollectionUtils.isNotEmpty(campaigns)) {
       log.info("Found {} campaigns containing offer ID: {}", campaigns.size(), offerId);
       return ResponseEntity.ok(campaigns);
 

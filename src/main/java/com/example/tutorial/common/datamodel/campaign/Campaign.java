@@ -45,6 +45,10 @@ public class Campaign {
   @Field("status")
   private CampaignStatus status;
 
+  @JsonProperty("cancellation_reason")
+  @Field("cancellation_reason")
+  private String cancellationReason;
+
   @JsonProperty("linked_offers")
   @Field("linked_offers")
   private List<String> linkedOffers;
@@ -67,6 +71,9 @@ public class Campaign {
   public CampaignStatus getStatus() { return status; }
   public void setStatus(CampaignStatus status) { this.status = status; }
 
+  public String getCancellationReason() { return cancellationReason; }
+  public void setCancellationReason(String cancellationReason) { this.cancellationReason = cancellationReason; }
+
   public List<String> getLinkedOffers() { return linkedOffers; }
   public void setLinkedOffers(List<String> linkedOffers) { this.linkedOffers = linkedOffers; }
 
@@ -79,6 +86,7 @@ public class Campaign {
         ", endDate=" + endDate +
         ", budget=" + budget +
         ", status=" + status +
+        ", cancellationReason='" + cancellationReason +
         ", linkedOffers=" + linkedOffers +
         '}';
   }
