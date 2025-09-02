@@ -67,9 +67,13 @@ public class Campaign {
   @Field("status")
   private CampaignStatus status;
 
-  @JsonProperty("offer_ids")
-  @Field("offer_ids")
-  private List<String> offerIds;
+  @JsonProperty("cancellation_reason")
+  @Field("cancellation_reason")
+  private String cancellationReason;
+
+  @JsonProperty("linked_offers")
+  @Field("linked_offers")
+  private List<String> linkedOffers;
   
   public String getId() {
     return id;
@@ -130,8 +134,11 @@ public class Campaign {
   public CampaignStatus getStatus() { return status; }
   public void setStatus(CampaignStatus status) { this.status = status; }
 
-  public List<String> getOfferIds() { return offerIds; }
-  public void setOfferIds(List<String> offerIds) { this.offerIds = offerIds; }
+  public String getCancellationReason() { return cancellationReason; }
+  public void setCancellationReason(String cancellationReason) { this.cancellationReason = cancellationReason; }
+
+  public List<String> getOfferIds() { return linkedOffers; }
+  public void setOfferIds(List<String> linkedOffers) { this.linkedOffers = linkedOffers; }
 
   @Override
   public String toString() {
@@ -145,7 +152,8 @@ public class Campaign {
         ", endDate=" + endDate +
         ", budget=" + budget +
         ", status=" + status +
-        ", offerIds=" + offerIds +		
+        ", cancellationReason='" + cancellationReason + '\'' +
+        ", linkedOffers=" + linkedOffers +
         '}';
   }
 }

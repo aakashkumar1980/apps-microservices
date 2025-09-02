@@ -40,6 +40,6 @@ public interface CampaignQueryRepository extends CouchbaseRepository<Campaign, S
       "   c.* " + // to get all other fields of the Campaign document
       "FROM `microservices`._default._default c " +
       "WHERE c._class = 'com.example.tutorial.common.datamodel.campaign.Campaign' " +
-      "   AND ANY v IN c.offer_ids SATISFIES v = $1 END")
+      "   AND ANY v IN c.linked_offers SATISFIES v = $1 END")
   List<Campaign> getCampaignsByOfferId(String offerId);
 }

@@ -58,6 +58,7 @@ repositories {
 def springBootVersion = '3.5.0'
 def ioUtilsVersion = '2.19.0'
 def commonsLangVersion = '3.17.0'
+def commonsBeanUtilsVersion = '1.11.0'
 
 dependencies {
   /** SPRING BOOT **/
@@ -90,6 +91,12 @@ dependencies {
    * Commons IO — file handling utilities.
    */
   implementation "commons-io:commons-io:${ioUtilsVersion}"
+
+  /**
+   * BeanUtils, PropertyUtils, and other utility classes for JavaBeans.
+   */
+  implementation "commons-beanutils:commons-beanutils:${commonsBeanUtilsVersion}"
+
 
 
   /** TESTING **/
