@@ -8,7 +8,7 @@
       "name": "Barnes & Noble",
       "category": "Books",
       "location": "New York, NY",
-      "merchant_code": "MRC0001",
+      "code": "MRC0001",
       "active_offers": [
         "offer::13"
       ]
@@ -23,7 +23,7 @@
       "name": "Expedia",
       "category": "Travel",
       "location": "Bellevue, WA",
-      "merchant_code": "MRC0002",
+      "code": "MRC0002",
       "active_offers": [
         "offer::6"
       ]
@@ -38,7 +38,7 @@
       "name": "Whole Foods Market",
       "category": "Grocery",
       "location": "Austin, TX",
-      "merchant_code": "MRC0003",
+      "code": "MRC0003",
       "active_offers": [
         "offer::3"
       ]
@@ -53,7 +53,7 @@
       "name": "Booking.com",
       "category": "Travel",
       "location": "Amsterdam, NL",
-      "merchant_code": "MRC0004",
+      "code": "MRC0004",
       "active_offers": [
         "offer::18"
       ]
@@ -68,7 +68,7 @@
       "name": "Best Buy",
       "category": "Electronics",
       "location": "Richfield, MN",
-      "merchant_code": "MRC0005",
+      "code": "MRC0005",
       "active_offers": []
     }
   },
@@ -81,7 +81,7 @@
       "name": "Target",
       "category": "Retail",
       "location": "Minneapolis, MN",
-      "merchant_code": "MRC0006",
+      "code": "MRC0006",
       "active_offers": []
     }
   },
@@ -94,7 +94,7 @@
       "name": "Amazon",
       "category": "E-commerce",
       "location": "Seattle, WA",
-      "merchant_code": "MRC0007",
+      "code": "MRC0007",
       "active_offers": [
         "offer::1",
         "offer::8"
@@ -110,7 +110,7 @@
       "name": "Sephora",
       "category": "Beauty",
       "location": "San Francisco, CA",
-      "merchant_code": "MRC0008",
+      "code": "MRC0008",
       "active_offers": [
         "offer::10"
       ]
@@ -125,7 +125,7 @@
       "name": "GNC",
       "category": "Health",
       "location": "Pittsburgh, PA",
-      "merchant_code": "MRC0009",
+      "code": "MRC0009",
       "active_offers": [
         "offer::15"
       ]
@@ -140,7 +140,7 @@
       "name": "Williams Sonoma",
       "category": "Home",
       "location": "San Francisco, CA",
-      "merchant_code": "MRC0010",
+      "code": "MRC0010",
       "active_offers": []
     }
   },
@@ -153,7 +153,7 @@
       "name": "Domino's Pizza",
       "category": "Food",
       "location": "Ann Arbor, MI",
-      "merchant_code": "MRC0011",
+      "code": "MRC0011",
       "active_offers": [
         "offer::5"
       ]
@@ -168,7 +168,7 @@
       "name": "Apple Store",
       "category": "Electronics",
       "location": "Cupertino, CA",
-      "merchant_code": "MRC0012",
+      "code": "MRC0012",
       "active_offers": []
     }
   },
@@ -181,7 +181,7 @@
       "name": "Toys 'R' Us",
       "category": "Kids",
       "location": "Wayne, NJ",
-      "merchant_code": "MRC0013",
+      "code": "MRC0013",
       "active_offers": [
         "offer::14"
       ]
@@ -196,7 +196,7 @@
       "name": "Staples",
       "category": "Office Supplies",
       "location": "Framingham, MA",
-      "merchant_code": "MRC0014",
+      "code": "MRC0014",
       "active_offers": [
         "offer::2"
       ]
@@ -211,7 +211,7 @@
       "name": "Home Depot",
       "category": "Home Improvement",
       "location": "Atlanta, GA",
-      "merchant_code": "MRC0015",
+      "code": "MRC0015",
       "active_offers": []
     }
   },
@@ -224,7 +224,7 @@
       "name": "Rolex",
       "category": "Luxury",
       "location": "Geneva, CH",
-      "merchant_code": "MRC0016",
+      "code": "MRC0016",
       "active_offers": [
         "offer::16",
         "offer::22"
@@ -240,7 +240,7 @@
       "name": "PetSmart",
       "category": "Pets",
       "location": "Phoenix, AZ",
-      "merchant_code": "MRC0017",
+      "code": "MRC0017",
       "active_offers": [
         "offer::11"
       ]
@@ -255,7 +255,7 @@
       "name": "Philips Hue",
       "category": "Smart Home",
       "location": "Eindhoven, NL",
-      "merchant_code": "MRC0018",
+      "code": "MRC0018",
       "active_offers": []
     }
   },
@@ -268,7 +268,7 @@
       "name": "Planet Fitness",
       "category": "Fitness",
       "location": "Hampton, NH",
-      "merchant_code": "MRC0019",
+      "code": "MRC0019",
       "active_offers": [
         "offer::7"
       ]
@@ -283,7 +283,7 @@
       "name": "Patagonia",
       "category": "Eco-friendly",
       "location": "Ventura, CA",
-      "merchant_code": "MRC0020",
+      "code": "MRC0020",
       "active_offers": [
         "offer::17"
       ]
@@ -298,7 +298,7 @@
       "name": "H&M",
       "category": "Fashion",
       "location": "Stockholm, SE",
-      "merchant_code": "MRC0021",
+      "code": "MRC0021",
       "active_offers": [
         "offer::4",
         "offer::21"
@@ -314,7 +314,7 @@
       "name": "IKEA",
       "category": "Home",
       "location": "Delft, NL",
-      "merchant_code": "MRC0022",
+      "code": "MRC0022",
       "active_offers": []
     }
   },
@@ -327,7 +327,7 @@
       "name": "Wayfair",
       "category": "Home",
       "location": "Boston, MA",
-      "merchant_code": "MRC0023",
+      "code": "MRC0023",
       "active_offers": [
         "offer::9"
       ]
@@ -342,7 +342,7 @@
       "name": "Walmart",
       "category": "Retail",
       "location": "Bentonville, AR",
-      "merchant_code": "MRC0024",
+      "code": "MRC0024",
       "active_offers": []
     }
   },
@@ -355,7 +355,7 @@
       "name": "Jiffy Lube",
       "category": "Automotive",
       "location": "Houston, TX",
-      "merchant_code": "MRC0025",
+      "code": "MRC0025",
       "active_offers": [
         "offer::12"
       ]

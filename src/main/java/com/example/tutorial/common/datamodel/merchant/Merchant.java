@@ -23,9 +23,9 @@ public class Merchant {
 
     @NotEmpty
     @Pattern(regexp = "^MR[0-9]{4,}$", message = "Merchant ID must start with 'MR' followed by at least 4 digits")
-    @JsonProperty("merchant_code")
-    @Field("merchant_code")
-    private String merchantCode;
+    @JsonProperty("code")
+    @Field("code")
+    private String code;
 
     @JsonProperty("active_offers")
     @Field("active_offers")
@@ -37,8 +37,8 @@ public class Merchant {
     public void setCategory(String category) { this.category = category; }
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
-    public String getMerchantCode() { return merchantCode; }
-    public void setMerchantCode(String merchantCode) { this.merchantCode = merchantCode; }
+    public String getCode() { return code; }
+    public void setCode(String code) { this.code = code; }
     public List<String> getActiveOffers() { return activeOffers; }
     public void setActiveOffers(List<String> activeOffers) { this.activeOffers = activeOffers; }
 
@@ -48,7 +48,7 @@ public class Merchant {
                 "name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", location='" + location + '\'' +
-                ", merchantCode='" + merchantCode + '\'' +
+                ", code='" + code + '\'' +
                 ", activeOffers=" + activeOffers +
                 '}';
     }

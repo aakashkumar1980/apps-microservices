@@ -8,43 +8,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MerchantEvent extends Event {
 
-  @JsonProperty("merchant_id")
-  private String merchantId;
+  @JsonProperty("id")
+  private String id;
 
-  @JsonProperty("merchant_code")
-  private String merchantCode;
+  @JsonProperty("code")
+  private String code;
 
   public MerchantEvent() {}
-  public MerchantEvent(String merchantId, KafkaEventType kafkaEventType) {
+  public MerchantEvent(String id, KafkaEventType kafkaEventType) {
     super(kafkaEventType);
-    this.merchantId = merchantId;
+    this.id = id;
   }
-  public MerchantEvent(String merchantId, String merchantCode, KafkaEventType kafkaEventType) {
+  public MerchantEvent(String id, String code, KafkaEventType kafkaEventType) {
     super(kafkaEventType);
-    this.merchantId = merchantId;
-    this.merchantCode = merchantCode;
+    this.id = id;
+    this.code = code;
   }
 
   // Getters and Setters
-  public String getMerchantId() {
-    return merchantId;
+  public String getId() {
+    return id;
   }
-  public void setMerchantId(String merchantId) {
-    this.merchantId = merchantId;
+  public void setId(String id) {
+    this.id = id;
   }
 
-  public String getMerchantCode() {
-    return merchantCode;
+  public String getCode() {
+    return code;
   }
-  public void setMerchantCode(String merchantCode) {
-    this.merchantCode = merchantCode;
+  public void setCode(String code) {
+    this.code = code;
   }
 
   @Override
   public String toString() {
     return "CampaignEvent{" +
-        "merchantId='" + merchantId + '\'' +
-        ", merchantCode='" + merchantCode + '\'' +
+        "id='" + id + '\'' +
+        ", code='" + code + '\'' +
         '}';
   }
 }
