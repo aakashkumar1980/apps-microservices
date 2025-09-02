@@ -1,0 +1,327 @@
+[
+  {
+    "id": "transaction::1",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::1",
+      "amount": 432.95,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "COMPLETED"
+    }
+  },
+  {
+    "id": "transaction::2",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::2",
+      "amount": 68.09,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "FAILED"
+    }
+  },
+  {
+    "id": "transaction::3",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::3",
+      "amount": 107.29,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "PENDING"
+    }
+  },
+  {
+    "id": "transaction::4",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::4",
+      "amount": 375.37,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "PENDING"
+    }
+  },
+  {
+    "id": "transaction::5",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::5",
+      "amount": 229.76,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "FAILED"
+    }
+  },
+  {
+    "id": "transaction::6",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::6",
+      "amount": 228.45,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "PENDING"
+    }
+  },
+  {
+    "id": "transaction::7",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::7",
+      "amount": 221.76,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "COMPLETED"
+    }
+  },
+  {
+    "id": "transaction::8",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::8",
+      "amount": 299.4,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "PENDING"
+    }
+  },
+  {
+    "id": "transaction::9",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::9",
+      "amount": 452.44,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "COMPLETED"
+    }
+  },
+  {
+    "id": "transaction::10",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::10",
+      "amount": 387.44,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "COMPLETED"
+    }
+  },
+  {
+    "id": "transaction::11",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::11",
+      "amount": 333.46,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "PENDING"
+    }
+  },
+  {
+    "id": "transaction::12",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::12",
+      "amount": 122.46,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "PENDING"
+    }
+  },
+  {
+    "id": "transaction::13",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::13",
+      "amount": 130.88,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "PENDING"
+    }
+  },
+  {
+    "id": "transaction::14",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::14",
+      "amount": 273.35,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "FAILED"
+    }
+  },
+  {
+    "id": "transaction::15",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::15",
+      "amount": 375.77,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "COMPLETED"
+    }
+  },
+  {
+    "id": "transaction::16",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::16",
+      "amount": 89.05,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "COMPLETED"
+    }
+  },
+  {
+    "id": "transaction::17",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::17",
+      "amount": 65.95,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "COMPLETED"
+    }
+  },
+  {
+    "id": "transaction::18",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::18",
+      "amount": 305.47,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "FAILED"
+    }
+  },
+  {
+    "id": "transaction::19",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::19",
+      "amount": 154.63,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "PENDING"
+    }
+  },
+  {
+    "id": "transaction::20",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::20",
+      "amount": 250.24,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "PENDING"
+    }
+  },
+  {
+    "id": "transaction::21",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::21",
+      "amount": 430.58,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "COMPLETED"
+    }
+  },
+  {
+    "id": "transaction::22",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::22",
+      "amount": 494.75,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "FAILED"
+    }
+  },
+  {
+    "id": "transaction::23",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::23",
+      "amount": 468.49,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "COMPLETED"
+    }
+  },
+  {
+    "id": "transaction::24",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::24",
+      "amount": 168.58,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "PURCHASE",
+      "status": "COMPLETED"
+    }
+  },
+  {
+    "id": "transaction::25",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::25",
+      "amount": 288.9,
+      "timestamp": "2025-07-16T00:00:00",
+      "type": "REFUND",
+      "status": "COMPLETED"
+    }
+  }
+]

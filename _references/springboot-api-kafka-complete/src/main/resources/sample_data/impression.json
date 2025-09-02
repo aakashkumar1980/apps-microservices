@@ -1,0 +1,277 @@
+[
+  {
+    "id": "impression::1",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::1",
+      "customer_id": "customer::1",
+      "channel": "WEB"
+    }
+  },
+  {
+    "id": "impression::2",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::2",
+      "customer_id": "customer::2",
+      "channel": "WEB"
+    }
+  },
+  {
+    "id": "impression::3",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::3",
+      "customer_id": "customer::3",
+      "channel": "WEB"
+    }
+  },
+  {
+    "id": "impression::4",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::4",
+      "customer_id": "customer::4",
+      "channel": "EMAIL"
+    }
+  },
+  {
+    "id": "impression::5",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::5",
+      "customer_id": "customer::5",
+      "channel": "EMAIL"
+    }
+  },
+  {
+    "id": "impression::6",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::6",
+      "customer_id": "customer::6",
+      "channel": "PUSH"
+    }
+  },
+  {
+    "id": "impression::7",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::7",
+      "customer_id": "customer::7",
+      "channel": "SMS"
+    }
+  },
+  {
+    "id": "impression::8",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::8",
+      "customer_id": "customer::8",
+      "channel": "SMS"
+    }
+  },
+  {
+    "id": "impression::9",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::9",
+      "customer_id": "customer::9",
+      "channel": "EMAIL"
+    }
+  },
+  {
+    "id": "impression::10",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::10",
+      "customer_id": "customer::10",
+      "channel": "WEB"
+    }
+  },
+  {
+    "id": "impression::11",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::11",
+      "customer_id": "customer::11",
+      "channel": "WEB"
+    }
+  },
+  {
+    "id": "impression::12",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::12",
+      "customer_id": "customer::12",
+      "channel": "EMAIL"
+    }
+  },
+  {
+    "id": "impression::13",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::13",
+      "customer_id": "customer::13",
+      "channel": "WEB"
+    }
+  },
+  {
+    "id": "impression::14",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::14",
+      "customer_id": "customer::14",
+      "channel": "EMAIL"
+    }
+  },
+  {
+    "id": "impression::15",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::15",
+      "customer_id": "customer::15",
+      "channel": "PUSH"
+    }
+  },
+  {
+    "id": "impression::16",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::16",
+      "customer_id": "customer::16",
+      "channel": "SMS"
+    }
+  },
+  {
+    "id": "impression::17",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::17",
+      "customer_id": "customer::17",
+      "channel": "WEB"
+    }
+  },
+  {
+    "id": "impression::18",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::18",
+      "customer_id": "customer::18",
+      "channel": "EMAIL"
+    }
+  },
+  {
+    "id": "impression::19",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::19",
+      "customer_id": "customer::19",
+      "channel": "WEB"
+    }
+  },
+  {
+    "id": "impression::20",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::20",
+      "customer_id": "customer::20",
+      "channel": "WEB"
+    }
+  },
+  {
+    "id": "impression::21",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::21",
+      "customer_id": "customer::21",
+      "channel": "EMAIL"
+    }
+  },
+  {
+    "id": "impression::22",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::22",
+      "customer_id": "customer::22",
+      "channel": "SMS"
+    }
+  },
+  {
+    "id": "impression::23",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::23",
+      "customer_id": "customer::23",
+      "channel": "WEB"
+    }
+  },
+  {
+    "id": "impression::24",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::24",
+      "customer_id": "customer::24",
+      "channel": "PUSH"
+    }
+  },
+  {
+    "id": "impression::25",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "offer_id": "offer::25",
+      "customer_id": "customer::25",
+      "channel": "EMAIL"
+    }
+  }
+]
