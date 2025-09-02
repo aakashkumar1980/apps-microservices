@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Global exception handler for the application.
@@ -77,10 +77,14 @@ public class APIGlobalExceptionHandler {
   public ResponseEntity<APIRequestValidationMessage> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
     logger.error("MethodArgumentNotValidException caught: {}", ex.getMessage(), ex);
 
-    Map<String, String> errors = new HashMap<>();
-    ex.getBindingResult().getFieldErrors().forEach(error ->
-        errors.put(error.getField(), error.getDefaultMessage())
-    );
+    Map<String, String> errors = ex.getBindingResult().getFieldErrors().stream()
+        .collect(
+            Collectors.toMap(
+                error -> error.getField(),
+                error -> error.getDefaultMessage(),
+                (msg1, msg2) -> msg1 // handle duplicate keys
+            )
+        );
 
     return ResponseEntity.badRequest().body(
         new APIRequestValidationMessage(
