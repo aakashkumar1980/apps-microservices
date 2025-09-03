@@ -11,13 +11,14 @@ import org.slf4j.LoggerFactory;
 public final class OfferCommandRouter {
   private static final Logger log = LoggerFactory.getLogger(OfferCommandRouter.class);
 
-  private OfferCommandRouter() {}
+  private OfferCommandRouter() {
+  }
 
 
   /**
    * Registers the routes for offer commands (create, update, delete).
    *
-   * @param root the root router to attach the routes to
+   * @param root  the root router to attach the routes to
    * @param vertx the Vertx instance
    */
   public static void register(Router root, Vertx vertx) {
@@ -32,14 +33,15 @@ public final class OfferCommandRouter {
         log.info("Received request to create offer: {}", offer);
 
         // call service to create offer
-        service.createOffer(offer).onSuccess(offerOptional -> {
-          var message = String.format("Offer created successfully : %s", offerOptional.get().toString());
-          HTTPDataUtils.responseOk(ctx, message);
-
-        }).onFailure(err -> {
-          // will be converted by failure handler or send 500 here
-          ctx.fail(err);
-        });
+        service.createOffer(offer)
+            .onSuccess(offerOptional -> {
+              var message = String.format("Offer created successfully : %s", offerOptional.get().toString());
+              HTTPDataUtils.responseCreated(ctx, message, String.format("/api/offers/%s", offerOptional.get().getId()));
+            })
+            .onFailure(err -> {
+              // will be converted by failure handler or send 500 here
+              ctx.fail(err);
+            });
       } catch (IllegalArgumentException ex) {
         HTTPDataUtils.responseBadRequest(ctx, ex.getMessage(), null);
       } catch (Throwable t) {
