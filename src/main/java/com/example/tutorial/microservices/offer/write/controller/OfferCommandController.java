@@ -1,14 +1,18 @@
 package com.example.tutorial.microservices.offer.write.controller;
 
+import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.offer.Offer;
 import com.example.tutorial.microservices.offer.write.service.OfferCommandService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/offers")
@@ -24,14 +28,17 @@ public class OfferCommandController {
    * The URI is /api/offers
    *
    * @param offer the offer to be created
-   * @return a response entity with the ID of the created offer
+   * @return a response entity with the created offer and HTTP status 201 (Created)
    */
   @PostMapping
-  public ResponseEntity<String> createOffer(@Valid @RequestBody Offer offer) {
+  public ResponseEntity<BaseDto<Offer>> createOffer(@Valid @RequestBody Offer offer) {
     log.info("Received request to create offer: {}", offer);
 
-    String id = offerCommandService.createOffer(offer);
-    return ResponseEntity.ok(String.format("Offer created successfully with ID: %s", id));
+    Optional<BaseDto<Offer>> createdOfferOptional = offerCommandService.createOffer(offer);
+    return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .header(HttpHeaders.LOCATION, String.format("/api/campaigns/%s", createdOfferOptional.get().getId()))
+        .body(createdOfferOptional.get());
   }
 
   /**

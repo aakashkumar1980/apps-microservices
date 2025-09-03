@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Service for managing offer commands, including deactivating offers associated with a campaign.
@@ -73,9 +74,9 @@ public class OfferCommandService {
    * TODO: Implement @Retry as this is an internal service call
    *
    * @param offer the offer to be created
-   * @return the ID of the created offer
+   * @return  an Optional containing the created offer wrapped in a BaseDto
    */
-  public String createOffer(Offer offer) {
+  public Optional<BaseDto<Offer>> createOffer(Offer offer) {
     log.info("Creating offer: {}", offer);
     // build the BaseDto for the offer with default values
     BaseDto<Offer> baseOffer = BaseDto.build(offer);
@@ -98,7 +99,7 @@ public class OfferCommandService {
     /** PUBLISH EVENTS **/
     // publish an event for the created offer
     offerEventPublisher.publishCreateOfferEvent(savedOffer);
-    return savedOffer.getId();
+    return Optional.of(savedOffer);
   }
 
   /**
