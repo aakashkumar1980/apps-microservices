@@ -54,6 +54,22 @@ public final class HTTPDataUtils {
   }
 
   /**
+   * It creates a standard JSON response for resource creation (HTTP 201).
+   *
+   * @param ctx the routing context
+   * @param data the data to include in the response
+   * @param location the location of the created resource
+   */
+  public static void responseCreated(RoutingContext ctx, Object data, String location) {
+    JsonObject payload = envelope(ctx, 201, "Created", data, null);
+    ctx.response()
+        .setStatusCode(201)
+        .putHeader(HttpHeaders.CONTENT_TYPE, CONTENT_TYPE_JSON)
+        .putHeader(HttpHeaders.LOCATION, location)
+        .end(payload.encode());
+  }
+
+  /**
    * It creates a standard JSON response for bad requests (HTTP 400).
    *
    * @param ctx the routing context
