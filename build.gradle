@@ -1,112 +1,65 @@
-/**
- * Gradle build configuration for a Spring Boot REST API using Java 21.
- * Plugins are used to add support for Spring Boot, dependency management, Java toolchain, and publishing.
- */
 plugins {
-  /**
-   * Adds support for writing Java libraries.
-   * Useful if you want to publish parts of this project as reusable JARs.
-   */
-  id 'java-library'
-
-  /**
-   * Enables publishing artifacts (like JARs) to a Maven repository.
-   */
-  id 'maven-publish'
-
-  /**
-   * Integrates Spring Boot features such as auto-configuration and bootJar.
-   */
-  id 'org.springframework.boot' version '3.5.0'
-
-  /**
-   * Allows you to manage dependency versions without declaring them redundantly.
-   * Works well with Spring Boot's BOM (Bill of Materials).
-   */
-  id 'io.spring.dependency-management' version '1.1.5'
+  id 'java'
+  id 'application'
 }
 
-java {
-  toolchain {
-    /**
-     * Sets the Java language version to 21.
-     */
-    languageVersion = JavaLanguageVersion.of(21)
-  }
-}
-
-// Project metadata
 group = 'com.example.tutorial'
 version = '0.0.1'
-description = 'Spring Boot REST API'
 
 repositories {
-  /**
-   * Main repository for Java libraries.
-   */
   mavenCentral()
-
-  // Optional: Company-provided Artifactory repository
-  // maven {
-  //     url = uri("<company-artifactory-url>")
-  // }
 }
 
-/** ******************* **/
-/** [START] DEVELOPMENT **/
-/** ******************* **/
-def springBootVersion = '3.5.0'
+/** Library versions */
+def vertxVersion        = '4.5.9'
+def jacksonVersion      = '2.17.1'
+def junitJupiterVersion = '5.10.2'
 def ioUtilsVersion = '2.19.0'
 def commonsLangVersion = '3.17.0'
 def commonsBeanUtilsVersion = '1.11.0'
 
+java {
+  // Change to 11 or 8 if you need to match your environment
+  toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+
 dependencies {
-  /** SPRING BOOT **/
-  /**
-   * Spring Boot starter.
-   */
-  implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
-  implementation "com.fasterxml.jackson.core:jackson-annotations"
+  /** Vert.x CORE **/
+  implementation platform("io.vertx:vertx-stack-depchain:${vertxVersion}")
+  implementation "io.vertx:vertx-core"
+  implementation "io.vertx:vertx-web"
+  implementation "io.vertx:vertx-config"
+  implementation "io.vertx:vertx-config-yaml"
+  implementation "io.vertx:vertx-web-client"   // handy for internal HTTP calls (optional)
+
+  // JSON
+  implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+  implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
+  implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+
 
   /** UTILITIES **/
-  /**
-   * Apache Commons Lang — utility functions for Strings, Numbers, etc.
-   */
   implementation("org.apache.commons:commons-lang3:${commonsLangVersion}") {
     exclude group: "org.slf4j" // Avoid duplicate logging libraries
   }
-
-  /**
-   * Commons IO — file handling utilities.
-   */
   implementation "commons-io:commons-io:${ioUtilsVersion}"
-
-  /**
-   * BeanUtils, PropertyUtils, and other utility classes for JavaBeans.
-   */
   implementation "commons-beanutils:commons-beanutils:${commonsBeanUtilsVersion}"
 
-
-
-  /** TESTING **/
-  /**
-   * Spring Boot starter for testing (JUnit, Mockito, etc.).
-   */
-  testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-/** ***************** **/
-/** [END] DEVELOPMENT **/
-/** ***************** **/
-
-tasks.named('bootJar', org.springframework.boot.gradle.tasks.bundling.BootJar) {
-  /**
-   * Specify the main class for the bootJar task.
-   * Replace with your actual entry-point class.
-   */
-  mainClass.set('com.example.tutorial.SpringbootStartupApi')
+  // Tests
+  testImplementation "org.junit.jupiter:junit-jupiter:${junitJupiterVersion}"
 }
 
-/** TESTING **/
-test {
-    useJUnitPlatform()
+application {
+  // Single bootstrap (your only server on one port)
+  mainClass = 'com.example.tutorial.VertxStartupApi'
+}
+
+tasks.test {
+  useJUnitPlatform()
+}
+
+// Optional: keep compiler warnings consistent
+tasks.withType(JavaCompile).configureEach {
+  options.encoding = 'UTF-8'
+  options.release = 21    // set to 11 or 8 if you changed the toolchain above
 }
