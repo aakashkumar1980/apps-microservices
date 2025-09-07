@@ -42,7 +42,8 @@ public final class OfferCommandService {
      */
     return vertx.<Optional<BaseDto<Offer>>>executeBlocking(promise -> {
       try {
-        Optional<BaseDto<Offer>> createdOfferOptional= null;
+        BaseDto baseOffer= BaseDto.build(null);
+        Optional<BaseDto<Offer>> createdOfferOptional= Optional.of(baseOffer);
         // TODO: Implement actual persistence logic here
         promise.complete(createdOfferOptional);
       } catch (Exception e) {

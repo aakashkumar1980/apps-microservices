@@ -44,7 +44,7 @@ public class BaseDto<T> {
    * </pre>
    */
   @JsonProperty("id")
-  private String id;
+  private String id = "dto:1";
 
   /**
    * CAS (Compare-And-Swap) field for optimistic locking.

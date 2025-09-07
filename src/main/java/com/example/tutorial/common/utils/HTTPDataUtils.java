@@ -4,6 +4,7 @@ import com.example.tutorial.common.exceptions.ApplicationTechnicalException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
@@ -16,23 +17,26 @@ public final class HTTPDataUtils {
   private static final String CONTENT_TYPE_JSON = "application/json; charset=utf-8";
   private static final ObjectMapper MAPPER = new ObjectMapper()
       .findAndRegisterModules()
+      .registerModule(new JavaTimeModule())
       .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
-  private HTTPDataUtils() {}
+  private HTTPDataUtils() {
+  }
 
   /**
    * Parses the JSON body of the request into an instance of the specified class.
-   * @param ctx the routing context
+   *
+   * @param ctx  the routing context
    * @param type the class to parse the body into
+   * @param <T>  the type of the class
    * @return an instance of the specified class
-   * @param <T> the type of the class
    * @throws IllegalArgumentException if the body is missing or cannot be parsed
    */
   public static <T> T requestBodyToObject(RoutingContext ctx, Class<T> type) {
     try {
       String raw = ctx.body().asString();
       if (raw == null || raw.isEmpty()) {
-        throw new ApplicationTechnicalException("Request body is missing" );
+        throw new ApplicationTechnicalException("Request body is missing");
       }
       return MAPPER.readValue(raw, type);
     } catch (JsonProcessingException e) {
@@ -42,7 +46,8 @@ public final class HTTPDataUtils {
 
   /**
    * It creates a standard JSON response for successful requests (HTTP 200).
-   * @param ctx the routing context
+   *
+   * @param ctx  the routing context
    * @param data the data to include in the response
    */
   public static void responseOk(RoutingContext ctx, Object data) {
@@ -56,8 +61,8 @@ public final class HTTPDataUtils {
   /**
    * It creates a standard JSON response for resource creation (HTTP 201).
    *
-   * @param ctx the routing context
-   * @param data the data to include in the response
+   * @param ctx      the routing context
+   * @param data     the data to include in the response
    * @param location the location of the created resource
    */
   public static void responseCreated(RoutingContext ctx, Object data, String location) {
@@ -72,9 +77,9 @@ public final class HTTPDataUtils {
   /**
    * It creates a standard JSON response for bad requests (HTTP 400).
    *
-   * @param ctx the routing context
+   * @param ctx     the routing context
    * @param message the error message
-   * @param errors a list of specific errors
+   * @param errors  a list of specific errors
    */
   public static void responseBadRequest(RoutingContext ctx, String message, List<String> errors) {
     if (message == null || message.isEmpty()) message = "Bad Request";
@@ -93,10 +98,10 @@ public final class HTTPDataUtils {
       json.put("path", ctx.normalizedPath());
       json.put("method", ctx.request().method().name());
     }
-    if (status != null)  json.put("status", status);
+    if (status != null) json.put("status", status);
     if (message != null) json.put("message", message);
-    if (errors != null)  json.put("errors", errors);
-    if (data != null)    json.put("data", toJsonObject(data));
+    if (errors != null) json.put("errors", errors);
+    if (data != null) json.put("data", toJsonObject(data));
     return json;
   }
 
