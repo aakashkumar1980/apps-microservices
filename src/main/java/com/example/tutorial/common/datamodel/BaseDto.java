@@ -45,7 +45,7 @@ public class BaseDto<T> {
    * </pre>
    */
   @JsonProperty("id")
-  private String id;
+  private String id = "dto:1";
 
   @JsonProperty("version")
   private Integer version;
