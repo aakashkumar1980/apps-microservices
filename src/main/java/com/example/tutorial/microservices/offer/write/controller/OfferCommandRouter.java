@@ -1,6 +1,7 @@
 package com.example.tutorial.microservices.offer.write.controller;
 
 import com.example.tutorial.common.datamodel.offer.Offer;
+import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
 import com.example.tutorial.common.utils.HTTPDataUtils;
 import com.example.tutorial.microservices.offer.write.service.OfferCommandService;
 import io.vertx.core.Vertx;
@@ -39,8 +40,9 @@ public final class OfferCommandRouter {
               HTTPDataUtils.responseCreated(ctx, message, String.format("/api/offers/%s", offerOptional.get().getId()));
             })
             .onFailure(err -> {
-              // will be converted by failure handler or send 500 here
-              ctx.fail(err);
+              //ctx.fail(err);
+              HTTPDataUtils.responseBadRequest(
+                  ctx, ((ApplicationFunctionalException) err).getErrors().toString(), null);
             });
       } catch (IllegalArgumentException ex) {
         HTTPDataUtils.responseBadRequest(ctx, ex.getMessage(), null);

@@ -18,6 +18,13 @@ public final class OfferCommandRepository {
     this.vertx = vertx;
   }
 
+  /**
+   * Persists a new offer.
+   *
+   * @param offer The offer to create
+   * @return A Future that completes with an Optional containing the created Offer wrapped in a BaseDto,
+   *         or an empty Optional if creation failed
+   */
   public Future<Optional<BaseDto<Offer>>> createOffer(Offer offer) {
     log.info("[START] Creating offer: {}", offer);
 
