@@ -1,0 +1,14 @@
+sequenceDiagram
+  participant Client
+  participant Socket8080
+  participant TomcatThread as Tomcat Thread (T1)
+  participant Dispatcher as DispatcherServlet (T1)
+  participant RestController as @RestController (T1)
+
+  Client->>Socket8080: HTTP Request (R1)
+  Socket8080->>TomcatThread: Assign thread T1
+  TomcatThread->>Dispatcher: Dispatch request (T1)
+  Dispatcher->>RestController: Call controller (T1)
+  RestController-->>TomcatThread: Return response (T1)
+  TomcatThread-->>Socket8080: Send response (T1)
+  Socket8080-->>Client: HTTP Response (R1)

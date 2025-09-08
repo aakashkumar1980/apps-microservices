@@ -18,24 +18,24 @@ public final class OfferCommandRouter {
   /**
    * Registers the routes for offer commands (create, update, delete).
    *
-   * @param root  the root router to attach the routes to
+   * @param router  the router router to attach the routes to
    * @param vertx the Vertx instance
    */
-  public static void register(Router root, Vertx vertx) {
+  public static void register(Router router, Vertx vertx) {
     var service = new OfferCommandService(vertx);
 
     /** ROUTE 1: Create Offer
      * The URI is POST /api/offers
      * */
-    root.post("/api/offers").handler(ctx -> {
+    router.post("/api/offers").handler(ctx -> {
       try {
         Offer offer = HTTPDataUtils.requestBodyToObject(ctx, Offer.class);
-        log.info("Received request to create offer: {}", offer);
+        log.info("[START] Received request to create offer: {}", offer);
 
         // call service to create offer
         service.createOffer(offer)
             .onSuccess(offerOptional -> {
-              var message = String.format("Offer created successfully : %s", offerOptional.get().toString());
+              var message = String.format("[END] Offer created successfully : %s", offerOptional.get().toString());
               HTTPDataUtils.responseCreated(ctx, message, String.format("/api/offers/%s", offerOptional.get().getId()));
             })
             .onFailure(err -> {
@@ -50,4 +50,3 @@ public final class OfferCommandRouter {
     });
   }
 }
-

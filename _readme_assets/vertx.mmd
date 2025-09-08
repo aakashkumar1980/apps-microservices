@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant Client
+  participant Socket8080 as HTTP Server (Port 8080)
+  participant VertxEventLoop as Vert.x Event Loop Thread (V1)
+  participant Verticle as Verticle Handler (V1)
+  participant VertxAnyThread as Vert.x Event Loop Thread (Vx)
+
+  Client->>Socket8080: HTTP Request (R1)
+  Socket8080->>VertxEventLoop: Event loop thread V1
+  VertxEventLoop->>Verticle: Non-blocking handler (V1)
+  Verticle-->>VertxEventLoop: Release thread (V1, async DB call)
+  Note right of Verticle: V1 is free for other events
+  Verticle->>VertxAnyThread: Callback (Vx, any event loop thread)
+  VertxAnyThread-->>Socket8080: Send response (Vx)
+  Socket8080-->>Client: HTTP Response (R1)

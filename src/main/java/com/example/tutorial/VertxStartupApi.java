@@ -1,5 +1,6 @@
 package com.example.tutorial;
 
+import com.example.tutorial.microservices.offer.write.controller.OfferCommandRouter;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
@@ -17,9 +18,13 @@ public final class VertxStartupApi {
     Vertx vertx = Vertx.vertx();
     Router root = Router.router(vertx);
 
-    // basic routes setup
+    /** ROUTE SETUP */
+    // basic health and ping routes
     setBasicRoute(root);
+    // offer command routes
+    OfferCommandRouter.register(root, vertx);
 
+    /** SERVER SETUP */
     // HTTP server setup and graceful shutdown
     startServer(vertx, root);
   }
