@@ -106,4 +106,26 @@ public class APIUtils <T> {
       return List.of();
     }
   }
+
+  /**
+   * Update a BaseDto by its ID using a PUT request to the specified API URL.
+   * This method is typically used for operations like cancelling an offer.
+   *
+   * @param apiUrl   The API URL to send the PUT request to.
+   * @param id       The ID of the BaseDto to update.
+   * @param request  The request object containing the update details.
+   * @param <R>      The type of the request object.
+   */
+  public <R> void updateDtoById(String apiUrl, String id, R request) {
+    String url = String.format("%s/cancel/%s", apiUrl, id);
+    log.info("Calling updateDtoById API: {}", url);
+    try {
+      restTemplate.put(url, request);
+    } catch (HttpClientErrorException.NotFound e) {
+      log.warn("Dto not found for cancellation: {} at API: {}", id, url);
+    } catch (Exception e) {
+      log.error("Error updateDtoById at API: {}", url, e);
+      throw new ApplicationTechnicalException(String.format("Error updateDtoById at API: %s", url), e);
+    }
+  }
 }

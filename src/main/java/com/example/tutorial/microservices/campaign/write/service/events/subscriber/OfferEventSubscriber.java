@@ -3,14 +3,17 @@ package com.example.tutorial.microservices.campaign.write.service.events.subscri
 import com.example.tutorial.common.constants.CacheConstants;
 import com.example.tutorial.common.datamodel.offer.events.OfferEvent;
 import com.example.tutorial.common.exceptions.ApplicationTechnicalException;
+import com.example.tutorial.common.utils.APIUtils;
 import com.example.tutorial.common.utils.CacheUtils;
 import com.example.tutorial.microservices.campaign.write.service.CampaignCommandService;
 import com.example.tutorial.microservices.campaign.ApplicationConstants;
+import com.example.tutorial.microservices.offer.write.controller.CancelOfferRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,12 @@ public class OfferEventSubscriber {
 
   @Autowired
   private CacheUtils cacheUtils;
+
+  @Autowired
+  private APIUtils apiUtils;
+
+  @Value("${offers.api.url}")
+  private String offerServiceUrl;
 
   /**
    * This method listens to the Kafka topic "OFFER_CREATED" for OfferCreated events.
@@ -50,7 +59,17 @@ public class OfferEventSubscriber {
 
       /** BUSINESS LOGIC **/
       // link the offers to the Campaign
-      campaignCommandService.addToLinkedOffers(offerEvent.getCampaignId(), offerId);
+      try {
+        campaignCommandService.addToLinkedOffers(offerEvent.getCampaignId(), offerId);
+      } catch (Exception e) {
+        cacheUtils.delete(offerId);
+
+        /** Distributed Transaction Rollback: SAGA Pattern **/
+        CancelOfferRequest cancelRequest = new CancelOfferRequest();
+        cancelRequest.setCancellationReason("Failed to link offer to campaign");
+        cancelRequest.setCancelledBy("CampaignService");// Adjust base URL as needed
+        apiUtils.updateDtoById(offerServiceUrl, offerId, cancelRequest);
+      }
 
     } catch (JsonProcessingException e) {
       throw new ApplicationTechnicalException("Error parsing object's value", e);
