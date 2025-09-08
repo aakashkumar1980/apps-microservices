@@ -1,37 +1,84 @@
 package com.example.tutorial.microservices.offer.write.service;
 
-
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.offer.Offer;
+import com.example.tutorial.common.exceptions.ApplicationFunctionalException;
 import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
+import com.example.tutorial.common.utils.validation.OfferValidation;
+import com.example.tutorial.common.utils.validation.MerchantValidation;
+import com.example.tutorial.common.utils.validation.CampaignValidation;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
+import io.vertx.core.CompositeFuture;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-/** Equivalent of your Spring @Service */
 public final class OfferCommandService {
   private static final Logger log = LoggerFactory.getLogger(OfferCommandService.class);
 
   private final Vertx vertx;
+
   public OfferCommandService(Vertx vertx) {
     this.vertx = vertx;
   }
 
   /**
-   * Creates a new offer.
+   * Create a new offer after validating the input data.
    *
-   * @param offer The offer to create
-   * @return A Future that completes with an Optional containing the created Offer wrapped in a BaseDto,
-   *         or an empty Optional if creation failed
+   * @param offer The offer to be created.
+   * @return A Future containing an Optional of BaseDto with the created offer,
+   * or an empty Optional if creation failed.
    */
   public Future<Optional<BaseDto<Offer>>> createOffer(Offer offer) {
     log.info("[START] Creating offer: {}", offer);
 
-    var repository = new OfferCommandRepository(vertx);
-    log.info("[END] Creating offer");
-    return repository.createOffer(offer);
+    /** **************** **/
+    /** DATA VALIDATIONS **/
+    /** **************** **/
+
+    /** Validate Merchant ID and Campaign ID in sequence **/
+    Future<List<String>> merchantValidationFuture =
+        new MerchantValidation().validateMerchantIdAsync(offer.getMerchantId());
+    Future<List<String>> merchantAndCampaignValidationFuture =
+        merchantValidationFuture.compose(merchantErrors -> {
+          // if merchant validation fails, skip campaign validation (or you can still run it if needed)
+          if (!merchantErrors.isEmpty()) {
+            return Future.succeededFuture(new ArrayList<>());
+          }
+
+          // proceed with campaign validation if merchant validation passed
+          return new CampaignValidation().validateCampaignIdAsync(offer.getCampaignId());
+        });
+
+    /** Validate Offer data in parallel with Merchant */
+    Future<List<String>> offerValidationFuture =
+        new OfferValidation().validateCreateAsync(offer);
+    return CompositeFuture.all(offerValidationFuture, merchantAndCampaignValidationFuture)
+        .compose(composite -> {
+          // Collect all errors
+          List<String> allErrors = new ArrayList<>();
+          allErrors.addAll(composite.resultAt(0)); // offer errors
+          allErrors.addAll(composite.resultAt(1)); // campaign errors
+
+          // Add merchant errors (from merchantValidationFuture)
+          return merchantValidationFuture.compose(merchantErrors -> {
+            allErrors.addAll(merchantErrors);
+            if (CollectionUtils.isNotEmpty(allErrors)) {
+              return Future.failedFuture(new ApplicationFunctionalException("Validation failed", allErrors));
+            }
+
+            /** **************** **/
+            /** DATA PERSISTENCE **/
+            /** **************** **/
+            var repository = new OfferCommandRepository(vertx);
+            log.info("[RETURN] Creating offer");
+            return repository.createOffer(offer);
+          });
+        });
   }
 }
