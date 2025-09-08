@@ -48,20 +48,23 @@ public final class OfferCommandService {
      *    }
      *  )
      * **/
-    Future<List<String>> merchantValidationFuture =
-        new MerchantValidation().validateMerchantIdAsync(offer.getMerchantId());
     Future<List<String>> merchantAndCampaignValidationFuture =
-        merchantValidationFuture.compose(merchantErrors -> {
-          // if merchant validation fails, skip campaign validation (or you can still run it if needed)
-          if (!merchantErrors.isEmpty()) {
-            return Future.succeededFuture(new ArrayList<>());
-          }
+        new MerchantValidation().validateMerchantIdAsync(offer.getMerchantId())
+            .compose(merchantErrors -> {
+              if (!merchantErrors.isEmpty()) {
+                // If merchant validation fails, return only merchant errors
+                return Future.succeededFuture(merchantErrors);
+              }
+              // If merchant validation passes, validate campaign and combine errors, use "map" to collect results of both validations
+              return new CampaignValidation().validateCampaignIdAsync(offer.getCampaignId())
+                  .map(campaignErrors -> {
+                    List<String> allErrors = new ArrayList<>(merchantErrors);
+                    allErrors.addAll(campaignErrors);
+                    return allErrors;
+                  });
+            });
 
-          // proceed with campaign validation if merchant validation passed
-          return new CampaignValidation().validateCampaignIdAsync(offer.getCampaignId());
-        });
-
-    /** Validate Offer data in parallel with Merchant
+    /** Validate Offer data in parallel with Merchant and Campaign
      *  Using "CompositeFuture.all" to run both validations concurrently.
      *  Then use "compose" to handle the combined results.
      * */
@@ -72,22 +75,17 @@ public final class OfferCommandService {
           // Collect all errors
           List<String> allErrors = new ArrayList<>();
           allErrors.addAll(composite.resultAt(0)); // offer errors
-          allErrors.addAll(composite.resultAt(1)); // campaign errors
+          allErrors.addAll(composite.resultAt(1)); // merchant + campaign errors
+          if (CollectionUtils.isNotEmpty(allErrors)) {
+            return Future.failedFuture(new ApplicationFunctionalException("Validation failed", allErrors));
+          }
 
-          // Add merchant errors (from merchantValidationFuture)
-          return merchantValidationFuture.compose(merchantErrors -> {
-            allErrors.addAll(merchantErrors);
-            if (CollectionUtils.isNotEmpty(allErrors)) {
-              return Future.failedFuture(new ApplicationFunctionalException("Validation failed", allErrors));
-            }
-
-            /** **************** **/
-            /** DATA PERSISTENCE **/
-            /** **************** **/
-            var repository = new OfferCommandRepository(vertx);
-            log.info("[RETURN] Creating offer");
-            return repository.createOffer(offer);
-          });
+          /** **************** **/
+          /** DATA PERSISTENCE **/
+          /** **************** **/
+          var repository = new OfferCommandRepository(vertx);
+          log.info("[RETURN] Creating offer");
+          return repository.createOffer(offer);
         });
   }
 }
