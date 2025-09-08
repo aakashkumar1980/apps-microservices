@@ -41,7 +41,13 @@ public final class OfferCommandService {
     /** DATA VALIDATIONS **/
     /** **************** **/
 
-    /** Validate Merchant ID and Campaign ID in sequence **/
+    /** Validate Merchant ID and Campaign ID in sequence using "compose" function.
+     *  The syntax of "compose" is:
+     *  futureA.compose(resultA -> {
+     *      return futureB;
+     *    }
+     *  )
+     * **/
     Future<List<String>> merchantValidationFuture =
         new MerchantValidation().validateMerchantIdAsync(offer.getMerchantId());
     Future<List<String>> merchantAndCampaignValidationFuture =
@@ -55,7 +61,10 @@ public final class OfferCommandService {
           return new CampaignValidation().validateCampaignIdAsync(offer.getCampaignId());
         });
 
-    /** Validate Offer data in parallel with Merchant */
+    /** Validate Offer data in parallel with Merchant
+     *  Using "CompositeFuture.all" to run both validations concurrently.
+     *  Then use "compose" to handle the combined results.
+     * */
     Future<List<String>> offerValidationFuture =
         new OfferValidation().validateCreateAsync(offer);
     return CompositeFuture.all(offerValidationFuture, merchantAndCampaignValidationFuture)
