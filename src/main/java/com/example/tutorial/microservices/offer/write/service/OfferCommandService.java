@@ -3,7 +3,7 @@ package com.example.tutorial.microservices.offer.write.service;
 
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.offer.Offer;
-import com.example.tutorial.microservices.offer.OfferCommandRepository;
+import com.example.tutorial.microservices.offer.write.repository.OfferCommandRepository;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import org.slf4j.Logger;
