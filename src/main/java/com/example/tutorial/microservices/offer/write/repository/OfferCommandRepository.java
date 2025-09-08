@@ -1,4 +1,4 @@
-package com.example.tutorial.microservices.offer;
+package com.example.tutorial.microservices.offer.write.repository;
 
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.offer.Offer;
