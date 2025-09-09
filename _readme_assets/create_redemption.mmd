@@ -1,0 +1,151 @@
+%%{ init: { "flowchart": { "htmlLabels": true, "wrappingWidth": 520 } } }%%
+flowchart TD
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+%% Redemption Write (Publisher) %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+  CLIENT["Client App
+  <div style='text-align:left'>
+{ customer_id, merchant_id, offer_id, amount, currency, idempotency_key }
+</div>
+"]:::external
+
+subgraph Redemption_Write_Microservice
+style Redemption_Write_Microservice fill:#FFF9C4,stroke:#333,stroke-width:1px
+RW_CC["RedemptionCommandController"]:::controller
+RW_CS["RedemptionCommandService<br>- authorizeRedemption()"]:::service
+RW_CR["RedemptionRepository<br>- saveAuthorization()"]:::repository
+RW_EP["RedemptionEventPublisher<br>- publishRedemptionAuthorized()"]:::event
+end
+REDEMPTION_DB[("Couchbase DB<br>(bucket: redemption)")]:::db
+
+KAFKA_AUTH[["kafka topic: REDEMPTION_AUTHORIZED
+<div style='text-align:left; background-color:#fcf3f0; width:230px;'>
+event(redemption_authorized).json
+{
+#emsp; <font color=red><b>id</b></font>,
+#emsp; offer_id, customer_id, merchant_id,
+#emsp; amount, currency, idempotency_key, ts
+}
+</div>
+"]]:::kafka
+
+CLIENT -->|1| RW_CC -->|2| RW_CS -->|3| RW_CR -->|4| REDEMPTION_DB
+RW_CS -->|5| RW_EP -->|6| KAFKA_AUTH
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+%% Rewards Engine (Subscriber) %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+subgraph Rewards_Engine_Microservice
+style Rewards_Engine_Microservice fill:#FFF3E0,stroke:#F57C00,stroke-width:1px
+RE_SUB["RedemptionEventSubscriber"]:::subscriber
+RE_SVC["RewardsEngineService<br>- computeReward()"]:::service
+RE_PUB["RewardEventPublisher<br>- publishRewardComputed()"]:::event
+end
+
+KAFKA_REWARD[["kafka topic: REWARD_COMPUTED
+<div style='text-align:left; background-color:#fcf3f0; width:210px;'>
+event(reward_computed).json
+{
+#emsp; redemption_id, reward_type, reward_value, ts
+}
+</div>
+"]]:::kafka
+
+KAFKA_AUTH --> RE_SUB --> RE_SVC --> RE_PUB --> KAFKA_REWARD
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+%% Customer Wallet (Subscriber) %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+subgraph Customer_Wallet_Microservice
+style Customer_Wallet_Microservice fill:#FCE4EC,stroke:#C2185B,stroke-width:1px
+CW_SUB1["Subscriber: REDEMPTION_AUTHORIZED"]:::subscriber
+CW_SVC1["CustomerService<br>- appendRedemption()"]:::service
+CW_SUB2["Subscriber: REWARD_COMPUTED"]:::subscriber
+CW_SVC2["CustomerService<br>- creditReward()"]:::service
+CW_REP["CustomerRepository<br>- save()"]:::repository
+end
+CUSTOMER_DB[("Couchbase DB<br>(bucket: customer)")]:::db
+
+KAFKA_AUTH --> CW_SUB1 --> CW_SVC1 --> CW_REP --> CUSTOMER_DB
+KAFKA_REWARD --> CW_SUB2 --> CW_SVC2 --> CW_REP
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+%% Campaign Budget (Subscriber) %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+subgraph Campaign_Budget_Microservice
+style Campaign_Budget_Microservice fill:#BBDEFB,stroke:#1976D2,stroke-width:1px
+CB_SUB["Subscriber: REDEMPTION_AUTHORIZED"]:::subscriber
+CB_SVC["CampaignBudgetService<br>- burnBudget()"]:::service
+CB_REP["CampaignRepository<br>- save()"]:::repository
+end
+CAMPAIGN_DB[("Couchbase DB<br>(bucket: campaign)")]:::db
+
+KAFKA_AUTH --> CB_SUB --> CB_SVC --> CB_REP --> CAMPAIGN_DB
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+%% Offer Usage / Quota (Subscriber) %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+subgraph Offer_Usage_Microservice
+style Offer_Usage_Microservice fill:#E8F5E9,stroke:#2E7D32,stroke-width:1px
+OU_SUB1["Subscriber: REDEMPTION_AUTHORIZED"]:::subscriber
+OU_SVC1["OfferUsageService<br>- incRedemptionCount()"]:::service
+OU_SUB2["Subscriber: REWARD_COMPUTED"]:::subscriber
+OU_SVC2["OfferUsageService<br>- addRewardTotals()"]:::service
+OU_REP["OfferUsageRepository<br>- save()"]:::repository
+end
+OFFER_USAGE_DB[("Couchbase DB<br>(bucket: offer_usage)")]:::db
+
+KAFKA_AUTH --> OU_SUB1 --> OU_SVC1 --> OU_REP --> OFFER_USAGE_DB
+KAFKA_REWARD --> OU_SUB2 --> OU_SVC2 --> OU_REP
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+%% Merchant (Subscriber) %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+subgraph Merchant_Microservice
+style Merchant_Microservice fill:#F1F8E9,stroke:#689F38,stroke-width:1px
+M_SUB1["Subscriber: REDEMPTION_AUTHORIZED"]:::subscriber
+M_SVC1["MerchantService<br>- trackPendingSales()"]:::service
+M_SUB2["Subscriber: REWARD_COMPUTED"]:::subscriber
+M_SVC2["MerchantService<br>- updateRewardLiability()"]:::service
+M_REP["MerchantRepository<br>- save()"]:::repository
+end
+MERCHANT_DB[("Couchbase DB<br>(bucket: merchant)")]:::db
+
+KAFKA_AUTH --> M_SUB1 --> M_SVC1 --> M_REP --> MERCHANT_DB
+KAFKA_REWARD --> M_SUB2 --> M_SVC2 --> M_REP
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+%% Offer Read / Projection (UI) %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%
+subgraph Offer_Read_Projection_Microservice
+style Offer_Read_Projection_Microservice fill:#EDE7F6,stroke:#512DA8,stroke-width:1px
+OR_SUB1["Subscriber: REDEMPTION_AUTHORIZED"]:::subscriber
+OR_SVC1["OfferProjectionService<br>- refreshCounts()"]:::service
+OR_SUB2["Subscriber: REWARD_COMPUTED"]:::subscriber
+OR_SVC2["OfferProjectionService<br>- updateLastReward()"]:::service
+OR_REP["OfferReadRepository<br>- save()"]:::repository
+end
+OFFER_READ_DB[("Couchbase DB<br>(bucket: offer_read)")]:::db
+
+KAFKA_AUTH --> OR_SUB1 --> OR_SVC1 --> OR_REP --> OFFER_READ_DB
+KAFKA_REWARD --> OR_SUB2 --> OR_SVC2 --> OR_REP
+
+
+%% %%%%%%% %%
+%% Styling %%
+%% %%%%%%% %%
+classDef controller fill:#AED581,stroke:#33691E,stroke-width:1px;
+classDef service fill:#FFF3E0,stroke:#F57C00,stroke-width:1px;
+classDef repository fill:#E0F2F1,stroke:#00796B,stroke-width:1px;
+classDef event fill:#F8BBD0,stroke:#AD1457,stroke-width:1px,stroke-dasharray: 5 5;
+classDef subscriber fill:#EDE7F6,stroke:#512DA8,stroke-width:1px;
+classDef external fill:#FFFFFF,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5;
+classDef kafka fill:#fcf3f0,stroke:red,stroke-width:1px,stroke-dasharray: 5 5;
+classDef db fill:#FFFFFF,stroke:#000,stroke-width:1px,stroke-dasharray: 5 5;
