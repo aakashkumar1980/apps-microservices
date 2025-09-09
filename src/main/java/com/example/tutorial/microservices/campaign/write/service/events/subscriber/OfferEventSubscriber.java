@@ -65,10 +65,11 @@ public class OfferEventSubscriber {
         cacheUtils.delete(offerId);
 
         /** Distributed Transaction Rollback: SAGA Pattern **/
+        offerServiceUrl = String.format("%s/cancel/%s", offerServiceUrl, offerId);
         CancelOfferRequest cancelRequest = new CancelOfferRequest();
         cancelRequest.setCancellationReason("Failed to link offer to campaign");
-        cancelRequest.setCancelledBy("CampaignService");// Adjust base URL as needed
-        apiUtils.updateDtoById(offerServiceUrl, offerId, cancelRequest);
+        cancelRequest.setCancelledBy("CampaignService");
+        apiUtils.updateDto(offerServiceUrl, cancelRequest);
       }
 
     } catch (JsonProcessingException e) {
