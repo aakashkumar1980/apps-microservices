@@ -6,16 +6,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.example.tutorial.common.utils.SampleDataSupplier.CAMPAIGNS;
 
 @Component
-public class DataGrouping implements CommandLineRunner {
+public class DataGroupingCount implements CommandLineRunner {
   public static void main(String[] args) {
-    SpringApplication.run(DataGrouping.class, args);
+    SpringApplication.run(DataGroupingCount.class, args);
   }
 
   /**
@@ -32,7 +31,8 @@ public class DataGrouping implements CommandLineRunner {
    *       Collectors.groupingBy(
    *         keyMapper, // Function to extract the key for grouping e.g.
    *         // c -> {return c.getStatus();} | c -> c.getStatus() | Campaign::getStatus
-   *         Collectors.counting() // collector to count the number of elements in each group
+   *
+   *         countingFunction // e.g. Collectors.counting() for count the number of elements in each group
    *       )
    *     );
    * </pre>
@@ -42,7 +42,7 @@ public class DataGrouping implements CommandLineRunner {
     System.out.println(String.format("Campaigns size: %d", CAMPAIGNS.get().size()));
 
     /** Group Campaigns by Status and count */
-    Map<CampaignStatus, Long> campaignByStatus =
+    Map<CampaignStatus, Long> countByCampaignStatus =
         CAMPAIGNS.get().stream()
             .collect(
                 Collectors.groupingBy(
@@ -50,8 +50,8 @@ public class DataGrouping implements CommandLineRunner {
                     Collectors.counting()
                 )
             );
-    System.out.println(String.format("Campaigns by Status size: %d", campaignByStatus.size()));
-    campaignByStatus.forEach((status, count) -> {
+    System.out.println(String.format("countByCampaignStatus size: %d", countByCampaignStatus.size()));
+    countByCampaignStatus.forEach((status, count) -> {
       System.out.println(String.format("Status: %s, Count: %d", status, count));
     });
 
