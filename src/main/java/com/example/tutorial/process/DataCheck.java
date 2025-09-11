@@ -16,10 +16,10 @@ public class DataCheck implements CommandLineRunner {
   /**
    * Data Check Example
    * <p>
-   * In this example, we will demonstrate how to use Java Streams to perform data checks on a list of campaigns.
-   * - We will check if at least one campaign is in DRAFT status.
-   * - We will check if all campaigns are in ACTIVE status.
-   * - We will check if no campaigns are in EXPIRED status.
+   *  In this example, we will demonstrate how to use Java Streams to perform data checks on a list of campaigns.
+   *  - We will check if at least one campaign is in DRAFT status.
+   *  - We will check if all campaigns are in ACTIVE status.
+   *  - We will check if no campaigns are in EXPIRED status.
    * </p>
    * <b>Syntax:</b>
    * <pre>
