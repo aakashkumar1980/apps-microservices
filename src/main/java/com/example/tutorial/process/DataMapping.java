@@ -35,6 +35,7 @@ public class DataMapping implements CommandLineRunner {
   @Override
   public void run(String... args) {
     System.out.println(String.format("Campaigns size: %d", CAMPAIGNS.get().size()));
+
     List<String> campaignNames =
         CAMPAIGNS.get().stream()
             .map(c -> {
@@ -42,10 +43,8 @@ public class DataMapping implements CommandLineRunner {
                 }
             )
             .toList();
-
     System.out.println(String.format("Campaigns size: %d", campaignNames.size()));
     campaignNames.forEach(System.out::println);
-
   }
 
 }

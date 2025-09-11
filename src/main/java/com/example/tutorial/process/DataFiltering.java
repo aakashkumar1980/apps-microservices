@@ -34,14 +34,13 @@ public class DataFiltering implements CommandLineRunner {
   @Override
   public void run(String... args) {
     System.out.println(String.format("Campaigns size: %d", CAMPAIGNS.get().size()));
+
     List<Campaign> filteredCampaigns =
         CAMPAIGNS.get().stream()
             .filter(c -> c.getStatus() == CampaignStatus.ACTIVE)
             .toList();
-
     System.out.println(String.format("Filtered Campaigns size: %d", filteredCampaigns.size()));
     filteredCampaigns.forEach(System.out::println);
-
   }
 
 }
