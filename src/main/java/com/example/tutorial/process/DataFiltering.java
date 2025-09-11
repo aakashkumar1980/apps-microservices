@@ -1,20 +1,17 @@
 package com.example.tutorial.process;
 
-import com.example.tutorial.SpringbootStartupApi;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import static com.example.tutorial.common.utils.SampleDataSupplier.*;
 
-@SpringBootApplication
+@Component
 public class DataFiltering implements CommandLineRunner {
-  public static void main(String[] args) {
-    SpringApplication.run(SpringbootStartupApi.class, args);
-  }
+  public static void main(String[] args) {SpringApplication.run(DataFiltering.class, args);}
 
   /**
    * Data Filtering Example
