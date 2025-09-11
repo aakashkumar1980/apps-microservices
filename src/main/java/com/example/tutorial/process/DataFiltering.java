@@ -16,8 +16,8 @@ public class DataFiltering implements CommandLineRunner {
   /**
    * Data Filtering Example
    * <p>
-   * In this example, we will filter a list of {@link Campaign} objects to find those that are active.
-   * We will use Java Streams to perform the filtering operation.
+   *  In this example, we will filter a list of {@link Campaign} objects to find those that are active.
+   *  We will use Java Streams to perform the filtering operation.
    * <p>
    * <b>Syntax:</b>
    * <pre>

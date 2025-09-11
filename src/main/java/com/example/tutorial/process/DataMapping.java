@@ -15,7 +15,22 @@ public class DataMapping implements CommandLineRunner {
   }
 
   /**
-   * Data Mapping Example
+   * Data Mapping (conversion) Example
+   * <p>
+   *   In this example, we will map a list of {@code Campaign} objects to a list of their names.
+   *   We will use Java Streams to perform the mapping operation.
+   * </p>
+   * <b>Syntax:</b>
+   * <pre>
+   *   list.stream()
+   *     .map(f), where f is a function that transforms an element of the stream, e.g.
+   *        c -> {
+   *            return c.getName();
+   *        }, OR
+   *        c -> c.getName(), OR
+   *        Campaign::getName
+   *     .toList();
+   * </pre>
    */
   @Override
   public void run(String... args) {
