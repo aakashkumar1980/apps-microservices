@@ -1,0 +1,429 @@
+[
+  {
+    "id": "campaign::1",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Summer Savings Blast",
+      "description": "Enjoy huge discounts on electronics and home appliances this summer.",
+      "status": "PAUSED",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 2390.07,
+      "linked_offers": [
+        "offer::1",
+        "offer::8"
+      ]
+    }
+  },
+  {
+    "id": "campaign::2",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Back to School Essentials",
+      "description": "Special offers on school supplies, backpacks, and stationery for students.",
+      "status": "ACTIVE",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 9615.87,
+      "linked_offers": [
+        "offer::2",
+        "offer::23"
+      ]
+    }
+  },
+  {
+    "id": "campaign::3",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Grocery Fest",
+      "description": "Get cashback and reward points on your grocery shopping all month.",
+      "status": "ACTIVE",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-01T00:00:00",
+      "budget": 6026.17,
+      "linked_offers": [
+        "offer::3"
+      ]
+    }
+  },
+  {
+    "id": "campaign::4",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Fashion Fiesta",
+      "description": "Trendy apparel and accessories at unbeatable prices for fashion lovers.",
+      "status": "ACTIVE",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 9770.07,
+      "linked_offers": [
+        "offer::4"
+      ]
+    }
+  },
+  {
+    "id": "campaign::5",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Dining Delights",
+      "description": "Exclusive restaurant deals and cashback on food orders.",
+      "status": "DRAFT",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 9860.07,
+      "linked_offers": [
+        "offer::5"
+      ]
+    }
+  },
+  {
+    "id": "campaign::6",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Travel & Adventure",
+      "description": "Save big on flight bookings, hotels, and holiday packages.",
+      "status": "ACTIVE",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 5473.24,
+      "linked_offers": [
+        "offer::6"
+      ]
+    }
+  },
+  {
+    "id": "campaign::7",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Fitness Frenzy",
+      "description": "Discounts on gym memberships, sports gear, and wellness products.",
+      "status": "DRAFT",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 2091.33,
+      "linked_offers": [
+        "offer::7"
+      ]
+    }
+  },
+  {
+    "id": "campaign::8",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Tech Upgrade Week",
+      "description": "Upgrade your gadgets with special offers on smartphones and laptops.",
+      "status": "DRAFT",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 7308.41,
+      "linked_offers": [
+        "offer::8"
+      ]
+    }
+  },
+  {
+    "id": "campaign::9",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Home Makeover",
+      "description": "Cashback and discounts on furniture, decor, and home improvement items.",
+      "status": "ACTIVE",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 7690.3,
+      "linked_offers": [
+        "offer::9"
+      ]
+    }
+  },
+  {
+    "id": "campaign::10",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Beauty Bonanza",
+      "description": "Exclusive deals on cosmetics, skincare, and beauty treatments.",
+      "status": "DRAFT",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 3551.53,
+      "linked_offers": [
+        "offer::10"
+      ]
+    }
+  },
+  {
+    "id": "campaign::11",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Pet Lovers Month",
+      "description": "Special offers on pet food, accessories, and grooming services.",
+      "status": "DRAFT",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 1716.35,
+      "linked_offers": [
+        "offer::11"
+      ]
+    }
+  },
+  {
+    "id": "campaign::12",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Automotive Advantage",
+      "description": "Save on car accessories, servicing, and insurance renewals.",
+      "status": "PAUSED",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 4056.14,
+      "linked_offers": [
+        "offer::12"
+      ]
+    }
+  },
+  {
+    "id": "campaign::13",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Bookworm Paradise",
+      "description": "Discounts on bestsellers, e-books, and stationery for avid readers.",
+      "status": "PAUSED",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 2532.32,
+      "linked_offers": [
+        "offer::13"
+      ]
+    }
+  },
+  {
+    "id": "campaign::14",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Kids Carnival",
+      "description": "Exciting deals on toys, games, and kidswear for your little ones.",
+      "status": "PAUSED",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 2917.86,
+      "linked_offers": [
+        "offer::14"
+      ]
+    }
+  },
+  {
+    "id": "campaign::15",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Health & Wellness",
+      "description": "Offers on supplements, health checkups, and wellness products.",
+      "status": "DRAFT",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 8147.12,
+      "linked_offers": [
+        "offer::15"
+      ]
+    }
+  },
+  {
+    "id": "campaign::16",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Luxury Living",
+      "description": "Premium deals on luxury brands, watches, and accessories.",
+      "status": "ACTIVE",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 8752.02,
+      "linked_offers": [
+        "offer::16"
+      ]
+    }
+  },
+  {
+    "id": "campaign::17",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Green Shopping",
+      "description": "Eco-friendly products and sustainable brands at special prices.",
+      "status": "PAUSED",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 6898.87,
+      "linked_offers": [
+        "offer::17"
+      ]
+    }
+  },
+  {
+    "id": "campaign::18",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Weekend Getaway",
+      "description": "Short trip packages and hotel deals for your perfect weekend escape.",
+      "status": "PAUSED",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 8074.41,
+      "linked_offers": [
+        "offer::18"
+      ]
+    }
+  },
+  {
+    "id": "campaign::19",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Gourmet Gala",
+      "description": "Exclusive offers on gourmet foods, wines, and culinary experiences.",
+      "status": "DRAFT",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 4121.59,
+      "linked_offers": [
+        "offer::19"
+      ]
+    }
+  },
+  {
+    "id": "campaign::20",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Smart Home Solutions",
+      "description": "Discounts on smart home devices and automation kits.",
+      "status": "ACTIVE",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 9803.75,
+      "linked_offers": [
+        "offer::20"
+      ]
+    }
+  },
+  {
+    "id": "campaign::21",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Winter Warmers",
+      "description": "Special prices on winter clothing, heaters, and blankets.",
+      "status": "PAUSED",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 7665.58,
+      "linked_offers": [
+        "offer::21"
+      ]
+    }
+  },
+  {
+    "id": "campaign::22",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Festival Frenzy",
+      "description": "Celebrate with festival-themed offers and gift hampers.",
+      "status": "PAUSED",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 4090.44,
+      "linked_offers": [
+        "offer::22"
+      ]
+    }
+  },
+  {
+    "id": "campaign::23",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Student Super Savers",
+      "description": "Exclusive discounts for students on electronics and learning tools.",
+      "status": "DRAFT",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 5673.1,
+      "linked_offers": [
+        "offer::23"
+      ]
+    }
+  },
+  {
+    "id": "campaign::24",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Weekend Flash Sale",
+      "description": "Limited-time flash deals every weekend on top categories.",
+      "status": "ACTIVE",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 2830.65,
+      "linked_offers": [
+        "offer::24"
+      ]
+    }
+  },
+  {
+    "id": "campaign::25",
+    "created_at": "2026-07-13T00:00:00",
+    "updated_at": "2026-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Spring Refresh",
+      "description": "Fresh deals on cleaning supplies, gardening, and home essentials.",
+      "status": "DRAFT",
+      "start_date": "2026-07-14T00:00:00",
+      "end_date": "2026-08-12T00:00:00",
+      "budget": 3158.07,
+      "linked_offers": [
+        "offer::25"
+      ]
+    }
+  }
+]

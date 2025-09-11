@@ -1,0 +1,302 @@
+[
+  {
+    "id": "customer::1",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "phone_number": "+1-202-555-0101",
+      "enrolled_offers": ["offer::1", "offer::2"]
+    }
+  },
+  {
+    "id": "customer::2",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Brian Smith",
+      "email": "brian.smith@example.com",
+      "phone_number": "+1-202-555-0102",
+      "enrolled_offers": ["offer::3"]
+    }
+  },
+  {
+    "id": "customer::3",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Catherine Lee",
+      "email": "catherine.lee@example.com",
+      "phone_number": "+1-202-555-0103",
+      "enrolled_offers": ["offer::4", "offer::5"]
+    }
+  },
+  {
+    "id": "customer::4",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "David Kim",
+      "email": "david.kim@example.com",
+      "phone_number": "+1-202-555-0104",
+      "enrolled_offers": ["offer::6"]
+    }
+  },
+  {
+    "id": "customer::5",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Emily Clark",
+      "email": "emily.clark@example.com",
+      "phone_number": "+1-202-555-0105",
+      "enrolled_offers": ["offer::7", "offer::8"]
+    }
+  },
+  {
+    "id": "customer::6",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Franklin Wright",
+      "email": "franklin.wright@example.com",
+      "phone_number": "+1-202-555-0106",
+      "enrolled_offers": ["offer::9"]
+    }
+  },
+  {
+    "id": "customer::7",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Grace Miller",
+      "email": "grace.miller@example.com",
+      "phone_number": "+1-202-555-0107",
+      "enrolled_offers": ["offer::10", "offer::11"]
+    }
+  },
+  {
+    "id": "customer::8",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Henry Adams",
+      "email": "henry.adams@example.com",
+      "phone_number": "+1-202-555-0108",
+      "enrolled_offers": ["offer::12"]
+    }
+  },
+  {
+    "id": "customer::9",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Isabella Martinez",
+      "email": "isabella.martinez@example.com",
+      "phone_number": "+1-202-555-0109",
+      "enrolled_offers": ["offer::13", "offer::14"]
+    }
+  },
+  {
+    "id": "customer::10",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Jack Wilson",
+      "email": "jack.wilson@example.com",
+      "phone_number": "+1-202-555-0110",
+      "enrolled_offers": ["offer::15"]
+    }
+  },
+  {
+    "id": "customer::11",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Karen Patel",
+      "email": "karen.patel@example.com",
+      "phone_number": "+1-202-555-0111",
+      "enrolled_offers": ["offer::16", "offer::17"]
+    }
+  },
+  {
+    "id": "customer::12",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Liam Nguyen",
+      "email": "liam.nguyen@example.com",
+      "phone_number": "+1-202-555-0112",
+      "enrolled_offers": ["offer::18"]
+    }
+  },
+  {
+    "id": "customer::13",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Mia Brown",
+      "email": "mia.brown@example.com",
+      "phone_number": "+1-202-555-0113",
+      "enrolled_offers": ["offer::1"]
+    }
+  },
+  {
+    "id": "customer::14",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Noah Davis",
+      "email": "noah.davis@example.com",
+      "phone_number": "+1-202-555-0114",
+      "enrolled_offers": ["offer::2", "offer::3"]
+    }
+  },
+  {
+    "id": "customer::15",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Olivia Garcia",
+      "email": "olivia.garcia@example.com",
+      "phone_number": "+1-202-555-0115",
+      "enrolled_offers": ["offer::4"]
+    }
+  },
+  {
+    "id": "customer::16",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Paul Robinson",
+      "email": "paul.robinson@example.com",
+      "phone_number": "+1-202-555-0116",
+      "enrolled_offers": ["offer::5", "offer::6"]
+    }
+  },
+  {
+    "id": "customer::17",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Quinn Evans",
+      "email": "quinn.evans@example.com",
+      "phone_number": "+1-202-555-0117",
+      "enrolled_offers": ["offer::7"]
+    }
+  },
+  {
+    "id": "customer::18",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Rachel Turner",
+      "email": "rachel.turner@example.com",
+      "phone_number": "+1-202-555-0118",
+      "enrolled_offers": ["offer::8", "offer::9"]
+    }
+  },
+  {
+    "id": "customer::19",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Samuel Harris",
+      "email": "samuel.harris@example.com",
+      "phone_number": "+1-202-555-0119",
+      "enrolled_offers": ["offer::10"]
+    }
+  },
+  {
+    "id": "customer::20",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Tina Walker",
+      "email": "tina.walker@example.com",
+      "phone_number": "+1-202-555-0120",
+      "enrolled_offers": ["offer::11", "offer::12"]
+    }
+  },
+  {
+    "id": "customer::21",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Uma Shah",
+      "email": "uma.shah@example.com",
+      "phone_number": "+1-202-555-0121",
+      "enrolled_offers": ["offer::13"]
+    }
+  },
+  {
+    "id": "customer::22",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Victor Lopez",
+      "email": "victor.lopez@example.com",
+      "phone_number": "+1-202-555-0122",
+      "enrolled_offers": ["offer::14", "offer::15"]
+    }
+  },
+  {
+    "id": "customer::23",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Wendy Gonzalez",
+      "email": "wendy.gonzalez@example.com",
+      "phone_number": "+1-202-555-0123",
+      "enrolled_offers": ["offer::16"]
+    }
+  },
+  {
+    "id": "customer::24",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Xavier Perez",
+      "email": "xavier.perez@example.com",
+      "phone_number": "+1-202-555-0124",
+      "enrolled_offers": ["offer::17", "offer::18"]
+    }
+  },
+  {
+    "id": "customer::25",
+    "created_at": "2025-07-13T00:00:00",
+    "updated_at": "2025-07-13T00:00:00",
+    "version": 1,
+    "data": {
+      "name": "Yara Murphy",
+      "email": "yara.murphy@example.com",
+      "phone_number": "+1-202-555-0125",
+      "enrolled_offers": []
+    }
+  }
+]

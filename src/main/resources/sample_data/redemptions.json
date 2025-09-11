@@ -1,0 +1,427 @@
+[
+  {
+    "id": "redemption::1",
+    "created_at": "2025-07-16T10:15:00",
+    "updated_at": "2025-07-16T10:15:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::1",
+      "offer_id": "offer::1",
+      "merchant_id": "merchant::7",
+      "redemption_time": "2025-07-16T10:15:00",
+      "amount": 120.50,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "DISCOUNT",
+      "reward_value": 43.30
+    }
+  },
+  {
+    "id": "redemption::2",
+    "created_at": "2025-07-17T14:22:00",
+    "updated_at": "2025-07-17T14:22:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::2",
+      "offer_id": "offer::3",
+      "merchant_id": "merchant::3",
+      "redemption_time": "2025-07-17T14:22:00",
+      "amount": 75.00,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 48.78
+    }
+  },
+  {
+    "id": "redemption::3",
+    "created_at": "2025-07-18T09:05:00",
+    "updated_at": "2025-07-18T09:05:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::3",
+      "offer_id": "offer::4",
+      "merchant_id": "merchant::21",
+      "redemption_time": "2025-07-18T09:05:00",
+      "amount": 200.00,
+      "currency": "USD",
+      "status": "FAILED",
+      "type": "CASHBACK",
+      "reward_value": 0.00
+    }
+  },
+  {
+    "id": "redemption::4",
+    "created_at": "2025-07-19T16:30:00",
+    "updated_at": "2025-07-19T16:30:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::4",
+      "offer_id": "offer::6",
+      "merchant_id": "merchant::4",
+      "redemption_time": "2025-07-19T16:30:00",
+      "amount": 350.00,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 65.87
+    }
+  },
+  {
+    "id": "redemption::5",
+    "created_at": "2025-07-20T11:45:00",
+    "updated_at": "2025-07-20T11:45:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::5",
+      "offer_id": "offer::8",
+      "merchant_id": "merchant::7",
+      "redemption_time": "2025-07-20T11:45:00",
+      "amount": 99.99,
+      "currency": "USD",
+      "status": "PENDING",
+      "type": "REWARD_POINTS",
+      "reward_value": 96.43
+    }
+  },
+  {
+    "id": "redemption::6",
+    "created_at": "2025-07-21T09:10:00",
+    "updated_at": "2025-07-21T09:10:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::6",
+      "offer_id": "offer::9",
+      "merchant_id": "merchant::23",
+      "redemption_time": "2025-07-21T09:10:00",
+      "amount": 180.00,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "DISCOUNT",
+      "reward_value": 62.81
+    }
+  },
+  {
+    "id": "redemption::7",
+    "created_at": "2025-07-22T13:30:00",
+    "updated_at": "2025-07-22T13:30:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::7",
+      "offer_id": "offer::10",
+      "merchant_id": "merchant::8",
+      "redemption_time": "2025-07-22T13:30:00",
+      "amount": 210.00,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 48.33
+    }
+  },
+  {
+    "id": "redemption::8",
+    "created_at": "2025-07-23T15:00:00",
+    "updated_at": "2025-07-23T15:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::8",
+      "offer_id": "offer::12",
+      "merchant_id": "merchant::25",
+      "redemption_time": "2025-07-23T15:00:00",
+      "amount": 300.00,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 69.04
+    }
+  },
+  {
+    "id": "redemption::9",
+    "created_at": "2025-07-24T10:20:00",
+    "updated_at": "2025-07-24T10:20:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::9",
+      "offer_id": "offer::13",
+      "merchant_id": "merchant::1",
+      "redemption_time": "2025-07-24T10:20:00",
+      "amount": 150.00,
+      "currency": "USD",
+      "status": "FAILED",
+      "type": "DISCOUNT",
+      "reward_value": 0.00
+    }
+  },
+  {
+    "id": "redemption::10",
+    "created_at": "2025-07-25T11:00:00",
+    "updated_at": "2025-07-25T11:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::10",
+      "offer_id": "offer::15",
+      "merchant_id": "merchant::9",
+      "redemption_time": "2025-07-25T11:00:00",
+      "amount": 99.96,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 99.96
+    }
+  },
+  {
+    "id": "redemption::11",
+    "created_at": "2025-07-26T12:30:00",
+    "updated_at": "2025-07-26T12:30:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::11",
+      "offer_id": "offer::16",
+      "merchant_id": "merchant::16",
+      "redemption_time": "2025-07-26T12:30:00",
+      "amount": 500.00,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "CASHBACK",
+      "reward_value": 37.77
+    }
+  },
+  {
+    "id": "redemption::12",
+    "created_at": "2025-07-27T14:00:00",
+    "updated_at": "2025-07-27T14:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::12",
+      "offer_id": "offer::18",
+      "merchant_id": "merchant::4",
+      "redemption_time": "2025-07-27T14:00:00",
+      "amount": 160.00,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 16.19
+    }
+  },
+  {
+    "id": "redemption::13",
+    "created_at": "2025-07-28T16:45:00",
+    "updated_at": "2025-07-28T16:45:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::13",
+      "offer_id": "offer::1",
+      "merchant_id": "merchant::7",
+      "redemption_time": "2025-07-28T16:45:00",
+      "amount": 120.50,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "DISCOUNT",
+      "reward_value": 43.30
+    }
+  },
+  {
+    "id": "redemption::14",
+    "created_at": "2025-07-29T09:30:00",
+    "updated_at": "2025-07-29T09:30:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::14",
+      "offer_id": "offer::2",
+      "merchant_id": "merchant::14",
+      "redemption_time": "2025-07-29T09:30:00",
+      "amount": 41.39,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 41.39
+    }
+  },
+  {
+    "id": "redemption::15",
+    "created_at": "2025-07-30T10:00:00",
+    "updated_at": "2025-07-30T10:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::15",
+      "offer_id": "offer::4",
+      "merchant_id": "merchant::21",
+      "redemption_time": "2025-07-30T10:00:00",
+      "amount": 28.46,
+      "currency": "USD",
+      "status": "FAILED",
+      "type": "CASHBACK",
+      "reward_value": 0.00
+    }
+  },
+  {
+    "id": "redemption::16",
+    "created_at": "2025-07-31T11:15:00",
+    "updated_at": "2025-07-31T11:15:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::16",
+      "offer_id": "offer::6",
+      "merchant_id": "merchant::4",
+      "redemption_time": "2025-07-31T11:15:00",
+      "amount": 65.87,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 65.87
+    }
+  },
+  {
+    "id": "redemption::17",
+    "created_at": "2025-08-01T12:00:00",
+    "updated_at": "2025-08-01T12:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::17",
+      "offer_id": "offer::7",
+      "merchant_id": "merchant::19",
+      "redemption_time": "2025-08-01T12:00:00",
+      "amount": 82.53,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 82.53
+    }
+  },
+  {
+    "id": "redemption::18",
+    "created_at": "2025-08-02T13:30:00",
+    "updated_at": "2025-08-02T13:30:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::18",
+      "offer_id": "offer::9",
+      "merchant_id": "merchant::23",
+      "redemption_time": "2025-08-02T13:30:00",
+      "amount": 62.81,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "DISCOUNT",
+      "reward_value": 62.81
+    }
+  },
+  {
+    "id": "redemption::19",
+    "created_at": "2025-08-03T14:45:00",
+    "updated_at": "2025-08-03T14:45:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::19",
+      "offer_id": "offer::10",
+      "merchant_id": "merchant::8",
+      "redemption_time": "2025-08-03T14:45:00",
+      "amount": 48.33,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 48.33
+    }
+  },
+  {
+    "id": "redemption::20",
+    "created_at": "2025-08-04T15:00:00",
+    "updated_at": "2025-08-04T15:00:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::20",
+      "offer_id": "offer::12",
+      "merchant_id": "merchant::25",
+      "redemption_time": "2025-08-04T15:00:00",
+      "amount": 69.04,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 69.04
+    }
+  },
+  {
+    "id": "redemption::21",
+    "created_at": "2025-08-05T16:10:00",
+    "updated_at": "2025-08-05T16:10:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::21",
+      "offer_id": "offer::13",
+      "merchant_id": "merchant::1",
+      "redemption_time": "2025-08-05T16:10:00",
+      "amount": 93.68,
+      "currency": "USD",
+      "status": "FAILED",
+      "type": "DISCOUNT",
+      "reward_value": 0.00
+    }
+  },
+  {
+    "id": "redemption::22",
+    "created_at": "2025-08-06T17:20:00",
+    "updated_at": "2025-08-06T17:20:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::22",
+      "offer_id": "offer::14",
+      "merchant_id": "merchant::13",
+      "redemption_time": "2025-08-06T17:20:00",
+      "amount": 10.57,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 10.57
+    }
+  },
+  {
+    "id": "redemption::23",
+    "created_at": "2025-08-07T18:30:00",
+    "updated_at": "2025-08-07T18:30:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::23",
+      "offer_id": "offer::16",
+      "merchant_id": "merchant::16",
+      "redemption_time": "2025-08-07T18:30:00",
+      "amount": 37.77,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "CASHBACK",
+      "reward_value": 37.77
+    }
+  },
+  {
+    "id": "redemption::24",
+    "created_at": "2025-08-08T19:40:00",
+    "updated_at": "2025-08-08T19:40:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::24",
+      "offer_id": "offer::17",
+      "merchant_id": "merchant::20",
+      "redemption_time": "2025-08-08T19:40:00",
+      "amount": 25.88,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "REWARD_POINTS",
+      "reward_value": 25.88
+    }
+  },
+  {
+    "id": "redemption::25",
+    "created_at": "2025-08-09T20:50:00",
+    "updated_at": "2025-08-09T20:50:00",
+    "version": 1,
+    "data": {
+      "customer_id": "customer::25",
+      "offer_id": "offer::25",
+      "merchant_id": "merchant::15",
+      "redemption_time": "2025-08-09T20:50:00",
+      "amount": 99.16,
+      "currency": "USD",
+      "status": "SUCCESS",
+      "type": "DISCOUNT",
+      "reward_value": 99.16
+    }
+  }
+]
