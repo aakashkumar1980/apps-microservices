@@ -1,4 +1,4 @@
-package com.example.tutorial.process;
+package com.example.tutorial.process.transformation;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -43,8 +43,17 @@ public class DataMapping implements CommandLineRunner {
                 }
             )
             .toList();
-    System.out.println(String.format("Campaigns size: %d", campaignNames.size()));
+    System.out.println(String.format("campaignNames size: %d", campaignNames.size()));
     campaignNames.forEach(System.out::println);
+
+    String alphabets = "abacdac";
+    List<Character> characters =
+        alphabets.chars()
+            .mapToObj(
+                c -> (char) c
+            ).toList();
+    System.out.println(String.format("characters size: %d", characters.size()));
+    characters.forEach(System.out::println);
   }
 
 }

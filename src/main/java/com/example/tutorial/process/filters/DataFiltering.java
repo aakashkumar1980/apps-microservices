@@ -1,4 +1,4 @@
-package com.example.tutorial.process;
+package com.example.tutorial.process.filters;
 
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
@@ -39,7 +39,7 @@ public class DataFiltering implements CommandLineRunner {
         CAMPAIGNS.get().stream()
             .filter(c -> c.getStatus() == CampaignStatus.ACTIVE)
             .toList();
-    System.out.println(String.format("Filtered Campaigns size: %d", filteredCampaigns.size()));
+    System.out.println(String.format("filteredCampaigns size: %d", filteredCampaigns.size()));
     filteredCampaigns.forEach(System.out::println);
   }
 

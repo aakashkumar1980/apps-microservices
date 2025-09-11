@@ -1,4 +1,4 @@
-package com.example.tutorial.process;
+package com.example.tutorial.process.filters;
 
 import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
 import org.springframework.boot.CommandLineRunner;
