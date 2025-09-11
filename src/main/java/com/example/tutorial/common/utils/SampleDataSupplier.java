@@ -24,15 +24,15 @@ import java.util.stream.Stream;
  * and also expose flattened List<T> via BaseDto::getData.
  *
  * Expected files (JSON arrays of BaseDto<T>):
- *  - src/main/resources/sample_data/offers.json
- *  - src/main/resources/sample_data/campaigns.json
- *  - src/main/resources/sample_data/merchants.json
- *  - src/main/resources/sample_data/customers.json
- *  - src/main/resources/sample_data/redemptions.json
+ *  - src/main/resources/sample_data/offer.json
+ *  - src/main/resources/sample_data/campaign.json
+ *  - src/main/resources/sample_data/merchant.json
+ *  - src/main/resources/sample_data/customer.json
+ *  - src/main/resources/sample_data/redemption.json
  *
  * Usage:
  *   List<BaseDto<Offer>> offerDtos = SampleDataSupplier.OFFERS_DTO.get();
- *   List<Offer>          offers    = SampleDataSupplier.OFFERS.get(); // flattened
+ *   List<Offer>          offer    = SampleDataSupplier.OFFERS.get(); // flattened
  */
 public final class SampleDataSupplier {
 
@@ -42,23 +42,29 @@ public final class SampleDataSupplier {
 
   private SampleDataSupplier() {}
 
-  // ====== DTO suppliers (read BaseDto<T>[] from JSON) ======
+  /**
+   * Supplier for List of BaseDto<Offer> read from JSON file.
+   * Each BaseDto wraps an Offer object in its 'data' field.
+   */
   public static final Supplier<List<BaseDto<Offer>>> OFFERS_DTO =
-      () -> readBaseDtoArrayFile("src/main/resources/sample_data/offers.json", Offer.class);
+      () -> readBaseDtoArrayFile("src/main/resources/sample_data/offer.json", Offer.class);
 
   public static final Supplier<List<BaseDto<Campaign>>> CAMPAIGNS_DTO =
-      () -> readBaseDtoArrayFile("src/main/resources/sample_data/campaigns.json", Campaign.class);
+      () -> readBaseDtoArrayFile("src/main/resources/sample_data/campaign.json", Campaign.class);
 
   public static final Supplier<List<BaseDto<Merchant>>> MERCHANTS_DTO =
-      () -> readBaseDtoArrayFile("src/main/resources/sample_data/merchants.json", Merchant.class);
+      () -> readBaseDtoArrayFile("src/main/resources/sample_data/merchant.json", Merchant.class);
 
   public static final Supplier<List<BaseDto<Customer>>> CUSTOMERS_DTO =
-      () -> readBaseDtoArrayFile("src/main/resources/sample_data/customers.json", Customer.class);
+      () -> readBaseDtoArrayFile("src/main/resources/sample_data/customer.json", Customer.class);
 
   public static final Supplier<List<BaseDto<Redemption>>> REDEMPTIONS_DTO =
-      () -> readBaseDtoArrayFile("src/main/resources/sample_data/redemptions.json", Redemption.class);
+      () -> readBaseDtoArrayFile("src/main/resources/sample_data/redemption.json", Redemption.class);
 
-  // ====== Flattened suppliers (map BaseDto<T>::getData → List<T>) ======
+  /**
+   * Supplier for List of Offer objects, flattened from List of BaseDto<Offer>.
+   * Each Offer is extracted from the 'data' field of its BaseDto wrapper.
+   */
   public static final Supplier<List<Offer>> OFFERS =
       () -> flatten(OFFERS_DTO.get());
 
