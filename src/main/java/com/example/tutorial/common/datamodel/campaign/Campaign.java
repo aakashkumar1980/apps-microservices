@@ -49,6 +49,7 @@ public class Campaign {
 
   public CampaignStatus getStatus() { return status; }
   public void setStatus(CampaignStatus status) { this.status = status; }
+  public Boolean isActive() { return this.status == CampaignStatus.ACTIVE; }
 
   public String getCancellationReason() { return cancellationReason; }
   public void setCancellationReason(String cancellationReason) { this.cancellationReason = cancellationReason; }
