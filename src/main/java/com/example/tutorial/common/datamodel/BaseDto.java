@@ -2,7 +2,6 @@ package com.example.tutorial.common.datamodel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.ClassUtils;
-
 import java.time.LocalDateTime;
 
 /**
@@ -40,12 +39,21 @@ public class BaseDto<T> {
    * This field is annotated with @Id to indicate that it is the primary key in the database.
    * <pre>
    *   The id is generated in the format of "type::id" where type is the name of the DTO and the id is a unique identifier,
-   *   obtained from the DB.
+   *   obtained from the DBUtils class.
    *   DBUtils.getUniqueCounter(...).
    * </pre>
    */
   @JsonProperty("id")
   private String id = "dto:1";
+
+  /**
+   * CAS (Compare-And-Swap) field for optimistic locking.
+   * This field is automatically managed by Couchbase and should not be set manually.
+   * In couchbase, the CAS value is a unique identifier that changes every time the document is updated.
+   * It is used to ensure that updates to a document are based on the most recent version, preventing
+   * lost updates in concurrent environments.
+   */
+  private Long cas;
 
   @JsonProperty("version")
   private Integer version;
@@ -100,6 +108,8 @@ public class BaseDto<T> {
   public void setId(String id) {
     this.id = id;
   }
+  public Long getCas() {return cas;}
+  public void setCas(Long cas) {this.cas = cas;}
   public Integer getVersion() {return version;}
   public void setVersion(Integer version) {this.version = version;}
   public LocalDateTime getCreatedAt() {return createdAt;}
@@ -117,6 +127,7 @@ public class BaseDto<T> {
   public String toString() {
     return "BaseDto{" +
            "id='" + id + '\'' +
+            ", cas=" + cas +
             ", version=" + version +
            ", createdAt='" + createdAt + '\'' +
           ", createdBy='" + createdBy + '\'' +
