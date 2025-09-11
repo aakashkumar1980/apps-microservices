@@ -63,32 +63,10 @@ def commonsBeanUtilsVersion = '1.11.0'
 dependencies {
   /** SPRING BOOT **/
   /**
-   * Spring Boot starter for building RESTful APIs.
+   * Spring Boot starter.
    */
-  implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-
-  /**
-   * Spring Boot starter for validation.
-   */
-  implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-  /**
-   * Spring Boot couchbase starter for integrating Couchbase as a data store.
-   */
-  implementation 'org.springframework.boot:spring-boot-starter-data-couchbase'
-  implementation 'com.couchbase.client:java-client:3.5.0'
-
-  /**
-   * Spring Boot kafka starter for integrating Apache Kafka.
-   */
-  implementation 'org.apache.kafka:kafka-clients'
-  implementation 'org.springframework.kafka:spring-kafka'
-
-  /**
-   * Spring Boot starter for Redis cache.
-   */
-  implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-
+  implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+  implementation "com.fasterxml.jackson.core:jackson-annotations"
 
   /** UTILITIES **/
   /**

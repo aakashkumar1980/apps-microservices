@@ -1,56 +1,35 @@
 package com.example.tutorial.common.datamodel.campaign;
 
-import com.example.tutorial.common.utils.validation.datamodel.ValidCampaign;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.*;
-import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@ValidCampaign
 public class Campaign {
 
-  @NotBlank
-  @Size(min = 3, max = 100)
   @JsonProperty("name")
-  @Field("name")
   private String name;
 
-  @Size(max = 500)
   @JsonProperty("description")
-  @Field("description")
   private String description;
 
-  @NotNull
-  @FutureOrPresent
   @JsonProperty("start_date")
-  @Field("start_date")
   private LocalDateTime startDate;
 
-  @NotNull
-  @Future
   @JsonProperty("end_date")
-  @Field("end_date")
   private LocalDateTime endDate;
 
-  @DecimalMin("0.0")
   @JsonProperty("budget")
-  @Field("budget")
   private BigDecimal budget;
 
-  @NotNull
   @JsonProperty("status")
-  @Field("status")
   private CampaignStatus status;
 
   @JsonProperty("cancellation_reason")
-  @Field("cancellation_reason")
   private String cancellationReason;
 
   @JsonProperty("linked_offers")
-  @Field("linked_offers")
   private List<String> linkedOffers;
 
   public String getName() { return name; }

@@ -1,29 +1,21 @@
 package com.example.tutorial.common.datamodel.customer;
 
-import jakarta.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.util.List;
 
 public class Customer {
 
-  @NotBlank
   @JsonProperty("name")
-  @Field("name")
   private String name;
 
-  @Email
   @JsonProperty("email")
-  @Field("email")
   private String email;
 
   @JsonProperty("phone_number")
-  @Field("phone_number")
   private String phoneNumber;
 
   @JsonProperty("enrolled_offers")
-  @Field("enrolled_offers")
   private List<String> enrolledOffers;
 
   public String getName() { return name; }
