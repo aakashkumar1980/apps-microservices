@@ -63,6 +63,7 @@ public class DataGroupingCount implements CommandLineRunner {
             .mapToObj(
                 c -> (char) c
             )
+
             // next, group by character and count occurrences
             .collect(
                 Collectors.groupingBy(
