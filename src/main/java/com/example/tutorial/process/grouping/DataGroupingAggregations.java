@@ -31,14 +31,13 @@ public class DataGroupingAggregations implements CommandLineRunner {
    *     .collect(
    *       Collectors.groupingBy(
    *         keyMapper, // Function to extract the key for grouping e.g.
-   *         // c -> {return c.getStatus();} | c -> c.getStatus() | Campaign::getStatus
+   *         // r -> {return r.getCustomerId();} | r -> r.getCustomerId() | Redemption::getCustomerId
    *
    *         aggregationFunction // collector to count the number of elements in each group e.g.
-   *         // Collectors.counting() -> to count the number of elements in each group
-   *         // Collectors.summingDouble(c -> c.getBudget().doubleValue()) -> to sum the budget of each group
-   *         // Collectors.averagingDouble(c -> c.getBudget().doubleValue()) -> to average the budget of each group
-   *         // Collectors.maxBy(Comparator.comparing(c -> c.getBudget().doubleValue())) -> to get the max budget of each group
-   *         // Collectors.minBy(Comparator.comparing(c -> c.getBudget().doubleValue())) -> to get the min budget of each group
+   *         // Collectors.summingDouble(r -> r.getAmount().doubleValue()) -> to sum the amount of each group
+   *         // Collectors.averagingDouble(r -> r.getAmount().doubleValue()) -> to average the amount of each group
+   *         // Collectors.maxBy(Comparator.comparing(r -> r.getAmount().doubleValue())) -> to get the max amount of each group
+   *         // Collectors.minBy(Comparator.comparing(r -> r.getAmount().doubleValue())) -> to get the min amount of each group
    *       )
    *     );
    * </pre>
@@ -47,7 +46,7 @@ public class DataGroupingAggregations implements CommandLineRunner {
   public void run(String... args) {
     System.out.println(String.format("Redemptions size: %d", REDEMPTIONS.get().size()));
 
-    /** Group by customerId and sum the amount */
+    /** Group by customerId and sum the amount spent */
     Map<String, Double> totalDiscountAmountByCustomerId =
         REDEMPTIONS.get().stream()
             .collect(
@@ -64,7 +63,7 @@ public class DataGroupingAggregations implements CommandLineRunner {
         System.out.println(String.format("Customer ID: %s, Total Discount Amount: %.2f", customerId, totalAmount))
     );
 
-    /** Group by Customer object and sum the amount */
+    /** Group by Customer object and sum the amount spent */
     Map<Customer, Double> totalDiscountAmountByCustomer =
         REDEMPTIONS.get().stream()
             .collect(
