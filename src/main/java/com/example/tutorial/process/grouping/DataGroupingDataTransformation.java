@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 import static com.example.tutorial.common.utils.SampleDataSupplier.*;
 
 @Component
-public class DataGroupingDataMapping implements CommandLineRunner {
+public class DataGroupingDataTransformation implements CommandLineRunner {
   public static void main(String[] args) {
-    SpringApplication.run(DataGroupingDataMapping.class, args);
+    SpringApplication.run(DataGroupingDataTransformation.class, args);
   }
 
   /**
