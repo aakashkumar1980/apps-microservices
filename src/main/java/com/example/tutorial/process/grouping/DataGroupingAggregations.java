@@ -19,21 +19,20 @@ public class DataGroupingAggregations implements CommandLineRunner {
   }
 
   /**
-   * Data Grouping using Java Streams
+   * Data grouping and aggregation using Java Streams
    * <p>
-   * In this example, we will demonstrate how to group data using Java Streams.
-   * We will use a list of Campaign objects and group them by their status and
-   * then count the number of campaigns in each status.
+   * In this example, we will demonstrate how to group data and then aggregate the grouped data using
+   * Java Streams.
    * </p>
    * <b>Syntax:</b>
    * <pre>
    *   list.stream()
    *     .collect(
    *       Collectors.groupingBy(
-   *         keyMapper, // Function to extract the key for grouping e.g.
+   *         keyMapper, // function to extract the key for grouping e.g.
    *         // r -> {return r.getCustomerId();} | r -> r.getCustomerId() | Redemption::getCustomerId
    *
-   *         aggregationFunction // collector to count the number of elements in each group e.g.
+   *         aggregationFunction // function to aggregate the values in each group e.g.
    *         // Collectors.summingDouble(r -> r.getAmount().doubleValue()) -> to sum the amount of each group
    *         // Collectors.averagingDouble(r -> r.getAmount().doubleValue()) -> to average the amount of each group
    *         // Collectors.maxBy(Comparator.comparing(r -> r.getAmount().doubleValue())) -> to get the max amount of each group
