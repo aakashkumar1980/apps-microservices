@@ -37,6 +37,8 @@ public class DataGroupingAggregations implements CommandLineRunner {
    *         // Collectors.counting() -> to count the number of elements in each group
    *         // Collectors.summingDouble(c -> c.getBudget().doubleValue()) -> to sum the budget of each group
    *         // Collectors.averagingDouble(c -> c.getBudget().doubleValue()) -> to average the budget of each group
+   *         // Collectors.maxBy(Comparator.comparing(c -> c.getBudget().doubleValue())) -> to get the max budget of each group
+   *         // Collectors.minBy(Comparator.comparing(c -> c.getBudget().doubleValue())) -> to get the min budget of each group
    *       )
    *     );
    * </pre>
