@@ -26,7 +26,7 @@ public class DataGroupingAggregationsBasic implements CommandLineRunner {
    * <b>Syntax:</b>
    * <pre>
    * {@code
-   * list.stream()
+   * Map<K, Long> aggregateByKey = list<T>.stream()
    *    .collect(Collectors.groupingBy(
    *        keyExtractorFunction,
    *        aggregateFunction
@@ -41,7 +41,7 @@ public class DataGroupingAggregationsBasic implements CommandLineRunner {
    *   <li>{@code Collectors.groupingBy()}: Groups elements by the key and use aggregateFunction to run in each group.</li>
    *   <ul>
    *      <li>{@code keyExtractorFunction}: A function that extracts the key for grouping e.g., <br/>
-   *        {@code Campaign::getStatus}
+   *        {@code t -> t.getStatus()} => K
    *      </li>
    *      <li>{@code aggregateFunction}: A downstream collector that performs a reduction operation on the values associated with a given key e.g., <br/>
    *        {@code Collectors.counting()}

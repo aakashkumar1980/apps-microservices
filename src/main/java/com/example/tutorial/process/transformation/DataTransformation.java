@@ -36,7 +36,7 @@ public class DataTransformation implements CommandLineRunner {
    *   <li>{@code .toList()}: Collects the results into a new list.</li>
    *   <li>Examples of mapping functions:
    *     <ul>
-   *       <li>{@code c -> c.getName()}</li>
+   *       <li>{@code t -> t.getName()}</li>
    *       <li>{@code Campaign::getName}</li>
    *     </ul>
    *   </li>

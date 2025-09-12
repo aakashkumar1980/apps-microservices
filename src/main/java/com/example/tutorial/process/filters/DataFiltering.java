@@ -32,8 +32,8 @@ public class DataFiltering implements CommandLineRunner {
    *   <li><code>.filter(predicate)</code>: Filters elements using a predicate <code>p</code> (a function returning boolean).</li>
    *   <li>Examples of predicates:
    *     <ul>
-   *       <li><code>c -&gt; c.getStatus().equals(CampaignStatus.ACTIVE)</code></li>
-   *       <li><code>c -&gt; c.getStatus() == CampaignStatus.ACTIVE</code></li>
+   *       <li><code>t -&gt; t.getStatus().equals(CampaignStatus.ACTIVE)</code></li>
+   *       <li><code>t -&gt; t.getStatus() == CampaignStatus.ACTIVE</code></li>
    *       <li><code>Campaign::isActive</code> (if <code>isActive()</code> is defined in <code>Campaign</code> class)</li>
    *     </ul>
    *   </li>

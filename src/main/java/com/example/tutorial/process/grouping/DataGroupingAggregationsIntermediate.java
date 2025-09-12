@@ -26,7 +26,7 @@ public class DataGroupingAggregationsIntermediate implements CommandLineRunner {
    * <b>Syntax:</b>
    * <pre>
    * {@code
-   * list.stream()
+   * Map<K, Double/Int/Long> aggregateByKey = list<T>.stream()
    *    .collect(Collectors.groupingBy(
    *        keyExtractorFunction,
    *        aggregateFunction
@@ -41,7 +41,7 @@ public class DataGroupingAggregationsIntermediate implements CommandLineRunner {
    *   <li>{@code Collectors.groupingBy()}: Groups elements by the key and use aggregateFunction to run in each group.</li>
    *   <ul>
    *      <li>{@code keyExtractorFunction}: A function that extracts the key for grouping e.g., <br/>
-   *        {@code Redemption::getCustomerId}
+   *        {@code t -> t.getCustomerId()} => K
    *      </li>
    *      <li>{@code aggregateFunction}: A downstream collector that performs a reduction operation on the values associated with a given key e.g., <br/>
    *          {@code Collectors.summingDouble/Int/Long(r -> r.getAmount().doubleValue())} <br/>
@@ -80,6 +80,7 @@ public class DataGroupingAggregationsIntermediate implements CommandLineRunner {
             .collect(
                 Collectors.groupingBy(
                     /** keyMapper **/
+                    // instead of returning customerId, return the Customer object
                     r -> {
                       // convert customerId to Customer object
                       String customerId = r.getCustomerId();
