@@ -13,33 +13,45 @@ import java.util.stream.Collectors;
 import static com.example.tutorial.common.utils.SampleDataSupplier.*;
 
 @Component
-public class DataGroupingAggregations implements CommandLineRunner {
+public class DataGroupingAggregationsIntermediate implements CommandLineRunner {
   public static void main(String[] args) {
-    SpringApplication.run(DataGroupingAggregations.class, args);
+    SpringApplication.run(DataGroupingAggregationsIntermediate.class, args);
   }
-
   /**
-   * Data grouping and aggregation using Java Streams
    * <p>
-   * In this example, we will demonstrate how to group data and then aggregate the grouped data using
-   * Java Streams.
+   * This is basically a simple grouping the dataset with a key (an attribute of the object)
+   * and then applying an aggregation function on the grouped data.
    * </p>
+   *
    * <b>Syntax:</b>
    * <pre>
-   *   list.stream()
-   *     .collect(
-   *       Collectors.groupingBy(
-   *         keyMapper, // function to extract the key for grouping e.g.
-   *         // r -> {return r.getCustomerId();} | r -> r.getCustomerId() | Redemption::getCustomerId
+   * {@code
+   * list.stream()
+   *    .collect(Collectors.groupingBy(
+   *        keyExtractorFunction,
+   *        aggregateFunction
+   *    ));
    *
-   *         aggregationFunction // function to aggregate the values in each group e.g.
-   *         // Collectors.summingDouble(r -> r.getAmount().doubleValue()) -> to sum the amount of each group
-   *         // Collectors.averagingDouble(r -> r.getAmount().doubleValue()) -> to average the amount of each group
-   *         // Collectors.maxBy(Comparator.comparing(r -> r.getAmount().doubleValue())) -> to get the max amount of each group
-   *         // Collectors.minBy(Comparator.comparing(r -> r.getAmount().doubleValue())) -> to get the min amount of each group
-   *       )
-   *     );
-   * </pre>
+   * }</pre>
+   *
+   * <p>
+   * <b>Explanation:</b>
+   * <ul>
+   *   <li>{@code list.stream()}: Creates a stream from the list.</li>
+   *   <li>{@code Collectors.groupingBy()}: Groups elements by the key and use aggregateFunction to run in each group.</li>
+   *   <ul>
+   *      <li>{@code keyExtractorFunction}: A function that extracts the key for grouping e.g., <br/>
+   *        {@code Redemption::getCustomerId}
+   *      </li>
+   *      <li>{@code aggregateFunction}: A downstream collector that performs a reduction operation on the values associated with a given key e.g., <br/>
+   *          {@code Collectors.summingDouble/Int/Long(r -> r.getAmount().doubleValue())} <br/>
+   *          {@code Collectors.averagingDouble/Int/Long(r -> r.getAmount().doubleValue())} <br/>
+   *          {@code Collectors.maxBy(Comparator.comparingDouble/Int/Long(r -> r.getAmount().doubleValue()))} <br/>
+   *          {@code Collectors.minBy(Comparator.comparingDouble/Int/Long(r -> r.getAmount().doubleValue()))}
+   *      </li>
+   *   </ul>
+   * </ul>
+   * </p>
    */
   @Override
   public void run(String... args) {

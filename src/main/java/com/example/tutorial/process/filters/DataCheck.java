@@ -14,24 +14,27 @@ public class DataCheck implements CommandLineRunner {
   }
 
   /**
-   * Data Check Example
-   * <p>
-   *  In this example, we will demonstrate how to use Java Streams to perform data checks on a list of campaigns.
-   *  - We will check if at least one campaign is in DRAFT status.
-   *  - We will check if all campaigns are in ACTIVE status.
-   *  - We will check if no campaigns are in EXPIRED status.
-   * </p>
-   * <b>Syntax:</b>
-   * <pre>
-   *   list.stream()
-   *        .anyMatch(c -> c.getStatus() == CampaignStatus.DRAFT); // at least one match
+   * Checks if elements in a list satisfy certain conditions using Java Streams.
    *
-   *     list.stream()
-   *        .allMatch(c -> c.getStatus() == CampaignStatus.ACTIVE); // all match
+   * <p><b>Syntax:</b></p>
+   * <pre>{@code
+   * boolean any = list<T>.stream().anyMatch(predicate);
+   * boolean all = list<T>.stream().allMatch(predicate);
+   * boolean none = list<T>.stream().noneMatch(predicate);
+   * }</pre>
    *
-   *     list.stream()
-   *        .noneMatch(c -> c.getStatus() == CampaignStatus.EXPIRED); // none match
-   * </pre>
+   * <p><b>Explanation:</b></p>
+   * <ul>
+   *   <li><code>list.stream()</code>: Creates a stream from the list.</li>
+   *   <li><code>.anyMatch(predicate)</code>: Returns <code>true</code> if any element matches the predicate <code>p</code>.</li>
+   *   <li><code>.allMatch(predicate)</code>: Returns <code>true</code> if all elements match the predicate <code>p</code>.</li>
+   *   <li><code>.noneMatch(predicate)</code>: Returns <code>true</code> if no elements match the predicate <code>p</code>.</li>
+   *   <li>Examples of predicates:
+   *     <ul>
+   *       <li><code>t -&gt; t.getStatus() == CampaignStatus.DRAFT</code></li>
+   *     </ul>
+   *   </li>
+   * </ul>
    */
   @Override
   public void run(String... args) {
