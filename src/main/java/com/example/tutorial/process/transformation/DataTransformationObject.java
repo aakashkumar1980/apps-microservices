@@ -1,5 +1,6 @@
 package com.example.tutorial.process.transformation;
 
+import com.example.tutorial.common.datamodel.campaign.Campaign;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
@@ -36,8 +37,7 @@ public class DataTransformationObject implements CommandLineRunner {
    *   <li>{@code .toList()}: Collects the results into a new list.</li>
    *   <li>Examples of mapping functions:
    *     <ul>
-   *       <li>{@code t -> t.getName()}</li>
-   *       <li>{@code Campaign::getName}</li>
+   *       <li>{@code T::getField} => R</li>
    *     </ul>
    *   </li>
    * </ul>
@@ -50,10 +50,7 @@ public class DataTransformationObject implements CommandLineRunner {
     /** Map Campaign to Campaign Name */
     List<String> campaignNames =
         CAMPAIGNS.get().stream()
-            .map(c -> {
-                  return c.getName();
-                }
-            )
+            .map(Campaign::getName)
             .toList();
     System.out.println(String.format("campaignNames size: %d", campaignNames.size()));
     campaignNames.forEach(System.out::println);

@@ -434,7 +434,7 @@
       "currency": "USD",
       "valid_from": "2025-07-15T00:00:00",
       "valid_to": "2025-08-07T00:00:00",
-      "max_redemptions": 469,
+      "max_redemptions": 1000,
       "status": "ACTIVE",
       "segment_criteria": "SILVER"
     }
