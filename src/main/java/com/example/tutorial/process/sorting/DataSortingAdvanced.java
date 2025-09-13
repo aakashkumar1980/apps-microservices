@@ -1,6 +1,7 @@
 package com.example.tutorial.process.sorting;
 
 import com.example.tutorial.common.datamodel.offer.Offer;
+import com.example.tutorial.common.datamodel.redemption.Redemption;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.example.tutorial.common.utils.SampleDataSupplier.OFFERS;
+import static com.example.tutorial.common.utils.SampleDataSupplier.REDEMPTIONS;
 
 @Component
 public class DataSortingAdvanced implements CommandLineRunner {
@@ -25,7 +27,12 @@ public class DataSortingAdvanced implements CommandLineRunner {
    *     .sorted(
    *         Comparator
    *             .comparing(T::getField1, Comparator.reverseOrder())
-   *             .thenComparing(T::getField2, Comparator.reverseOrder())
+   *             .thenComparing(T::getField2, Comparator.reverseOrder()) <optional>
+   *
+   *         OR,
+   *         Comparator
+   *             .comparing(T::getField1)
+   *             .reversed()
    *     )
    *     .limit(n)
    *     .toList();
@@ -54,6 +61,19 @@ public class DataSortingAdvanced implements CommandLineRunner {
             .toList();
     System.out.println("Top 5 Offers sorted by maxRedemptions in descending order:");
     top5OffersByRedemption.forEach(System.out::println);
+
+    List<Redemption> latest5Redemptions =
+        REDEMPTIONS.get().stream()
+            .sorted(
+                Comparator.comparing(
+                    Redemption::getRedemptionTime
+                ).reversed()
+            )
+            .limit(5)
+            .toList();
+    System.out.println("Latest 5 Redemptions sorted by redemptionTime in descending order:");
+    latest5Redemptions.forEach(System.out::println);
+
 
     List<Offer> top5OffersByRedemptionAndDiscountAmount =
         OFFERS.get().stream()
