@@ -9,9 +9,9 @@ import java.util.List;
 import static com.example.tutorial.common.utils.SampleDataSupplier.CAMPAIGNS;
 
 @Component
-public class DataTransformation implements CommandLineRunner {
+public class DataTransformationObject implements CommandLineRunner {
   public static void main(String[] args) {
-    SpringApplication.run(DataTransformation.class, args);
+    SpringApplication.run(DataTransformationObject.class, args);
   }
 
   /**
