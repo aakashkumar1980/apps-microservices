@@ -12,36 +12,49 @@ import java.util.stream.Collectors;
 
 import static com.example.tutorial.common.utils.SampleDataSupplier.*;
 
+/**
+ * <p>
+ * This is basically a simple grouping the dataset with a key (an attribute of the object)
+ * and then applying a mapping function on the grouped data.
+ * </p>
+ *
+ * <b>Syntax:</b>
+ * <pre>
+ * {@code
+ * Map<K, List/Set/String/Long/Integer/Double<V>> groupedByKey = list<T>.stream()
+ *    .collect(Collectors.groupingBy(
+ *        keyExtractorFunction,
+ *
+ *        Collectors.mapping(
+ *          mapperFunction,
+ *          Collectors.toList/Set/joining/counting/summingInt/averagingDouble()
+ *        )
+ *    ));
+ * }
+ * </pre>
+ *
+ * <p>
+ * <b>Explanation:</b>
+ * <ul>
+ *   <li>{@code list.stream()}: Creates a stream from the list.</li>
+ *   <li>{@code Collectors.groupingBy()}: Groups elements by the key and use mapperFunction to run in each group.</li>
+ *   <ul>
+ *      <li>{@code keyExtractorFunction}: Function to extract the key for grouping, e.g., <br/>
+ *        {@code t -> t.getCampaignId()} => K
+ *      </li>
+ *      <li>{@code mapperFunction}: For transforming the grouped elements before collecting them. e.g., <br/>
+ *        {@code t -> t.getId()} => V
+ *      </li>
+ *   </ul>
+ * </ul>
+ * </p>
+ */
 @Component
 public class DataGroupingDataTransformation implements CommandLineRunner {
   public static void main(String[] args) {
     SpringApplication.run(DataGroupingDataTransformation.class, args);
   }
 
-  /**
-   * Data grouping and transformation using Java Streams
-   * <p>
-   * In this example, we will demonstrate how to group data using Java Streams and
-   * then transform the grouped data using a mapping function.
-   * </p>
-   * <b>Syntax:</b>
-   * <pre>
-   *   list.stream()
-   *     .collect(
-   *       Collectors.groupingBy(
-   *         keyMapper, // function to extract the key for grouping e.g.
-   *         // o -> {return o.getData().getCampaignId();} | o -> o.getData().getCampaignId()
-   *
-   *         mapperFunction // function to extract the value for mapping e.g.
-   *         // Collectors.mapping(
-   *         //   valueMapper, // function to extract the value for mapping e.g.  o -> o.getId()
-   *         //
-   *         //   Collectors.toList() // collector to accumulate the mapped values
-   *         // )
-   *       )
-   *     );
-   * </pre>
-   */
   @Override
   public void run(String... args) {
     System.out.println(String.format("Offers size: %d", OFFERS_DTO.get().size()));
