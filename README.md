@@ -24,7 +24,8 @@ int add(int x, int y) {
    The result of the expression is automatically returned.
    Example:
    ```java
-   (int x, int y) -> x + y
+   (int x, int y) -> x + y, OR
+   (x, y) -> x + y
    ```
    
 3. No Parameter: This style is used when the lambda expression does not take any parameters. It is often used for
