@@ -19,10 +19,7 @@ import static com.example.tutorial.common.utils.SampleDataSupplier.CUSTOMERS;
  * <pre>
  * {@code
  * Set<R> result = list<T>.stream()
- *    .flatMap(
- *      t ->  t.getCollectionAttribute() => R
- *            .stream()
- *    )
+ *    .flatMap(streamFunction<R>)
  *    .collect(Collectors.toSet());
  * }
  * </pre>
@@ -31,7 +28,11 @@ import static com.example.tutorial.common.utils.SampleDataSupplier.CUSTOMERS;
  * <b>Explanation:</b>
  * <ul>
  *   <li>{@code list.stream()}: Creates a stream from the outer list.</li>
- *   <li>{@code flatMap(t -> t.getCollectionAttribute().stream())}: Flattens each inner collection into a single stream of elements.</li>
+ *   <li>{@code streamFunction<R>}: A function that takes an element of type T and returns a stream of elements of type R.
+ *    <pre>{@code
+ *      t -> t.getCollectionAttribute().stream() => stream<R>
+ *    }</pre>
+ *   </li>
  *   <li>{@code collect(Collectors.toSet())}: Collects the flattened elements into a {@code Set}.</li>
  * </ul>
  * </p>
