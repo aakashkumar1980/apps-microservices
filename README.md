@@ -110,12 +110,12 @@ Streams operations can be broadly classified into two categories:
 >>  - streamFunction: t.getField().stream()
 > 
 >> .collect(collector)
->>  - Collectors.toList() <br/>
+>>  - Collectors.toList() <br/><br/>
 >>  - Collectors.toMap(keyMapperFunction, valueMapperFunction)
 >>    - keyMapperFunction: T::getField1 <br/>
->>    - valueMapperFunction: T::getField2 <br/>
+>>    - valueMapperFunction: T::getField2 <br/><br/>
 >>  - Collectors.groupingBy(keyClassifierFunction, aggregateFunction/mapperFunctionCollector)
->>    -  keyClassifierFunction: T::getField <br/>
+>>    -  keyClassifierFunction: T::getField <br/><br/>
 >>    -  aggregateFunction: (to group the data and do aggregations) <br/>
 >>      - Collectors.counting() <br/>
 >>      - Collectors.summingInt(T::getField) <br/>
