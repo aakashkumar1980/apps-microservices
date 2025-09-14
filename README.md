@@ -139,10 +139,13 @@ Streams operations can be broadly classified into two categories:
 >>    - predicateFunction: T::getField <br/>
 >>    - collector: <br/>
 >>      Collectors.toList()
->
+> ---
 >> .sorted(comparator)
 >>  - Comparator.comparing(keyExtractorFunction, keyComparator) <br/>
 >>    Comparator.comparing(keyExtractorFunction).reversed()<br/>
 >>  - Comparator.comparing(keyExtractorFunction, keyComparator).thenComparing(keyExtractorFunction, keyComparator) <br/><br/>
 >>    - keyExtractorFunction: T::getField <br/>
->>    - keyComparator: Comparator.naturalOrder() / Comparator.reverseOrder() <br/>
+>>    - keyComparator: Comparator.naturalOrder() / Comparator.reverseOrder() <br/><br/>
+>
+>> .distinct()
+> ---
