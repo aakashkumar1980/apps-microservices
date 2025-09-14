@@ -24,26 +24,22 @@ public class DataPartitioning implements CommandLineRunner {
    * <p><b>Syntax:</b></p>
    * <pre>{@code
    * Map<Boolean, List<T>> groupByConditionMap = list<T>.stream()
-   *     .collect(Collectors.partitioningBy(
-   *        predicate,
-   *        Collectors.toList()
-   *     ));
+   *     .collect(collector);
    * }</pre>
    *
    * <p><b>Explanation:</b></p>
    * <ul>
    *   <li><code>list.stream()</code>: Creates a stream from the list.</li>
-   *   <li><code>Collectors.partitioningBy(predicate, Collectors.toList())</code>: Partitions the elements into two groups based on the predicate <code>p</code>.</li>
-   *   <li>The result is a <code>Map&lt;Boolean, List&lt;T&gt;&gt;</code> where:
-   *     <ul>
-   *       <li>The key <code>true</code> corresponds to elements that match the predicate.</li>
-   *       <li>The key <code>false</code> corresponds to elements that do not match the predicate.</li>
-   *     </ul>
-   *   </li>
-   *   <li>Examples of predicates:
-   *     <ul>
-   *       <li><code>t -&gt; t.getEnrolledOffers().isEmpty()</code></li>
-   *     </ul>
+   *   <li><code>[collect(collector)]</code> <br/>
+   *       <code>Collectors.partitioningBy(predicateFunction, collector)</code>: Partitions the elements into two groups (true/false) based on the predicate.
+   *       <ul>
+   *         <li><code>predicateFunction</code>: A function that evaluates each element and returns a boolean value (true or false) based on a condition. e.g., <br/>
+   *            <code>t -> t.getField().equals(valueToCompare)</code> <br/>
+   *            <code>T::isBooleanField</code>
+   *         </li>
+   *         <li><code>collector</code>: A downstream collector that defines how to collect the elements in each partition. e.g., <br/>
+   *         <code>Collectors.toList()</code></li>
+   *       </ul>
    *   </li>
    * </ul>
    */

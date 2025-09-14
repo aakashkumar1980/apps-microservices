@@ -26,13 +26,12 @@ public class DataCheck implements CommandLineRunner {
    * <p><b>Explanation:</b></p>
    * <ul>
    *   <li><code>list.stream()</code>: Creates a stream from the list.</li>
-   *   <li><code>.anyMatch(predicate)</code>: Returns <code>true</code> if any element matches the predicate <code>p</code>.</li>
-   *   <li><code>.allMatch(predicate)</code>: Returns <code>true</code> if all elements match the predicate <code>p</code>.</li>
-   *   <li><code>.noneMatch(predicate)</code>: Returns <code>true</code> if no elements match the predicate <code>p</code>.</li>
-   *   <li>Examples of predicates:
-   *     <ul>
-   *       <li><code>t -&gt; t.getStatus() == CampaignStatus.DRAFT</code></li>
-   *     </ul>
+   *   <li>
+   *      <code>.anyMatch(predicate)</code>: Returns <code>true</code> if any element matches the predicate. <br/>
+   *      <code>.allMatch(predicate)</code>: Returns <code>true</code> if all elements match the predicate. <br/>
+   *      <code>.noneMatch(predicate)</code>: Returns <code>true</code> if no elements match the predicate. <br/>
+   *      <em><code>t -> t.getField().equals(valueToCompare)</code></em> <br/>
+   *      <em><code>T::isBooleanField</code><em>
    *   </li>
    * </ul>
    */

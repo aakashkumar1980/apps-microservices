@@ -29,12 +29,10 @@ public class DataFiltering implements CommandLineRunner {
    * <p><b>Explanation:</b></p>
    * <ul>
    *   <li><code>list.stream()</code>: Creates a stream from the list.</li>
-   *   <li><code>.filter(predicate)</code>: Filters elements using a predicate <code>p</code> (a function returning boolean).</li>
-   *   <li>Examples of predicates:
+   *   <li><code>.filter(predicate)</code>: Filters elements using a predicate <code>p</code> (a function returning boolean). e.g.,
    *     <ul>
-   *       <li><code>t -&gt; t.getStatus().equals(CampaignStatus.ACTIVE)</code></li>
-   *       <li><code>t -&gt; t.getStatus() == CampaignStatus.ACTIVE</code></li>
-   *       <li><code>Campaign::isActive</code> (if <code>isActive()</code> is defined in <code>Campaign</code> class)</li>
+   *       <li><code>t -> t.getField().equals(valueToCompare)</code></li>
+   *       <li><code>T::isBooleanField</code> (if <code>isBooleanField()</code> e.g. is defined in object)</li>
    *     </ul>
    *   </li>
    *   <li><code>.toList()</code>: Collects the filtered elements into a new list.</li>

@@ -103,13 +103,21 @@ Streams operations can be broadly classified into two categories:
 
 
 > .stream()
->> .map(mapperFunction)
+>> .filter (predicateFunction) 
+>> - t -> t.getField().equals(valueToCompare) <br/>
+>> - T::isBooleanField <br/><br/>
+>
+>> .anyMatch/allMatch/noneMatch (predicateFunction) 
+>> - t -> t.getField().equals(valueToCompare) <br/>
+>> - T::isBooleanField <br/><br/>
+> ---
+>> .map (mapperFunction)
 >>  - T::getField 
 >
->> .flatMap(streamFunction) 
->>  - streamFunction: t.getField().stream()
-> 
->> .collect(collector)
+>> .flatMap (streamFunction) 
+>>  - t.getField().stream()
+> ---
+>> .collect (collector)
 >>  - Collectors.toList() <br/><br/>
 >>  - Collectors.toMap(keyMapperFunction, valueMapperFunction)
 >>    - keyMapperFunction: T::getField1 <br/>
@@ -126,8 +134,11 @@ Streams operations can be broadly classified into two categories:
 >>    - mapperFunctionCollector: (to group the data and return the full data)<br/>
 >>      - mapperFunction: T::getField <br/>
 >>      - collector: <br/>
->>        Collectors.toList/Set/joining/counting/summingInt/averagingDouble() <br/>
->>    
+>>        Collectors.toList/Set/joining/counting/summingInt/averagingDouble() <br/><br/>
+>>  - Collectors.partitioningBy(predicateFunction, collector)
+>>    - predicateFunction: T::getField <br/>
+>>    - collector: <br/>
+>>      Collectors.toList()
 >
 >> .sorted(comparator)
 >>  - Comparator.comparing(keyExtractorFunction, keyComparator) <br/>
