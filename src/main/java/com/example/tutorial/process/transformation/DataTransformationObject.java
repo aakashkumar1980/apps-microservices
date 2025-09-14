@@ -33,13 +33,10 @@ public class DataTransformationObject implements CommandLineRunner {
    * <b>Explanation:</b>
    * <ul>
    *   <li>{@code list.stream()}: Creates a stream from the list.</li>
-   *   <li>{@code .map(function)}: Applies the function {@code function} to each element, transforming it from T -> R.</li>
-   *   <li>{@code .toList()}: Collects the results into a new list.</li>
-   *   <li>Examples of mapping functions:
-   *     <ul>
-   *       <li>{@code T::getField} => R</li>
-   *     </ul>
+   *   <li>{@code map(mapperFunction)}: A function that transforms each element of the stream from T -> R. <br/>
+   *       {@code T::getField} => R
    *   </li>
+   *   <li>{@code toList()}: Collects the results into a new list.</li>
    * </ul>
    * </p>
    */

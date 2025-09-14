@@ -102,3 +102,23 @@ Streams operations can be broadly classified into two categories:
   Examples includes `collect()`, `forEach()`, `reduce()` etc.
 
 
+> .stream()
+>> .map(mapperFunction)
+>>  - T::getField 
+>
+>> .flatMap(streamFunction) 
+>>  - streamFunction: t.getField().stream()
+> 
+>> .collect(collector)
+>>  - Collectors.toList() <br/>
+>>  - Collectors.toMap(keyMapperFunction, valueMapperFunction)
+>>    - keyMapperFunction: T::getField1 <br/>
+>>    - valueMapperFunction: T::getField2 <br/>
+>>  - Collectors.groupingBy(keyExtractor)
+>
+>> .sorted(comparator)
+>>  - Comparator.comparing(keyExtractorFunction, keyComparator) <br/>
+>>    Comparator.comparing(keyExtractorFunction).reversed()<br/>
+>>  - Comparator.comparing(keyExtractorFunction, keyComparator).thenComparing(keyExtractorFunction, keyComparator) <br/><br/>
+>>    - keyExtractorFunction: T::getField <br/>
+>>    - keyComparator: Comparator.naturalOrder() / Comparator.reverseOrder() <br/>

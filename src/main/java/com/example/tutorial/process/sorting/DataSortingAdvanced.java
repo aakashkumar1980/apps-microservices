@@ -24,16 +24,7 @@ public class DataSortingAdvanced implements CommandLineRunner {
    * <p><b>Syntax:</b></p>
    * <pre>{@code
    * List<T> sortedList = list<T>.stream()
-   *     .sorted(
-   *         Comparator
-   *             .comparing(T::getField1, Comparator.reverseOrder())
-   *             .thenComparing(T::getField2, Comparator.reverseOrder()) <optional>
-   *
-   *         OR,
-   *         Comparator
-   *             .comparing(T::getField1)
-   *             .reversed()
-   *     )
+   *     .sorted(comparator)
    *     .limit(n)
    *     .toList();
    * }</pre>
@@ -41,10 +32,22 @@ public class DataSortingAdvanced implements CommandLineRunner {
    * <p><b>Explanation:</b></p>
    * <ul>
    *   <li><code>list.stream()</code>: Creates a stream from the list.</li>
-   *   <li><code>Comparator.comparing(T::getField1, Comparator.reverseOrder())</code>: Sorts the elements based on <code>field1</code> in descending order.</li>
-   *   <li><code>.thenComparing(T::getField2, Comparator.reverseOrder())</code>: For elements with equal <code>field1</code>, sorts them based on <code>field2</code> in descending order.</li>
-   *   <li><code>.limit(n)</code>: Limits the result to the top <code>n</code> elements after sorting.</li>
-   *   <li><code>.toList()</code>: Collects the sorted elements into a new list.</li>
+   *   <li><code>[sorted(comparator)]</sorted(comparator)></code> <br/>
+   *     <code>Comparator.comparing(keyExtractorFunction, keyComparator)</code><br/>
+   *     <code>Comparator.comparing(keyExtractorFunction).reversed()</code> (optional)<br/>
+   *     <code>Comparator.thenComparing(keyExtractorFunction, keyComparator)</code> (optional)<br/>
+   *     Sorts the elements of the stream based on the provided comparator.
+   *     <ul>
+   *       <li><code>keyExtractorFunction</code>: A function that extracts the field to be compared, e.g., <br/>
+   *          <code>T::getField1</code>.
+   *       </li>
+   *       <li><code>keyComparator</code>: A comparator that defines the order of sorting, e.g., <br/>
+   *          <code>Comparator.reverseOrder()</code>
+   *       </li>
+   *   </li>
+   * </ul>
+   * <li><code>limit(n)</code>: Limits the result to the top <code>n</code> elements after sorting.</li>
+   * <li><code>toList()</code>: Collects the sorted elements into a new list.</li>
    * </ul>
    */
   @Override

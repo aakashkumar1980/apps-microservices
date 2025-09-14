@@ -26,27 +26,26 @@ public class DataTransformationListToMap implements CommandLineRunner {
    * <b>Syntax:</b>
    * <pre>
    * {@code
-   * Map<K, V> mapByKey = list<T>.stream()
-   *    .collect(Collectors.toMap(
-   *        keyExtractorFunction,
-   *        valueExtractorFunction
-   *    ));
-   *
+   * Map<K, V> mapByKeyValue = list<T>.stream()
+   *    .collect(collector);
    * }</pre>
    *
    * <p>
    * <b>Explanation:</b>
    * <ul>
-   *   <li>{@code list.stream()}: Creates a stream from the list.</li>
-   *   <li>{@code Collectors.toMap()}: Transforms the stream to a Map.</li>
-   *   <ul>
-   *      <li>{@code keyExtractorFunction}: A function that extracts the key for the map e.g., <br/>
-   *        {@code t -> t.getId()} => K
-   *      </li>
-   *      <li>{@code valueExtractorFunction}: A function that extracts the value for the map e.g., <br/>
-   *          {@code t -> t.getData().getBudget()} => V
-   *      </li>
-   *   </ul>
+   *   <li> {@code list.stream()}: Creates a stream from the list.</li>
+   *   <li> {@code [collect(collector)]}<br/>
+   *        {@code Collectors.toMap(keyMapperFunction, valueMapperFunction)}: Collects the results into a new map using the specified collector.
+   *        Transforms the stream to a Map from T -> Map(K, V)
+   *        <ul>
+   *          <li>{@code keyMapperFunction}: A function that extracts the key for the map e.g., <br/>
+   *            {@code T::getField1} => K
+   *          </li>
+   *          <li>{@code valueMapperFunction}: A function that extracts the value for the map e.g., <br/>
+   *            {@code T::getField2} => V
+   *          </li>
+   *        </ul>
+   *   </li>
    * </ul>
    * </p>
    */
