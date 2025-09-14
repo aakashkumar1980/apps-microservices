@@ -114,7 +114,20 @@ Streams operations can be broadly classified into two categories:
 >>  - Collectors.toMap(keyMapperFunction, valueMapperFunction)
 >>    - keyMapperFunction: T::getField1 <br/>
 >>    - valueMapperFunction: T::getField2 <br/>
->>  - Collectors.groupingBy(keyExtractor)
+>>  - Collectors.groupingBy(keyClassifierFunction, aggregateFunction/mapperFunctionCollector)
+>>    -  keyClassifierFunction: T::getField <br/>
+>>    -  aggregateFunction: (to group the data and do aggregations) <br/>
+>>      - Collectors.counting() <br/>
+>>      - Collectors.summingInt(T::getField) <br/>
+>>      - Collectors.averagingInt(T::getField) <br/>
+>>      - Collectors.mapping(T::getField, Collectors.toList()) <br/>
+>>      - Collectors.maxBy(Comparator.comparing(T::getField)) <br/>
+>>      - Collectors.minBy(Comparator.comparing(T::getField)) <br/>
+>>    - mapperFunctionCollector: (to group the data and return the full data)<br/>
+>>      - mapperFunction: T::getField <br/>
+>>      - collector: <br/>
+>>        Collectors.toList/Set/joining/counting/summingInt/averagingDouble() <br/>
+>>    
 >
 >> .sorted(comparator)
 >>  - Comparator.comparing(keyExtractorFunction, keyComparator) <br/>

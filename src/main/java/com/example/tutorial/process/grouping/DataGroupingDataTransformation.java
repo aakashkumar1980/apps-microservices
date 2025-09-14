@@ -22,14 +22,7 @@ import static com.example.tutorial.common.utils.SampleDataSupplier.*;
  * <pre>
  * {@code
  * Map<K, List/Set/String/Long/Integer/Double<V>> groupedByKey = list<T>.stream()
- *    .collect(Collectors.groupingBy(
- *        keyExtractorFunction,
- *
- *        Collectors.mapping(
- *          mapperFunction,
- *          Collectors.toList/Set/joining/counting/summingInt/averagingDouble()
- *        )
- *    ));
+ *    .collect(collector);
  * }
  * </pre>
  *
@@ -37,15 +30,24 @@ import static com.example.tutorial.common.utils.SampleDataSupplier.*;
  * <b>Explanation:</b>
  * <ul>
  *   <li>{@code list.stream()}: Creates a stream from the list.</li>
- *   <li>{@code Collectors.groupingBy()}: Groups elements by the key and use mapperFunction to run in each group.</li>
- *   <ul>
- *      <li>{@code keyExtractorFunction}: Function to extract the key for grouping, e.g., <br/>
- *        {@code t -> t.getCampaignId()} => K
- *      </li>
- *      <li>{@code mapperFunction}: For transforming the grouped elements before collecting them. e.g., <br/>
- *        {@code t -> t.getId()} => V
- *      </li>
- *   </ul>
+ *   <li>{@code [collect(collector)]} <br/>
+ *       {@code Collectors.groupingBy(keyClassifierFunction, mapperFunctionCollector)}: Groups elements by the key and use mapperFunction to run in each group.
+ *       <ul>
+ *          <li>{@code keyClassifierFunction}: A function that identifies the key for grouping the data e.g., <br/>
+ *              {@code T::getField()} => K
+ *          </li>
+ *          <li>{@code mapperFunctionCollector}: A downstream collector that performs a data transformation operation on the
+ *              values associated with a given key, Transforms the stream to a Map from T -> Map(K, V)
+ *              <pre>{@code
+ *                Collectors.mapping(
+ *                  mapperFunction,
+ *                  Collectors.toList/Set/joining/counting/summingInt/averagingDouble()
+ *                )}</pre>
+ *                {@code mapperFunction} It is a function that transforms an element of type T to another type V e.g., <br/>
+ *                {@code T::getField()} => V
+ *          </li>
+ *       </ul>
+ *   </li>
  * </ul>
  * </p>
  */

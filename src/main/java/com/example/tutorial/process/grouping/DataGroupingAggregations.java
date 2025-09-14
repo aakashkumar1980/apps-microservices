@@ -1,6 +1,8 @@
 package com.example.tutorial.process.grouping;
 
 import com.example.tutorial.common.datamodel.BaseDto;
+import com.example.tutorial.common.datamodel.campaign.Campaign;
+import com.example.tutorial.common.datamodel.campaign.CampaignStatus;
 import com.example.tutorial.common.datamodel.customer.Customer;
 import com.example.tutorial.common.datamodel.redemption.Redemption;
 import org.springframework.boot.CommandLineRunner;
@@ -13,10 +15,11 @@ import java.util.stream.Collectors;
 import static com.example.tutorial.common.utils.SampleDataSupplier.*;
 
 @Component
-public class DataGroupingAggregationsIntermediate implements CommandLineRunner {
+public class DataGroupingAggregations implements CommandLineRunner {
   public static void main(String[] args) {
-    SpringApplication.run(DataGroupingAggregationsIntermediate.class, args);
+    SpringApplication.run(DataGroupingAggregations.class, args);
   }
+
   /**
    * <p>
    * This is basically a simple grouping the dataset with a key (an attribute of the object)
@@ -26,36 +29,52 @@ public class DataGroupingAggregationsIntermediate implements CommandLineRunner {
    * <b>Syntax:</b>
    * <pre>
    * {@code
-   * Map<K, Double/Int/Long> aggregateByKey = list<T>.stream()
-   *    .collect(Collectors.groupingBy(
-   *        keyExtractorFunction,
-   *        aggregateFunction
-   *    ));
-   *
+   * Map<K, Long/Double/Int/Long> aggregateByKey = list<T>.stream()
+   *    .collect(collector));
    * }</pre>
    *
    * <p>
    * <b>Explanation:</b>
    * <ul>
    *   <li>{@code list.stream()}: Creates a stream from the list.</li>
-   *   <li>{@code Collectors.groupingBy()}: Groups elements by the key and use aggregateFunction to run in each group.</li>
-   *   <ul>
-   *      <li>{@code keyExtractorFunction}: A function that extracts the key for grouping e.g., <br/>
-   *        {@code t -> t.getCustomerId()} => K
-   *      </li>
-   *      <li>{@code aggregateFunction}: A downstream collector that performs a reduction operation on the values associated with a given key e.g., <br/>
-   *          {@code Collectors.summingDouble/Int/Long(r -> r.getAmount().doubleValue())} <br/>
-   *          {@code Collectors.averagingDouble/Int/Long(r -> r.getAmount().doubleValue())} <br/>
-   *          {@code Collectors.maxBy(Comparator.comparingDouble/Int/Long(r -> r.getAmount().doubleValue()))} <br/>
-   *          {@code Collectors.minBy(Comparator.comparingDouble/Int/Long(r -> r.getAmount().doubleValue()))}
-   *      </li>
-   *   </ul>
+   *   <li>{@code [collect(collector)]} <br/>
+   *       {@code Collectors.groupingBy(keyClassifierFunction, aggregateFunction)}: Groups elements by the key and use aggregateFunction to run in each group.
+   *       <ul>
+   *          <li>{@code keyClassifierFunction}: A function that identifies the key for grouping the data e.g., <br/>
+   *              {@code T::getField()} => K
+   *          </li>
+   *          <li>{@code aggregateFunction}: A downstream collector that performs a reduction operation on the
+   *          values associated with a given key, Transforms the stream to a Map from T -> Map(K, ?)
+   *              <ul>
+   *                <li>{@code Collectors.counting()} </li>
+   *                <li>{@code Collectors.summingDouble/Int/Long(r -> r.getAmount().doubleValue())} </li>
+   *                <li>{@code Collectors.averagingDouble/Int/Long(r -> r.getAmount().doubleValue())} </li>
+   *                <li>{@code Collectors.maxBy(Comparator.comparingDouble/Int/Long(r -> r.getAmount().doubleValue()))} </li>
+   *                <li>{@code Collectors.minBy(Comparator.comparingDouble/Int/Long(r -> r.getAmount().doubleValue()))} </li>
+   *              </ul>
+   *          </li>
+   *      </ul>
+   *   </li>
    * </ul>
    * </p>
    */
   @Override
   public void run(String... args) {
     System.out.println(String.format("Redemptions size: %d", REDEMPTIONS.get().size()));
+
+    /** Group Campaigns by Status and count */
+    Map<CampaignStatus, Long> countByCampaignStatus =
+        CAMPAIGNS.get().stream()
+            .collect(
+                Collectors.groupingBy(
+                    Campaign::getStatus,
+                    Collectors.counting()
+                )
+            );
+    System.out.println(String.format("countByCampaignStatus size: %d", countByCampaignStatus.size()));
+    countByCampaignStatus.forEach((status, count) -> {
+      System.out.println(String.format("Status: %s, Count: %d", status, count));
+    });
 
     /** Group by customerId and sum the amount spent */
     Map<String, Double> totalDiscountAmountByCustomerId =
