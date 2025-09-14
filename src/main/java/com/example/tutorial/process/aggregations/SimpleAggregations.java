@@ -1,6 +1,5 @@
 package com.example.tutorial.process.aggregations;
 
-import com.example.tutorial.common.datamodel.redemption.Redemption;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
