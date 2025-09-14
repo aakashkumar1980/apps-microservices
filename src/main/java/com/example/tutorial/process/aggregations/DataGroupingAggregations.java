@@ -1,4 +1,4 @@
-package com.example.tutorial.process.grouping;
+package com.example.tutorial.process.aggregations;
 
 import com.example.tutorial.common.datamodel.BaseDto;
 import com.example.tutorial.common.datamodel.campaign.Campaign;
@@ -22,7 +22,7 @@ public class DataGroupingAggregations implements CommandLineRunner {
 
   /**
    * <p>
-   * This is basically a simple grouping the dataset with a key (an attribute of the object)
+   * This is basically a simple aggregations the dataset with a key (an attribute of the object)
    * and then applying an aggregation function on the grouped data.
    * </p>
    *
@@ -40,7 +40,7 @@ public class DataGroupingAggregations implements CommandLineRunner {
    *   <li>{@code [collect(collector)]} <br/>
    *       {@code Collectors.groupingBy(keyClassifierFunction, aggregateFunction)}: Groups elements by the key and use aggregateFunction to run in each group.
    *       <ul>
-   *          <li>{@code keyClassifierFunction}: A function that identifies the key for grouping the data e.g., <br/>
+   *          <li>{@code keyClassifierFunction}: A function that identifies the key for aggregations the data e.g., <br/>
    *              {@code T::getField()} => K
    *          </li>
    *          <li>{@code aggregateFunction}: A downstream collector that performs a reduction operation on the

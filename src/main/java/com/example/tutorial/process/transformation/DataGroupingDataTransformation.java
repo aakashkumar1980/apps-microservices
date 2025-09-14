@@ -1,4 +1,4 @@
-package com.example.tutorial.process.grouping;
+package com.example.tutorial.process.transformation;
 
 import com.example.tutorial.common.datamodel.campaign.Campaign;
 import com.example.tutorial.common.datamodel.offer.Offer;
@@ -14,7 +14,7 @@ import static com.example.tutorial.common.utils.SampleDataSupplier.*;
 
 /**
  * <p>
- * This is basically a simple grouping the dataset with a key (an attribute of the object)
+ * This is basically a simple aggregations the dataset with a key (an attribute of the object)
  * and then applying a mapping function on the grouped data.
  * </p>
  *
@@ -33,7 +33,7 @@ import static com.example.tutorial.common.utils.SampleDataSupplier.*;
  *   <li>{@code [collect(collector)]} <br/>
  *       {@code Collectors.groupingBy(keyClassifierFunction, mapperFunctionCollector)}: Groups elements by the key and use mapperFunction to run in each group.
  *       <ul>
- *          <li>{@code keyClassifierFunction}: A function that identifies the key for grouping the data e.g., <br/>
+ *          <li>{@code keyClassifierFunction}: A function that identifies the key for aggregations the data e.g., <br/>
  *              {@code T::getField()} => K
  *          </li>
  *          <li>{@code mapperFunctionCollector}: A downstream collector that performs a data transformation operation on the

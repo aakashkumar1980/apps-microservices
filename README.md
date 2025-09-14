@@ -111,35 +111,52 @@ Streams operations can be broadly classified into two categories:
 >> - t -> t.getField().equals(valueToCompare) <br/>
 >> - T::isBooleanField <br/><br/>
 > ---
+> 
 >> .map (mapperFunction)
->>  - T::getField 
->
+>>  - T::getField
+>>
+>> .reduce (0, binaryOperatorFunction)
+>> - Integer::sum <br/><br/>
+>> ---
+>> 
+>> .mapToInt/mapToDouble/mapToLong (toPrimitiveFunction)
+>>  - T::getIntField <br/>
+>>
+>> .sum/average/min/max/summaryStatistics()
+> 
 >> .flatMap (streamFunction) 
 >>  - t.getField().stream()
 > ---
+> 
 >> .collect (collector)
 >>  - Collectors.toList() <br/><br/>
+>>
 >>  - Collectors.toMap(keyMapperFunction, valueMapperFunction)
 >>    - keyMapperFunction: T::getField1 <br/>
 >>    - valueMapperFunction: T::getField2 <br/><br/>
+>>
 >>  - Collectors.groupingBy(keyClassifierFunction, aggregateFunction/mapperFunctionCollector)
 >>    -  keyClassifierFunction: T::getField <br/><br/>
+>>
 >>    -  aggregateFunction: (to group the data and do aggregations) <br/>
 >>      - Collectors.counting() <br/>
 >>      - Collectors.summingInt(T::getField) <br/>
 >>      - Collectors.averagingInt(T::getField) <br/>
 >>      - Collectors.mapping(T::getField, Collectors.toList()) <br/>
 >>      - Collectors.maxBy(Comparator.comparing(T::getField)) <br/>
->>      - Collectors.minBy(Comparator.comparing(T::getField)) <br/>
+>>      - Collectors.minBy(Comparator.comparing(T::getField)) <br/><br/>
+>> 
 >>    - mapperFunctionCollector: (to group the data and return the full data)<br/>
 >>      - mapperFunction: T::getField <br/>
 >>      - collector: <br/>
 >>        Collectors.toList/Set/joining/counting/summingInt/averagingDouble() <br/><br/>
+>>
 >>  - Collectors.partitioningBy(predicateFunction, collector)
 >>    - predicateFunction: T::getField <br/>
 >>    - collector: <br/>
 >>      Collectors.toList()
 > ---
+> 
 >> .sorted(comparator)
 >>  - Comparator.comparing(keyExtractorFunction, keyComparator) <br/>
 >>    Comparator.comparing(keyExtractorFunction).reversed()<br/>
@@ -149,3 +166,4 @@ Streams operations can be broadly classified into two categories:
 >
 >> .distinct()
 > ---
+> 
