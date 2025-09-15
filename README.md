@@ -138,7 +138,7 @@ Streams operations can be broadly classified into two categories:
 >>  - Collectors.groupingBy(keyClassifierFunction, aggregateFunction/mapperFunctionCollector)
 >>    -  keyClassifierFunction: T::getField <br/><br/>
 >>
->>    -  aggregateFunction: (to group the data and do aggregations) <br/>
+>>    -  <em>aggregateFunction: (to group the data and do aggregations)</em> <br/>
 >>      - Collectors.counting() <br/>
 >>      - Collectors.summingInt(T::getField) <br/>
 >>      - Collectors.averagingInt(T::getField) <br/>
@@ -146,7 +146,8 @@ Streams operations can be broadly classified into two categories:
 >>      - Collectors.maxBy(Comparator.comparing(T::getField)) <br/>
 >>      - Collectors.minBy(Comparator.comparing(T::getField)) <br/><br/>
 >> 
->>    - mapperFunctionCollector: (to group the data and return the full data)<br/>
+>>    - <em>mapperFunctionCollector: (to group the data and return the full data)</em><br/>
+>>      Collectors.mapping(mapperFunction, collector)
 >>      - mapperFunction: T::getField <br/>
 >>      - collector: <br/>
 >>        Collectors.toList/Set/joining/counting/summingInt/averagingDouble() <br/><br/>
