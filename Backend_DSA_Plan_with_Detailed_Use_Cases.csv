@@ -1,0 +1,99 @@
+Day,Problem Title,Use Case
+Day 1,Binary Search,"Efficient lookup in sorted datasets — e.g., searching for a customer ID, transaction, or offer ID in REST API or Couchbase keys."
+Day 1,Invert Binary Tree,Mirroring hierarchical campaign/merchant targeting trees — used when reformatting decision logic or mirroring customer segmentation trees.
+Day 1,Valid Parentheses,"Validating nested syntax in custom rule engines — used to parse campaign logic, discount rule formats, or DSLs."
+Day 1,Rotate Array,"Implementing circular buffers or recent event windows — e.g., rotating Kafka partitions or handling rolling impression counts."
+Day 1,Valid Anagram,Checking offer tag consistency or customer segment overlaps — useful in fraud prevention and promo categorization.
+Day 1,Subarray Sum Equals K,"Detecting subgroups of events that hit a threshold — e.g., suspicious redemption patterns."
+Day 1,Level Order Traversal,"Processing campaign trees layer-by-layer — e.g., rule evaluation engines or GraphQL tree outputs."
+Day 2,Topological Sort (Kahn's Algorithm),General algorithmic problem-solving for backend services.
+Day 2,Length of Last Word,"Parsing text fields in customer input or form validation logic — e.g., last name extraction."
+Day 2,Maximum Depth of Binary Tree,"Measuring complexity/depth of a rule engine tree — e.g., to optimize evaluation cost."
+Day 2,Best Time to Buy and Sell Stock,"Finding optimal points for customer engagement or discount timing — e.g., highest conversion window."
+Day 2,Find All Duplicates in an Array,Detecting replay attacks or duplicate impressions — key in fraud and offer abuse systems.
+Day 2,Same Tree,"Checking if two targeting hierarchies are equivalent — e.g., comparing cloned campaign configs."
+Day 2,Product of Array Except Self,"Avoiding self-reference while calculating aggregate stats — e.g., offer ranking without bias."
+Day 3,Length of Last Word,"Parsing text fields in customer input or form validation logic — e.g., last name extraction."
+Day 3,Find All Duplicates in an Array,Detecting replay attacks or duplicate impressions — key in fraud and offer abuse systems.
+Day 3,Valid Parentheses,"Validating nested syntax in custom rule engines — used to parse campaign logic, discount rule formats, or DSLs."
+Day 3,Edit Distance,"Fuzzy matching for customer names, coupon codes — helpful in search/autocorrect UIs."
+Day 3,Decode String,General algorithmic problem-solving for backend services.
+Day 3,Palindrome Number,Simple numeric symmetry checks — useful for sanity checks in UI/formatted offer codes.
+Day 3,Move Zeroes,General algorithmic problem-solving for backend services.
+Day 4,Longest Substring Without Repeating Characters,"Detecting uniqueness in sessions, tokens, or impressions — useful in anti-fraud or personalization logic."
+Day 4,3Sum,Triple offer fraud detection or offer-bundle reconciliation.
+Day 4,Length of Last Word,"Parsing text fields in customer input or form validation logic — e.g., last name extraction."
+Day 4,Palindrome Linked List,"Validation of symmetric data streams — e.g., back-and-forth offer states, idempotent logs."
+Day 4,Contains Duplicate,General algorithmic problem-solving for backend services.
+Day 4,Binary Search,"Efficient lookup in sorted datasets — e.g., searching for a customer ID, transaction, or offer ID in REST API or Couchbase keys."
+Day 4,Find All Duplicates in an Array,Detecting replay attacks or duplicate impressions — key in fraud and offer abuse systems.
+Day 5,Kth Largest Element in an Array,"Used to identify top-K transactions, offers, or customer scores — e.g., leaderboard or rewards tier."
+Day 5,Reverse String,"Reversing encoded inputs like base64, encoded headers — useful in APIs or offer hash processing."
+Day 5,Valid Anagram,Checking offer tag consistency or customer segment overlaps — useful in fraud prevention and promo categorization.
+Day 5,Reverse Words in a String,"Cleaning and reversing customer inputs or search keywords — e.g., reverse keyword matching."
+Day 5,Same Tree,"Checking if two targeting hierarchies are equivalent — e.g., comparing cloned campaign configs."
+Day 5,Reverse Linked List,Processing historical logs or reversal of time-based event streams — useful in reporting or audit logging.
+Day 5,Subarray Sum Equals K,"Detecting subgroups of events that hit a threshold — e.g., suspicious redemption patterns."
+Day 6,Valid Parentheses,"Validating nested syntax in custom rule engines — used to parse campaign logic, discount rule formats, or DSLs."
+Day 6,Merge Two Sorted Lists,Merging sorted Kafka streams or joining time-sorted offer events — useful in integration logic.
+Day 6,Decode String,General algorithmic problem-solving for backend services.
+Day 6,Palindrome Number,Simple numeric symmetry checks — useful for sanity checks in UI/formatted offer codes.
+Day 6,3Sum,Triple offer fraud detection or offer-bundle reconciliation.
+Day 6,Product of Array Except Self,"Avoiding self-reference while calculating aggregate stats — e.g., offer ranking without bias."
+Day 6,Roman to Integer,General algorithmic problem-solving for backend services.
+Day 7,Palindrome Number,Simple numeric symmetry checks — useful for sanity checks in UI/formatted offer codes.
+Day 7,Move Zeroes,General algorithmic problem-solving for backend services.
+Day 7,Palindrome Linked List,"Validation of symmetric data streams — e.g., back-and-forth offer states, idempotent logs."
+Day 7,Reverse Words in a String,"Cleaning and reversing customer inputs or search keywords — e.g., reverse keyword matching."
+Day 7,Rotate Array,"Implementing circular buffers or recent event windows — e.g., rotating Kafka partitions or handling rolling impression counts."
+Day 7,Delete Node in a Linked List,Removing outdated offers or invalidated campaign chain elements — resembles removing from a service chain or LRU cache.
+Day 7,Word Break,"Checking valid input decomposition — e.g., multi-word tag parsing, rule resolution."
+Day 8,Length of Last Word,"Parsing text fields in customer input or form validation logic — e.g., last name extraction."
+Day 8,Merge Two Sorted Lists,Merging sorted Kafka streams or joining time-sorted offer events — useful in integration logic.
+Day 8,Best Time to Buy and Sell Stock,"Finding optimal points for customer engagement or discount timing — e.g., highest conversion window."
+Day 8,Reverse Words in a String,"Cleaning and reversing customer inputs or search keywords — e.g., reverse keyword matching."
+Day 8,Contains Duplicate,General algorithmic problem-solving for backend services.
+Day 8,Valid Parentheses,"Validating nested syntax in custom rule engines — used to parse campaign logic, discount rule formats, or DSLs."
+Day 8,Longest Valid Parentheses,General algorithmic problem-solving for backend services.
+Day 9,Word Break,"Checking valid input decomposition — e.g., multi-word tag parsing, rule resolution."
+Day 9,Delete Node in a Linked List,Removing outdated offers or invalidated campaign chain elements — resembles removing from a service chain or LRU cache.
+Day 9,Merge Two Sorted Lists,Merging sorted Kafka streams or joining time-sorted offer events — useful in integration logic.
+Day 9,Reverse Words in a String,"Cleaning and reversing customer inputs or search keywords — e.g., reverse keyword matching."
+Day 9,First Missing Positive,"Finding the next available offer ID or unassigned resource — e.g., coupon code allocation."
+Day 9,Reverse Linked List,Processing historical logs or reversal of time-based event streams — useful in reporting or audit logging.
+Day 9,Reverse String,"Reversing encoded inputs like base64, encoded headers — useful in APIs or offer hash processing."
+Day 10,Palindrome Linked List,"Validation of symmetric data streams — e.g., back-and-forth offer states, idempotent logs."
+Day 10,Binary Search,"Efficient lookup in sorted datasets — e.g., searching for a customer ID, transaction, or offer ID in REST API or Couchbase keys."
+Day 10,Decode String,General algorithmic problem-solving for backend services.
+Day 10,Kth Largest Element in an Array,"Used to identify top-K transactions, offers, or customer scores — e.g., leaderboard or rewards tier."
+Day 10,Reverse String,"Reversing encoded inputs like base64, encoded headers — useful in APIs or offer hash processing."
+Day 10,Move Zeroes,General algorithmic problem-solving for backend services.
+Day 10,Subarray Sum Equals K,"Detecting subgroups of events that hit a threshold — e.g., suspicious redemption patterns."
+Day 11,Subarray Sum Equals K,"Detecting subgroups of events that hit a threshold — e.g., suspicious redemption patterns."
+Day 11,Same Tree,"Checking if two targeting hierarchies are equivalent — e.g., comparing cloned campaign configs."
+Day 11,Longest Substring Without Repeating Characters,"Detecting uniqueness in sessions, tokens, or impressions — useful in anti-fraud or personalization logic."
+Day 11,Palindrome Linked List,"Validation of symmetric data streams — e.g., back-and-forth offer states, idempotent logs."
+Day 11,Palindrome Number,Simple numeric symmetry checks — useful for sanity checks in UI/formatted offer codes.
+Day 11,Find All Duplicates in an Array,Detecting replay attacks or duplicate impressions — key in fraud and offer abuse systems.
+Day 11,Valid Palindrome,General algorithmic problem-solving for backend services.
+Day 12,Binary Search,"Efficient lookup in sorted datasets — e.g., searching for a customer ID, transaction, or offer ID in REST API or Couchbase keys."
+Day 12,Level Order Traversal,"Processing campaign trees layer-by-layer — e.g., rule evaluation engines or GraphQL tree outputs."
+Day 12,Palindrome Linked List,"Validation of symmetric data streams — e.g., back-and-forth offer states, idempotent logs."
+Day 12,Product of Array Except Self,"Avoiding self-reference while calculating aggregate stats — e.g., offer ranking without bias."
+Day 12,Topological Sort (Kahn's Algorithm),General algorithmic problem-solving for backend services.
+Day 12,Move Zeroes,General algorithmic problem-solving for backend services.
+Day 12,Climbing Stairs,Dynamic programming pattern used in cumulative reward calculation or tiered benefit structures.
+Day 13,Longest Valid Parentheses,General algorithmic problem-solving for backend services.
+Day 13,Two Sum,"Basic event pairing logic — e.g., matching credit and debit entries in a customer ledger."
+Day 13,Kth Largest Element in an Array,"Used to identify top-K transactions, offers, or customer scores — e.g., leaderboard or rewards tier."
+Day 13,Delete Node in a Linked List,Removing outdated offers or invalidated campaign chain elements — resembles removing from a service chain or LRU cache.
+Day 13,Find All Duplicates in an Array,Detecting replay attacks or duplicate impressions — key in fraud and offer abuse systems.
+Day 13,Best Time to Buy and Sell Stock,"Finding optimal points for customer engagement or discount timing — e.g., highest conversion window."
+Day 13,Same Tree,"Checking if two targeting hierarchies are equivalent — e.g., comparing cloned campaign configs."
+Day 14,Integer to Roman,Converting numeric scores or benefits into encoded display format — useful in UIs.
+Day 14,Find All Duplicates in an Array,Detecting replay attacks or duplicate impressions — key in fraud and offer abuse systems.
+Day 14,Two Sum,"Basic event pairing logic — e.g., matching credit and debit entries in a customer ledger."
+Day 14,Quick Sort Algorithm,"Optimized in-memory sorting — e.g., for analytics on customer transactions or offer redemptions."
+Day 14,Climbing Stairs,Dynamic programming pattern used in cumulative reward calculation or tiered benefit structures.
+Day 14,Valid Anagram,Checking offer tag consistency or customer segment overlaps — useful in fraud prevention and promo categorization.
+Day 14,Palindrome Linked List,"Validation of symmetric data streams — e.g., back-and-forth offer states, idempotent logs."
