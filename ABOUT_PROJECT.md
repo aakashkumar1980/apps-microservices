@@ -51,9 +51,8 @@ Once the API Gateway validates the request, it routes it into our internal offer
 
 #### Outbound Flow (Egress)
 We also send updates back to Cardlytics — things like offer status changes, customer enrollments, or reward fulfillment confirmations.  
-But for outbound traffic, we don’t hit Cardlytics’ real endpoints directly.  
-Instead, we use a **proxy layer** built on **AWS API Gateway (HTTP API)** with a **custom domain**.  
-This proxy helps us mask the real URLs, control the flow, apply retry logic, and add additional protection using **AWS WAF** and **Secrets Manager** for credentials.
+
+But for outbound traffic, we don’t hit Cardlytics’ real endpoints directly. Instead, we use a **proxy layer** built on **AWS API Gateway (HTTP API)** with a **custom domain**. This proxy helps us mask the real URLs, control the flow, apply retry logic, and add additional protection using **AWS WAF** and **Secrets Manager** for credentials.
 
 So, from a logical point of view, it works like this:  
 **Cardlytics → AWS API Gateway (Okta secured) → Our Offer Platform (Kafka events) → AWS Proxy Gateway → Cardlytics APIs.**
