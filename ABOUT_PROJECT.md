@@ -21,7 +21,7 @@ It’s a way to encourage customers to use their cards more often or spend in ce
 I worked on how these offers move through different stages in their lifecycle.  
 It usually starts with **Offer Creation**, where the marketing or campaign team sets up all the rules — who’s eligible, what kind of reward it gives, when it starts and ends, and which merchants are included.
 
-Once that’s done, the offer goes into the **Publication phase**, where it becomes visible to customers — like on the bank’s app, website, or through push notifications.
+Once that’s done, the offer goes into the **Publication phase (also called Impressions)**, where it becomes visible to customers — like on the bank’s app, website, or through push notifications.
 
 Then comes **Enrollment or Activation**. Some offers are auto-applied, but others require the customer to actually activate them. So we track who enrolled and when.
 
