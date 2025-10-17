@@ -45,12 +45,9 @@ This engine is responsible for handling real-time API calls between our offer pl
 #### Inbound Flow (Ingress)
 How this works with **Cardlytics** as an example is that they create and manages offers on their side — for example, “10% cashback at Starbucks” or “5% on groceries”. So, instead of us manually setting up these offers, Cardlytics now **calls our APIs** directly to push new offers, update existing ones, or block offers when needed.
 
-All these requests come through our **AWS API Gateway**, which acts as the secure entry layer for partner integrations.  
-We’ve protected this gateway using **Okta OAuth2**, so each request from Cardlytics must have a valid access token before it even reaches our internal services.
+All these requests come through our **AWS API Gateway**, which acts as the secure entry layer for partner integrations. We’ve protected this gateway using **Okta OAuth2**, so each request from Cardlytics must have a valid access token before it even reaches our internal services.
 
-Once the API Gateway validates the request, it routes it into our internal offer platform where we apply business rules, validations, and process the incoming data.  
-Every change — like offer creation or updates — is then published as **Kafka events**, which allows other services in our ecosystem to pick up those changes asynchronously and act on them.  
-This ensures the system remains **loosely coupled and scalable**.
+Once the API Gateway validates the request, it routes it into our internal offer platform where we apply business rules, validations, and process the incoming data. Every change — like offer creation or updates — is then published as **Kafka events**, which allows other services in our ecosystem to pick up those changes asynchronously and act on them. This ensures the system remains **loosely coupled and scalable**.
 
 #### Outbound Flow (Egress)
 We also send updates back to Cardlytics — things like offer status changes, customer enrollments, or reward fulfillment confirmations.  
