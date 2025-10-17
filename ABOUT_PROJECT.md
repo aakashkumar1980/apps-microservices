@@ -72,9 +72,7 @@ In our API Engine, the **inbound flow** follows an **event-driven microservices*
 
 So, when a partner like **Cardlytics** or **Rakuten** calls our APIs — for example, `createOffer via. POST /api/v1/offers`, `blockOffer via. PUT /api/v1/offers/{offerId}/block`, or `updateOffer via. POST /api/v1/offers/{offerId}` — the requests first go through the **AWS API Gateway**, which is secured by **Okta OAuth2**. Once the request passes authentication, it reaches our **Offer API Service**, which is a **Spring Boot** application exposing REST endpoints. This service handles schema validation using `@Valid`, applies **idempotency checks** with Redis, and uses a centralized `@ControllerAdvice` for error handling.
 
-After validation, the Offer API doesn’t write directly to the database.  
-Instead, it follows the **Command Query Responsibility Segregation (CQRS)** approach.  
-The API sends the request to the **Offer Command Service**, which processes the command, applies business rules, and updates the **write model** (stored in Aurora or DynamoDB).  
+After validation, following the **Command Query Responsibility Segregation (CQRS)** approach. The API sends the request to the **Offer Command Service**, which processes the command, applies business rules, and updates the **write model** (stored in CouchbaseDB).  
 Once the write operation succeeds, the service publishes a domain event to **Kafka (Amazon MSK)** — something like `offer.created`, `offer.updated`, or `offer.blocked`.  
 This is usually done using the **Spring KafkaTemplate**, often wrapped in an **outbox pattern** to ensure the database transaction and Kafka publish remain consistent.
 
