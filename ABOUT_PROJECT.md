@@ -2,7 +2,7 @@
 
 Hi, I’m **Akhila Bezawada**. I’m a **Backend and Cloud Developer** with over **seven years of experience** working on large-scale, event-driven systems using **Java**, **Spring Boot**, **Vert.X**, and **AWS Cloud**.
 
-Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **Saga** for consistency across distributed services.
+Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **Saga** (Rollback trasaction) for consistency across distributed services.
 
 I really enjoy working with **reactive and asynchronous programming** — especially with **Vert.X**, **Java Streams**, and **CompletableFuture** — to build systems that can process thousands of lightweight events efficiently.
 
