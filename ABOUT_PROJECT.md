@@ -68,8 +68,8 @@ So, when a partner like **Cardlytics** or **Rakuten** calls our APIs — for exa
 After validation, following the **Command Query Responsibility Segregation (CQRS)** approach. The API sends the request to the **Offer Command Service**, which processes the command, applies business rules, and updates the **write model** (stored in CouchbaseDB).  
 Once the write operation succeeds, the service publishes a domain event to **Kafka (Amazon MSK)** — like `EVENT_OFFER_CREATED`, `EVENT_OFFER_UPDATED`, or `EVENT_OFFER_BLOCKED`. This is done using the **Spring KafkaTemplate**, often wrapped in a **json data format** to ensure the database transaction and Kafka publish remain consistent.
 
-For transactions, we use the **Saga pattern** to coordinate **multi-step business processes** that span multiple microservices — for example, when an offer update triggers changes in the **Enrollment** or **Reward** services.  
-Instead of using a single distributed transaction, each service performs its local transaction and publishes an event. Other services listen to that event, perform their own actions, and emit the next event in the flow.  
+For transactions, we use the **Saga pattern** to coordinate **multi-step business processes** that span multiple microservices — for example, when an offer update triggers changes in the **Enrollment** or **Reward** services. Instead of using a single distributed transaction, each service performs its local transaction and publishes an event. Other services listen to that event, perform their own actions, and emit the next event in the flow.  
+
 If any step fails, compensating events are published to roll back previous actions. We follow a **choreography-based Saga (de-centralized)** here, where Kafka events drive the sequence of updates, supported by **Resilience4j** for retries and circuit-breaking.
 
 So, putting it all together —  
