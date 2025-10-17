@@ -42,6 +42,8 @@ The goal of this initiative was to make our platform more flexible so that we co
 The first part of this integration platform is the **API Engine**. 
 This engine is responsible for handling real-time API calls between our offer platform and external partners like **Cardlytics** etc.  
 
+The integration is **two-way**, though.
+### Inbound Flow (Ingress)
 How this works with **Cardlytics** as an example is that they create and manages offers on their side — for example, “10% cashback at Starbucks” or “5% on groceries”. So, instead of us manually setting up these offers, Cardlytics now **calls our APIs** directly to push new offers, update existing ones, or block offers when needed.
 
 All these requests come through our **AWS API Gateway**, which acts as the secure entry layer for partner integrations.  
@@ -51,7 +53,7 @@ Once the API Gateway validates the request, it routes it into our internal offer
 Every change — like offer creation or updates — is then published as **Kafka events**, which allows other services in our ecosystem to pick up those changes asynchronously and act on them.  
 This ensures the system remains **loosely coupled and scalable**.
 
-The integration is **two-way**, though.  
+### Outbound Flow (Egress)
 We also send updates back to Cardlytics — things like offer status changes, customer enrollments, or reward fulfillment confirmations.  
 But for outbound traffic, we don’t hit Cardlytics’ real endpoints directly.  
 Instead, we use a **proxy layer** built on **AWS API Gateway (HTTP API)** with a **custom domain**.  
