@@ -73,8 +73,7 @@ In our API Engine, the **inbound flow** follows an **event-driven microservices*
 So, when a partner like **Cardlytics** or **Rakuten** calls our APIs — for example, `createOffer via. POST /api/v1/offers`, `blockOffer via. PUT /api/v1/offers/{offerId}/block`, or `updateOffer via. POST /api/v1/offers/{offerId}` — the requests first go through the **AWS API Gateway**, which is secured by **Okta OAuth2**. Once the request passes authentication, it reaches our **Offer API Service**, which is a **Spring Boot** application exposing REST endpoints. This service handles schema validation using `@Valid`, applies **idempotency checks** with Redis, and uses a centralized `@ControllerAdvice` for error handling.
 
 After validation, following the **Command Query Responsibility Segregation (CQRS)** approach. The API sends the request to the **Offer Command Service**, which processes the command, applies business rules, and updates the **write model** (stored in CouchbaseDB).  
-Once the write operation succeeds, the service publishes a domain event to **Kafka (Amazon MSK)** — something like `offer.created`, `offer.updated`, or `offer.blocked`.  
-This is usually done using the **Spring KafkaTemplate**, often wrapped in an **outbox pattern** to ensure the database transaction and Kafka publish remain consistent.
+Once the write operation succeeds, the service publishes a domain event to **Kafka (Amazon MSK)** — like `EVENT_OFFER_CREATED`, `EVENT_OFFER_UPDATED`, or `EVENT_OFFER_BLOCKED`. This is done using the **Spring KafkaTemplate**, often wrapped in a **json data format** to ensure the database transaction and Kafka publish remain consistent.
 
 Now, on the **Query side**, a separate **Offer Query Service** listens to those Kafka topics using `@KafkaListener`.  
 It consumes the events and updates the **read model** — typically a simpler, denormalized data store optimized for searching and filtering offers.  
