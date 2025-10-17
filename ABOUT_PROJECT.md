@@ -60,6 +60,7 @@ So, from a logical point of view, it works like this:
 That’s the overall logical architecture of the **API Engine** — designed for secure, real-time, two-way integration with global offer partners like Cardlytics and Rakuten.
 
 ## File Engine
+<br>
 
 
 # 🏗️ ARCHITECTURE (Physical Overview)
@@ -69,7 +70,7 @@ It shows how different application components interact to handle inbound and out
 ## 🧩 API Engine
 In our API Engine, the **inbound flow** follows an **event-driven microservices** pattern built on **Spring Boot**, and we’ve implemented it using **CQRS** along with **Saga** for distributed consistency.
 
-So, when a partner like **Cardlytics** or **Rakuten** calls our APIs — for example, `offerCreate`, `blockOffer`, or `updateOffer` — the requests first go through the **AWS API Gateway**, which is secured by **Okta OAuth2**.  
+So, when a partner like **Cardlytics** or **Rakuten** calls our APIs — for example, `createOffer via. POST /api/v1/offers`, `blockOffer via. PUT /api/v1/offers/{offerId}/block`, or `updateOffer via. POST /api/v1/offers/{offerId}` — the requests first go through the **AWS API Gateway**, which is secured by **Okta OAuth2**.  
 Once the request passes authentication, it reaches our **Offer API Service**, which is a **Spring Boot** application exposing REST endpoints. This service handles schema validation using `@Valid`, applies **idempotency checks** with Redis, and uses a centralized `@ControllerAdvice` for error handling.
 
 After validation, the Offer API doesn’t write directly to the database.  
