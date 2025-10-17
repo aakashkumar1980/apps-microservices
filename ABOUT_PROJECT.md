@@ -70,7 +70,7 @@ Once the write operation succeeds, the service publishes a domain event to **Kaf
 
 For transactions, we use the **Saga pattern** to coordinate **multi-step business processes** that span multiple microservices — for example, when an offer update triggers changes in the **Enrollment** or **Reward** services. Instead of using a single distributed transaction, each service performs its local transaction and publishes an event. Other services listen to that event, perform their own actions, and emit the next event in the flow.  
 
-If any step fails, compensating events are published to roll back previous actions. We follow a **choreography-based Saga (de-centralized)** here, where Kafka events drive the sequence of updates, supported by **Resilience4j** for retries and circuit-breaking.
+If any step fails, compensating events are published to roll back previous actions. We follow a **choreography-based Saga (de-centralized process)** here, where Kafka events drive the sequence of updates, supported by **Resilience4j** for retries and circuit-breaking.
 
 So, putting it all together —  
 Partners send requests through the **API Gateway (Okta secured)** → our **Spring Boot Offer API** validates and forwards to the **Command service** → the command is processed and **Kafka events** are published → **Query and downstream services** consume those events and update their data asynchronously.  
