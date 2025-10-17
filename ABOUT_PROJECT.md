@@ -55,7 +55,7 @@ We also send updates back to Cardlytics — things like offer status changes, cu
 But for outbound traffic, we don’t hit Cardlytics’ real endpoints directly. Instead, we use a **proxy layer** built on **AWS API Gateway (HTTP API)** with a **custom domain**. This proxy helps us mask the real URLs, control the flow, apply retry logic, and add additional protection using **AWS WAF** and **Secrets Manager** for credentials.
 
 So, from a logical point of view, it works like this:  
-**Cardlytics → AWS API Gateway (Okta secured) → Our Offer Platform (Kafka events) → AWS Proxy Gateway → Cardlytics APIs.**
+**Cardlytics → AWS API Gateway (Okta secured) → Our Offer Platform (Microservices with Kafka events) → AWS Proxy Gateway → Cardlytics APIs.**
 
 That’s the overall logical architecture of the **API Engine** — designed for secure, real-time, two-way integration with global offer partners like Cardlytics and Rakuten.
 
