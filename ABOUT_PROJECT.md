@@ -2,7 +2,7 @@
 
 Hi, I’m **Akhila Bezawada**. I’m a **Backend and Cloud Developer** with over **seven years of experience** working on large-scale, event-driven systems using **Java**, **Spring Boot**, **Vert.X**, and **AWS Cloud**.
 
-Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **Saga** (Rollback trasaction) for consistency across distributed services.
+Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **Saga** (rollback transaction) for consistency across distributed services.
 
 I really enjoy working with **reactive and asynchronous programming** — especially with **Vert.X**, **Java Streams**, and **CompletableFuture** — to build systems that can process thousands of lightweight events efficiently.
 
@@ -35,21 +35,17 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 
 # ARCHITECTURE (Logical Overview)
 In my recent assignment, I worked on a new **partner integration platform** that connects our offer system with multiple global offer aggregators like **Cardlytics**, **Rakuten**, and a few others.  
-The goal of this initiative was to make our platform more flexible so that we could onboard different offer partners easily and exchange offer data securely through standardized APIs and backend File processing.
-(The integration is **two-way**, though)
+The goal of this initiative was to make our platform more flexible so that we could onboard different offer partners easily and exchange offer data securely through standardized APIs.
+The integration is **two-way**, though and is responsible for handling real-time API calls between our offer platform and external partners like **Cardlytics** etc.  
 
-## 🧩 API Engine
-The first part of this integration platform is the **API Engine**. 
-This engine is responsible for handling real-time API calls between our offer platform and external partners like **Cardlytics** etc.  
-
-### Inbound Flow (Ingress)
+## Inbound Flow (Ingress)
 How this works with **Cardlytics** as an example is that they create and manages offers on their side — for example, “10% cashback at Starbucks” or “5% on groceries”. So, instead of us manually setting up these offers, Cardlytics now **calls our APIs** directly to push new offers, update existing ones, or block offers when needed.
 
 All these requests come through our **AWS API Gateway**, which acts as the secure entry layer for partner integrations. We’ve protected this gateway using **Okta OAuth2**, so each request from Cardlytics must have a valid access token before it even reaches our internal services.
 
 Once the API Gateway validates the request, it routes it into our internal offer platform where we apply business rules, validations, and process the incoming data. Every change — like offer creation or updates — is then published as **Kafka events**, which allows other services in our ecosystem to pick up those changes asynchronously and act on them. This ensures the system remains **loosely coupled and scalable**.
 
-### Outbound Flow (Egress)
+## Outbound Flow (Egress)
 We also send updates back to Cardlytics — things like offer status changes, customer enrollments, or reward fulfillment confirmations.  
 
 But for outbound traffic, we don’t hit Cardlytics’ real endpoints directly. Instead, we use a **proxy layer** built on **AWS API Gateway (HTTP API)** with a **custom domain**. This proxy helps us mask the real URLs, control the flow, apply retry logic, and add additional protection using **AWS WAF** and **Secrets Manager** for credentials.
@@ -57,16 +53,14 @@ But for outbound traffic, we don’t hit Cardlytics’ real endpoints directly. 
 So, from a logical point of view, it works like this:  
 **Cardlytics → AWS API Gateway (Okta secured) → Our Offer Platform (Microservices with Kafka events) → AWS Proxy Gateway → Cardlytics APIs.**
 
-That’s the overall logical architecture of the **API Engine** — designed for secure, real-time, two-way integration with global offer partners like Cardlytics and Rakuten.
+That’s the overall logical architecture of the **API** — designed for secure, real-time, two-way integration with global offer partners like Cardlytics and Rakuten.
 <br>
 
 
 # 🏗️ ARCHITECTURE (Physical Overview)
-This is a high-level physical architecture diagram of our **API Engine** for partner integrations. 
-It shows how different application components interact to handle inbound and outbound API calls securely and efficiently.
+This is a high-level physical architecture diagram of our **API** for partner integrations. It shows how different application components interact to handle inbound and outbound API calls securely and efficiently.
 
-## 🧩 API Engine
-In our API Engine, the **inbound flow** follows an **event-driven microservices** pattern built on **Spring Boot**, and we’ve implemented it using **CQRS** along with **Saga** for distributed consistency.
+In our API, the **inbound flow** follows an **event-driven microservices** pattern built on **Spring Boot**, and we’ve implemented it using **CQRS** along with **Saga** for distributed consistency.
 
 So, when a partner like **Cardlytics** or **Rakuten** calls our APIs — for example, `createOffer via. POST /api/v1/offers`, `blockOffer via. PUT /api/v1/offers/{offerId}/block`, or `updateOffer via. POST /api/v1/offers/{offerId}` — the requests first go through the **AWS API Gateway**, which is secured by **Okta OAuth2**. Once the request passes authentication, it reaches our **Offer API Service**, which is a **Spring Boot** application exposing REST endpoints. This service handles schema validation using `@Valid`, applies **idempotency checks** with Redis, and uses a centralized `@ControllerAdvice` for error handling.
 
