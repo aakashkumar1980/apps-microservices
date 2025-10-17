@@ -58,8 +58,6 @@ So, from a logical point of view, it works like this:
 **Cardlytics → AWS API Gateway (Okta secured) → Our Offer Platform (Microservices with Kafka events) → AWS Proxy Gateway → Cardlytics APIs.**
 
 That’s the overall logical architecture of the **API Engine** — designed for secure, real-time, two-way integration with global offer partners like Cardlytics and Rakuten.
-
-## File Engine :: TODO
 <br>
 
 
@@ -75,15 +73,9 @@ So, when a partner like **Cardlytics** or **Rakuten** calls our APIs — for exa
 After validation, following the **Command Query Responsibility Segregation (CQRS)** approach. The API sends the request to the **Offer Command Service**, which processes the command, applies business rules, and updates the **write model** (stored in CouchbaseDB).  
 Once the write operation succeeds, the service publishes a domain event to **Kafka (Amazon MSK)** — like `EVENT_OFFER_CREATED`, `EVENT_OFFER_UPDATED`, or `EVENT_OFFER_BLOCKED`. This is done using the **Spring KafkaTemplate**, often wrapped in a **json data format** to ensure the database transaction and Kafka publish remain consistent.
 
-Now, on the **Query side**, a separate **Offer Query Service** listens to those Kafka topics using `@KafkaListener`.  
-It consumes the events and updates the **read model** — typically a simpler, denormalized data store optimized for searching and filtering offers.  
-This separation gives us flexibility and scalability; reads and writes can evolve independently without impacting each other.
-
-Coming to the **Saga pattern**, we use it to coordinate **multi-step business processes** that span multiple microservices — for example, when an offer update triggers changes in the **Enrollment** or **Reward** services.  
-Instead of using a single distributed transaction, each service performs its local transaction and publishes an event.  
-Other services listen to that event, perform their own actions, and emit the next event in the flow.  
-If any step fails, compensating events are published to roll back previous actions.  
-We follow a **choreography-based Saga** here, where Kafka events drive the sequence of updates, supported by **Resilience4j** for retries and circuit-breaking.
+For transactions, we use the **Saga pattern** to coordinate **multi-step business processes** that span multiple microservices — for example, when an offer update triggers changes in the **Enrollment** or **Reward** services.  
+Instead of using a single distributed transaction, each service performs its local transaction and publishes an event. Other services listen to that event, perform their own actions, and emit the next event in the flow.  
+If any step fails, compensating events are published to roll back previous actions. We follow a **choreography-based Saga (de-centralized)** here, where Kafka events drive the sequence of updates, supported by **Resilience4j** for retries and circuit-breaking.
 
 So, putting it all together —  
 Partners send requests through the **API Gateway (Okta secured)** → our **Spring Boot Offer API** validates and forwards to the **Command service** → the command is processed and **Kafka events** are published → **Query and downstream services** consume those events and update their data asynchronously.  
