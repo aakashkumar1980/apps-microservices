@@ -33,23 +33,23 @@ And finally, we have **Analytics and Reporting**, which helps the business under
 So overall, I’ve worked across different parts of this lifecycle — mainly around **redemption and reward fulfillment**, ensuring transactions are processed accurately and efficiently while maintaining **scalability** and **low latency** in the system.
 
 
-## ARCHITECTURE
+# ARCHITECTURE (Logical Overview)
 In my recent assignment, I worked on a new **partner integration platform** that connects our offer system with multiple global offer aggregators like **Cardlytics**, **Rakuten**, and a few others.  
 The goal of this initiative was to make our platform more flexible so that we could onboard different offer partners easily and exchange offer data securely through standardized APIs and backend File processing.
 (The integration is **two-way**, though)
 
-### 🧩 API Engine
+## 🧩 API Engine
 The first part of this integration platform is the **API Engine**. 
 This engine is responsible for handling real-time API calls between our offer platform and external partners like **Cardlytics** etc.  
 
-#### Inbound Flow (Ingress)
+### Inbound Flow (Ingress)
 How this works with **Cardlytics** as an example is that they create and manages offers on their side — for example, “10% cashback at Starbucks” or “5% on groceries”. So, instead of us manually setting up these offers, Cardlytics now **calls our APIs** directly to push new offers, update existing ones, or block offers when needed.
 
 All these requests come through our **AWS API Gateway**, which acts as the secure entry layer for partner integrations. We’ve protected this gateway using **Okta OAuth2**, so each request from Cardlytics must have a valid access token before it even reaches our internal services.
 
 Once the API Gateway validates the request, it routes it into our internal offer platform where we apply business rules, validations, and process the incoming data. Every change — like offer creation or updates — is then published as **Kafka events**, which allows other services in our ecosystem to pick up those changes asynchronously and act on them. This ensures the system remains **loosely coupled and scalable**.
 
-#### Outbound Flow (Egress)
+### Outbound Flow (Egress)
 We also send updates back to Cardlytics — things like offer status changes, customer enrollments, or reward fulfillment confirmations.  
 
 But for outbound traffic, we don’t hit Cardlytics’ real endpoints directly. Instead, we use a **proxy layer** built on **AWS API Gateway (HTTP API)** with a **custom domain**. This proxy helps us mask the real URLs, control the flow, apply retry logic, and add additional protection using **AWS WAF** and **Secrets Manager** for credentials.
@@ -59,6 +59,35 @@ So, from a logical point of view, it works like this:
 
 That’s the overall logical architecture of the **API Engine** — designed for secure, real-time, two-way integration with global offer partners like Cardlytics and Rakuten.
 
+## File Engine
 
 
-### File Engine
+# 🏗️ ARCHITECTURE (Physical Overview)
+This is a high-level physical architecture diagram of our **API Engine** for partner integrations. 
+It shows how different application components interact to handle inbound and outbound API calls securely and efficiently.
+
+## 🧩 API Engine
+In our API Engine, the **inbound flow** follows an **event-driven microservices** pattern built on **Spring Boot**, and we’ve implemented it using **CQRS** along with **Saga** for distributed consistency.
+
+So, when a partner like **Cardlytics** or **Rakuten** calls our APIs — for example, `offerCreate`, `blockOffer`, or `updateOffer` — the requests first go through the **AWS API Gateway**, which is secured by **Okta OAuth2**.  
+Once the request passes authentication, it reaches our **Offer API Service**, which is a **Spring Boot** application exposing REST endpoints. This service handles schema validation using `@Valid`, applies **idempotency checks** with Redis, and uses a centralized `@ControllerAdvice` for error handling.
+
+After validation, the Offer API doesn’t write directly to the database.  
+Instead, it follows the **Command Query Responsibility Segregation (CQRS)** approach.  
+The API sends the request to the **Offer Command Service**, which processes the command, applies business rules, and updates the **write model** (stored in Aurora or DynamoDB).  
+Once the write operation succeeds, the service publishes a domain event to **Kafka (Amazon MSK)** — something like `offer.created`, `offer.updated`, or `offer.blocked`.  
+This is usually done using the **Spring KafkaTemplate**, often wrapped in an **outbox pattern** to ensure the database transaction and Kafka publish remain consistent.
+
+Now, on the **Query side**, a separate **Offer Query Service** listens to those Kafka topics using `@KafkaListener`.  
+It consumes the events and updates the **read model** — typically a simpler, denormalized data store optimized for searching and filtering offers.  
+This separation gives us flexibility and scalability; reads and writes can evolve independently without impacting each other.
+
+Coming to the **Saga pattern**, we use it to coordinate **multi-step business processes** that span multiple microservices — for example, when an offer update triggers changes in the **Enrollment** or **Reward** services.  
+Instead of using a single distributed transaction, each service performs its local transaction and publishes an event.  
+Other services listen to that event, perform their own actions, and emit the next event in the flow.  
+If any step fails, compensating events are published to roll back previous actions.  
+We follow a **choreography-based Saga** here, where Kafka events drive the sequence of updates, supported by **Resilience4j** for retries and circuit-breaking.
+
+So, putting it all together —  
+Partners send requests through the **API Gateway (Okta secured)** → our **Spring Boot Offer API** validates and forwards to the **Command service** → the command is processed and **Kafka events** are published → **Query and downstream services** consume those events and update their data asynchronously.  
+The **CQRS** model gives us clean separation and scalability, while the **Saga pattern** ensures data consistency across multiple services in a distributed environment.
