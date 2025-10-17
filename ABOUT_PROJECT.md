@@ -35,6 +35,7 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 
 # ARCHITECTURE (Logical Overview)
 In my recent assignment, I worked on a new **partner integration platform** that connects our offer system with multiple global offer aggregators like **Cardlytics**, **Rakuten**, and a few others.  
+
 The goal of this initiative was to make our platform more flexible so that we could onboard different offer partners easily and exchange offer data securely through standardized APIs.
 The integration is **two-way**, though and is responsible for handling real-time API calls between our offer platform and external partners like **Cardlytics** etc.  
 
