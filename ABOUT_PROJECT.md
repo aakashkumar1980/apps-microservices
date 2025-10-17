@@ -11,7 +11,7 @@ On the cloud side, I’ve worked extensively with **AWS**, setting up **EKS clus
 I love solving backend performance challenges, designing clean architectures, and continuously improving how systems communicate and scale.  
 
 
-# 💳 PROJECT (Global Merchant Services<GMS> portfolio :: Digital Merchant Offers<DiMo> project) :: Credit Card Offers Lifecycle
+# 💳 PROJECT (Global Merchant Services<GMS> portfolio :: Digital Merchant Offers<DiMo> project) :: Credit Card Offers
 
 My latest project was around the **Credit Card Offers Platform**, which basically manages the entire lifecycle of an offer — right from when it’s created by the marketing team to when the customer finally receives their reward.
 
