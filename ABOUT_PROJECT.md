@@ -45,15 +45,6 @@ How this works with **Cardlytics** as an example is that they create and manages
 All these requests come through our **AWS API Gateway**, which acts as the secure entry layer for partner integrations. We’ve protected this gateway using **Okta OAuth2**, so each request from Cardlytics must have a valid access token before it even reaches our internal services.
 
 Once the API Gateway validates the request, it routes it into our internal offer platform where we apply business rules, validations, and process the incoming data. Every change — like offer creation or updates — is then published as **Kafka events**, which allows other services in our ecosystem to pick up those changes asynchronously and act on them. This ensures the system remains **loosely coupled and scalable**.
-
-## Outbound Flow (Egress)
-We also send updates back to Cardlytics — things like offer status changes, customer enrollments, or reward fulfillment confirmations.  
-
-But for outbound traffic, we don’t hit Cardlytics’ real endpoints directly. Instead, we use a **proxy layer** built on **AWS API Gateway (HTTP API)** with a **custom domain**. This proxy helps us mask the real URLs, control the flow, apply retry logic, and add additional protection using **AWS WAF** and **Secrets Manager** for credentials.
-
-So, from a logical point of view, it works like this:  
-**Cardlytics → AWS API Gateway (Okta secured) → Our Offer Platform (Microservices with Kafka events) → AWS Proxy Gateway → Cardlytics APIs.**
-
 That’s the overall logical architecture of the **API** — designed for secure, real-time, two-way integration with global offer partners like Cardlytics and Rakuten.
 <br>
 
