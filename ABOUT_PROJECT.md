@@ -31,89 +31,57 @@ After that comes **Reward Fulfillment**, where the customer actually receives th
 And finally, we have **Analytics and Reporting**, which helps the business understand how the offer performed — like how many people redeemed it, total spend increase, and which offers were most effective.
 
 So overall, I’ve worked across different parts of this lifecycle — mainly around **redemption and reward fulfillment**, ensuring transactions are processed accurately and efficiently while maintaining **scalability** and **low latency** in the system.
-```html
-<h2>🎯 Redemption and Reward Fulfillment Flow</h2>
-
-<h3>🧾 <strong>Redemption Service</strong> (triggered when a customer makes a purchase)</h3>
-
-<ol>
-  <li><strong>Receive Transaction Event</strong><br>
-    The service receives a card transaction containing merchant, amount, card, and timestamp details.<br>
-    It validates the transaction data and ensures it’s not a duplicate.
-  </li>
-
-  <li><strong>Match with Active Offers</strong><br>
-    Looks up all <strong>active offers</strong> for that merchant or category (MCC).<br>
-    Checks if the customer is <strong>enrolled</strong> in the offer (if required).<br>
-    Validates <strong>eligibility rules</strong> such as minimum spend, date range, and allowed channels.
-  </li>
-
-  <li><strong>Determine Eligibility</strong><br>
-    If the transaction matches all the rules → marks it as <strong>eligible</strong>.<br>
-    If not → marks it as <strong>ineligible</strong>, providing a reason like <em>“below minimum spend”</em> or <em>“expired offer”</em>.
-  </li>
-
-  <li><strong>Apply Offer Caps and Budgets</strong><br>
-    Verifies <strong>daily, lifetime, or total program limits</strong> to ensure the offer budget isn’t exceeded.<br>
-    Only eligible transactions under the cap move forward.
-  </li>
-
-  <li><strong>Publish Redemption Result</strong><br>
-    Publishes an event such as <code>redemption.approved</code> for successful matches.<br>
-    Rejected transactions trigger a <code>redemption.rejected</code> event.<br>
-    These events are consumed by the <strong>Reward Fulfillment Service</strong>.
-  </li>
-
-  <li><strong>Persistence and Reliability</strong><br>
-    Saves redemption data in its database for auditing and reporting.<br>
-    Uses <strong>idempotency keys</strong> (transaction IDs) to prevent double counting.<br>
-    Failed events are retried, and unprocessed ones are sent to a <strong>Dead Letter Queue (DLQ)</strong>.
-  </li>
-</ol>
-
-<hr>
-
-<h3>💰 <strong>Reward Fulfillment Service</strong> (triggered when a redemption is approved)</h3>
-
-<ol>
-  <li><strong>Receive Redemption Event</strong><br>
-    Listens to the <code>redemption.approved</code> event from Kafka.<br>
-    Validates the event payload and links it to the correct offer and customer.
-  </li>
-
-  <li><strong>Load Reward Policy</strong><br>
-    Fetches the offer’s <strong>reward type</strong> (cashback, points, or tiered rewards).<br>
-    Loads the configured <strong>reward rate or formula</strong> — e.g., “10% cashback” or “2 points per $1 spent.”
-  </li>
-
-  <li><strong>Calculate Reward Amount</strong><br>
-    Computes the reward based on the transaction details and offer configuration.<br>
-    Applies <strong>caps and limits</strong> such as per-customer or per-offer maximums.<br>
-    Ensures that the <strong>program budget</strong> is not exceeded.
-  </li>
-
-  <li><strong>Fulfill Reward</strong><br>
-    Creates a reward entry with amount, currency, and timestamp.<br>
-    Publishes a <code>reward.fulfilled</code> event once the reward is successfully credited.<br>
-    Optionally, triggers customer notifications (e.g., “You earned $5 cashback!”).
-  </li>
-
-  <li><strong>Reliability and Monitoring</strong><br>
-    Retries transient failures and moves unrecoverable ones to a <strong>DLQ</strong>.<br>
-    Logs and metrics are collected for <strong>monitoring and audit tracking</strong>.
-  </li>
-</ol>
-
-<hr>
-
-<h3>🧠 In Simple Terms</h3>
-
-<p>
-  The <strong>Redemption Service</strong> identifies whether a purchase qualifies for an active offer.<br>
-  The <strong>Reward Fulfillment Service</strong> then calculates and credits the reward for that approved redemption.<br><br>
-  Together, they ensure that customer rewards are applied <strong>accurately, reliably, and in real time</strong>.
-</p>
-```
+>
+> ## 🎯 Redemption and Reward Fulfillment Flow
+> ### 🧾 **Redemption Service**  (triggered when a customer makes a purchase)
+> 
+> 1. **Receive Transaction**
+> - Gets a transaction event (merchant, amount, card, time) from the stream.
+> - Validates data and ensures it’s not duplicated.
+> 
+> 2. **Match with Offers**
+> - Searches active offers for that merchant or category (MCC).
+> - Checks customer enrollment and eligibility rules like min spend and date range.
+> 
+> 3. **Decide Eligibility**
+> - Marks the transaction as **eligible** or **ineligible** (with reason).
+> - Applies offer-level and customer-level caps or budgets.
+> 
+> 4. **Publish Result**
+> - Emits **`redemption.approved`** for qualified transactions.
+> - Emits **`redemption.rejected`** for non-qualified ones.
+> - These events are consumed by the **Reward Fulfillment Service**.
+> 
+> 5. **Save & Retry**
+> - Stores redemption data for auditing.
+> - Uses idempotency keys to prevent duplicates.
+> - Retries failed records and moves unprocessed ones to a **DLQ**.
+>
+> ### 💰 **Reward Fulfillment Service**  (triggered when a redemption is approved)
+> 
+> 1. **Receive Redemption Event**
+> - Listens to **`redemption.approved`** events from Kafka.
+> - Validates data and links to the correct offer.
+>
+> 2. **Load Reward Policy**
+> - Retrieves reward type (cashback, points, etc.) and rate (e.g., 10% cashback).
+> - Ensures offer and customer are still eligible for reward.
+> 
+> 3. **Calculate & Fulfill**
+> - Calculates reward based on transaction amount and rules.
+> - Applies caps and budget limits.
+> - Publishes **`reward.fulfilled`** once credited successfully.
+> 
+> 4. **Reliability**
+> - Retries transient errors, logs failures, and sends to DLQ if needed.
+> - Records all fulfillment details for monitoring and audit.
+>
+>
+> ### 🧠 Summary
+> - **Redemption Service**: Detects qualifying transactions for active offers.
+> - **Reward Fulfillment Service**: Calculates and credits rewards for approved redemptions.  
+> Together, they form the core of the **offer-to-reward flow**, ensuring accurate and reliable reward delivery.
+>
 
 # ARCHITECTURE (Logical Overview)
 In my recent assignment, I worked on a new **partner integration platform** that connects our offer system with multiple global offer aggregators like **Cardlytics**, **Rakuten**, and a few others.  
