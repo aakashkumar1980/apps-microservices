@@ -65,3 +65,5 @@ If any step fails, compensating events are published to roll back previous actio
 ## Summary
 So, putting it all together —  
 Partners send requests through the **API Gateway (Okta secured)** → our **Spring Boot Offer API** validates and forwards to the **Command service** → the command is processed and **Kafka events** are published → **Query and downstream services** consume those events and update their data asynchronously. The **CQRS** model gives us clean separation and scalability, while the **Saga pattern** ensures data consistency across multiple services in a distributed environment.
+
+![_ApplicationFlow](_readme_assets/application_flow.png)
