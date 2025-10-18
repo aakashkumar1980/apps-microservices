@@ -33,8 +33,7 @@ And finally, we have **Analytics and Reporting**, which helps the business under
 So overall, I’ve worked across different parts of this lifecycle — mainly around **redemption and reward fulfillment**, ensuring transactions are processed accurately and efficiently while maintaining **scalability** and **low latency** in the system.
 >
 > ## 🎯 Redemption and Reward Fulfillment Flow
-> ### 🧾 **Redemption Service**  (triggered when a customer makes a purchase)
-> 
+>> ### 🧾 **Redemption Service**  (triggered when a customer makes a purchase)
 > 1. **Receive Transaction**
 > - Gets a transaction event (merchant, amount, card, time) from the stream.
 > - Validates data and ensures it’s not duplicated.
@@ -51,14 +50,9 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 > - Emits **`redemption.approved`** for qualified transactions.
 > - Emits **`redemption.rejected`** for non-qualified ones.
 > - These events are consumed by the **Reward Fulfillment Service**.
-> 
-> 5. **Save & Retry**
-> - Stores redemption data for auditing.
-> - Uses idempotency keys to prevent duplicates.
-> - Retries failed records and moves unprocessed ones to a **DLQ**.
 >
-> ### 💰 **Reward Fulfillment Service**  (triggered when a redemption is approved)
-> 
+>
+>> ### 💰 **Reward Fulfillment Service**  (triggered when a redemption is approved)
 > 1. **Receive Redemption Event**
 > - Listens to **`redemption.approved`** events from Kafka.
 > - Validates data and links to the correct offer.
@@ -71,11 +65,6 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 > - Calculates reward based on transaction amount and rules.
 > - Applies caps and budget limits.
 > - Publishes **`reward.fulfilled`** once credited successfully.
-> 
-> 4. **Reliability**
-> - Retries transient errors, logs failures, and sends to DLQ if needed.
-> - Records all fulfillment details for monitoring and audit.
->
 >
 > ### 🧠 Summary
 > - **Redemption Service**: Detects qualifying transactions for active offers.
@@ -83,6 +72,7 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 > Together, they form the core of the **offer-to-reward flow**, ensuring accurate and reliable reward delivery.
 >
 
+<br><br>
 # ARCHITECTURE (Logical Overview)
 In my recent assignment, I worked on a new **partner integration platform** that connects our offer system with multiple global offer aggregators like **Cardlytics**, **Rakuten**, and a few others.  
 
