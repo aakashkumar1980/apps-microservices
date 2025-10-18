@@ -66,7 +66,7 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 > - Applies caps and budget limits.
 > - Publishes **`reward.fulfilled`** once credited successfully.
 >
-> ### 🧠 Summary
+>>> ### 🧠 Summary
 > - **Redemption Service**: Detects qualifying transactions for active offers.
 > - **Reward Fulfillment Service**: Calculates and credits rewards for approved redemptions.  
 > Together, they form the core of the **offer-to-reward flow**, ensuring accurate and reliable reward delivery.
