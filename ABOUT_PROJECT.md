@@ -35,11 +35,11 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 > # 🧩 MICROSERVICES LIST
 > 1. **Campaign Management Service**  
 >   Owns campaigns (goals, budgets, timelines); parent container for offers.
-> ---
+> --
 >
 > 2. **Offer Authoring Service**  
 >   Creates/edits offers (reward type, rates, caps, start/end, channels).
-> ---
+> --
 > 3. **Offer Approval & Governance Service**  
 >   Workflow for review/approval, policy checks, versioning.
 >
