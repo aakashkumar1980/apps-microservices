@@ -36,7 +36,6 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 > 1. **Campaign Management Service**  
 >   Owns campaigns (goals, budgets, timelines); parent container for offers.
 <br><br>
->
 > 2. **Offer Authoring Service**  
 >   Creates/edits offers (reward type, rates, caps, start/end, channels).
 > --
@@ -51,15 +50,13 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 >
 > 6. **Offer Eligibility Service**  
 >   Central rules for offer-level eligibility (spend min, MCCs, channels, geo).
->
-> 
+<br><br>
 > 7. **Merchant Registry Service**  
 >   Merchant master data (IDs, MCCs, locations, brand hierarchies).
 >
 > 8. **Merchant Eligibility Service**  
 >   Resolves which merchants/locations qualify for each offer.
->
-> 
+<br><br>
 > 9. **Customer Profile Service**  
 >   Cardholder master (cards, segments, status, product tiers).
 >
@@ -68,8 +65,7 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 >
 > 11. **Customer Enrollment Service**  
 >   Manages opt-in/opt-out, activation windows, enrollment state.
->
-> 
+<br><br>
 > 12. **Transaction Ingestion Service**  
 >   Consumes card transactions from network/core; normalizes, enriches.
 >
@@ -104,23 +100,19 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 >
 > 15. **Wallet & Ledger Service**  
 >   Stores rewarded balances/points; supports statements and adjustments.
->
-> 
+<br><br> 
 > 16. **Notification Service**  
 >   Sends real-time confirmations (“You earned $5 cashback”), summaries.
->
-> 
+<br><br> 
 > 17. **Dispute & Reversal Service**  
 >   Handles chargebacks/refunds; reverses redemptions/rewards when needed.
 >
 > 18. **Settlement & Reconciliation Service**  
 >   Settles with partners/merchants; reconciles costs and reimbursements.
->
-> 
+<br><br> 
 > 19. **Analytics & Reporting Service**  
 >   KPIs: activation, redemption rate, ROI, lift; dashboards and extracts.
->
-> 
+<br><br> 
 > 20. **Partner Integration Service**  
 >   Business-facing integration with aggregators (Cardlytics, Rakuten) for offer sync and status updates.
 >
