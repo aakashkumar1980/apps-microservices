@@ -32,7 +32,7 @@ And finally, we have **Analytics and Reporting**, which helps the business under
 
 So overall, I’ve worked across different parts of this lifecycle — mainly around **redemption and reward fulfillment**, ensuring transactions are processed accurately and efficiently while maintaining **scalability** and **low latency** in the system.
 
-> # 🧩 MICROSERVICES LIST
+> # 🧩 MICROSERVICES LIST (top 20)
 > 1. **Campaign Management Service**  
 >   Owns campaigns (goals, budgets, timelines); parent container for offers.
 <br><br>
