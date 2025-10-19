@@ -31,46 +31,122 @@ After that comes **Reward Fulfillment**, where the customer actually receives th
 And finally, we have **Analytics and Reporting**, which helps the business understand how the offer performed — like how many people redeemed it, total spend increase, and which offers were most effective.
 
 So overall, I’ve worked across different parts of this lifecycle — mainly around **redemption and reward fulfillment**, ensuring transactions are processed accurately and efficiently while maintaining **scalability** and **low latency** in the system.
+
+> # 🧩 MICROSERVICES LIST
+> 1. **Campaign Management Service**  
+>   Owns campaigns (goals, budgets, timelines); parent container for offers.
 >
-> ## 🎯 Redemption and Reward Fulfillment Flow
->> ### 🧾 **Redemption Service**  (triggered when a customer makes a purchase)
-> 1. **Receive Transaction**
-> - Gets a transaction event (merchant, amount, card, time) from the stream.
-> - Validates data and ensures it’s not duplicated.
+>
+> 2. **Offer Authoring Service**  
+>   Creates/edits offers (reward type, rates, caps, start/end, channels).
+>
+> 3. **Offer Approval & Governance Service**  
+>   Workflow for review/approval, policy checks, versioning.
+>
+> 4. **Offer Publication Service**  
+>   Publishes approved offers to channels/partners; manages on/off switches.
+>
+> 5. **Offer Catalog Service**  
+>   Read-optimized catalog of active offers by merchant/category/location.
+>
+> 6. **Offer Eligibility Service**  
+>   Central rules for offer-level eligibility (spend min, MCCs, channels, geo).
+>
 > 
-> 2. **Match with Offers**
-> - Searches active offers for that merchant or category (MCC).
-> - Checks customer enrollment and eligibility rules like min spend and date range.
+> 7. **Merchant Registry Service**  
+>   Merchant master data (IDs, MCCs, locations, brand hierarchies).
+>
+> 8. **Merchant Eligibility Service**  
+>   Resolves which merchants/locations qualify for each offer.
+>
 > 
-> 3. **Decide Eligibility**
-> - Marks the transaction as **eligible** or **ineligible** (with reason).
-> - Applies offer-level and customer-level caps or budgets.
+> 9. **Customer Profile Service**  
+>   Cardholder master (cards, segments, status, product tiers).
+>
+> 10. **Customer Eligibility Service**  
+>   Determines which customers qualify (segments, status, KYC, product).
+>
+> 11. **Customer Enrollment Service**  
+>   Manages opt-in/opt-out, activation windows, enrollment state.
+>
 > 
-> 4. **Publish Result**
-> - Emits **`redemption.approved`** for qualified transactions.
-> - Emits **`redemption.rejected`** for non-qualified ones.
-> - These events are consumed by the **Reward Fulfillment Service**.
+> 12. **Transaction Ingestion Service**  
+>   Consumes card transactions from network/core; normalizes, enriches.
 >
+> 13. 🧾 **Redemption Service** (triggered when a customer makes a purchase)  
+>   Matches purchases to active offers; applies rule checks and caps; emits redemption results.
+>> 1. **Receive Transaction**
+>>   - Gets a transaction event (merchant, amount, card, time) from the stream.
+>>   - Validates data and ensures it’s not duplicated.
+>> 2. **Match with Offers**
+>>   - Searches active offers for that merchant or category (MCC).
+>>   - Checks customer enrollment and eligibility rules like min spend and date range.
+>> 3. **Decide Eligibility**
+>>   - Marks the transaction as **eligible** or **ineligible** (with reason).
+>>   - Applies offer-level and customer-level caps or budgets.
+>> 4. **Publish Result**
+>>   - Emits **`redemption.approved`** for qualified transactions.
+>>   - Emits **`redemption.rejected`** for non-qualified ones.
+>>   - These events are consumed by the **Reward Fulfillment Service**.
 >
->> ### 💰 **Reward Fulfillment Service**  (triggered when a redemption is approved)
-> 1. **Receive Redemption Event**
-> - Listens to **`redemption.approved`** events from Kafka.
-> - Validates data and links to the correct offer.
+> 14. 💰 **Reward Calculation Service**  
+>>   Calculates cashback/points based on redemption and policy (tiers, rounding).
+>> 1. **Receive Redemption Event**
+>>   - Listens to **`redemption.approved`** events from Kafka.
+>>   - Validates data and links to the correct offer.
+>> 2. **Load Reward Policy**
+>>   - Retrieves reward type (cashback, points, etc.) and rate (e.g., 10% cashback).
+>>   - Ensures offer and customer are still eligible for reward.
+>> 3. **Calculate & Fulfill**
+>>   - Calculates reward based on transaction amount and rules.
+>>   - Applies caps and budget limits.
+>>   - Publishes **`reward.fulfilled`** once credited successfully.
 >
-> 2. **Load Reward Policy**
-> - Retrieves reward type (cashback, points, etc.) and rate (e.g., 10% cashback).
-> - Ensures offer and customer are still eligible for reward.
+> 15. **Wallet & Ledger Service**  
+>   Stores rewarded balances/points; supports statements and adjustments.
+>
 > 
-> 3. **Calculate & Fulfill**
-> - Calculates reward based on transaction amount and rules.
-> - Applies caps and budget limits.
-> - Publishes **`reward.fulfilled`** once credited successfully.
+> 16. **Notification Service**  
+>   Sends real-time confirmations (“You earned $5 cashback”), summaries.
 >
->>> ### 🧠 Summary
-> - **Redemption Service**: Detects qualifying transactions for active offers.
-> - **Reward Fulfillment Service**: Calculates and credits rewards for approved redemptions.  
-> Together, they form the core of the **offer-to-reward flow**, ensuring accurate and reliable reward delivery.
+> 
+> 17. **Dispute & Reversal Service**  
+>   Handles chargebacks/refunds; reverses redemptions/rewards when needed.
 >
+> 18. **Settlement & Reconciliation Service**  
+>   Settles with partners/merchants; reconciles costs and reimbursements.
+>
+> 
+> 19. **Analytics & Reporting Service**  
+>   KPIs: activation, redemption rate, ROI, lift; dashboards and extracts.
+>
+> 
+> 20. **Partner Integration Service**  
+>   Business-facing integration with aggregators (Cardlytics, Rakuten) for offer sync and status updates.
+>
+> 
+> # 🤖 AI/ML PROJECTS LIST
+> 1. **Offer Ranking & Personalization**  
+>   Ranks offers per user using contextual bandits/learning-to-rank.
+>
+> 2. **Customer Propensity Scoring**  
+>   Likelihood to enroll/redeem; feeds targeting and suppression lists.
+>
+> 3. **Budget Optimization**  
+>   Allocates campaign budget across segments/merchants to maximize ROI.
+>
+> 4. **Reward Liability Forecasting**  
+>   Projects future payout/points liability from active offers.
+>
+> 5. **Fraud & Abuse Detection**  
+>   Flags unusual redemption patterns, manufactured spend, location anomalies.
+>
+> 6. **Merchant Affinity & Similarity**  
+>   Embeddings to cluster merchants; improves cross-sell and category targeting.
+>
+> 7. **Anomaly Detection for Transactions**  
+>   Detects data quality or pipeline issues impacting redemptions.
+
 
 <br><br>
 # ARCHITECTURE (Logical Overview)
