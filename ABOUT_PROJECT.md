@@ -116,7 +116,8 @@ So overall, I’ve worked across different parts of this lifecycle — mainly ar
 > 20. **Partner Integration Service**  
 >   Business-facing integration with aggregators (Cardlytics, Rakuten) for offer sync and status updates.
 >
-> 
+<br><br>
+<br><br>
 > # 🤖 AI/ML PROJECTS LIST
 > 1. **Offer Ranking & Personalization**  
 >   Ranks offers per user using contextual bandits/learning-to-rank.
