@@ -48,6 +48,9 @@ public class FizzBuzz implements CommandLineRunner {
 
   /**
    * Runs the FizzBuzz logic from 1 to n.
+   * LOGIC:
+   * Use the modulus operator (%) to determine divisibility.
+   * If it is equal to zero, it means the number is divisible by that divisor.
    *
    * @param n total count to iterate through (simulates a batch of offers)
    */
