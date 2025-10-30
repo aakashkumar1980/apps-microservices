@@ -66,10 +66,7 @@ public class ReverseOrder implements CommandLineRunner {
       // e.g. 123 / 10 = 12 | 12 / 10 = 1 | 1 / 10 = 0
       x /= 10;
     }
-    // if result exceeds 32-bit signed integer range, return 0
-    if (result > Integer.MAX_VALUE || result < Integer.MIN_VALUE) {
-      return 0;
-    }
+
     return (int) result;
   }
 
