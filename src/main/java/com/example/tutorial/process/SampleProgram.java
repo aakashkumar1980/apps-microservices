@@ -18,7 +18,7 @@ public class SampleProgram implements CommandLineRunner {
   public void run(String... args) throws Exception {
     List<Offer> offers = SampleDataLoader.OFFERS_DTO.get();
     offers.forEach(offer -> {
-      System.out.println(offer.getTitle());
+      System.out.println(offer.toString());
     });
   }
 }

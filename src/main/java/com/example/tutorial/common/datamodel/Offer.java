@@ -1,76 +1,309 @@
 package com.example.tutorial.common.datamodel;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
-import java.time.Instant;
+import java.math.BigDecimal;
+import java.time.*;
 import java.util.List;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Offer {
+
   private String offerId;
-  private String merchantId;
-  private String merchantName;
-  private String category;
+  private String campaignId;
+
+  private Partner partner;
+  private Merchant merchant;
+
   private String title;
   private String description;
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING)
-  private Instant startDate;
+  private Schedule schedule;
+  private Eligibility eligibility;
+  private Limits limits;
+  private Reward reward;
+  private Stacking stacking;
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING)
-  private Instant endDate;
+  private Status status;
+  private Analytics analytics;
+  private Technical technical;
+  private Audit audit;
+  private Compliance compliance;
 
-  private DiscountType discountType;
-  private double discountValue;
-  private String currency;
-  private double minSpend;
-  private int maxRedemptions;
-  private List<String> tags;
-  private List<String> eligibleSegments;
-  private OfferStatus status;
-  private int impressions;
-  private int clicks;
-  private int redemptions;
-  private int dailyTpsHint;
+  private RedemptionRules redemptionRules;
+  private Settlement settlement;
 
-  // Getters & setters
-  public String getOfferId() { return offerId; }
-  public void setOfferId(String offerId) { this.offerId = offerId; }
-  public String getMerchantId() { return merchantId; }
-  public void setMerchantId(String merchantId) { this.merchantId = merchantId; }
-  public String getMerchantName() { return merchantName; }
-  public void setMerchantName(String merchantName) { this.merchantName = merchantName; }
-  public String getCategory() { return category; }
-  public void setCategory(String category) { this.category = category; }
-  public String getTitle() { return title; }
-  public void setTitle(String title) { this.title = title; }
-  public String getDescription() { return description; }
-  public void setDescription(String description) { this.description = description; }
-  public DiscountType getDiscountType() { return discountType; }
-  public void setDiscountType(DiscountType discountType) { this.discountType = discountType; }
-  public double getDiscountValue() { return discountValue; }
-  public void setDiscountValue(double discountValue) { this.discountValue = discountValue; }
-  public String getCurrency() { return currency; }
-  public void setCurrency(String currency) { this.currency = currency; }
-  public double getMinSpend() { return minSpend; }
-  public void setMinSpend(double minSpend) { this.minSpend = minSpend; }
-  public int getMaxRedemptions() { return maxRedemptions; }
-  public void setMaxRedemptions(int maxRedemptions) { this.maxRedemptions = maxRedemptions; }
-  public List<String> getTags() { return tags; }
-  public void setTags(List<String> tags) { this.tags = tags; }
-  public List<String> getEligibleSegments() { return eligibleSegments; }
-  public void setEligibleSegments(List<String> eligibleSegments) { this.eligibleSegments = eligibleSegments; }
-  public OfferStatus getStatus() { return status; }
-  public void setStatus(OfferStatus status) { this.status = status; }
-  public Instant getStartDate() { return startDate; }
-  public void setStartDate(Instant startDate) { this.startDate = startDate; }
-  public Instant getEndDate() { return endDate; }
-  public void setEndDate(Instant endDate) { this.endDate = endDate; }
-  public long getImpressions() { return impressions; }
-  public void setImpressions(int impressions) { this.impressions = impressions; }
-  public int getClicks() { return clicks; }
-  public void setClicks(int clicks) { this.clicks = clicks; }
-  public int getRedemptions() { return redemptions; }
-  public void setRedemptions(int redemptions) { this.redemptions = redemptions; }
-  public int getDailyTpsHint() { return dailyTpsHint; }
-  public void setDailyTpsHint(int dailyTpsHint) { this.dailyTpsHint = dailyTpsHint; }
+    /* ============================
+       Nested Models
+    ============================ */
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Partner {
+    private String partnerId;
+    private String name;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Merchant {
+    private String merchantId;
+    private String name;
+    private String mcc;
+    private List<String> brands;
+    private List<Location> locations;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Location {
+    private String storeId;
+    private String city;
+    private String state;
+    private String country;
+    private Geo geo;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Geo {
+    private double lat;
+    private double lng;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Schedule {
+    private OffsetDateTime start;
+    private OffsetDateTime end;
+    private String timezone;
+    private List<Weekday> daysOfWeek;
+    private List<LocalDate> blackoutDates;
+  }
+
+  public enum Weekday {
+    MON, TUE, WED, THU, FRI, SAT, SUN
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Eligibility {
+    private List<String> customerSegments;
+    private boolean enrollmentRequired;
+    private Money minSpend;
+    private List<String> categories;
+    private List<Channel> channels;
+    private List<String> cardProducts;
+    private List<String> merchantAllowlist;
+    private List<String> merchantDenylist;
+    private List<String> excludedMCCs;
+  }
+
+  public enum Channel {
+    IN_STORE, MOBILE_ORDER, ONLINE
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Limits {
+    private Money perTxnCap;
+    private PerCustomer perCustomer;
+    private PerOffer perOffer;
+    private Velocity velocity;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class PerCustomer {
+    private Integer count;
+    private Money amount;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class PerOffer {
+    private Integer count;
+    private Money amount;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Velocity {
+    private Integer dailyCount;
+    private Money weeklyAmount;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Reward {
+    private RewardType type;
+    private Money amount;
+    private Double percent;
+    private String currency;
+    private String notes;
+  }
+
+  public enum RewardType {
+    AMOUNT, PERCENT
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Stacking {
+    private boolean exclusive;
+    private List<String> allowedWith;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Status {
+    private OfferState state;
+    private String reason;
+    private OffsetDateTime updatedAt;
+    private List<StatusChange> history;
+  }
+
+  public enum OfferState {
+    DRAFT, APPROVED, ACTIVE, PAUSED
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class StatusChange {
+    private OfferState state;
+    private OffsetDateTime at;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Analytics {
+    private Integer impressions;
+    private Integer clicks;
+    private Integer redemptions;
+    private Double ctr;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Technical {
+    private String idempotencyKey;
+    private Integer dailyTpsHint;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Audit {
+    private String createdBy;
+    private OffsetDateTime createdAt;
+    private String lastModifiedBy;
+    private OffsetDateTime lastModifiedAt;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Compliance {
+    private String termsUrl;
+    private List<String> restrictedRegions;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class RedemptionRules {
+    private List<Channel> channels;
+    private CodeType codeType;
+    private Boolean issuerFunding;
+  }
+
+  public enum CodeType {
+    NONE, BARCODE, QRCODE, PROMO_CODE
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Settlement {
+    private FundingModel fundingModel;
+    private Integer reimbursementWindowDays;
+  }
+
+  public enum FundingModel {
+    ISSUER, PARTNER
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class Money {
+    @JsonAlias({"value", "amount"})
+    private BigDecimal value;
+    private String currency;
+  }
 }
