@@ -1,6 +1,6 @@
 [
   {
-    "offerId": "OFR-200101",
+    "offerId": "OFR200101",
     "campaignId": "CMP-STAR-2025-FALL",
     "partner": { "partnerId": "P-CARDLYTICS", "name": "Cardlytics" },
     "merchant": {
@@ -64,10 +64,16 @@
     "settlement": { "fundingModel": "ISSUER", "reimbursementWindowDays": 0 }
   },
   {
-    "offerId": "OFR-200202",
+    "offerId": "OFR200202",
     "campaignId": "CMP-RETL-2025-Q4",
     "partner": { "partnerId": "P-RAKUTEN", "name": "Rakuten" },
-    "merchant": { "merchantId": "M-TARGET", "name": "Target", "mcc": "5411", "brands": ["Target"], "locations": [] },
+    "merchant": {
+      "merchantId": "M-TARGET",
+      "name": "Target",
+      "mcc": "5411",
+      "brands": ["Target"],
+      "locations": []
+    },
     "title": "5% back on groceries online — up to $25",
     "description": "Valid on same-day pickup/delivery. Alcohol and gift cards excluded.",
     "schedule": {
@@ -110,10 +116,16 @@
     "settlement": { "fundingModel": "ISSUER", "reimbursementWindowDays": 0 }
   },
   {
-    "offerId": "OFR-200303",
+    "offerId": "OFR200303",
     "campaignId": "CMP-TRAVEL-2025-HOL",
     "partner": { "partnerId": "P-CARDLYTICS", "name": "Cardlytics" },
-    "merchant": { "merchantId": "M-DELTA", "name": "Delta Air Lines", "mcc": "4511", "brands": ["Delta"], "locations": [] },
+    "merchant": {
+      "merchantId": "M-DELTA",
+      "name": "Delta Air Lines",
+      "mcc": "4511",
+      "brands": ["Delta"],
+      "locations": []
+    },
     "title": "$75 off round-trip flights over $400 (Tue–Thu)",
     "description": "Domestic US only; main cabin or higher.",
     "schedule": {
