@@ -13,47 +13,47 @@ Goal: handle online assessments, mid-level interviews, and system logic question
 ---
 
 ### 🟢 EASY LEVEL — Core Logic & Patterns
-| Class | Concept | Analogy |
-|--------|----------|----------|
-| OfferFizzBuzzBatchProcessor | Loops & condition branching | Batch processing logic |
-| ReversePayloadSanitizer | Integer/string cleanup | Reversing numeric payloads |
-| SymmetricOfferIdValidator | Palindrome check | Sanity checks in offer IDs |
-| TextParserUtility | Length of last word, trim ops | User input parsing |
-| DuplicateOfferDetector | HashSet logic | Fraud / duplicate check |
-| SimpleAnagramMatcher | Frequency map logic | Tag consistency |
-| OfferRotationHandler | Array rotation | Rolling buffer management |
+| Class                      | Concept | Analogy |
+|----------------------------|----------|----------|
+| FizzBuzzBatchProcessor     | Loops & condition branching | Batch processing logic |
+| ReverseDataSanitizer       | Integer/string cleanup | Reversing numeric payloads |
+| SymmetricDataValidator     | Palindrome check | Sanity checks in offer IDs |
+| TextParserUtility          | Length of last word, trim ops | User input parsing |
+| DuplicateDataDetector      | HashSet logic | Fraud / duplicate check |
+| SimpleAnagramMatcher       | Frequency map logic | Tag consistency |
+| DataRotationHandler        | Array rotation | Rolling buffer management |
 | RecentTransactionCompactor | Move zeroes | Clean sparse logs |
 
 ---
 
 ### 🟡 MEDIUM LEVEL — Real-World Problem Solving
-| Class | Concept | Analogy |
-|--------|----------|----------|
-| TransactionSumAnalyzer | Subarray sum equals K | Fraud threshold detection |
-| OfferLeaderboardFinder | Kth largest element | Top-K rewards / ranking |
-| OfferWindowMaximizer | Sliding window max | Recent CTR computation |
-| OfferPairReconciler | Two sum / diff | Credit-debit pair logic |
-| RuleValidatorEngine | Valid parentheses / decode string | Nested rule syntax |
-| OfferMergeService | Merge sorted lists | Stream merge simulation |
-| OfferTimeScheduler | Merge intervals | Offer scheduling conflicts |
-| HangmanGame | String and state simulation | OA logic mini-game |
-| TicTacToeValidator | 2-D grid simulation | Rule matrix evaluation |
+| Class                   | Concept | Analogy |
+|-------------------------|----------|----------|
+| TransactionSumAnalyzer  | Subarray sum equals K | Fraud threshold detection |
+| DataLeaderboardFinder   | Kth largest element | Top-K rewards / ranking |
+| DataWindowMaximizer     | Sliding window max | Recent CTR computation |
+| DataPairReconciler      | Two sum / diff | Credit-debit pair logic |
+| RuleValidatorEngine     | Valid parentheses / decode string | Nested rule syntax |
+| DataMergeService        | Merge sorted lists | Stream merge simulation |
+| DataTimeScheduler       | Merge intervals | Data scheduling conflicts |
+| HangmanGame             | String and state simulation | OA logic mini-game |
+| TicTacToeValidator      | 2-D grid simulation | Rule matrix evaluation |
 | ATMTransactionSimulator | Map + state tracking | OA process simulation |
-| FilePathSimplifier | Stack logic | REST path normalization |
-| RoundRobinProcessor | Queue rotation | Event throttle logic |
+| FilePathSimplifier      | Stack logic | REST path normalization |
+| RoundRobinProcessor     | Queue rotation | Event throttle logic |
 
 ---
 
 ### 🔴 DIFFICULT LEVEL — Advanced But Still Practical
-| Class | Concept | Analogy |
-|--------|----------|----------|
-| OfferRankingQuickSorter | Quick sort / merge sort | Internal ranking analytics |
-| FraudPatternAnalyzer | Kadane’s / subarray product | Detect redemption anomalies |
-| RuleDependencyResolver | Topological sort | Offer dependency evaluation |
+| Class                    | Concept | Analogy |
+|--------------------------|----------|----------|
+| DataRankingQuickSorter   | Quick sort / merge sort | Internal ranking analytics |
+| FraudPatternAnalyzer     | Kadane’s / subarray product | Detect redemption anomalies |
+| RuleDependencyResolver   | Topological sort | Data dependency evaluation |
 | MerchantNetworkConnector | Union-find | Merchant grouping |
-| RewardOptimizerDP | Knapsack / partition subset | Budget optimization |
-| OfferCacheSystem | LRU / LFU | Eligibility cache |
-| RateLimiterController | Sliding window limiter | TPS control logic |
+| RewardOptimizerDP        | Knapsack / partition subset | Budget optimization |
+| DataCacheSystem          | LRU / LFU | Eligibility cache |
+| RateLimiterController    | Sliding window limiter | TPS control logic |
 
 ---
 
@@ -83,42 +83,42 @@ Goal: handle LeetCode-style rounds (Amazon, Meta, Google, Netflix, Apple).
 ---
 
 ### 🟢 EASY LEVEL
-| Class | Concept | Analogy |
-|--------|----------|----------|
-| BasicSearchUtility | Binary search variants | ID lookup |
-| ArrayBalancer | Product except self / prefix sum | Data normalization |
+| Class               | Concept | Analogy |
+|---------------------|----------|----------|
+| BasicSearchUtility  | Binary search variants | ID lookup |
+| ArrayBalancer       | Product except self / prefix sum | Data normalization |
 | SimpleTreeTraversal | BFS / DFS basics | Campaign hierarchy |
-| BasicLinkedListOps | Reverse / merge list | Log reconstruction |
-| MatrixHandler | Transpose, set zeros | Data cube cleanup |
+| BasicLinkedListOps  | Reverse / merge list | Log reconstruction |
+| MatrixHandler       | Transpose, set zeros | Data cube cleanup |
 
 ---
 
 ### 🟡 MEDIUM LEVEL
-| Class | Concept | Analogy |
-|--------|----------|----------|
-| OfferTreeAnalyzer | Depth, diameter, LCA | Rule tree complexity |
-| GraphTraversalService | BFS/DFS/Islands | Fraud connectivity |
-| OfferCombinationGenerator | Backtracking (subset, combo sum) | Offer bundle generation |
-| DynamicRewardCalculator | DP (climb stairs, coin change) | Tiered reward systems |
-| SubsequenceMatcher | LCS / LIS | Customer overlap analysis |
-| TrieBasedSearchEngine | Prefix tree | Merchant tag search |
-| PalindromePartitioner | DP + recursion | Coupon segmentation |
-| OfferRouteOptimizer | Dijkstra / Bellman-Ford | Min-cost path (transactions) |
+| Class                    | Concept | Analogy |
+|--------------------------|----------|----------|
+| DataTreeAnalyzer         | Depth, diameter, LCA | Rule tree complexity |
+| GraphTraversalService    | BFS/DFS/Islands | Fraud connectivity |
+| DataCombinationGenerator | Backtracking (subset, combo sum) | Data bundle generation |
+| DynamicRewardCalculator  | DP (climb stairs, coin change) | Tiered reward systems |
+| SubsequenceMatcher       | LCS / LIS | Customer overlap analysis |
+| TrieBasedSearchEngine    | Prefix tree | Merchant tag search |
+| PalindromePartitioner    | DP + recursion | Coupon segmentation |
+| DataRouteOptimizer       | Dijkstra / Bellman-Ford | Min-cost path (transactions) |
 
 ---
 
 ### 🔴 DIFFICULT LEVEL
-| Class | Concept | Analogy |
-|--------|----------|----------|
-| OfferDependencyGraph | Topological sort + cycle detection | Offer activation order |
-| SegmentTreeMetrics | Segment / Fenwick Tree | Real-time CTR computation |
-| GraphClusterAnalyzer | Union-find + Kruskal | Merchant connection networks |
-| OptimalBudgetAllocator | 0/1 Knapsack variants | Reward distribution optimization |
-| WildcardMatcher | Regex / wildcard DP | Rule pattern matching |
-| MultiCacheSystem | LRU + LFU combined design | Complex caching layers |
+| Class                     | Concept | Analogy |
+|---------------------------|----------|----------|
+| DataDependencyGraph       | Topological sort + cycle detection | Data activation order |
+| SegmentTreeMetrics        | Segment / Fenwick Tree | Real-time CTR computation |
+| GraphClusterAnalyzer      | Union-find + Kruskal | Merchant connection networks |
+| OptimalBudgetAllocator    | 0/1 Knapsack variants | Reward distribution optimization |
+| WildcardMatcher           | Regex / wildcard DP | Rule pattern matching |
+| MultiCacheSystem          | LRU + LFU combined design | Complex caching layers |
 | ConsistentHashingBalancer | Hash partitioning | Distributed offer routing |
-| WordSearchEngine | Backtracking 2D grid | Rule discovery |
-| GameTheorySolver | Minimax recursion | Decision tree optimization |
+| WordSearchEngine          | Backtracking 2D grid | Rule discovery |
+| GameTheorySolver          | Minimax recursion | Decision tree optimization |
 
 ---
 
@@ -163,10 +163,10 @@ com.aakash.dsa
 ---
 
 ✅ **Summary**
-| Track | Duration | Focus | Target Companies |
-|--------|-----------|--------|------------------|
-| Part 1 — Practical Java & Logic | 1 Month | Arrays, Strings, Maps, Simulations, Small Games | Infosys, Cognizant, TCS, Capgemini, Dew Softech, Mid-tier Product Companies |
-| Part 2 — FAANG-Level Algorithms | 2–3 Months | Graphs, DP, Backtracking, Optimization | Amazon, Google, Meta, Netflix, Apple, High-scale Startups |
+| Track | Duration | Focus | Target Companies | <br> 
+|--------|-----------|--------|------------------| <br>
+| Part 1 — Practical Java & Logic | 1 Month    | Arrays, Strings, Maps, Simulations, Small Games | Infosys, Cognizant, TCS, Capgemini, Dew Softech, Mid-tier Product Companies | <br>
+| Part 2 — FAANG-Level Algorithms | 2–3 Months | Graphs, DP, Backtracking, Optimization          | Amazon, Google, Meta, Netflix, Apple, High-scale Startups |
 
 ---
 

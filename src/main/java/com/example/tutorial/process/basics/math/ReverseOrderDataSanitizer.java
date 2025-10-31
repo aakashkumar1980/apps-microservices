@@ -24,9 +24,9 @@ import java.util.List;
  * their numeric suffix (like offerId numbers) using reverse logic.
  */
 @Component
-public class ReverseOrder implements CommandLineRunner {
+public class ReverseOrderDataSanitizer implements CommandLineRunner {
   public static void main(String[] args) {
-    SpringApplication.run(ReverseOrder.class, args);
+    SpringApplication.run(ReverseOrderDataSanitizer.class, args);
   }
 
   @Override

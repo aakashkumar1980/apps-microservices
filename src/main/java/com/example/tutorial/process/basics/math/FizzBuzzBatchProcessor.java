@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * FizzBuzz
+ * FizzBuzzBatchProcessor
  * ----------------------------------
  * <p>This simple program demonstrates the concept of looping and conditional branching.
- * In traditional FizzBuzz, numbers from 1 to N are printed — but:
+ * In traditional FizzBuzzBatchProcessor, numbers from 1 to N are printed — but:
  * <ul>
  * <li>If the number is divisible by 3 → print "Fizz"</li>
  * <li>If the number is divisible by 5 → print "Buzz"</li>
- * <li>If divisible by both → print "FizzBuzz"</li>
+ * <li>If divisible by both → print "FizzBuzzBatchProcessor"</li>
  * <li>Otherwise → print the number itself</li>
  * </ul>
  *
@@ -24,7 +24,7 @@ import java.util.List;
  * <ul>
  * <li> Every 3rd offer might go to 'Marketing Team A' (Fizz) </li>
  * <li> Every 5th offer might go to 'Finance Team' (Buzz) </li>
- * <li> If both conditions meet, both teams act together (FizzBuzz) </li>
+ * <li> If both conditions meet, both teams act together (FizzBuzzBatchProcessor) </li>
  * <li> Others are handled as normal. </li>
  * </ul>
  *
@@ -32,9 +32,9 @@ import java.util.List;
  * from the offer.json file to show how a loop could iterate through data.
  */
 @Component
-public class FizzBuzz implements CommandLineRunner {
+public class FizzBuzzBatchProcessor implements CommandLineRunner {
   public static void main(String[] args) {
-    SpringApplication.run(FizzBuzz.class, args);
+    SpringApplication.run(FizzBuzzBatchProcessor.class, args);
   }
 
   @Override
@@ -42,12 +42,12 @@ public class FizzBuzz implements CommandLineRunner {
     List<Offer> offers = SampleDataLoader.OFFERS_DTO.get();
     offers.forEach(offer -> System.out.println("Loaded Offer: " + offer));
 
-    System.out.print("\n--- Running FizzBuzz Logic on Offers ---\n");
+    System.out.print("\n--- Running FizzBuzzBatchProcessor Logic on Offers ---\n");
     runFizzBuzz(offers.size());
   }
 
   /**
-   * Runs the FizzBuzz logic from 1 to n.
+   * Runs the FizzBuzzBatchProcessor logic from 1 to n.
    * LOGIC:
    * Use the modulus operator (%) to determine divisibility.
    * If it is equal to zero, it means the number is divisible by that divisor.
@@ -61,7 +61,7 @@ public class FizzBuzz implements CommandLineRunner {
       } else if (i % 5 == 0) {
         System.out.println(i + ": Buzz :: Finance batch");
       } else if (i % 3 == 0 && i % 5 == 0) {
-        System.out.println(i + ": FizzBuzz :: Marketing & Finance batch");
+        System.out.println(i + ": FizzBuzzBatchProcessor :: Marketing & Finance batch");
 
       } else {
         System.out.println(i + ": Offer processed normally");
