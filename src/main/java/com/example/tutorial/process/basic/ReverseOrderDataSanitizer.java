@@ -41,34 +41,60 @@ public class ReverseOrderDataSanitizer implements CommandLineRunner {
         +" | OfferId(reverse): "+reverseAlphaNumeric(offer.getOfferId())));
   }
 
+
   /**
-   * Core reverse integer logic.
-   * LOGIC: Pop digits from the end of the input integer and push them onto the result integer.
+   * Reverse the digits of a signed 32‑bit integer using a loop-based pop-and-push approach.
    *
-   * @param x input integer
-   * @return reversed integer, or 0 if overflow occurs
+   * <p>Loop mechanics (per-iteration semantics):
+   * <ol>
+   *   <li>Pop: {@code lastDigit = x % 10;} — extracts the last decimal digit. For negative {@code x},
+   *       Java's remainder preserves the sign of the dividend (for example {@code -12 % 10 == -2}).</li>
+   *   <li>Push: {@code result = result * 10 + lastDigit;} — shift accumulated digits left and append.</li>
+   *   <li>Advance: {@code x /= 10;} — remove the last digit. Integer division truncates toward zero.</li>
+   * </ol>
+   *
+   * <p>Loop invariant: before each iteration {@code result} holds the reversed digits processed so far,
+   * and {@code x} holds the remaining prefix yet to process. Each iteration transfers one digit from
+   * {@code x} to {@code result}.</p>
+   *
+   * <p>Per-iteration example for input {@code 123}:
+   * <pre>
+   * Initial: x = 123, result = 0
+   * Iteration 1:
+   *   [POP] lastDigit(x % 10)                  -> 123 % 10 = 3
+   *   [RESULT] result(result * 10 + lastDigit) -> 0 * 10 + 3 = 3
+   *   [ADVANCE] x(x /= 10)                     -> 123 / 10 = 12
+   *
+   * Now: x = 12, result = 3
+   * Iteration 2:
+   *   [POP] lastDigit(x % 10)                  -> 12 % 10 = 2
+   *   [RESULT] result(result * 10 + lastDigit) -> 3 * 10 + 2 = 32
+   *   [ADVANCE] x(x /= 10)                     -> 12 / 10 = 1
+   *
+   * Now: x = 1, result = 32
+   * Iteration 3:
+   *   [POP] lastDigit(x % 10)                  -> 1 % 10 = 1
+   *   [RESULT] result(result * 10 + lastDigit) -> 32 * 10 + 1 = 321
+   *   [ADVANCE] x(x /= 10) -> 1 / 10 = 0
+   *
+   * Final: result = 321
+   * </pre>
+   *
+   * @param x input integer whose digits are to be reversed
+   * @return the integer formed by reversing the decimal digits of {@code x}.
    */
   public static int reverseNumeric(int x) {
-    long result = 0; // use long to check overflow safely
+    long result = 0; // accumulator (use long to detect overflow)
 
-    // loop until all digits are processed. e.g. x = 123 | 12 | 1 | 0
+    // Process digits until none remain. Example progression: x = 123 -> 12 -> 1 -> 0
     while (x != 0) {
-      // step 1: pop the last digit using modulus operator. 10 is the base for decimal system,
-      // so the remainder when dividing by 10 gives the last digit.
-      // e.g. 123 % 10 = 3 | 12 % 10 = 2 | 1 % 10 = 1
-      int lastDigit = x % 10;
-
-      // step 2: next multiply result by 10 (to shift left) and add the last digit to get the new result.
-      // e.g. result = 0 * 10 + 3 = 3 | result = 3 * 10 + 2 = 32 | result = 32 * 10 + 1 = 321
-      result = result * 10 + lastDigit;
-
-      // step 3: remove the last digit from x by performing integer division by 10.
-      // e.g. 123 / 10 = 12 | 12 / 10 = 1 | 1 / 10 = 0
-      x /= 10;
+      int lastDigit = x % 10;           // pop
+      result = result * 10 + lastDigit; // push
+      x /= 10;                          // advance
     }
-
     return (int) result;
   }
+
 
   /**
    * Core reverse string logic while preserving non-alphanumeric character positions.
