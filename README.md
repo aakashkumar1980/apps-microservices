@@ -1,311 +1,177 @@
-# 🧠 DSA Master Plan
----
+# 💼 DSA + Java Coding Roadmap for Experienced Backend Developers
 
-## 1️⃣ com.example.tutorial.process.basics
-
-### ➤ math
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| FizzBuzz | 412 | Simple logic loops for batch processors. |
-| Reverse Integer | 7 | Sanitizing numeric payloads. |
-| Palindrome Number | 9 | Symmetric offer IDs validation. |
-| Factorial Trailing Zeroes | 172 | Pattern checks in analytics. |
-| Pow(x, n) | 50 | Exponential scoring or weighted rules. |
-| Roman to Integer / Integer to Roman | 13 / 12 | Encoding reward tiers. |
-| Integer to English Words | 273 | UI reward display formatting. |
+This roadmap is optimized for two preparation tracks:
 
 ---
 
-## 2️⃣ com.example.tutorial.process.arrays
+<details open>
+<summary>🚀 <b>PART 1 — 1-Month Preparation (Non-FAANG / Product-Driven Companies)</b></summary>
 
-### ➤ searching
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Binary Search | 704 | Lookup in sorted offers/IDs. |
-| Search in Rotated Array | 33 | Detect reshuffled datasets. |
-| Find Minimum in Rotated Array | 153 | Find lowest offer rate. |
-
-### ➤ sorting
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Quick Sort / Merge Sort | — | Core data pipeline sorting. |
-| Sort Colors | 75 | Category bucket sorting. |
-| Kth Largest/Smallest (Quick Select) | 215 | Top-K rewards ranking. |
-
-### ➤ subarrays & slidingwindow
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Subarray Sum Equals K | 560 | Detect fraud/redemption bursts. |
-| Kadane’s Algorithm (Max Subarray) | 53 | Peak engagement interval. |
-| Subarray Product < K | 713 | Low-performing pattern detection. |
-| K-Diff Pairs | 532 | Price differential analysis. |
-| Largest Subarray with 0 Sum | — | Balance validation in ledgers. |
-| Sliding Window Maximum | 239 | CTR over real-time window. |
-
-### ➤ general
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Two Sum | 1 | Credit-debit pairing. |
-| Move Zeroes | 283 | Stream compaction. |
-| Contains Duplicate | 217 | Duplicate fraud detection. |
-| Valid Anagram | 242 | Tag consistency in campaigns. |
-| Rotate Array | 189 | Rolling buffer for Kafka topics. |
-| Product of Array Except Self | 238 | Aggregate stats w/o bias. |
-| First Missing Positive | 41 | Next offer ID allocation. |
-| Next Permutation | 31 | Reorder campaign sequences. |
+Focus: practical problem solving, algorithmic thinking, and clean Java code for 7+ years backend developers (Spring Boot, REST API, Kafka, microservices).  
+Goal: handle online assessments, mid-level interviews, and system logic questions.
 
 ---
 
-## 3️⃣ com.example.tutorial.process.strings
-
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Length of Last Word | 58 | Input field parsing. |
-| Reverse Words in a String | 151 | Search keyword cleanup. |
-| Reverse String | 344 | Decode encoded payloads. |
-| Longest Substring Without Repeat | 3 | Token/session uniqueness. |
-| Longest Common Prefix | 14 | Merchant name match. |
-| Valid Palindrome | 125 | Text normalization validation. |
-
----
-
-## 4️⃣ com.example.tutorial.process.linkedlist
-
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Reverse Linked List | 206 | Reverse time-ordered logs. |
-| Merge Two Sorted Lists | 21 | Merge Kafka streams. |
-| Delete Node in Linked List | 237 | Remove invalid campaign nodes. |
-| Rotate List | 61 | Rolling audit chains. |
-| Reorder List | 143 | Timeline re-sequencing. |
-| Palindrome Linked List | 234 | Symmetric offer chains. |
-| Middle of Linked List | 876 | Mid-stream checkpoint. |
+### 🟢 EASY LEVEL — Core Logic & Patterns
+| Class | Concept | Analogy |
+|--------|----------|----------|
+| OfferFizzBuzzBatchProcessor | Loops & condition branching | Batch processing logic |
+| ReversePayloadSanitizer | Integer/string cleanup | Reversing numeric payloads |
+| SymmetricOfferIdValidator | Palindrome check | Sanity checks in offer IDs |
+| TextParserUtility | Length of last word, trim ops | User input parsing |
+| DuplicateOfferDetector | HashSet logic | Fraud / duplicate check |
+| SimpleAnagramMatcher | Frequency map logic | Tag consistency |
+| OfferRotationHandler | Array rotation | Rolling buffer management |
+| RecentTransactionCompactor | Move zeroes | Clean sparse logs |
 
 ---
 
-## 5️⃣ com.example.tutorial.process.stackqueue
-
-### ➤ stack
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Valid Parentheses | 20 | Rule-syntax validation. |
-| Decode String | 394 | DSL expansion / nested parsing. |
-| Longest Valid Parentheses | 32 | Rule nesting depth. |
-| Largest Rectangle in Histogram | 84 | Maximum throughput window. |
-| Asteroid Collision | 735 | Conflict resolution in queues. |
-
-### ➤ monotonicqueue
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Next Greater Element | 496 | Offer ranking deltas. |
-| Daily Temperatures | 739 | Event cooldown intervals. |
-| Trapping Rain Water | 42 | Gap detection. |
-| Stock Span Problem | — | Consecutive high-streaks. |
+### 🟡 MEDIUM LEVEL — Real-World Problem Solving
+| Class | Concept | Analogy |
+|--------|----------|----------|
+| TransactionSumAnalyzer | Subarray sum equals K | Fraud threshold detection |
+| OfferLeaderboardFinder | Kth largest element | Top-K rewards / ranking |
+| OfferWindowMaximizer | Sliding window max | Recent CTR computation |
+| OfferPairReconciler | Two sum / diff | Credit-debit pair logic |
+| RuleValidatorEngine | Valid parentheses / decode string | Nested rule syntax |
+| OfferMergeService | Merge sorted lists | Stream merge simulation |
+| OfferTimeScheduler | Merge intervals | Offer scheduling conflicts |
+| HangmanGame | String and state simulation | OA logic mini-game |
+| TicTacToeValidator | 2-D grid simulation | Rule matrix evaluation |
+| ATMTransactionSimulator | Map + state tracking | OA process simulation |
+| FilePathSimplifier | Stack logic | REST path normalization |
+| RoundRobinProcessor | Queue rotation | Event throttle logic |
 
 ---
 
-## 6️⃣ com.example.tutorial.process.tree
-
-### ➤ traversal
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Level Order Traversal | 102 | Campaign hierarchy evaluation. |
-| Preorder / Inorder / Postorder | 144 / 94 / 145 | Rule evaluation sequences. |
-| Zigzag Level Order Traversal | 103 | Alternating merchant tiers. |
-
-### ➤ structure
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Maximum / Minimum Depth | 104 / 111 | Complexity of campaign tree. |
-| Diameter of Binary Tree | 543 | Longest dependency chain. |
-| Invert Binary Tree | 226 | Mirroring segmentation trees. |
-| Flatten Binary Tree | 114 | Linearized decision tree. |
-| Same Tree | 100 | Compare cloned configurations. |
-| Validate BST | 98 | Ensure correct ordering. |
-| LCA of Binary Tree | 236 | Find shared eligibility root. |
-| Insert into BST | 701 | Incremental insertions. |
-| Sorted Array to BST | 108 | Build balanced configurations. |
-| Construct BST from Preorder | 1008 | Restore from logs. |
+### 🔴 DIFFICULT LEVEL — Advanced But Still Practical
+| Class | Concept | Analogy |
+|--------|----------|----------|
+| OfferRankingQuickSorter | Quick sort / merge sort | Internal ranking analytics |
+| FraudPatternAnalyzer | Kadane’s / subarray product | Detect redemption anomalies |
+| RuleDependencyResolver | Topological sort | Offer dependency evaluation |
+| MerchantNetworkConnector | Union-find | Merchant grouping |
+| RewardOptimizerDP | Knapsack / partition subset | Budget optimization |
+| OfferCacheSystem | LRU / LFU | Eligibility cache |
+| RateLimiterController | Sliding window limiter | TPS control logic |
 
 ---
 
-## 7️⃣ com.example.tutorial.process.graphs
+💡 **Focus on:**
+- Loops, HashMap, Set, Arrays, basic recursion
+- String and array problems tied to real systems
+- Mini logic games & simulation problems
+- Simple sorting / searching
+- Practical math & validation tasks
 
-### ➤ traversal
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| BFS & DFS | — | Fraud path reachability. |
-| Number of Islands | 200 | Merchant cluster identification. |
-| Clone Graph | 133 | Offer graph duplication. |
-| Bipartite Graph | 785 | Campaign conflict detection. |
+📅 **Recommended Plan (4 Weeks):**
+- Week 1: Easy logic (FizzBuzz → String problems)
+- Week 2: Arrays & hash maps (duplicates, sums, windowing)
+- Week 3: Simulation & OA-style logic games
+- Week 4: Sorting, cache, small DP for reasoning
 
-### ➤ topology
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Topological Sort (Kahn) | — | Offer dependency resolution. |
-| All Paths from Source to Target | 797 | Customer journey modeling. |
-| Course Schedule | 207 | Dependency validation. |
-
-### ➤ advanced
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Union-Find / DSU / Kruskal / Redundant Connection | 684 | Merchant network grouping. |
-| Dijkstra / Bellman-Ford / Floyd-Warshall | — | Cost-based routing. |
+</details>
 
 ---
 
-## 8️⃣ com.example.tutorial.process.heaps
+<details>
+<summary>🧠 <b>PART 2 — FAANG-Level Preparation (Algorithmic Depth)</b></summary>
 
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Kth Largest Element | 215 | Top-K rewards. |
-| Top K Frequent Elements | 347 | Popular merchant detection. |
-| Merge K Sorted Lists | 23 | Stream merges. |
-| Sliding Window Maximum | 239 | Dynamic CTR computation. |
-| Median of Data Stream | 295 | Offer performance percentile. |
+Focus: deeper data structure fluency, recursion, dynamic programming, optimization, and graph algorithms.  
+Goal: handle LeetCode-style rounds (Amazon, Meta, Google, Netflix, Apple).
 
 ---
 
-## 9️⃣ com.example.tutorial.process.backtracking
-
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Permutations / Combinations | 46 / 77 | Offer combination generation. |
-| Combination Sum | 39 | Bundle optimization. |
-| Generate Parentheses | 22 | Rule generator testing. |
-| Letter Combinations of Phone Number | 17 | Vanity codes. |
-| Power Set / Subsets | — | Eligibility subset logic. |
-| Partition to K Equal Sum Subsets | 698 | Reward partitioning. |
-| Rat in a Maze / M-Coloring | — | Graph path planning. |
+### 🟢 EASY LEVEL
+| Class | Concept | Analogy |
+|--------|----------|----------|
+| BasicSearchUtility | Binary search variants | ID lookup |
+| ArrayBalancer | Product except self / prefix sum | Data normalization |
+| SimpleTreeTraversal | BFS / DFS basics | Campaign hierarchy |
+| BasicLinkedListOps | Reverse / merge list | Log reconstruction |
+| MatrixHandler | Transpose, set zeros | Data cube cleanup |
 
 ---
 
-## 🔟 com.example.tutorial.process.dp
-
-### ➤ 1D
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Fibonacci | 509 | Basic recurrence pattern. |
-| Climbing Stairs | 70 | Tiered reward structure. |
-| House Robber | 198 | Non-overlapping benefits. |
-| Partition Equal Subset Sum | 416 | Budget balance allocation. |
-| Decode Ways | 91 | Code decoding engine. |
-
-### ➤ 2D
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Unique Paths | 62 | Distinct redemption flows. |
-| Minimum Path Sum | 64 | Lowest-cost flow path. |
-| Coin Change | 322 | Transaction split optimization. |
-| Longest Increasing Subsequence | 300 | Growth metric trend. |
-| Longest Common Subsequence | 1143 | Cross-campaign overlap. |
-| Longest Palindromic Subsequence | 516 | Symmetric reward logic. |
-
-### ➤ advanced
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Edit Distance | 72 | Fuzzy name/code matching. |
-| Interleaving String | 97 | Combined rule chains. |
-| 0/1 Knapsack / Unbounded Knapsack | — | Offer budget optimization. |
-| Palindrome Partitioning | 131 | Coupon segmentation. |
-| Regex / Wildcard Match | 10 / 44 | Rule syntax matching. |
+### 🟡 MEDIUM LEVEL
+| Class | Concept | Analogy |
+|--------|----------|----------|
+| OfferTreeAnalyzer | Depth, diameter, LCA | Rule tree complexity |
+| GraphTraversalService | BFS/DFS/Islands | Fraud connectivity |
+| OfferCombinationGenerator | Backtracking (subset, combo sum) | Offer bundle generation |
+| DynamicRewardCalculator | DP (climb stairs, coin change) | Tiered reward systems |
+| SubsequenceMatcher | LCS / LIS | Customer overlap analysis |
+| TrieBasedSearchEngine | Prefix tree | Merchant tag search |
+| PalindromePartitioner | DP + recursion | Coupon segmentation |
+| OfferRouteOptimizer | Dijkstra / Bellman-Ford | Min-cost path (transactions) |
 
 ---
 
-## 1️⃣1️⃣ com.example.tutorial.process.intervals
-
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Merge Intervals | 56 | Campaign overlap fix. |
-| Insert Interval | 57 | Add new campaign window. |
-| Non-Overlapping Intervals | 435 | Conflict detection. |
-| Meeting Rooms I/II | 252 / 253 | Offer slot scheduling. |
-| Activity Selection Problem | — | Max concurrent offers. |
-
----
-
-## 1️⃣2️⃣ com.example.tutorial.process.bitwise
-
-| Problem | LeetCode | Use Case |
-|----------|-----------|----------|
-| Single Number | 136 | Unique transaction ID. |
-| Single Number II | 137 | Bitwise anomaly detection. |
-| Count Set Bits | 191 | Feature toggles summary. |
-| Sum of Two Integers | 371 | Bitwise addition logic. |
-| Power of Two / Four | 231 / 342 | Offer ID sanity. |
-| XOR Subsets | — | Fraud signature compression. |
+### 🔴 DIFFICULT LEVEL
+| Class | Concept | Analogy |
+|--------|----------|----------|
+| OfferDependencyGraph | Topological sort + cycle detection | Offer activation order |
+| SegmentTreeMetrics | Segment / Fenwick Tree | Real-time CTR computation |
+| GraphClusterAnalyzer | Union-find + Kruskal | Merchant connection networks |
+| OptimalBudgetAllocator | 0/1 Knapsack variants | Reward distribution optimization |
+| WildcardMatcher | Regex / wildcard DP | Rule pattern matching |
+| MultiCacheSystem | LRU + LFU combined design | Complex caching layers |
+| ConsistentHashingBalancer | Hash partitioning | Distributed offer routing |
+| WordSearchEngine | Backtracking 2D grid | Rule discovery |
+| GameTheorySolver | Minimax recursion | Decision tree optimization |
 
 ---
 
-## 1️⃣3️⃣ com.example.tutorial.process.systemdesign
+📘 **Focus on:**
+- Recursion, Backtracking, Graphs, and DP
+- Complex state management problems
+- Optimizations and multiple data structures combined
+- Edge-case handling (overflow, precision, recursion limits)
 
-### ➤ cache
-| Concept | Use Case |
-|----------|-----------|----------|
-| LRU Cache (LC 146) | Offer eligibility cache. |
-| LFU Cache (LC 460) | Popular-offer cache. |
+📅 **Suggested Plan (8–10 Weeks):**
+- Phase 1: Arrays, Strings, Trees
+- Phase 2: LinkedLists, Heaps, Graphs
+- Phase 3: Dynamic Programming + Backtracking
+- Phase 4: System design tie-in (Segment Trees, Hashing, Cache Design)
 
-### ➤ design
-| Concept | Use Case |
-|----------|-----------|----------|
-| Design Twitter / TinyURL / Rate Limiter | Event-based systems. |
-| Bloom Filter | Fraud duplicate detection. |
-| Segment Tree / Fenwick Tree | Real-time CTR metrics. |
-| Consistent Hashing | Distributed cache sharding. |
-| Sliding Window Rate Limiter | TPS throttling control. |
-
-## 1️⃣4️⃣ com.aakash.dsa.logicgames
-
-These are **logic-based or mini-game problems** frequently seen in online assessments (HackerRank, Codility, Dew Softech Inc., TCS Digital, Infosys InfyTQ, etc.).  
-They emphasize loops, condition checks, and state-tracking more than complex data structures.
-
-| Problem | Concept | Real-World Analogy |
-|----------|----------|--------------------|
-| **Hangman** | String masking, guessed-letter tracking | Fraud-word or keyword detection logic |
-| **Tic-Tac-Toe Validator** | 2-D array traversal, win-condition checks | Offer eligibility matrix or rule-combination validation |
-| **Snake & Ladder Simulation** | Graph traversal with jumps | Redemption journey with merchant shortcuts |
-| **Minesweeper Board Reveal** | DFS/BFS exploration | Reveal clusters of eligible merchants |
-| **Rock–Paper–Scissors** | Conditional branching | A/B test winner selection logic |
-| **Number Guess Game** | Binary-search-style feedback loop | Dynamic threshold tuning for risk scoring |
-| **Wordle Clone** | String pattern matching with feedback | Offer-code partial match validation |
-| **Battleship Validation** | Grid adjacency check | Fraud cell grouping detection |
-| **2048 Tile Merge** | Matrix compression and merge rules | Offer-consolidation or balance-rollup pipeline |
+</details>
 
 ---
 
-## 1️⃣5️⃣ com.aakash.dsa.simulation
+## 🧩 Folder Naming Convention
 
-These are **process-oriented simulations** that blend loops, queues, and state updates — ideal for demonstrating how DSA supports system behavior modeling.
-
-| Problem Type | Example | Core Concept | Real-World Analogy |
-|---------------|----------|---------------|--------------------|
-| **Queue Simulation** | Customer service line | FIFO, queue operations | Redemption request processing queue |
-| **Elevator System** | Floor scheduling | Greedy + direction tracking | Offer distribution across segments |
-| **Bank / ATM Transactions** | Account operations | Map updates, exception handling | Balance / cashback adjustment engine |
-| **File System Path Simplifier** | Unix-like path parsing | Stack usage | Offer rule path normalization |
-| **CPU Round-Robin Scheduling** | Process scheduling | Circular queue, time slicing | Rate-limiter or event-throttler logic |
-| **Parking Lot System** | Slot allocation | HashMap + queue | Reward-slot management system |
-| **Library Management System** | Borrow/return simulation | Map + conditionals | Offer lifecycle simulation (activate → redeem → expire) |
+```
+com.aakash.dsa
+ ├── basics/
+ │    ├── math/
+ │    ├── strings/
+ │    └── arrays/
+ ├── medium/
+ │    ├── simulation/
+ │    ├── logicgames/
+ │    ├── sorting/
+ │    └── caching/
+ ├── advanced/
+ │    ├── graphs/
+ │    ├── trees/
+ │    ├── dp/
+ │    ├── backtracking/
+ │    ├── trie/
+ │    └── segmenttree/
+```
 
 ---
 
-## 📊 Summary
+✅ **Summary**
+| Track | Duration | Focus | Target Companies |
+|--------|-----------|--------|------------------|
+| Part 1 — Practical Java & Logic | 1 Month | Arrays, Strings, Maps, Simulations, Small Games | Infosys, Cognizant, TCS, Capgemini, Dew Softech, Mid-tier Product Companies |
+| Part 2 — FAANG-Level Algorithms | 2–3 Months | Graphs, DP, Backtracking, Optimization | Amazon, Google, Meta, Netflix, Apple, High-scale Startups |
 
-| Category | Subtopics | Approx Count |
-|-----------|------------|--------------|
-| Basics & Math | 7 | ✅ |
-| Arrays | 20+ | ✅ |
-| Strings | 6 | ✅ |
-| Linked List | 7 | ✅ |
-| Stack & Queue | 9 | ✅ |
-| Trees | 11 | ✅ |
-| Graphs | 9 | ✅ |
-| Heaps | 5 | ✅ |
-| Backtracking | 7 | ✅ |
-| DP | 15+ | ✅ |
-| Intervals | 5 | ✅ |
-| Bitwise | 6 | ✅ |
-| System Design | 6 | ✅ |
-| **Total Topics** | **~120** | **Complete Coverage** |
+---
 
+✨ **Pro Tip**
+> “If you can explain a problem’s logic in 2–3 sentences, you’ve mastered it.  
+> If you can refactor it to real business logic — you’re interview-ready.”
 
+---
