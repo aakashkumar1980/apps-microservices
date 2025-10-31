@@ -254,6 +254,39 @@
 | Consistent Hashing | Distributed cache sharding. |
 | Sliding Window Rate Limiter | TPS throttling control. |
 
+## 1️⃣4️⃣ com.aakash.dsa.logicgames
+
+These are **logic-based or mini-game problems** frequently seen in online assessments (HackerRank, Codility, Dew Softech Inc., TCS Digital, Infosys InfyTQ, etc.).  
+They emphasize loops, condition checks, and state-tracking more than complex data structures.
+
+| Problem | Concept | Real-World Analogy |
+|----------|----------|--------------------|
+| **Hangman** | String masking, guessed-letter tracking | Fraud-word or keyword detection logic |
+| **Tic-Tac-Toe Validator** | 2-D array traversal, win-condition checks | Offer eligibility matrix or rule-combination validation |
+| **Snake & Ladder Simulation** | Graph traversal with jumps | Redemption journey with merchant shortcuts |
+| **Minesweeper Board Reveal** | DFS/BFS exploration | Reveal clusters of eligible merchants |
+| **Rock–Paper–Scissors** | Conditional branching | A/B test winner selection logic |
+| **Number Guess Game** | Binary-search-style feedback loop | Dynamic threshold tuning for risk scoring |
+| **Wordle Clone** | String pattern matching with feedback | Offer-code partial match validation |
+| **Battleship Validation** | Grid adjacency check | Fraud cell grouping detection |
+| **2048 Tile Merge** | Matrix compression and merge rules | Offer-consolidation or balance-rollup pipeline |
+
+---
+
+## 1️⃣5️⃣ com.aakash.dsa.simulation
+
+These are **process-oriented simulations** that blend loops, queues, and state updates — ideal for demonstrating how DSA supports system behavior modeling.
+
+| Problem Type | Example | Core Concept | Real-World Analogy |
+|---------------|----------|---------------|--------------------|
+| **Queue Simulation** | Customer service line | FIFO, queue operations | Redemption request processing queue |
+| **Elevator System** | Floor scheduling | Greedy + direction tracking | Offer distribution across segments |
+| **Bank / ATM Transactions** | Account operations | Map updates, exception handling | Balance / cashback adjustment engine |
+| **File System Path Simplifier** | Unix-like path parsing | Stack usage | Offer rule path normalization |
+| **CPU Round-Robin Scheduling** | Process scheduling | Circular queue, time slicing | Rate-limiter or event-throttler logic |
+| **Parking Lot System** | Slot allocation | HashMap + queue | Reward-slot management system |
+| **Library Management System** | Borrow/return simulation | Map + conditionals | Offer lifecycle simulation (activate → redeem → expire) |
+
 ---
 
 ## 📊 Summary
