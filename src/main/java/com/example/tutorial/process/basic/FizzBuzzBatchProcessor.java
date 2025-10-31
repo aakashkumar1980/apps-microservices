@@ -69,3 +69,4 @@ public class FizzBuzzBatchProcessor implements CommandLineRunner {
     }
   }
 }
+
