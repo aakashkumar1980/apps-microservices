@@ -13,16 +13,16 @@ Goal: handle online assessments, mid-level interviews, and system logic question
 ---
 
 ### 🟢 EASY LEVEL — Core Logic & Patterns
-| Package | Class | Concept                                                                                            | Analogy |
-|----------|--------|----------------------------------------------------------------------------------------------------|----------|
-| com.aakash.dsa.basics.math | FizzBuzzBatchProcessor | Loops & condition branching                                                                        | Batch processing logic |
-| com.aakash.dsa.basics.math | ReverseDataSanitizer | numeric :: pop(from right digit) & push(to left digit) <br> string :: swap(right<->left character) | Reversing numeric payloads |
+| Package | Class | Concept                                                                                            | Usecase                    |
+|----------|--------|----------------------------------------------------------------------------------------------------|----------------------------|
+| com.aakash.dsa.basics.math | FizzBuzzBatchProcessor | Loops & condition branching                                                                        | Batch processing logic     |
+| com.aakash.dsa.basics.math | ReverseDataSanitizer | numeric :: pop(from right digit) & push(to left digit) <br> string :: swap(right<->left character) | Data obfuscation and mirroring for security and standardization |
 | com.aakash.dsa.basics.math | SymmetricDataValidator | Palindrome check                                                                                   | Sanity checks in offer IDs |
-| com.aakash.dsa.basics.strings | TextParserUtility | Length of last word, trim ops                                                                      | User input parsing |
-| com.aakash.dsa.basics.arrays | DuplicateDataDetector | HashSet logic                                                                                      | Fraud / duplicate check |
-| com.aakash.dsa.basics.strings | SimpleAnagramMatcher | Frequency map logic                                                                                | Tag consistency |
-| com.aakash.dsa.basics.arrays | DataRotationHandler | Array rotation                                                                                     | Rolling buffer management |
-| com.aakash.dsa.basics.arrays | RecentTransactionCompactor | Move zeroes                                                                                        | Clean sparse logs |
+| com.aakash.dsa.basics.strings | TextParserUtility | Length of last word, trim ops                                                                      | User input parsing         |
+| com.aakash.dsa.basics.arrays | DuplicateDataDetector | HashSet logic                                                                                      | Fraud / duplicate check    |
+| com.aakash.dsa.basics.strings | SimpleAnagramMatcher | Frequency map logic                                                                                | Tag consistency            |
+| com.aakash.dsa.basics.arrays | DataRotationHandler | Array rotation                                                                                     | Rolling buffer management  |
+| com.aakash.dsa.basics.arrays | RecentTransactionCompactor | Move zeroes                                                                                        | Clean sparse logs          |
 
 ---
 
