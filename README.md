@@ -58,17 +58,17 @@ Goal: handle online assessments, mid-level interviews, and system logic question
 ---
 
 💡 **Focus on:**
-- Loops, HashMap, Set, Arrays, basic recursion
-- String and array problems tied to real systems
-- Mini logic games & simulation problems
-- Simple sorting / searching
-- Practical math & validation tasks
+- Loops, HashMap, Set, Arrays, basic recursion  
+- String and array problems tied to real systems  
+- Mini logic games & simulation problems  
+- Simple sorting / searching  
+- Practical math & validation tasks  
 
 📅 **Recommended Plan (4 Weeks):**
-- Week 1: Easy logic (FizzBuzz → String problems)
-- Week 2: Arrays & hash maps (duplicates, sums, windowing)
-- Week 3: Simulation & OA-style logic games
-- Week 4: Sorting, cache, small DP for reasoning
+- Week 1: Easy logic (FizzBuzz → String problems)  
+- Week 2: Arrays & hash maps (duplicates, sums, windowing)  
+- Week 3: Simulation & OA-style logic games  
+- Week 4: Sorting, cache, small DP for reasoning  
 
 </details>
 
@@ -142,15 +142,15 @@ Goal: handle LeetCode-style rounds (Amazon, Meta, Google, Netflix, Apple).
 ---
 
 📘 **Focus on:**
-- Recursion, Backtracking, Graphs, and DP
-- Complex state management problems
-- Optimizations and multiple data structures combined
+- Recursion, Backtracking, Graphs, and DP  
+- Complex state management problems  
+- Optimizations and multiple data structures combined  
 - Edge-case handling (overflow, precision, recursion limits)
 
 📅 **Suggested Plan (8–10 Weeks):**
-- Phase 1: Arrays, Strings, Trees
-- Phase 2: LinkedLists, Heaps, Graphs
-- Phase 3: Dynamic Programming + Backtracking
+- Phase 1: Arrays, Strings, Trees  
+- Phase 2: LinkedLists, Heaps, Graphs  
+- Phase 3: Dynamic Programming + Backtracking  
 - Phase 4: System design tie-in (Segment Trees, Hashing, Cache Design)
 
 </details>
@@ -159,3 +159,45 @@ Goal: handle LeetCode-style rounds (Amazon, Meta, Google, Netflix, Apple).
 
 ## 🧩 Folder Naming Convention
 
+```
+com.aakash.dsa
+ ├── basics/
+ │    ├── math/
+ │    ├── strings/
+ │    └── arrays/
+ ├── medium/
+ │    ├── simulation/
+ │    ├── logicgames/
+ │    ├── sorting/
+ │    └── caching/
+ ├── advanced/
+ │    ├── graphs/
+ │    ├── trees/
+ │    ├── dp/
+ │    ├── backtracking/
+ │    ├── trie/
+ │    ├── matrix/
+ │    ├── stackqueue/
+ │    ├── heaps/
+ │    ├── greedy/
+ │    ├── search/
+ │    ├── hashing/
+ │    ├── strings/
+ │    └── segmenttree/
+```
+
+---
+
+✅ **Summary**
+| Track | Duration | Focus | Target Companies | <br>
+|--------|-----------|--------|------------------| <br>
+| Part 1 — Practical Java & Logic | 1 Month | Arrays, Strings, Maps, Simulations, Small Games | Infosys, Cognizant, TCS, Capgemini, Dew Softech, Mid-tier Product Companies | <br>
+| Part 2 — FAANG-Level Algorithms | 2–3 Months | Graphs, DP, Backtracking, Optimization | Amazon, Google, Meta, Netflix, Apple, High-scale Startups | <br>
+
+---
+
+✨ **Pro Tip**
+> “If you can explain a problem’s logic in 2–3 sentences, you’ve mastered it.  
+> If you can refactor it to real business logic — you’re interview-ready.”
+
+---
