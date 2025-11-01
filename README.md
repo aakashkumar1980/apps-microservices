@@ -13,47 +13,47 @@ Goal: handle online assessments, mid-level interviews, and system logic question
 ---
 
 ### 🟢 EASY LEVEL — Core Logic & Patterns
-| Class                      | Concept | Analogy |
-|----------------------------|----------|----------|
-| FizzBuzzBatchProcessor     | Loops & condition branching | Batch processing logic |
-| ReverseDataSanitizer       | Integer/string cleanup | Reversing numeric payloads |
-| SymmetricDataValidator     | Palindrome check | Sanity checks in offer IDs |
-| TextParserUtility          | Length of last word, trim ops | User input parsing |
-| DuplicateDataDetector      | HashSet logic | Fraud / duplicate check |
-| SimpleAnagramMatcher       | Frequency map logic | Tag consistency |
-| DataRotationHandler        | Array rotation | Rolling buffer management |
-| RecentTransactionCompactor | Move zeroes | Clean sparse logs |
+| Package | Class | Concept | Analogy |
+|----------|--------|----------|----------|
+| com.aakash.dsa.basics.math | FizzBuzzBatchProcessor | Loops & condition branching | Batch processing logic |
+| com.aakash.dsa.basics.math | ReverseDataSanitizer | Integer/string cleanup | Reversing numeric payloads |
+| com.aakash.dsa.basics.math | SymmetricDataValidator | Palindrome check | Sanity checks in offer IDs |
+| com.aakash.dsa.basics.strings | TextParserUtility | Length of last word, trim ops | User input parsing |
+| com.aakash.dsa.basics.arrays | DuplicateDataDetector | HashSet logic | Fraud / duplicate check |
+| com.aakash.dsa.basics.strings | SimpleAnagramMatcher | Frequency map logic | Tag consistency |
+| com.aakash.dsa.basics.arrays | DataRotationHandler | Array rotation | Rolling buffer management |
+| com.aakash.dsa.basics.arrays | RecentTransactionCompactor | Move zeroes | Clean sparse logs |
 
 ---
 
 ### 🟡 MEDIUM LEVEL — Real-World Problem Solving
-| Class                   | Concept | Analogy |
-|-------------------------|----------|----------|
-| TransactionSumAnalyzer  | Subarray sum equals K | Fraud threshold detection |
-| DataLeaderboardFinder   | Kth largest element | Top-K rewards / ranking |
-| DataWindowMaximizer     | Sliding window max | Recent CTR computation |
-| DataPairReconciler      | Two sum / diff | Credit-debit pair logic |
-| RuleValidatorEngine     | Valid parentheses / decode string | Nested rule syntax |
-| DataMergeService        | Merge sorted lists | Stream merge simulation |
-| DataTimeScheduler       | Merge intervals | Data scheduling conflicts |
-| HangmanGame             | String and state simulation | OA logic mini-game |
-| TicTacToeValidator      | 2-D grid simulation | Rule matrix evaluation |
-| ATMTransactionSimulator | Map + state tracking | OA process simulation |
-| FilePathSimplifier      | Stack logic | REST path normalization |
-| RoundRobinProcessor     | Queue rotation | Event throttle logic |
+| Package | Class | Concept | Analogy |
+|----------|--------|----------|----------|
+| com.aakash.dsa.medium.arrays | TransactionSumAnalyzer | Subarray sum equals K | Fraud threshold detection |
+| com.aakash.dsa.medium.heaps | DataLeaderboardFinder | Kth largest element | Top-K rewards / ranking |
+| com.aakash.dsa.medium.arrays | DataWindowMaximizer | Sliding window max | Recent CTR computation |
+| com.aakash.dsa.medium.arrays | DataPairReconciler | Two sum / diff | Credit-debit pair logic |
+| com.aakash.dsa.medium.strings | RuleValidatorEngine | Valid parentheses / decode string | Nested rule syntax |
+| com.aakash.dsa.medium.sorting | DataMergeService | Merge sorted lists | Stream merge simulation |
+| com.aakash.dsa.medium.simulation | DataTimeScheduler | Merge intervals | Data scheduling conflicts |
+| com.aakash.dsa.medium.logicgames | HangmanGame | String and state simulation | OA logic mini-game |
+| com.aakash.dsa.medium.logicgames | TicTacToeValidator | 2-D grid simulation | Rule matrix evaluation |
+| com.aakash.dsa.medium.simulation | ATMTransactionSimulator | Map + state tracking | OA process simulation |
+| com.aakash.dsa.medium.strings | FilePathSimplifier | Stack logic | REST path normalization |
+| com.aakash.dsa.medium.simulation | RoundRobinProcessor | Queue rotation | Event throttle logic |
 
 ---
 
 ### 🔴 DIFFICULT LEVEL — Advanced But Still Practical
-| Class                    | Concept | Analogy |
-|--------------------------|----------|----------|
-| DataRankingQuickSorter   | Quick sort / merge sort | Internal ranking analytics |
-| FraudPatternAnalyzer     | Kadane’s / subarray product | Detect redemption anomalies |
-| RuleDependencyResolver   | Topological sort | Data dependency evaluation |
-| MerchantNetworkConnector | Union-find | Merchant grouping |
-| RewardOptimizerDP        | Knapsack / partition subset | Budget optimization |
-| DataCacheSystem          | LRU / LFU | Eligibility cache |
-| RateLimiterController    | Sliding window limiter | TPS control logic |
+| Package | Class | Concept | Analogy |
+|----------|--------|----------|----------|
+| com.aakash.dsa.medium.sorting | DataRankingQuickSorter | Quick sort / merge sort | Internal ranking analytics |
+| com.aakash.dsa.medium.arrays | FraudPatternAnalyzer | Kadane’s / subarray product | Detect redemption anomalies |
+| com.aakash.dsa.advanced.graphs | RuleDependencyResolver | Topological sort | Data dependency evaluation |
+| com.aakash.dsa.advanced.graphs | MerchantNetworkConnector | Union-find | Merchant grouping |
+| com.aakash.dsa.advanced.dp | RewardOptimizerDP | Knapsack / partition subset | Budget optimization |
+| com.aakash.dsa.medium.caching | DataCacheSystem | LRU / LFU | Eligibility cache |
+| com.aakash.dsa.medium.simulation | RateLimiterController | Sliding window limiter | TPS control logic |
 
 ---
 
@@ -83,42 +83,61 @@ Goal: handle LeetCode-style rounds (Amazon, Meta, Google, Netflix, Apple).
 ---
 
 ### 🟢 EASY LEVEL
-| Class               | Concept | Analogy |
-|---------------------|----------|----------|
-| BasicSearchUtility  | Binary search variants | ID lookup |
-| ArrayBalancer       | Product except self / prefix sum | Data normalization |
-| SimpleTreeTraversal | BFS / DFS basics | Campaign hierarchy |
-| BasicLinkedListOps  | Reverse / merge list | Log reconstruction |
-| MatrixHandler       | Transpose, set zeros | Data cube cleanup |
+| Package | Class | Concept | Analogy |
+|----------|--------|----------|----------|
+| com.aakash.dsa.basics.arrays | BasicSearchUtility | Binary search variants | ID lookup |
+| com.aakash.dsa.basics.arrays | ArrayBalancer | Product except self / prefix sum | Data normalization |
+| com.aakash.dsa.advanced.trees | SimpleTreeTraversal | BFS / DFS basics | Campaign hierarchy |
+| com.aakash.dsa.advanced.linkedlist | BasicLinkedListOps | Reverse / merge list | Log reconstruction |
+| com.aakash.dsa.medium.matrix | MatrixHandler | Transpose, set zeros | Data cube cleanup |
+| com.aakash.dsa.basics.math | PlusOneIncrementer | Increment digit array | Offer ID version increment |
+| com.aakash.dsa.basics.math | SqrtCalculator | Integer square root | Numeric range validation |
 
 ---
 
 ### 🟡 MEDIUM LEVEL
-| Class                    | Concept | Analogy |
-|--------------------------|----------|----------|
-| DataTreeAnalyzer         | Depth, diameter, LCA | Rule tree complexity |
-| GraphTraversalService    | BFS/DFS/Islands | Fraud connectivity |
-| DataCombinationGenerator | Backtracking (subset, combo sum) | Data bundle generation |
-| DynamicRewardCalculator  | DP (climb stairs, coin change) | Tiered reward systems |
-| SubsequenceMatcher       | LCS / LIS | Customer overlap analysis |
-| TrieBasedSearchEngine    | Prefix tree | Merchant tag search |
-| PalindromePartitioner    | DP + recursion | Coupon segmentation |
-| DataRouteOptimizer       | Dijkstra / Bellman-Ford | Min-cost path (transactions) |
+| Package | Class | Concept | Analogy |
+|----------|--------|----------|----------|
+| com.aakash.dsa.advanced.trees | DataTreeAnalyzer | Depth, diameter, LCA | Rule tree complexity |
+| com.aakash.dsa.advanced.graphs | GraphTraversalService | BFS/DFS/Islands | Fraud connectivity |
+| com.aakash.dsa.advanced.backtracking | DataCombinationGenerator | Backtracking (subset, combo sum) | Data bundle generation |
+| com.aakash.dsa.advanced.dp | DynamicRewardCalculator | DP (climb stairs, coin change) | Tiered reward systems |
+| com.aakash.dsa.advanced.dp | TriangleMinPathDP | DP - triangle min path | Cost-optimized routing |
+| com.aakash.dsa.advanced.dp | MaximalSquareFinder | DP - matrix based | Max reward zone discovery |
+| com.aakash.dsa.advanced.dp | StockProfitOptimizerIII | DP - stock variants | Multi-phase offer profits |
+| com.aakash.dsa.advanced.strings | SubsequenceMatcher | LCS / LIS | Customer overlap analysis |
+| com.aakash.dsa.advanced.trie | TrieBasedSearchEngine | Prefix tree | Merchant tag search |
+| com.aakash.dsa.advanced.trie | WordDictionary | Add/Search word data structure | Text rule matching |
+| com.aakash.dsa.advanced.dp | PalindromePartitioner | DP + recursion | Coupon segmentation |
+| com.aakash.dsa.advanced.graphs | DataRouteOptimizer | Dijkstra / Bellman-Ford | Min-cost path (transactions) |
+| com.aakash.dsa.advanced.stackqueue | ExpressionEvaluator | RPN / calculator | Expression parsing in rule engine |
+| com.aakash.dsa.advanced.matrix | SudokuValidator | Matrix validation | Data block consistency |
+| com.aakash.dsa.advanced.matrix | SpiralMatrixPrinter | Matrix traversal | Dashboard display order |
+| com.aakash.dsa.advanced.matrix | GameOfLifeSimulator | Matrix simulation | Evolving campaign states |
 
 ---
 
 ### 🔴 DIFFICULT LEVEL
-| Class                     | Concept | Analogy |
-|---------------------------|----------|----------|
-| DataDependencyGraph       | Topological sort + cycle detection | Data activation order |
-| SegmentTreeMetrics        | Segment / Fenwick Tree | Real-time CTR computation |
-| GraphClusterAnalyzer      | Union-find + Kruskal | Merchant connection networks |
-| OptimalBudgetAllocator    | 0/1 Knapsack variants | Reward distribution optimization |
-| WildcardMatcher           | Regex / wildcard DP | Rule pattern matching |
-| MultiCacheSystem          | LRU + LFU combined design | Complex caching layers |
-| ConsistentHashingBalancer | Hash partitioning | Distributed offer routing |
-| WordSearchEngine          | Backtracking 2D grid | Rule discovery |
-| GameTheorySolver          | Minimax recursion | Decision tree optimization |
+| Package | Class | Concept | Analogy |
+|----------|--------|----------|----------|
+| com.aakash.dsa.advanced.graphs | DataDependencyGraph | Topological sort + cycle detection | Data activation order |
+| com.aakash.dsa.advanced.segmenttree | SegmentTreeMetrics | Segment / Fenwick Tree | Real-time CTR computation |
+| com.aakash.dsa.advanced.graphs | GraphClusterAnalyzer | Union-find + Kruskal | Merchant connection networks |
+| com.aakash.dsa.advanced.dp | OptimalBudgetAllocator | 0/1 Knapsack variants | Reward distribution optimization |
+| com.aakash.dsa.advanced.strings | WildcardMatcher | Regex / wildcard DP | Rule pattern matching |
+| com.aakash.dsa.advanced.caching | MultiCacheSystem | LRU + LFU combined design | Complex caching layers |
+| com.aakash.dsa.advanced.hashing | ConsistentHashingBalancer | Hash partitioning | Distributed offer routing |
+| com.aakash.dsa.advanced.backtracking | WordSearchEngine | Backtracking 2D grid | Rule discovery |
+| com.aakash.dsa.advanced.dp | GameTheorySolver | Minimax recursion | Decision tree optimization |
+| com.aakash.dsa.advanced.greedy | HIndexCalculator | Greedy (H-Index) | Research / ranking metric |
+| com.aakash.dsa.advanced.greedy | GasStationCircuit | Greedy circular route | Optimal API hop sequence |
+| com.aakash.dsa.advanced.greedy | CandyDistributionOptimizer | Greedy allocation | Reward distribution fairness |
+| com.aakash.dsa.advanced.greedy | BalloonBurstMinimizer | Greedy interval | Offer window consolidation |
+| com.aakash.dsa.advanced.heaps | IPOScheduler | Greedy + heap | Select profitable offers |
+| com.aakash.dsa.advanced.heaps | KSmallestPairFinder | Heap + two pointers | Optimal pair selection |
+| com.aakash.dsa.advanced.strings | TextJustifier | Formatting alignment | UI layout alignment |
+| com.aakash.dsa.advanced.search | PeakElementFinder | Binary search on answer | Optimal CTR peak |
+| com.aakash.dsa.advanced.search | MedianOfTwoArrays | Divide & conquer | Merge analytics median |
 
 ---
 
@@ -140,38 +159,3 @@ Goal: handle LeetCode-style rounds (Amazon, Meta, Google, Netflix, Apple).
 
 ## 🧩 Folder Naming Convention
 
-```
-com.aakash.dsa
- ├── basics/
- │    ├── math/
- │    ├── strings/
- │    └── arrays/
- ├── medium/
- │    ├── simulation/
- │    ├── logicgames/
- │    ├── sorting/
- │    └── caching/
- ├── advanced/
- │    ├── graphs/
- │    ├── trees/
- │    ├── dp/
- │    ├── backtracking/
- │    ├── trie/
- │    └── segmenttree/
-```
-
----
-
-✅ **Summary**
-| Track | Duration | Focus | Target Companies | <br> 
-|--------|-----------|--------|------------------| <br>
-| Part 1 — Practical Java & Logic | 1 Month    | Arrays, Strings, Maps, Simulations, Small Games | Infosys, Cognizant, TCS, Capgemini, Dew Softech, Mid-tier Product Companies | <br>
-| Part 2 — FAANG-Level Algorithms | 2–3 Months | Graphs, DP, Backtracking, Optimization          | Amazon, Google, Meta, Netflix, Apple, High-scale Startups |
-
----
-
-✨ **Pro Tip**
-> “If you can explain a problem’s logic in 2–3 sentences, you’ve mastered it.  
-> If you can refactor it to real business logic — you’re interview-ready.”
-
----
