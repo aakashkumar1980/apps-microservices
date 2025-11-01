@@ -1,4 +1,4 @@
-package com.example.tutorial.process.basic;
+package com.example.tutorial.dsa.basics.math;
 
 import com.example.tutorial.common.datamodel.Offer;
 import com.example.tutorial.common.utils.SampleDataLoader;
@@ -24,9 +24,9 @@ import java.util.List;
  * their numeric suffix (like offerId numbers) using reverse logic.
  */
 @Component
-public class ReverseOrderDataSanitizer implements CommandLineRunner {
+public class ReverseDataSanitizer implements CommandLineRunner {
   public static void main(String[] args) {
-    SpringApplication.run(ReverseOrderDataSanitizer.class, args);
+    SpringApplication.run(ReverseDataSanitizer.class, args);
   }
 
   @Override
@@ -44,13 +44,13 @@ public class ReverseOrderDataSanitizer implements CommandLineRunner {
 
   /**
    * Reverse the digits of a signed 32‑bit integer using a loop-based pop-and-push approach.
+   * In summary, extract[Pop] the last digit (from right) and append[Push] it to the result (to left).
    *
    * <p>Loop mechanics (per-iteration semantics):
    * <ol>
-   *   <li>Pop: {@code lastDigit = x % 10;} — extracts the last decimal digit. For negative {@code x},
-   *       Java's remainder preserves the sign of the dividend (for example {@code -12 % 10 == -2}).</li>
+   *   <li>Pop: {@code lastDigit = x % 10;} — extracts the last decimal digit using <b>modulus `%`</b> operation which returns the remainder.</li>
    *   <li>Push: {@code result = result * 10 + lastDigit;} — shift accumulated digits left and append.</li>
-   *   <li>Advance: {@code x /= 10;} — remove the last digit. Integer division truncates toward zero.</li>
+   *   <li>Advance: {@code x /= 10;} — remove the last digit. Integer <b>division `/`</b> truncates toward zero.</li>
    * </ol>
    *
    * <p>Loop invariant: before each iteration {@code result} holds the reversed digits processed so far,

@@ -1,4 +1,4 @@
-package com.example.tutorial.process.basic;
+package com.example.tutorial.dsa.basics.math;
 
 import com.example.tutorial.common.datamodel.Offer;
 import com.example.tutorial.common.utils.SampleDataLoader;
