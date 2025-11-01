@@ -99,6 +99,28 @@ public class ReverseDataSanitizer implements CommandLineRunner {
   /**
    * Core reverse string logic while preserving non-alphanumeric character positions.
    * LOGIC: Use two-pointer technique to swap alphanumeric characters from start and end.
+   * <p>Per-iteration example for input {@code "abcd"}:
+   * <pre>
+   *
+   *   Initial: arr = ['a', 'b', 'c', 'd'], pointer: i = 0, j = 3
+   *   Iteration 1:
+   *   leftCharacter  = arr[i] = 'a' // extract left character
+   *   rightCharacter = arr[j] = 'd' // extract right character
+   *   arr[i] = rightCharacter -> arr[0] = 'd' // swap left with right
+   *   arr[j] = leftCharacter  -> arr[3] = 'a' // swap right with left
+   *
+   *   Now: arr = ['d', 'b', 'c', 'a'], pointer: i = 1, j = 2 (i.e. move pointers i by one ahead and j by one behind)
+   *   Iteration 2:
+   *   leftCharacter  = arr[i] = 'b' // extract left character
+   *   rightCharacter = arr[j] = 'c' // extract right character
+   *   arr[i] = rightCharacter -> arr[1] = 'c' // swap left with right
+   *   arr[j] = leftCharacter  -> arr[2] = 'b' // swap right with left
+   *
+   *   Now: arr = ['d', 'c', 'b', 'a'], pointer: i = 2, j = 1 (i.e. move pointers i by one ahead and j by one behind BUT since, i < j fails therefore, stop here)
+   *   Final: arr = ['d', 'c', 'b', 'a']
+   *  </pre>
+   *  </p>
+   *
    *
    * @param s input string
    * @return reversed string with non-alphanumeric characters in original positions
