@@ -9,19 +9,23 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Reverse Data
- * ----------------------------------
- * <p>This program demonstrates integer manipulation and overflow handling.
- * The goal is to reverse the digits of a given integer, such as 123 → 321 or -456 → -654.
- * If the reversed integer goes beyond the signed 32-bit integer range, it returns 0.
+ * Reverse Data Sanitizer Application
  *
- * <p><b>Real UseCase:</b> In a credit-card offer platform, transaction IDs or payloads
- * may sometimes arrive in reverse order due to formatting errors or system transformations.
- * This code shows how such numeric payloads can be sanitized by reversing them safely
- * while maintaining sign and avoiding integer overflow.
+ * <p>This application demonstrates reversing numeric and alphanumeric data.
+ * It loads sample offers and applies reverse logic to specific fields.
  *
- * <p>This example also loads a few sample offers from offer.json and pretends to sanitize
- * their numeric suffix (like offerId numbers) using reverse logic.
+ * <p>Key Features:
+ * <ul>
+ *   <li>Reverses the digits of a signed 32-bit integer.</li>
+ *   <li>Reverses alphanumeric strings</li>
+ * </ul>
+ *
+ * <p>Usage:
+ * Run the application to see the reversed MCC codes and Offer IDs from sample data.
+ *
+ * <p>Note: This is a simple demonstration and may need enhancements for production use.
+ *
+ * @author ChatGPT
  */
 @Component
 public class ReverseDataSanitizer implements CommandLineRunner {
