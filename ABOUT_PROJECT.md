@@ -13,9 +13,9 @@ I really enjoy working with **reactive and asynchronous programming** — especi
 ```java
 /** JAVA STREAMS **/
 // filter() active offers based on multiple criteria
-- Merchant Applicability: Offer must be valid for the transaction's merchant
-- Date Range: Transaction timestamp must fall within offer's active period
-- Minimum Spend: Transaction amount must meet or exceed offer's minimum spend threshold
+- Merchant Applicability: Offer must be valid for the transaction's merchant.
+- Date Range: Transaction timestamp must fall within offer's active period.
+- Minimum Spend: Transaction amount must meet or exceed offer's minimum spend threshold.
 - Channel Match: Transaction channel must be eligible for the offer.
 List<Offer> matchedOffers = offersList.stream()
     .filter(offer -> offer.isApplicableToMerchant(transaction.getMerchantId()))
@@ -23,6 +23,15 @@ List<Offer> matchedOffers = offersList.stream()
     .filter(offer -> transaction.getAmount().compareTo(offer.getMinSpend()) >= 0)
     .filter(offer -> channelMatches(offer, transaction.getChannel()))
     .collect(Collectors.toList());
+    
+// groupingBy() is used to group the colections by a key e.g. campaignId and then run the aggregations.
+- Aggregates redemption data to calculate the total discount amount distributed for each campaign. 
+- It's a critical metric for campaign performance monitoring and budget tracking in the rewards platform.     
+Map<Campaign, Double> totalDiscountAmountByCampaign = redemptions.stream()
+  .collect(Collectors.groupingBy(
+    Redemption::getCampaignId,
+    Collectors.summingDouble(Redemption::getDiscountAmount)
+  ));    
 ```
 
 <br>
