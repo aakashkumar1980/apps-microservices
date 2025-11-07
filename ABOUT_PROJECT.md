@@ -27,11 +27,14 @@ List<Offer> matchedOffers = offersList.stream()
 // groupingBy() is used to group the colections by a key e.g. campaignId and then run the aggregations.
 - Aggregates redemption data to calculate the total discount amount distributed for each campaign. 
 - It's a critical metric for campaign performance monitoring and budget tracking in the rewards platform.     
-Map<Campaign, Double> totalDiscountAmountByCampaign = redemptions.stream()
+Map<Campaign, Double> totalDiscountAmountByCampaign = redemptionList.stream()
   .collect(Collectors.groupingBy(
     Redemption::getCampaignId,
     Collectors.summingDouble(Redemption::getDiscountAmount)
-  ));    
+  ));
+  
+other aggregations..
+      
 ```
 
 <br>
