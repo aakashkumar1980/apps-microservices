@@ -14,6 +14,8 @@ I love solving backend performance challenges, designing clean architectures, an
 # 💳 Global Merchant Services[GMS] portfolio :: Digital Merchant Offers[DiMo] - Credit Card Offers
 My latest project was around the **Credit Card Offers Platform**, which basically manages the entire lifecycle of an offer — right from when it’s created by the marketing team to when the customer finally receives their reward.
 
+![Offer Workflow](_readme_assets/offer_workflow.png)
+
 So, to put it simply, an **offer** is a kind of **promotion or incentive** that a credit card company gives to its customers. For example, things like <br> *“Get 10% cashback on dining this weekend”* or *“Earn 5,000 reward points if you spend $500 in a month.”*  
 It’s a way to encourage customers to use their cards more often or spend in certain categories.
 
