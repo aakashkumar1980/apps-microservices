@@ -15,7 +15,54 @@ right from when it’s created by the marketing team to when the customer finall
 - After that comes **Reward Fulfillment**, where the customer actually receives their benefit — like cashback or reward points credited to their account.
 - And finally, we have **Analytics and Reporting**, which helps the business understand how the offer performed — like how many people redeemed it, total spend increase, and which offers were most effective.
 <br>
-> So overall, I’ve worked across different parts of this lifecycle ensuring transactions are processed accurately and efficiently while maintaining **scalability** and **low latency** in the system.
+
+So overall, I’ve worked across different microservices of this lifecycle ensuring transactions are processed accurately and efficiently while maintaining **scalability** and **low latency** in the system.
+> <details>
+> <summary>Top 20 Microservices List (click to expand)</summary>
+> 1. Campaign Management Service: Owns campaigns (goals, budgets, timelines); parent container for offers. <br><br>
+> 2. Offer Authoring Service: Creates/edits offers (reward type, rates, caps, start/end, channels). <br>
+> 3. Offer Approval & Governance Service: Workflow for review/approval, policy checks, versioning. <br>
+> 4. Offer Publication Service: Publishes approved offers to channels/partners; manages on/off switches. <br>   
+> 5. Offer Catalog Service: Read-optimized catalog of active offers by merchant/category/location. <br>  
+> 6. Offer Eligibility Service: Central rules for offer-level eligibility (spend min, MCCs, channels, geo). <br><br>   
+> 7. Merchant Registry Service: Merchant master data (IDs, MCCs, locations, brand hierarchies). <br>
+> 8. Merchant Eligibility Service: Resolves which merchants/locations qualify for each offer. <br><br>
+> 9. Customer Profile Service: Cardholder master (cards, segments, status, product tiers). <br>
+> 10. Customer Eligibility Service: Determines which customers qualify (segments, status, KYC, product). <br>
+> 11. Customer Enrollment Service: Manages opt\-in/opt\-out, activation windows, enrollment state. <br><br>
+> 12. Transaction Ingestion Service: Consumes card transactions from network/core; normalizes, enriches. <br>
+> 13. 🧾 Redemption Service (triggered when a customer makes a purchase): Matches purchases to active offers; applies rule checks and caps; emits redemption results. <br>
+> &nbsp;&nbsp;1. Receive Transaction <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Gets a transaction event (merchant, amount, card, time) from the stream. <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Validates data and ensures it’s not duplicated. <br>
+> &nbsp;&nbsp;2. Match with Offers <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Searches active offers for that merchant or category (MCC). <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Checks customer enrollment and eligibility rules like min spend and date range. <br>
+> &nbsp;&nbsp;3. Decide Eligibility <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Marks the transaction as eligible or ineligible (with reason). <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Applies offer-level and customer-level caps or budgets. <br>
+> &nbsp;&nbsp;4. Publish Result <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Emits `redemption.approved` for qualified transactions. <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Emits `redemption.rejected` for non-qualified ones. <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- These events are consumed by the Reward Fulfillment Service. <br>
+> 14. 💰 Reward Calculation Service: Calculates cashback/points based on redemption and policy (tiers, rounding). <br>
+> &nbsp;&nbsp;1. Receive Redemption Event <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Listens to `redemption.approved` events from Kafka. <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Validates data and links to the correct offer. <br>
+> &nbsp;&nbsp;2. Load Reward Policy <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Retrieves reward type (cashback, points, etc.) and rate (e.g., 10% cashback). <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Ensures offer and customer are still eligible for reward. <br>
+> &nbsp;&nbsp;3. Calculate & Fulfill <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Calculates reward based on transaction amount and rules. <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Applies caps and budget limits. <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;- Publishes `reward.fulfilled` once credited successfully. <br>
+> 15. Wallet & Ledger Service: Stores rewarded balances/points; supports statements and adjustments. <br>
+> 16. Dispute & Reversal Service: Handles chargebacks/refunds; reverses redemptions/rewards when needed. <br>
+> 17. Settlement & Reconciliation Service: Settles with partners/merchants; reconciles costs and reimbursements. <br><br>
+> 18. Notification Service: Sends real-time confirmations (“You earned $5 cashback”), summaries. <br><br>
+> 19. Analytics & Reporting Service: KPIs: activation, redemption rate, ROI, lift; dashboards and extracts. <br><br>
+> 20. Partner Integration Service: Business-facing integration with aggregators (Cardlytics, Rakuten) for offer sync and status updates. <br><br>
+> </details>
 
 ###  🛠️ TECH STACK & SKILLS
 Here are some of the key technologies and skills I work with:
