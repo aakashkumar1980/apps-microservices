@@ -10,6 +10,18 @@ Most of my work revolves around building **microservices** that are **scalable**
 
 I really enjoy working with **reactive and asynchronous programming** — especially with **Java Streams**, **Vert.X** and **CompletableFuture** — to build systems that can process thousands of lightweight events efficiently.
 
+```java
+/** JAVA STREAMS **/
+// Filters active offers based on multiple criteria
+List<Offer> matchedOffers = offersList.stream()
+    .filter(offer -> offer.isApplicableToMerchant(transaction.getMerchantId()))
+    .filter(offer -> offer.isWithinDateRange(transaction.getTimestamp()))
+    .filter(offer -> transaction.getAmount().compareTo(offer.getMinSpend()) >= 0)
+    .filter(offer -> channelMatches(offer, transaction.getChannel()))
+    .collect(Collectors.toList());
+```
+
+<br>
 I also focus a lot on **security and automation**, using **OAuth2**, **Okta**, and **CI/CD pipelines** with **GitHub Actions** and **Jenkins**.
 
 I love solving backend performance challenges, designing clean architectures, and continuously improving how systems communicate and scale.  
