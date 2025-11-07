@@ -33,8 +33,10 @@ Map<Campaign, Double> totalDiscountAmountByCampaign = redemptionList.stream()
     Collectors.summingDouble(Redemption::getDiscountAmount)
   ));
   
-other aggregations..
-      
+other aggregations examples..
+- Redemption Count by Merchant Categories i.e. "Dining",  "Travel", "Groceries". 
+- Total Reward Points Issued by Reward Type i.e. "Cashback", "Points","Miles".
+- Top Performing Merchants 
 ```
 
 <br>
