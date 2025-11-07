@@ -179,6 +179,6 @@ Partners send requests through the **API Gateway (Okta secured)** → our **Spri
 
 <br><br>
 
-# DEPLOYMENT OVERVIEW
+# MISCELLANEOUS DIAGRAMS
 ## Kafka PODs
 ![_KafkaPODs](_readme_assets/kafka_pods.png)
