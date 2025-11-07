@@ -2,7 +2,7 @@
 
 Hi, I’m **ABC**. I’m a **Backend & Microservices Developer** with over **seven years of experience** working on large-scale, event-driven systems using **Java**, **Spring Boot**, **Vert.X**, and **AWS Cloud**.
 
-Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **Saga** (rollback transaction) [click to open](https://github.com/aakashkumar1980/apps-microservices/blob/module4/chapter2_event-driven-architecture-campaign-offer-saga/_readme_assets/offer_create-saga.png) for consistency across distributed services.
+Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **Saga** (rollback transaction) [[click to open](https://github.com/aakashkumar1980/apps-microservices/blob/module4/chapter2_event-driven-architecture-campaign-offer-saga/_readme_assets/offer_create-saga.png)] for consistency across distributed services.
 
 I really enjoy working with **reactive and asynchronous programming** — especially with **Java Streams**, **Vert.X** and **CompletableFuture** — to build systems that can process thousands of lightweight events efficiently.
 
