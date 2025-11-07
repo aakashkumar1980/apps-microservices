@@ -1,6 +1,32 @@
-# 🧑‍💻 ABOUT ME :: ABC
+# 🧑‍ ABOUT ME
+Hi, I’m **ABC**. I’m a **Backend & Microservices Developer** with over **X years of experience** working on large-scale, 
+microservices event-driven systems using **Java**, **Spring Boot**, **Confluent Kafka**, and **Vert.X** tech stack.
 
-Hi, I’m **ABC**. I’m a **Backend & Microservices Developer** with over **seven years of experience** working on large-scale, event-driven systems using **Java**, **Spring Boot**, **Vert.X**, and **AWS Cloud**.
+# 🌐 ABOUT PROJECT
+My latest project was around the Credit Card Offers Platform, which basically manages the entire lifecycle of an offer — 
+right from when it’s created by the marketing team to when the customer finally receives their reward.
+![Offer Workflow](_readme_assets/offer_workflow.png)
+
+- The lifecycle of an offer starts with **Offer Creation**, where the marketing or campaign team sets up all the rules — who’s eligible, what kind of reward it gives, when it starts and ends, and which merchants are included.
+- Once the offer is created, it is reviewed and approved through the **Offer Approval & Governance Service** to ensure compliance with company policies.
+- After approval, the offer goes into the **Publication phase (also called Impressions)**, where it becomes visible to customers — like on the bank’s app, website, or through push notifications.
+- Then comes **Enrollment or Activation**. Some offers are auto-applied, but others require the customer to actually activate them. So we track who enrolled and when.
+- Next is the **Transaction and Redemption phase**. Whenever a customer makes a purchase, those transactions flow through our backend systems. We validate whether the purchase matches any active offer — checking things like merchant code, amount, and time period. If it qualifies, we mark that offer as **redeemed**.
+- After that comes **Reward Fulfillment**, where the customer actually receives their benefit — like cashback or reward points credited to their account.
+- And finally, we have **Analytics and Reporting**, which helps the business understand how the offer performed — like how many people redeemed it, total spend increase, and which offers were most effective.
+<br>
+> So overall, I’ve worked across different parts of this lifecycle ensuring transactions are processed accurately and efficiently while maintaining **scalability** and **low latency** in the system.
+
+###  🛠️ TECH STACK & SKILLS
+Here are some of the key technologies and skills I work with:
+- **Programming Languages**: Java
+- **Frameworks**: Spring Boot, Vert.X
+- **Messaging Systems**: Confluent Kafka
+- **Databases**: MySQL, Couchbase (NoSQL), Redis Cache
+- **Containerization & Orchestration**: Docker, Kubernetes
+- **CI/CD Tools**: Jenkins, GitHub Actions
+- **Monitoring & Logging**: ELK Stack
+- **Security**: OAuth2, Okta
 
 Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **SAGA** (rollback distributed transactions) for consistency across distributed services.<br>
 [[SAGA diagram :: click to open](https://github.com/aakashkumar1980/apps-microservices/blob/module4/chapter2_event-driven-architecture-campaign-offer-saga/_readme_assets/offer_create-saga.png)]
