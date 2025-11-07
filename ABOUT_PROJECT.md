@@ -159,6 +159,7 @@ That’s the overall logical architecture of the **API** — designed for secure
 
 
 # 🏗️ ARCHITECTURE (Physical Overview)
+![_ApplicationFlow](_readme_assets/application_flow.png)
 This is a high-level physical architecture diagram of our **API** for partner integrations. It shows how different application components interact to handle inbound and outbound API calls securely and efficiently.
 
 In our API, the **inbound flow** follows an **event-driven microservices** pattern built on **Spring Boot**, and we’ve implemented it using **CQRS** along with **Saga** for distributed consistency.
@@ -176,9 +177,8 @@ If any step fails, compensating events are published to roll back previous actio
 So, putting it all together —  
 Partners send requests through the **API Gateway (Okta secured)** → our **Spring Boot Offer API** validates and forwards to the **Command service** → the command is processed and **Kafka events** are published → **Query and downstream services** consume those events and update their data asynchronously. The **CQRS** model gives us clean separation and scalability, while the **Saga pattern** ensures data consistency across multiple services in a distributed environment.
 
-<br><br><br>
-## Application Flow
-![_ApplicationFlow](_readme_assets/application_flow.png)
 <br><br>
+
+# DEPLOYMENT OVERVIEW
 ## Kafka PODs
 ![_KafkaPODs](_readme_assets/kafka_pods.png)
