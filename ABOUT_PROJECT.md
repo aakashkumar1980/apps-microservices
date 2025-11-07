@@ -2,8 +2,12 @@
 
 Hi, I’m **ABC**. I’m a **Backend & Microservices Developer** with over **seven years of experience** working on large-scale, event-driven systems using **Java**, **Spring Boot**, **Vert.X**, and **AWS Cloud**.
 
-Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **Saga** (rollback transaction) [[click to open](https://github.com/aakashkumar1980/apps-microservices/blob/module4/chapter2_event-driven-architecture-campaign-offer-saga/_readme_assets/offer_create-saga.png)] for consistency across distributed services.
+Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **SAGA** (rollback distributed transactions) for consistency across distributed services.
+[[SAGA :: click to open](https://github.com/aakashkumar1980/apps-microservices/blob/module4/chapter2_event-driven-architecture-campaign-offer-saga/_readme_assets/offer_create-saga.png)]
+> <b>Happy Path</b>: When an offer is created, it flows through multiple services (campaign, customer, merchant) that each update their data models, and if all succeed, the offer becomes active across the system.<br>
+> <b>Failure Path</b>: If any service fails during the process (like linking offer to campaign fails), a compensating transaction is triggered that cancels the offer and notifies all previous services to roll back their changes, ensuring data consistency across all systems
 
+<br>
 I really enjoy working with **reactive and asynchronous programming** — especially with **Java Streams**, **Vert.X** and **CompletableFuture** — to build systems that can process thousands of lightweight events efficiently.
 
 I also focus a lot on **security and automation**, using **OAuth2**, **Okta**, and **CI/CD pipelines** with **GitHub Actions** and **Jenkins**.
