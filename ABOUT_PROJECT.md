@@ -12,7 +12,11 @@ I really enjoy working with **reactive and asynchronous programming** — especi
 
 ```java
 /** JAVA STREAMS **/
-// Filters active offers based on multiple criteria
+// filter() active offers based on multiple criteria
+- Merchant Applicability: Offer must be valid for the transaction's merchant
+- Date Range: Transaction timestamp must fall within offer's active period
+- Minimum Spend: Transaction amount must meet or exceed offer's minimum spend threshold
+- Channel Match: Transaction channel must be eligible for the offer.
 List<Offer> matchedOffers = offersList.stream()
     .filter(offer -> offer.isApplicableToMerchant(transaction.getMerchantId()))
     .filter(offer -> offer.isWithinDateRange(transaction.getTimestamp()))
