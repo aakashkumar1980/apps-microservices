@@ -61,7 +61,7 @@ Here are some of the key technologies and skills I work with:
 - **Monitoring & Logging**: ELK Stack
 - **Security**: API Gateway, OAuth2, Okta
 
-## LOGICAL ARCHITECTURE
+## APPLICATION ARCHITECTURE
 The application is built on a microservices architecture comprising over 30 plus microservices, primarily developed using **Spring Boot** and **Vert.X** frameworks. 
 All services are containerized with **Docker** and orchestrated across **Kubernetes** clusters, ensuring scalability and high availability.
 
@@ -76,6 +76,10 @@ This design promotes loose coupling between services and enables real-time data 
 
 To ensure system resilience and fault tolerance, the platform incorporates **Resilience4J patterns** including circuit breakers, rate limiters, and retry mechanisms. 
 These patterns prevent cascading failures, handle temporary outages gracefully, and maintain service availability even when downstream dependencies experience issues.
+
+### APPLICATION FLOW
+![Application Flow](_readme_assets/application_flow.v2.png)
+
 
 
 -- END --
