@@ -49,16 +49,34 @@ So overall, I’ve worked across different microservices of this lifecycle ensur
 > 5. Fraud & Abuse Detection: Flags unusual redemption patterns, manufactured spend, location anomalies. <br>
 > </details>
 
-###  🛠️ TECH STACK & SKILLS
+###  🛠️ TECH STACK
 Here are some of the key technologies and skills I work with:
 - **Programming Languages**: Java
 - **Frameworks**: Spring Boot, Vert.X
 - **Messaging Systems**: Confluent Kafka
+- **Resilience & Fault Tolerance**: Resilience4J (Circuit Breaker, Rate Limiter, Retry)
 - **Databases**: MySQL, Couchbase (NoSQL), Redis Cache
 - **Containerization & Orchestration**: Docker, Kubernetes
 - **CI/CD Tools**: Jenkins, GitHub Actions
 - **Monitoring & Logging**: ELK Stack
-- **Security**: OAuth2, Okta
+- **Security**: API Gateway, OAuth2, Okta
+
+## LOGICAL ARCHITECTURE
+The application is built on a microservices architecture comprising over 30 services, primarily developed using **Spring Boot** and **Vert.X** frameworks. 
+All services are containerized with **Docker** and orchestrated across **Kubernetes** clusters, ensuring scalability and high availability.
+
+Security is enforced at the edge through an **API Gateway**, which serves as the single entry point for all external requests. 
+Authentication and authorization are handled using **OAuth2 protocol** integrated with **Okta** as the identity provider, ensuring secure access control across all microservices APIs.
+
+Inter-service communication follows an **event-driven architecture** pattern, leveraging **Confluent Kafka** as the central event bus for asynchronous messaging. 
+This design promotes loose coupling between services and enables real-time data processing across the distributed system.
+
+The architecture implements **CQRS** (Command Query Responsibility Segregation) to optimize read and write operations separately, improving <i>performance and scalability. 
+For managing complex distributed transactions that span multiple microservices, the system employs the **SAGA** pattern, ensuring **data consistency**.
+
+To ensure system resilience and fault tolerance, the platform incorporates **Resilience4J patterns** including circuit breakers, rate limiters, and retry mechanisms. 
+These patterns prevent cascading failures, handle temporary outages gracefully, and maintain service availability even when downstream dependencies experience issues.
+
 
 Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **SAGA** (rollback distributed transactions) for consistency across distributed services.<br>
 [[SAGA diagram :: click to open](https://github.com/aakashkumar1980/apps-microservices/blob/module4/chapter2_event-driven-architecture-campaign-offer-saga/_readme_assets/offer_create-saga.png)]
