@@ -31,37 +31,22 @@ So overall, I’ve worked across different microservices of this lifecycle ensur
 > 10. Customer Eligibility Service: Determines which customers qualify (segments, status, KYC, product). <br>
 > 11. Customer Enrollment Service: Manages opt\-in/opt\-out, activation windows, enrollment state. <br><br>
 > 12. Transaction Ingestion Service: Consumes card transactions from network/core; normalizes, enriches. <br>
-> 13. 🧾 Redemption Service (triggered when a customer makes a purchase): Matches purchases to active offers; applies rule checks and caps; emits redemption results. <br>
-> &nbsp;&nbsp;1. Receive Transaction <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Gets a transaction event (merchant, amount, card, time) from the stream. <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Validates data and ensures it’s not duplicated. <br>
-> &nbsp;&nbsp;2. Match with Offers <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Searches active offers for that merchant or category (MCC). <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Checks customer enrollment and eligibility rules like min spend and date range. <br>
-> &nbsp;&nbsp;3. Decide Eligibility <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Marks the transaction as eligible or ineligible (with reason). <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Applies offer-level and customer-level caps or budgets. <br>
-> &nbsp;&nbsp;4. Publish Result <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Emits `redemption.approved` for qualified transactions. <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Emits `redemption.rejected` for non-qualified ones. <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- These events are consumed by the Reward Fulfillment Service. <br>
-> 14. 💰 Reward Calculation Service: Calculates cashback/points based on redemption and policy (tiers, rounding). <br>
-> &nbsp;&nbsp;1. Receive Redemption Event <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Listens to `redemption.approved` events from Kafka. <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Validates data and links to the correct offer. <br>
-> &nbsp;&nbsp;2. Load Reward Policy <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Retrieves reward type (cashback, points, etc.) and rate (e.g., 10% cashback). <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Ensures offer and customer are still eligible for reward. <br>
-> &nbsp;&nbsp;3. Calculate & Fulfill <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Calculates reward based on transaction amount and rules. <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Applies caps and budget limits. <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;- Publishes `reward.fulfilled` once credited successfully. <br>
+> 13. Redemption Service (triggered when a customer makes a purchase): Matches purchases to active offers; applies rule checks and caps; emits redemption results. <br>
+> 14. Reward Calculation Service: Calculates cashback/points based on redemption and policy (tiers, rounding). <br>
 > 15. Wallet & Ledger Service: Stores rewarded balances/points; supports statements and adjustments. <br>
 > 16. Dispute & Reversal Service: Handles chargebacks/refunds; reverses redemptions/rewards when needed. <br>
 > 17. Settlement & Reconciliation Service: Settles with partners/merchants; reconciles costs and reimbursements. <br><br>
 > 18. Notification Service: Sends real-time confirmations (“You earned $5 cashback”), summaries. <br><br>
 > 19. Analytics & Reporting Service: KPIs: activation, redemption rate, ROI, lift; dashboards and extracts. <br><br>
 > 20. Partner Integration Service: Business-facing integration with aggregators (Cardlytics, Rakuten) for offer sync and status updates. <br><br>
+> </details>
+> <details>
+> <summary>Top AI/ML Project List (click to expand)</summary> <br>
+> 1. Offer Ranking & Personalization: Ranks offers per user using contextual bandits/learning-to-rank. <br>
+> 2. Offer Forecasting: Predicts offer performance (redemptions, spend lift) using time-series models. <br>
+> 3. Customer Eligibility Scoring: Predicts which customers are likely to be eligible for specific offers. <br>
+> 4. Budget Optimization: Allocates campaign budget across segments/merchants to maximize ROI. <br>
+> 5. Fraud & Abuse Detection: Flags unusual redemption patterns, manufactured spend, location anomalies. <br>
 > </details>
 
 ###  🛠️ TECH STACK & SKILLS
