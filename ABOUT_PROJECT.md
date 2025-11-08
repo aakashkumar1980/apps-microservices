@@ -78,6 +78,9 @@ To ensure system resilience and fault tolerance, the platform incorporates **Res
 These patterns prevent cascading failures, handle temporary outages gracefully, and maintain service availability even when downstream dependencies experience issues.
 
 
+-- END --
+
+<br>
 Most of my work revolves around building **microservices** that are **scalable**, **reliable**, and **high-performing**. I’ve designed and developed **APIs** that handle millions of transactions using **Kafka** for asynchronous communication and patterns like **CQRS** and **SAGA** (rollback distributed transactions) for consistency across distributed services.<br>
 [[SAGA diagram :: click to open](https://github.com/aakashkumar1980/apps-microservices/blob/module4/chapter2_event-driven-architecture-campaign-offer-saga/_readme_assets/offer_create-saga.png)]
 > <b>Happy Path</b>: When an offer is created, it flows through multiple services (campaign, customer, merchant) that each update their data models, and if all succeed, the offer becomes active across the system.<br>
