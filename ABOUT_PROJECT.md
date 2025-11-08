@@ -68,11 +68,11 @@ All services are containerized with **Docker** and orchestrated across **Kuberne
 Security is enforced at the edge through an **API Gateway**, which serves as the single entry point for all external requests. 
 Authentication and authorization are handled using **OAuth2 protocol** integrated with **Okta** as the identity provider, ensuring secure access control across all microservices APIs.
 
-Inter-service communication follows an **event-driven architecture** pattern, leveraging **Confluent Kafka** as the central event bus for asynchronous messaging. 
-This design promotes loose coupling between services and enables real-time data processing across the distributed system.
-
 The architecture implements **CQRS** (Command Query Responsibility Segregation) to optimize read and write operations separately, improving performance and scalability. 
 For managing complex distributed transactions that span multiple microservices, the system employs the **SAGA** pattern, ensuring **data consistency**.
+
+Inter-service communication follows an **event-driven architecture** pattern, leveraging **Confluent Kafka** as the central event bus for asynchronous messaging.
+This design promotes loose coupling between services and enables real-time data processing across the distributed system.
 
 To ensure system resilience and fault tolerance, the platform incorporates **Resilience4J patterns** including circuit breakers, rate limiters, and retry mechanisms. 
 These patterns prevent cascading failures, handle temporary outages gracefully, and maintain service availability even when downstream dependencies experience issues.
