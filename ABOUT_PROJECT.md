@@ -150,7 +150,7 @@ VERT.X:<br>
 &nbsp;&nbsp;<b>VertxOptions().setEventLoopPoolSize(<i>Nx2</i>)</b>, <i>(e.g. 4x2-> <b>8</b>)</i><br>
 
 &nbsp;&nbsp;X% Blocking, (100-X)% Non-Blocking<br>
-&nbsp;&nbsp;<b>VertxOptions().setWorkerPoolSize(<i>N x (1 + (X/100)W/C))</i>)</b>,<br>
+&nbsp;&nbsp;<b>VertxOptions().setWorkerPoolSize(<i>N x (1 + ((X/100)W)/C))</i>)</b>,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<i><font color=green>e.g. for <b>*20% blocking</b> -> 4x(1+(20/100x180ms/20ms))-><b>12</b> for latest async libraries</i></font><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<i>e.g. for <b>60% blocking</b> -> 4x(1+(60/100x180ms/20ms))-><b>26</b> for legacy blocking libraries</i><br>
 
