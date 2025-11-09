@@ -150,12 +150,14 @@ VERT.X:<br>
 
 &nbsp;&nbsp;X% Blocking, (100-X)% Non-Blocking<br>
 &nbsp;&nbsp;<b>VertxOptions().setWorkerPoolSize(<i>N x (1 + (X/100) x (W/C))</i>)</b>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<i>e.g. for <b>80% blocking</b> -> 4x(1+(80/100)x(180ms/20ms))-><b>40</b> for legacy libraries.</i><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<i><font color=green>e.g. for <b>*20% blocking</b> -> 4x(1+(20/100)x(180ms/20ms))-><b>16</b> for latest async libraries</i></font><br>
-   
+&nbsp;&nbsp;&nbsp;&nbsp;<i>e.g. for <b>80% blocking</b> -> 4x(1+(80/100)x(180ms/20ms))-><b>40</b> for legacy libraries.</i><br>
 
-
-where N=number of CPU cores <i>(e.g. 4)</i>, W=i/o average wait time <i>(e.g. 180ms)</i>, C=average compute time <i>(e.g. 20ms)</i>.
+where,<br>
+&nbsp;&nbsp;N=number of CPU cores <i>(e.g. 4)</i>,<br>
+&nbsp;&nbsp;W=i/o average wait time <i>(e.g. 180ms)</i>,<br>
+&nbsp;&nbsp;C=average compute time <i>(e.g. 20ms)</i><br>
+---
 </details>
 
 
