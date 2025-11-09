@@ -118,6 +118,9 @@ revert any prior updates in their own stores, ensuring data consistency across t
 For example generally for Read operations REST API calls are preferred, whereas for Write operations Kafka events are used for better scalability and decoupling.
 
 
+# 🛠️ MY WORK
+
+
 -- END --
 
 <br>
