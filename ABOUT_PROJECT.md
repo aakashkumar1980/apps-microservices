@@ -130,6 +130,10 @@ From a development perspective, I implemented a robust validation layer for camp
 before committing data to Couchbase. This cut downstream rollback events by almost 30%. I also standardized exception handling using @ControllerAdvice, 
 which simplified debugging and improved error observability.
 
+I also optimized several data processing modules using Java Streams to replace complex nested loops with clean, declarative pipelines.
+By leveraging operations like filter, map, groupingBy, and parallel streams, I improved both readability and performance of offer validation
+and enrichment flows.
+
 Security and reliability were other areas I strengthened. I integrated Okta-based OAuth2 across all partner APIs, enforcing granular scopes 
 for each operation. Combined with Resilience4j circuit breakers and retry mechanisms, this made our services resilient to network fluctuations 
 and partner outages.
