@@ -131,9 +131,9 @@ under load.
 ![_VertX](_readme_assets/vertx_flow.png)
 
 <b>Vert.x vs Spring Boot: The Core Advantage</b> The fundamental difference is in threading models: <br>
-<u>Spring Boot</u> uses blocking threads where each request occupies a thread (~200 total default) that remains blocked during I/O operations 
+<b>Spring Boot</b> uses blocking threads where each request occupies a thread (~200 total default) that remains blocked during I/O operations 
 like database queries, limiting concurrency to ~200-400 users.<br> 
-<u>Vert.x</u> uses non-blocking Event Loops with callbacks—just 8 Event Loop threads handle requests and immediately delegate blocking 
+<b>Vert.x</b> uses non-blocking Event Loops with callbacks—just 8 Event Loop threads handle requests and immediately delegate blocking 
 operations to a separate Worker pool while registering callbacks, becoming free in milliseconds to handle thousands more requests. 
 When blocking operations complete, callbacks fire on Event Loops to send responses. This means while Spring Boot's threads waste 
 time waiting, Vert.x's Event Loops stay 100% free, enabling 10,000+ concurrent connections with 10-100x better throughput 
