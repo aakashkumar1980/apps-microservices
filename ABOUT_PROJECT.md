@@ -129,6 +129,7 @@ under load.
 
 ![_SpringBoot](_readme_assets/springboot_flow.png)
 ![_VertX](_readme_assets/vertx_flow.png)
+
 <b>Vert.x vs Spring Boot: The Core Advantage</b> The fundamental difference is in threading models: <br>
 <u>Spring Boot</u> uses blocking threads where each request occupies a thread (~200 total default) that remains blocked during I/O operations 
 like database queries, limiting concurrency to ~200-400 users.<br> 
@@ -157,6 +158,7 @@ where,<br>
 &nbsp;&nbsp;N=number of CPU cores <i>(e.g. 4)</i>,<br>
 &nbsp;&nbsp;W=i/o average wait time <i>(e.g. 180ms)</i>,<br>
 &nbsp;&nbsp;C=average compute time <i>(e.g. 20ms)</i><br>
+
 ---
 </details>
 
