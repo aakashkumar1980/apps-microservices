@@ -80,7 +80,7 @@ These patterns prevent cascading failures, handle temporary outages gracefully, 
 ### APPLICATION FLOW
 ![Application Flow](_readme_assets/application_flow.v2.png)
 
-#### Request Initiation from Client
+#### Request Initiation from Client (e.g. Cardlytics, Rakuten)
 This application handles the creation and lifecycle of credit-card offers using a secure, event-driven microservices architecture. 
 The process begins when a client such as Cardlytics requests an OAuth2 token from Okta to authenticate. Once the token is received, 
 the client invokes the Offer Write Service API through the API Gateway. The gateway validates the token, enforces security rules, 
@@ -123,7 +123,14 @@ For example generally for <u>Read operations REST API (via. RestTemplate)</u> ca
 Apart from designing the Offer Write Service and implementing the SAGA-based rollback flow, my major focus was on improving system 
 performance, reliability, and maintainability. One of my biggest achievements was optimizing the asynchronous processing pipeline 
 using Vert.x Futures and CompletableFutures. This reduced thread contention and improved offer ingestion throughput by nearly 25% 
-under load. 
+under load.
+<details>
+<summary>Spring Boot vs Vert.X (click to expand)</summary>
+
+![_SpringBoot](_readme_assets/springboot_flow.png))
+![_VertX](_readme_assets/vertx_flow.png))
+</details>
+
 
 <b>Kafka Configuration Tuning</b><br>
 I also tuned Kafka producer and consumer configurations, like batch size and linger settings, which reduced event latency across services.
