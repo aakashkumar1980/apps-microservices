@@ -80,6 +80,42 @@ These patterns prevent cascading failures, handle temporary outages gracefully, 
 ### APPLICATION FLOW
 ![Application Flow](_readme_assets/application_flow.v2.png)
 
+#### Request Initiation from Client
+This application handles the creation and lifecycle of credit-card offers using a secure, event-driven microservices architecture. 
+The process begins when a client such as Cardlytics requests an OAuth2 token from Okta to authenticate. Once the token is received, 
+the client invokes the Offer Write Service API through the API Gateway. The gateway validates the token, enforces security rules, 
+and forwards the request to the appropriate internal endpoint.
+
+#### Offer Creation Process
+Within the Offer Write Service, the @RestController layer exposes the /offers API, secured using @PreAuthorize with OAuth2 scopes. 
+The controller delegates to a @Service class that executes multiple validations before persisting the offer.
+It performs:
+- Campaign validation (via the Campaign Read Service using Spring boot RestTemplate)
+- Merchant validation (via the Merchant Read Service using Spring boot RestTemplate)
+- Budget validation to ensure campaign funding limits
+
+If all checks succeed, the service stores the offer in the Offer Document database and publishes a Kafka event (OFFER_CREATED) 
+to notify downstream systems.
+
+#### Event Propogation (Async Write)
+The Campaign, Merchant, and Customer Write Services each consume the OFFER_CREATED Kafka event through @KafkaListener. 
+They update their respective data stores—campaign, merchant, and customer documents—so that the ecosystem remains synchronized.
+This event-driven model promotes loose coupling and eventual consistency across services.
+
+#### Application Failure Handling
+<b><i>Technical Failures (Retry Mechanism & Service Support)</i></b>
+To handle technical failures during event processing, each microservice implements retry logic using Resilience4J. 
+If a service fails to process an event (e.g., due to a temporary database outage), Resilience4J automatically retries the operation based on a configured policy. 
+If retries are exhausted without success, the failed event is logged to a dead-letter topic in Kafka for later analysis and manual intervention.
+
+<b><i>Business Failures (SAGA :: Compensating Transactions)</i></b>
+In case a downstream update fails (for example, the Campaign Write Service cannot update its document), the SAGA pattern initiates a compensating transaction.
+The failing service triggers the Offer Write Service compensation endpoint (cancel/$offerId). This service retrieves the offer record from its compensation database, 
+cancels it, and publishes a Kafka OFFER_CANCELLED event. The Merchant Write Service and Customer Write Service (Compensation) components listen for this event to 
+revert any prior updates in their own stores, ensuring data consistency across the distributed system. 
+
+> NOTE: Service to Service communication can be done via REST API calls (synchronous) or Kafka events (asynchronous) based on the use case requirements.
+For example generally for Read operations REST API calls are preferred, whereas for Write operations Kafka events are used for better scalability and decoupling.
 
 
 -- END --
