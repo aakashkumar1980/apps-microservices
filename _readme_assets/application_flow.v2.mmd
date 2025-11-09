@@ -1,0 +1,122 @@
+---
+config:
+  flowchart:
+    curve: stepAfter
+  layout: dagre
+---
+flowchart LR
+  subgraph Client["Clients"]
+    C1["Cardlytics<br>Okta Token call"]
+    C2["Cardlytics<br>REST API call"]
+  end
+  subgraph OAuth2["OAuth2"]
+    O1["Okta Identity Provider<br> create token"]
+    O2["Okta Identity Provider<br> validate token"]
+  end
+subgraph MS["Offer Write Service<br>https:_//$companyName.privateUrl.com/api_endpoint (e.g. /api/v1/offers)"]
+BLANK["&nbsp;&nbsp;<br>&nbsp;<br>&nbsp;"]
+CTRL@{ label: "@RestController<br>@RequestMapping('/api')<br>Controller<br><br>@PostMapping('/offers')<br>@PreAuthorize('hasAuthority(SCOPE_offer:create)')<br>+ createOffer(@Valid Offer offer)" }
+SVC@{ label: "<div style=\"text-align:left; width:460px;\">@Service<br>Service<br><br>+ createOffer(Offer offer)<br>  - campaignValidation(offer.getCampaignId())<br>  - merchantValidation(offer.getMerchantId())<br>  - budgetValidation(campaign.getBudget(), offer.getDiscount())</div>" }
+REPO["Repository"]
+end
+subgraph validations["validations"]
+CRS@{ label: "Campaign Read Service<br>https:_//$companyName.privateUrl.com/api_endpoint (e.g. GET /api/v1/campaigns)<br><br>@GetMapping('$campaignId')<br>+ getCampaignById(String campaignId)" }
+MRS@{ label: "Merchant Read Service<br>https:_//$companyName.privateUrl.com/api_endpoint (e.g. GET /api/v1/merchants)<br><br>@GetMapping('$merchantId')<br>+ getMerchantById(String merchantId)" }
+end
+subgraph saga["SAGA (Transaction Rollback)"]
+OWS_COMPENSATE@{ label: "<div style=\"width:400px;\">@RestController<br>Offer Write Service<br>https:_//$companyName.privateUrl.com/api_endpoint (e.g. /api/v1/offers)<br><br>@PostMapping('cancel/$offerId')<br>+ cancelOffer(String offerId)</div>" }
+KAFKA_CANCELLED[/"Kafka<br>Topic: OFFER_CANCELLED"/]
+DB_OFFER2[("Offer Documents (Compensation)")]
+DB_MERCHANT2[("Merchant Documents (Compensation)")]
+DB_CUSTOMER2[("Customer Documents (Compensation)")]
+MWSC@{ label: "<div style=\"text-align:left; width:400px;\">@Service<br>Merchant Write Service<br><br>@KafkaListener(topics='OFFER_CANCELLED')<br>+ subscribeOfferCancelledEvent(OfferCancelledEvent e)</div>" }
+CWSC@{ label: "<div style=\"text-align:left; width:400px;\">@Service<br>Customer Write Service<br><br>@KafkaListener(topics='OFFER_CANCELLED')<br>+ subscribeOfferCancelledEvent(OfferCancelledEvent e)</div>" }
+end
+KAFKA_CANCELLED -- Subscribe --> MWSC & CWSC
+MWSC -- Update Merchant (compensate) --> DB_MERCHANT2
+CWSC -- Update Customer (compensate) --> DB_CUSTOMER2
+C1 -- "1- Request Token<br>https:_//$companyName.okta.com/oauth2/token clientId, client_secret, scope='offer:create, ...'" --> O1
+C2 -- "2- GET/POST call<br>https:_//$companyName.publicUrl.com/api_endpoint<br>Header: Authorization: Bearer $token" --> AG@{ label: "<div style=\"text-align:left; width:400px;\"><b>API Gateway</b><br>https:_//$companyName.publicUrl.com<br><br>- converts private url to public url<br>- protects url via. oauth2 security<br>- protects server against DDoS, SQL Injection attacks<br>- reduces load by Caching" }
+AG -. "3- Validate Token" .-> O2
+AG -- "4- Forward Request" --> CTRL
+CTRL -- "5- Process Request" --> SVC
+SVC -- "6a- RestTemplate API call" --> CRS
+SVC -- "6b- RestTemplate API call" --> MRS
+SVC -- "7- Save Offer Document" --> REPO
+REPO --> DB_OFFER[("Offer Documents")]
+SVC -- "8- Publish Kafka Event" --> KAFKA[/"Kafka<br>Topic: OFFER_CREATED"/]
+KAFKA -- Subscribe --> CWS@{ label: "<div style=\"text-align:left; width:400px;\">@Service<br>Campaign Write Service<br><br>@KafkaListener(topics='OFFER_CREATED')<br>+ subscribeOfferCreatedEvent(OfferCreatedEvent e)</div>" } & MWS@{ label: "<div style=\"text-align:left; width:400px;\">@Service<br>Merchant Write Service<br><br>@KafkaListener(topics='OFFER_CREATED')<br>+ subscribeOfferCreatedEvent(OfferCreatedEvent e)</div>" } & CUWS@{ label: "<div style=\"text-align:left; width:400px;\">@Service<br>Customer Write Service<br><br>@KafkaListener(topics='OFFER_CREATED')<br>+ subscribeOfferCreatedEvent(OfferCreatedEvent e)</div>" }
+CWS -- Update Campaign --> DB_CAMPAIGN[("Campaign Documents")]
+CWS -. On Failure<br>RestTemplate API call .-> OWS_COMPENSATE
+OWS_COMPENSATE -- Publish Event --> KAFKA_CANCELLED
+MWS -- Update Merchant --> DB_MERCHANT[("Merchant Documents")]
+CUWS -- Update Customer --> DB_CUSTOMER[("Customer Documents")]
+OWS_COMPENSATE -- Update Offer --> DB_OFFER2
+n1["Text Block"]
+CTRL@{ shape: rect}
+SVC@{ shape: rect}
+CRS@{ shape: rect}
+MRS@{ shape: rect}
+OWS_COMPENSATE@{ shape: rect}
+MWSC@{ shape: rect}
+CWSC@{ shape: rect}
+CWS@{ shape: rect}
+MWS@{ shape: rect}
+CUWS@{ shape: rect}
+n1@{ shape: text}
+C1:::clientStyle
+C2:::clientStyle
+O1:::oktaStyle
+O2:::oktaStyle
+CTRL:::controllerStyle
+SVC:::serviceStyle
+REPO:::serviceStyle
+CRS:::microserviceStyle
+MRS:::microserviceStyle
+OWS_COMPENSATE:::serviceStyle
+KAFKA_CANCELLED:::kafkaStyle
+DB_OFFER2:::dbStyle
+DB_MERCHANT2:::dbStyle
+DB_CUSTOMER2:::dbStyle
+MWSC:::microserviceStyle
+CWSC:::microserviceStyle
+AG:::gatewayStyle
+DB_OFFER:::dbStyle
+KAFKA:::kafkaStyle
+CWS:::microserviceStyle
+MWS:::microserviceStyle
+CUWS:::microserviceStyle
+DB_CAMPAIGN:::dbStyle
+DB_MERCHANT:::dbStyle
+DB_CUSTOMER:::dbStyle
+classDef clientStyle fill:#f093fb,stroke:#333,stroke-width:2px,color:#fff
+classDef gatewayStyle fill:#4facfe,stroke:#333,stroke-width:2px,color:#fff
+classDef oktaStyle fill:#43e97b,stroke:#333,stroke-width:2px,color:#fff
+classDef serviceStyle fill:#fa709a,stroke:#333,stroke-width:2px,color:#fff
+classDef controllerStyle fill:#fa709a,stroke:#333,stroke-width:2px,color:#fff,text-align:left
+classDef dbStyle fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+classDef kafkaStyle fill:#ffd93d,stroke:#333,stroke-width:2px,color:#000
+classDef exceptionStyle fill:#9b59b6,stroke:#333,stroke-width:2px,color:#fff
+classDef microserviceStyle fill:#26de81,stroke:#333,stroke-width:2px,color:#fff
+classDef Ash stroke-width:1px, stroke-dasharray:none, stroke:#999999, fill:#EEEEEE, color:#000000
+style O1 fill:#FFD600,color:#000000
+style O2 fill:#FFD600,color:#000000
+style BLANK stroke:none,fill:#FFCDD2
+style MRS fill:#2962FF
+style OWS_COMPENSATE fill:#FFCDD2,color:#000000
+style DB_OFFER2 fill:#FFCDD2,color:#000000
+style DB_MERCHANT2 fill:#2962FF
+style DB_CUSTOMER2 fill:#FF6D00
+style MWSC fill:#2962FF
+style CWSC fill:#FF6D00
+style AG fill:#FFF9C4,color:#000000
+style DB_OFFER fill:#FFCDD2,color:#000000
+style CWS color:#000000
+style MWS fill:#2962FF
+style CUWS fill:#FF6D00
+style DB_CAMPAIGN fill:#00C853,color:#000000
+style DB_MERCHANT fill:#2962FF
+style DB_CUSTOMER fill:#FF6D00
+style OAuth2 fill:#FFF9C4
+style MS fill:#FFCDD2
+style saga stroke:#D50000
