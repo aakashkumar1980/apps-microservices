@@ -127,8 +127,35 @@ under load.
 <details>
 <summary>Spring Boot vs Vert.X (click to expand)</summary>
 
-![_SpringBoot](_readme_assets/springboot_flow.png))
-![_VertX](_readme_assets/vertx_flow.png))
+![_SpringBoot](_readme_assets/springboot_flow.png)
+![_VertX](_readme_assets/vertx_flow.png)
+<b>Vert.x vs Spring Boot: The Core Advantage</b> The fundamental difference is in threading models: <br>
+<u>Spring Boot</u> uses blocking threads where each request occupies a thread (~200 total default) that remains blocked during I/O operations 
+like database queries, limiting concurrency to ~200-400 users.<br> 
+<u>Vert.x</u> uses non-blocking Event Loops with callbacks—just 8 Event Loop threads handle requests and immediately delegate blocking 
+operations to a separate Worker pool while registering callbacks, becoming free in milliseconds to handle thousands more requests. 
+When blocking operations complete, callbacks fire on Event Loops to send responses. This means while Spring Boot's threads waste 
+time waiting, Vert.x's Event Loops stay 100% free, enabling 10,000+ concurrent connections with 10-100x better throughput 
+for I/O-intensive applications.
+
+NOTE: Ideally, for a high CPU bound processing go for Spark like frameworks, whereas for high I/O bound processing go for Vert.X like frameworks.
+Spring Boot is more suited for traditional monolithic applications with moderate I/O load.
+
+<b>Optimized Configurations (mid I/O workload)</b><br>
+TOMCAT:<br>
+&nbsp;&nbsp;<b>server.tomcat.threads.max= <i>N x (1 + W/C)</i></b>, <i>e.g. 4x(1+180ms/20ms)-> <b>40</b>, default is 200</i>
+
+VERT.X:<br>
+&nbsp;&nbsp;<b>VertxOptions().setEventLoopPoolSize(<i>Nx2</i>)</b>, <i>(e.g. 4x2-> <b>8</b>)</i><br>
+
+&nbsp;&nbsp;X% Blocking, (100-X)% Non-Blocking<br>
+&nbsp;&nbsp;<b>VertxOptions().setWorkerPoolSize(<i>N x (1 + (X/100) x (W/C))</i>)</b>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>e.g. for <b>80% blocking</b> -> 4x(1+(80/100)x(180ms/20ms))-><b>40</b> for legacy libraries.</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i><font color=green>e.g. for <b>*20% blocking</b> -> 4x(1+(20/100)x(180ms/20ms))-><b>16</b> for latest async libraries</i></font><br>
+   
+
+
+where N=number of CPU cores <i>(e.g. 4)</i>, W=i/o average wait time <i>(e.g. 180ms)</i>, C=average compute time <i>(e.g. 20ms)</i>.
 </details>
 
 
