@@ -118,8 +118,32 @@ revert any prior updates in their own stores, ensuring data consistency across t
 For example generally for Read operations REST API calls are preferred, whereas for Write operations Kafka events are used for better scalability and decoupling.
 
 
-# 🛠️ MY WORK
+# 🛠️ MY WORK AND ACHIEVEMENTS
+Apart from designing the Offer Write Service and implementing the SAGA-based rollback flow, my major focus was on improving system 
+performance, reliability, and maintainability. One of my biggest achievements was optimizing the asynchronous processing pipeline 
+using Vert.x Futures and CompletableFutures. This reduced thread contention and improved offer ingestion throughput by nearly 25% 
+under load. 
 
+I also tuned Kafka producer and consumer configurations, like batch size and linger settings, which reduced event latency across services.
+
+From a development perspective, I implemented a robust validation layer for campaign and merchant lookups, ensuring early failure detection 
+before committing data to Couchbase. This cut downstream rollback events by almost 30%. I also standardized exception handling using @ControllerAdvice, 
+which simplified debugging and improved error observability.
+
+Security and reliability were other areas I strengthened. I integrated Okta-based OAuth2 across all partner APIs, enforcing granular scopes 
+for each operation. Combined with Resilience4j circuit breakers and retry mechanisms, this made our services resilient to network fluctuations 
+and partner outages.
+
+On the delivery side, I led the CI/CD automation using GitHub Actions, Hydra, and XLR pipelines, bringing deployment time down by roughly 40% 
+while maintaining zero downtime releases on AWS EKS. I also introduced proactive CloudWatch and ELK monitoring dashboards, which reduced 
+incident resolution time by over half.
+
+Finally, I solved several cross-service consistency issues by improving our compensation event flow. I identified race conditions between offer 
+creation and campaign updates and refactored the compensation listeners to handle idempotent rollbacks. This made our SAGA implementation 
+more stable and reliable in production.
+
+Overall, I’d say my biggest contributions were improving system throughput, operational resilience, and observability — turning what was initially 
+a tightly coupled offer system into a high-performing, self-healing microservices ecosystem.
 
 -- END --
 
