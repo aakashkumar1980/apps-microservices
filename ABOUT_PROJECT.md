@@ -114,34 +114,41 @@ The failing service triggers the Offer Write Service compensation endpoint (canc
 cancels it, and publishes a Kafka OFFER_CANCELLED event. The Merchant Write Service and Customer Write Service (Compensation) components listen for this event to 
 revert any prior updates in their own stores, ensuring data consistency across the distributed system. 
 
-> NOTE: Service to Service communication can be done via REST API calls (synchronous) or Kafka events (asynchronous) based on the use case requirements.
-For example generally for Read operations REST API calls are preferred, whereas for Write operations Kafka events are used for better scalability and decoupling.
+> NOTE: Service to Service communication can be done via REST API calls (synchronous) or Kafka events (asynchronous) based on the use case requirements.<br>
+For example generally for <u>Read operations REST API (via. RestTemplate)</u> calls are preferred, whereas for <u>Write operations Kafka</u> events are used for better scalability and decoupling.
 
-
-# 🛠️ MY WORK AND ACHIEVEMENTS
+<br><br>
+# 🏆 MY WORK AND ACHIEVEMENTS
+<b>Performance Optimization</b><br>
 Apart from designing the Offer Write Service and implementing the SAGA-based rollback flow, my major focus was on improving system 
 performance, reliability, and maintainability. One of my biggest achievements was optimizing the asynchronous processing pipeline 
 using Vert.x Futures and CompletableFutures. This reduced thread contention and improved offer ingestion throughput by nearly 25% 
 under load. 
 
+<b>Kafka Configuration Tuning</b><br>
 I also tuned Kafka producer and consumer configurations, like batch size and linger settings, which reduced event latency across services.
 
+<b>Validation and Exception Handling</b><br>
 From a development perspective, I implemented a robust validation layer for campaign and merchant lookups, ensuring early failure detection 
 before committing data to Couchbase. This cut downstream rollback events by almost 30%. I also standardized exception handling using @ControllerAdvice, 
 which simplified debugging and improved error observability.
 
+<b>Java Streams Optimization</b><br>
 I also optimized several data processing modules using Java Streams to replace complex nested loops with clean, declarative pipelines.
 By leveraging operations like filter, map, groupingBy, and parallel streams, I improved both readability and performance of offer validation
 and enrichment flows.
 
+<b>Security and Reliability Enhancements</b><br>
 Security and reliability were other areas I strengthened. I integrated Okta-based OAuth2 across all partner APIs, enforcing granular scopes 
 for each operation. Combined with Resilience4j circuit breakers and retry mechanisms, this made our services resilient to network fluctuations 
 and partner outages.
 
+<b>CI/CD and Monitoring Improvements</b><br>
 On the delivery side, I led the CI/CD automation using GitHub Actions, Hydra, and XLR pipelines, bringing deployment time down by roughly 40% 
 while maintaining zero downtime releases on AWS EKS. I also introduced proactive CloudWatch and ELK monitoring dashboards, which reduced 
 incident resolution time by over half.
 
+<b>SAGA Compensation Flow Enhancements</b><br>
 Finally, I solved several cross-service consistency issues by improving our compensation event flow. I identified race conditions between offer 
 creation and campaign updates and refactored the compensation listeners to handle idempotent rollbacks. This made our SAGA implementation 
 more stable and reliable in production.
