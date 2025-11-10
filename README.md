@@ -588,6 +588,23 @@ Finally, I solved several cross-service consistency issues by improving our comp
 creation and campaign updates and refactored the compensation listeners to handle idempotent rollbacks. This made our SAGA implementation 
 more stable and reliable in production.
 
+<details>
+<summary>TODO: Race Conditions Mitigation (click to expand)</summary>
+
+When multiple services are updating related data concurrently, race conditions can occur, leading to inconsistent states. For example, if the 
+Offer Service and Campaign Service are both updating the same campaign budget simultaneously, one service's changes might overwrite the other's, 
+resulting in incorrect budget values.
+
+Since we are using NoSQL CouchbaseDB, so to mitigate race conditions in a distributed microservices architecture, we can implement the following strategies 
+i.e. using @Version annotation for Optimistic Locking and Couchbase's CAS (Check-And-Set) feature for concurrency control.
+
+1. Using @Version Annotation for Optimistic Locking.
+
+2. Using Couchbase's CAS (Check-And-Set) Feature for Concurrency Control.
+
+</details>
+
+
 Overall, I’d say my biggest contributions were improving system throughput, operational resilience, and observability — turning what was initially 
 a tightly coupled offer system into a high-performing, self-healing microservices ecosystem.
 
