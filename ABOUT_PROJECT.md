@@ -257,6 +257,15 @@ USAGE
 <b>Kafka Configuration Tuning</b><br>
 I also tuned Kafka producer and consumer configurations, like batch size and linger settings, which reduced event latency across services.
 
+<details>
+<summary>Kafka (click to expand)</summary>
+
+![_KafkaPODs](_readme_assets/kafka_pods.png)
+
+</details>
+
+
+
 <b>Validation and Exception Handling</b><br>
 From a development perspective, I implemented a robust validation layer for campaign and merchant lookups, ensuring early failure detection 
 before committing data to Couchbase. This cut downstream rollback events by almost 30%. I also standardized exception handling using @ControllerAdvice, 
