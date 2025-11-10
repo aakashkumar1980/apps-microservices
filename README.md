@@ -450,15 +450,73 @@ which simplified debugging and improved error observability.
       }
   }
 ```
-
 </details>
-
 
 
 <b>Java Streams Optimization</b><br>
 I also optimized several data processing modules using Java Streams to replace complex nested loops with clean, declarative pipelines.
 By leveraging operations like filter, map, groupingBy, and parallel streams, I improved both readability and performance of offer validation
 and enrichment flows.
+
+<details>
+<summary>Java Streams (click to expand)</summary>
+
+1. Using **filter()** to filter active offers based on multiple criteria
+```java
+/** This filter() example filters a list of offers based on multiple criteria such as merchant applicability, 
+  date range, minimum spend, and channel match. It is a direct replacement of multiple if/else conditions looping 
+  through the list. **/
+
+List<Offer> matchedOffers = offersList.stream()
+    .filter(offer -> offer.isApplicableToMerchant(transaction.getMerchantId()))
+    .filter(offer -> offer.isWithinDateRange(transaction.getTimestamp()))
+    .filter(offer -> transaction.getAmount().compareTo(offer.getMinSpend()) >= 0)
+    .filter(offer -> channelMatches(offer, transaction.getChannel()))
+    .collect(Collectors.toList());
+```
+
+2. Using **groupingBy()** to group collections by a key and run aggregations. It is similar to SQL GROUP BY clause.
+
+Consider a table of employees with columns: departmentId, salary. Below is the sample table data.
+Employee Table:
+| employeeId | employeeName | departmentName | salary  |
+|------------|--------------|----------------|---------|
+| 1          | John Doe     | Sales          | 60000   |
+| 2          | Jane Smith   | Sales          | 65000   |
+| 3          | Bob Johnson  | Engineering    | 80000   |
+| 4          | Alice Brown  | Engineering    | 85000   |
+| 5          | Charlie Davis| Engineering    | 55000   |
+
+Result after grouping by departmentId and summing salaries:
+| departmentId | totalSalary |
+|--------------|-------------|
+| Sales        | 125000      |
+| Engineering  | 220000      |
+
+
+In SQL, you would use GROUP BY to aggregate salaries by departmentId like this:
+```sqlpp
+SELECT 
+  departmentId, 
+  SUM(salary) as totalSalary
+FROM employees
+GROUP BY departmentId;
+```
+
+```java
+  /** The Collectors.groupingBy() example groups a list of Employee objects by their departmentId and calculates the total salary for each department. 
+    The first argument to groupingBy() is the key extractor function (Employee::getDepartmentId), 
+    and the second argument is a downstream collector (Collectors.summingDouble(Employee::getSalary))
+  **/
+  Map<String, Double> totalSalaryByDepartment = employeeList.stream()
+      .collect(Collectors.groupingBy(
+          Employee::getDepartmentId,
+          Collectors.summingDouble(Employee::getSalary)
+      ));
+```
+</details>
+
+
 
 <b>Security and Reliability Enhancements</b><br>
 Security and reliability were other areas I strengthened. I integrated Okta-based OAuth2 across all partner APIs, enforcing granular scopes 
