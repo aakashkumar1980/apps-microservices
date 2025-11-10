@@ -145,15 +145,15 @@ Spring Boot is more suited for traditional monolithic applications with moderate
 <b>Optimized Configurations (mid I/O workload)</b><br>
 TOMCAT:<br>
 &nbsp;&nbsp;<b>server.tomcat.threads.max= <i>N x (1 + W/C)</i></b><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<i>e.g. 4x(1+180ms/20ms)-> <b>40</b>, default is 200</i>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>e.g. 4x(1+180ms/20ms)-> <b>40</b>, default is 200</i> {max concurrent users: 40}
 
 VERT.X:<br>
 &nbsp;&nbsp;<b>VertxOptions().setEventLoopPoolSize(<i>Nx2</i>)</b>, <i>(e.g. 4x2-> <b>8</b>)</i><br>
 
 &nbsp;&nbsp;X% Blocking, (100-X)% Non-Blocking<br>
 &nbsp;&nbsp;<b>VertxOptions().setWorkerPoolSize(<i>N x (1 + ((X/100)W)/C))</i>)</b>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<i><font color=green>e.g. for <b>*20% blocking</b> -> 4x(1+(20/100x180ms/20ms))-><b>12</b> for latest async libraries</i></font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<i>e.g. for <b>60% blocking</b> -> 4x(1+(60/100x180ms/20ms))-><b>26</b> for legacy blocking libraries</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i><font color=green>e.g. for <b>*20% blocking</b> -> 4x(1+(20/100x180ms/20ms))-><b>12</b> for latest async libraries</i></font> {max concurrent users: 400}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<i>e.g. for <b>60% blocking</b> -> 4x(1+(60/100x180ms/20ms))-><b>26</b> for legacy blocking libraries</i> {max concurrent users: 80}<br>
 
 where,<br>
 &nbsp;&nbsp;N=number of CPU cores <i>(e.g. 4)</i>,<br>
