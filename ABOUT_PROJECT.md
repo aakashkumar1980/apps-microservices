@@ -272,7 +272,7 @@ using a key (e.g., offerId) or round-robin if no key is provided. The messages a
 in an arraylist. just like arraylist have an index, each message in a partition has an **offset** (0, 1, 2...) that uniquely identifies its position.
 
 <b>Consuming Events</b><br>
-<i>Across different services (Share Message)<i>:<br>
+<i>Across different services (Share Message)</i>:<br>
 Consumers (e.g., Merchant Service, Customer Service) subscribe to topics and read messages from partitions. Same messages can be consumed by 
 multiple services independently by using it's own **consumer group** names (i.e. MerchantServiceGroup, CustomerServiceGroup). Each consumer 
 tracks its own offsets per partition, so it knows which messages it has already processed.
