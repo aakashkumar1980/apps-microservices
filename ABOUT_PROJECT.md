@@ -260,12 +260,33 @@ I also tuned Kafka producer and consumer configurations, like batch size and lin
 <details>
 <summary>Kafka (click to expand)</summary>
 
-Kafka Architecture - Brokers, Topics, and Partitions
+<b>Kafka Architecture - Brokers, Topics, and Partitions</b>
 ![_KafkaPODs](_readme_assets/kafka_pods.png)
-Kafka runs on multiple servers called brokers (like distributed post offices). Messages are organized into topics (e.g., "offers-topic"), 
-and each topic is split into partitions (numbered queues: P0, P1, P2) distributed across brokers for parallel processing. 
-<i>Each partition stores messages sequentially with retention (e.g., 7 days) and is replicated across multiple brokers for fault tolerance—if one broker fails, 
-replicas on other brokers continue serving messages.</i>
+Kafka runs on multiple servers called brokers (like distributed post offices). Messages are organized into **topics** (e.g., "offers-topic"), 
+and each topic is split into **partitions** (numbered queues: P0, P1, P2) distributed across brokers for parallel processing. Consider topic as
+a bucket and partitions as sub-buckets within it.<br>
+
+<b>Publishing an Event</b>
+When Offer Service publishes an "OfferCreated" event <i>{offerId: "123", discount: 20%}</i>, distributes either distributes it across partitions 
+using a key (e.g., offerId) or round-robin if no key is provided. The messages are stored in the partitions in the order they arrive like 
+in an arraylist. just like arraylist have an index, each message in a partition has an **offset** (0, 1, 2...) that uniquely identifies its position.
+
+<b>Consuming Events</b>
+Across different services (Share Message):<br>
+Consumers (e.g., Merchant Service, Customer Service) subscribe to topics and read messages from partitions. Same messages can be consumed by 
+multiple services independently by using it's own **consumer group** names (i.e. MerchantServiceGroup, CustomerServiceGroup). Each consumer 
+tracks its own offsets per partition, so it knows which messages it has already processed.
+
+Across multiple instances (e.g. Docker PODs) of the same service (Scaling Messages):<br>
+If there are multiple instances of Merchant Service running (e.g., for load balancing), Kafka distributes partitions among them. so that 
+each instance processes a subset of partitions. For example,
+- Instance (POD 1) reads from Partition 0 and 1
+- Instance (POD 2) reads from Partition 2 and 3
+- Instance (POD 3) reads from Partition 4 and 5 etc.
+This way, Kafka ensures high throughput and fault tolerance by distributing messages across brokers and partitions, while allowing multiple 
+services and instances to consume events independently.
+
+
 
 </details>
 
