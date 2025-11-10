@@ -272,23 +272,25 @@ using a key (e.g., offerId) or round-robin if no key is provided. The messages a
 in an arraylist. just like arraylist have an index, each message in a partition has an **offset** (0, 1, 2...) that uniquely identifies its position.
 Below is the code snippet to publish an event using Spring KafkaTemplate.
 ```java
+  /** Publisher Code: **/
   // Publish OfferCreated event to "offers-topic", first argument is the topic name, second is the key, third is the message payload
   kafkaTemplate.send("offers-topic", offerId, offerCreatedEventJson);
 ```
 
 ```properties
+### Producer Configuration: ###
 # === Connection ===
-bootstrap.servers=broker1:9092,broker2:9092,broker3:9092
+bootstrap.servers=$broker1:9092,$broker2:9092,$broker3:9092,...
 
 # === Serialization ===
 key.serializer=org.apache.kafka.common.serialization.StringSerializer
 value.serializer=org.apache.kafka.common.serialization.StringSerializer
 
 # === Durability (No Message Loss) ===
-acks=all                           # Wait for all replicas (leader + followers)
+acks=all                           # Wait for all replicas (leader + followers). This ensures no data loss.
 retries=2147483647                 # Retry until success (max int)
-enable.idempotence=true            # Kafka-level deduplication within producer session
-max.in.flight.requests.per.connection=5  # Can be >1 with idempotence enabled
+enable.idempotence=true            # Kafka-level deduplication (avoid duplicate messages) within producer session.
+max.in.flight.requests.per.connection=5  # Can be >1 with idempotence enabled. This improves throughput by allowing multiple requests in flight.
 
 # === High Throughput ===
 batch.size=32768                   # 32 KB batches (larger = better throughput)
@@ -318,6 +320,7 @@ each instance processes a subset of partitions. For example,
 This way, Kafka ensures high throughput and fault tolerance by distributing messages across brokers and partitions, while allowing multiple 
 services and instances to consume events independently.
 ```java
+  /** Consumer Code: **/
   @KafkaListener(topics = "offers-topic", groupId = "MerchantServiceGroup")
   public void listen(ConsumerRecord<String, String> record, Acknowledgment acknowledgment) {
       // Process the message
@@ -328,6 +331,35 @@ services and instances to consume events independently.
   }
 ```
 
+```properties
+### Consumer Configuration: ###
+# === Connection ===
+bootstrap.servers=$broker1:9092,$broker2:9092,$broker3:9092,...
+
+# === Consumer Group (Critical!) ===
+group.id=MerchantServiceGroup    # Same group = load balancing across PODs, Different groups = each gets copy
+
+# === Deserialization ===
+key.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+
+# === At-Least-Once Delivery (Critical!) ===
+enable.auto.commit=false           # MUST be false for at-least-once delivery. Manual commit after processing in the code.
+auto.offset.reset=latest           # Start from latest if no prior offset found.
+
+# === High Throughput ===
+max.poll.records=500               # Process 500 messages per poll
+fetch.min.bytes=50000              # Wait for 50 KB before returning (throughput)
+fetch.max.wait.ms=500              # Max 500ms wait (balance throughput vs latency)
+
+# === Consumer Liveness ===
+session.timeout.ms=30000           # 30 seconds before consumer kicked out
+heartbeat.interval.ms=3000         # Heartbeat every 3 seconds
+max.poll.interval.ms=300000        # 5 minutes max processing time per poll
+
+# === Partition Assignment ===
+partition.assignment.strategy=org.apache.kafka.clients.consumer.RangeAssignor
+```
 
 </details>
 
