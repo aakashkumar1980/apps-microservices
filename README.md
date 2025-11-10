@@ -1,5 +1,5 @@
 # 🧑‍ ABOUT ME
-Hi, I’m **ABC**. I’m a **Backend & Microservices Developer** with over **X years of experience** working on large-scale, 
+Hi, I’m **ABC**. I’m a **Software Engineer** with over **X years of experience** working on large-scale, 
 microservices event-driven systems using **Java**, **Spring Boot**, **Confluent Kafka**, and **Vert.X** tech stack.
 
 # 🌐 ABOUT PROJECT
