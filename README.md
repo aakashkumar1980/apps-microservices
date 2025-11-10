@@ -276,38 +276,6 @@ This roadmap covers two distinct preparation tracks based on your target compani
 **Daily Commitment:** 1-2 hours  
 **Weekly Mock:** 1 interview (starting Week 3)
 
-### 🎯 Part 1 Company Success Checklist
-
-#### Targeting Amazon? Focus on:
-- ✅ Week 2: Two Sum variants (LC 1, 167) - **Mandatory**
-- ✅ Week 3: Kth Largest Element (LC 215) - **Mandatory**
-- ✅ Week 5: Number of Islands (LC 200) - **Very Common**
-- ✅ Week 6: LRU Cache (LC 146) - **Mandatory**
-- ✅ Week 6: All 7 concurrency problems - **Critical for backend role**
-
-#### Targeting Google? Focus on:
-- ✅ Week 2: Longest Substring Without Repeating (LC 3) - **Common**
-- ✅ Week 3: All heap problems - **Frequent**
-- ✅ Week 5: Merge Intervals (LC 56) - **Very Common**
-- ✅ Week 6: Time-based KV Store (LC 981) - **System design tie-in**
-
-#### Targeting Microsoft? Focus on:
-- ✅ Week 3: Stack/Queue implementations - **Fundamental tests**
-- ✅ Week 5: Matrix Rotation (LC 48) - **Very Common** (25% of interviews)
-- ✅ Week 6: Concurrency problems - **Critical**
-
-#### Targeting Uber/Lyft? Focus on:
-- ✅ Week 5: Rate Limiter implementation - **Mandatory**
-- ✅ Week 5: All simulation problems - **OA staples**
-- ✅ Week 6: ThreadPoolExecutor - **Backend system questions**
-
-**🎯 Success Metrics:**
-- Can solve medium problems in 20-30 minutes
-- Write production-quality Java code with proper variable naming
-- Explain time/space complexity trade-offs clearly
-- Handle concurrency questions confidently (synchronized, locks, atomic variables)
-- Relate problems to real backend systems (caching, rate limiting, message queues)
-
 </details>
 
 ---
