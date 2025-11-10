@@ -266,12 +266,12 @@ Kafka runs on multiple servers called brokers (like distributed post offices). M
 and each topic is split into **partitions** (numbered queues: P0, P1, P2) distributed across brokers for parallel processing. Consider topic as
 a bucket and partitions as sub-buckets within it.<br>
 
-<b>Publishing an Event</b>
+<b>Publishing an Event</b><br>
 When Offer Service publishes an "OfferCreated" event <i>{offerId: "123", discount: 20%}</i>, distributes either distributes it across partitions 
 using a key (e.g., offerId) or round-robin if no key is provided. The messages are stored in the partitions in the order they arrive like 
 in an arraylist. just like arraylist have an index, each message in a partition has an **offset** (0, 1, 2...) that uniquely identifies its position.
 
-<b>Consuming Events</b>
+<b>Consuming Events</b><br>
 Across different services (Share Message):<br>
 Consumers (e.g., Merchant Service, Customer Service) subscribe to topics and read messages from partitions. Same messages can be consumed by 
 multiple services independently by using it's own **consumer group** names (i.e. MerchantServiceGroup, CustomerServiceGroup). Each consumer 
