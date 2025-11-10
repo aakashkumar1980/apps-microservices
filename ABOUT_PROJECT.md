@@ -144,7 +144,8 @@ Spring Boot is more suited for traditional monolithic applications with moderate
 
 <b>Optimized Configurations (mid I/O workload)</b><br>
 TOMCAT:<br>
-&nbsp;&nbsp;<b>server.tomcat.threads.max= <i>N x (1 + W/C)</i></b>, <i>e.g. 4x(1+180ms/20ms)-> <b>40</b>, default is 200</i>
+&nbsp;&nbsp;<b>server.tomcat.threads.max= <i>N x (1 + W/C)</i></b>,
+&nbsp;&nbsp;&nbsp;&nbsp;<i>e.g. 4x(1+180ms/20ms)-> <b>40</b>, default is 200</i>
 
 VERT.X:<br>
 &nbsp;&nbsp;<b>VertxOptions().setEventLoopPoolSize(<i>Nx2</i>)</b>, <i>(e.g. 4x2-> <b>8</b>)</i><br>
