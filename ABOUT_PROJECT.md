@@ -122,7 +122,7 @@ For example generally for <u>Read operations REST API (via. RestTemplate)</u> ca
 <b>Performance Optimization</b><br>
 Apart from designing the Offer Write Service and implementing the SAGA-based rollback flow, my major focus was on improving system 
 performance, reliability, and maintainability. One of my biggest achievements was optimizing the asynchronous processing pipeline 
-using Vert.x Futures and CompletableFutures. This reduced thread contention and improved offer ingestion throughput by nearly 25% 
+using Vert.x Futures. This reduced thread contention and improved offer ingestion throughput by nearly 25% 
 under load.
 <details>
 <summary>Spring Boot vs Vert.X (click to expand)</summary>
@@ -163,6 +163,96 @@ where,<br>
 ---
 </details>
 
+<details>
+<summary>Vert.X Concepts (click to expand)</summary>
+
+Define your custom functions in an asynchronous way using Vert.X Future API to avoid blocking the Event Loop threads.
+```java
+  /** Immediate Future using "Future.succeededFuture()" **/
+  public Future<String> toUpperCase(String input) {
+    return Future.succeededFuture(input.toUpperCase());
+  }
+  public Future<String> toLowerCase(String input) {
+    return Future.succeededFuture(input.toLowerCase());
+  }  
+  
+  /** Later Future using "promise.future()" **/
+  public Future<User> fetchUserFromDatabase(String userId) {
+    Promise<User> promise = Promise.promise();
+    
+    // async operation - result comes later
+    mongoClient.findOne("users", new JsonObject().put("id", userId), null)
+    .onSuccess(json -> {
+      User user = new User(json);
+      promise.complete(user);  // Complete when ready
+    })
+    .onFailure(err -> {
+      promise.fail(err);  // Fail if error
+    });
+    
+    return promise.future();
+  }
+  
+  public Future<String> callExternalAPI(String endpoint) {
+    Promise<String> promise = Promise.promise();
+    
+    // async operation - result comes later
+    webClient.get(443, "api.example.com", endpoint)
+    .ssl(true)
+    .send()
+    .onSuccess(response -> {
+      promise.complete(response.bodyAsString());
+    })
+    .onFailure(err -> {
+      promise.fail(err);
+    });
+    
+    return promise.future();
+  }  
+```
+
+USAGE
+- Single Call to the async function (using <b>onSuccess</b>/<b>onFailure</b>)
+  ```java
+    toUpperCase("hello")
+      .onSuccess(result -> {
+        System.out.println("Uppercase: " + result);
+      })
+      .onFailure(err -> {
+        System.err.println("Error: " + err.getMessage());
+      });
+  ```
+
+- Multiple calls to the multiple async functions
+  - Series (using <b>compose</b>)
+    ```java
+      toUpperCase("hello")
+        .compose(upper -> toLowerCase(upper))
+    
+        .onSuccess(result -> {
+          System.out.println("Final Result: " + result);
+        })
+        .onFailure(err -> {
+          System.err.println("Error: " + err.getMessage());
+        });
+    ```
+  - Parallel (using <b>CompositeFuture.all</b>)
+    ```java
+      CompositeFuture.all(
+        toUpperCase("hello"),
+        toLowerCase("WORLD")
+      ).onSuccess(composite -> {
+        String upper = composite.resultAt(0);
+        String lower = composite.resultAt(1);
+        System.out.println("Uppercase: " + upper);
+        System.out.println("Lowercase: " + lower);
+      }).onFailure(err -> {
+        System.err.println("Error: " + err.getMessage());
+      });
+    ```
+
+
+</details>
 
 <b>Kafka Configuration Tuning</b><br>
 I also tuned Kafka producer and consumer configurations, like batch size and linger settings, which reduced event latency across services.
