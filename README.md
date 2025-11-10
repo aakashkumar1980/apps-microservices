@@ -51,15 +51,16 @@ So overall, I’ve worked across different microservices of this lifecycle ensur
 
 ###  🛠️ TECH STACK
 Here are some of the key technologies and skills I work with:
-- **Programming Languages**: Java
-- **Frameworks**: Spring Boot, Vert.X
+- **Programming Languages**: Java 21 (core, streams, multithreading, concurrency)
+- **Frameworks**: Spring Boot, Spring Data, Vert.X (reactive programming)
 - **Messaging Systems**: Confluent Kafka
 - **Resilience & Fault Tolerance**: Resilience4J (Circuit Breaker, Rate Limiter, Retry)
-- **Databases**: MySQL, Couchbase (NoSQL), Redis Cache
+- **Databases**: Couchbase (NoSQL), MySQL, GCP Lumi Bigtable, Redis Cache
 - **Containerization & Orchestration**: Docker, Kubernetes
-- **CI/CD Tools**: Jenkins, GitHub Actions
-- **Monitoring & Logging**: ELK Stack
-- **Security**: API Gateway, OAuth2, Okta
+- **CI/CD Tools**: GitHub Actions, Jenkins, XLR, Hydra (OpenShift)
+- **Monitoring & Logging**: ELK Stack, ServiceNow
+- **Security**: AWS API Gateway, OAuth2, Okta
+
 
 ## APPLICATION ARCHITECTURE
 The application is built on a microservices architecture comprising over 30 plus microservices, primarily developed using **Spring Boot** and **Vert.X** frameworks. 
