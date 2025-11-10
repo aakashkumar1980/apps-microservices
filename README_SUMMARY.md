@@ -42,6 +42,7 @@ exponential backoff, and rate limiters. This made our services self-healing and 
 during high-volume redemption processing, if one service failed, we triggered compensation events to roll back changes across all
 services. This ensured eventual consistency without locking, and we also used @Version fields in Couchbase for optimistic locking
 so that the updates wouldn't overwrite each other."
+
 ---
 <br><br>
 
