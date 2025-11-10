@@ -503,6 +503,7 @@ FROM employees
 GROUP BY departmentId;
 ```
 
+In Java Streams, you can achieve the same result using Collectors.groupingBy() as shown below:
 ```java
   /** The Collectors.groupingBy() example groups a list of Employee objects by their departmentId and calculates the total salary for each department. 
     The first argument to groupingBy() is the key extractor function (Employee::getDepartmentId), 
