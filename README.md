@@ -373,9 +373,11 @@ which simplified debugging and improved error observability.
 <details>
 <summary>Validation & Exception Handling (click to expand)</summary>
 
-<b>Validation Example using Javax Annotations</b>
+<b>REST API request's json payload validations</b>
 1. First define the DTO with validation annotations as per the business rules or the agreed schema.
 ```java
+  import javax.validation.constraints.*;
+  
   public class OfferRequestDto {
     @NotNull(message = "Offer name cannot be null")
     @Size(min = 5, max = 100, message = "Offer name must be between 5 and 100 characters")
@@ -411,8 +413,43 @@ which simplified debugging and improved error observability.
   }
 ```
 
+<b>Global Exception Handling</b>
+1. First define two categories of custom exceptions - Functional (business rule violations 4xx) and Technical (system failures 500).
+```java
+  // Functional Exception
+  public class FunctionalException extends RuntimeException {
+      public FunctionalException(String message) {
+          super(message);
+      }
+  }
+  
+  // Technical Exception
+  public class TechnicalException extends RuntimeException {
+      public TechnicalException(String message, Throwable cause) {
+          super(message, cause);
+      }
+  }
+```
 
-
+2. Next, create a global exception handler using @ControllerAdvice to catch and respond appropriately.
+```java
+  @ControllerAdvice
+  public class GlobalExceptionHandler {
+  
+      @ExceptionHandler(FunctionalException.class)
+      public ResponseEntity<String> handleFunctionalException(FunctionalException ex) {
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+      }
+  
+      @ExceptionHandler(TechnicalException.class)
+      public ResponseEntity<String> handleTechnicalException(TechnicalException ex) {
+          // Log the technical error for debugging
+          log.error("Technical error occurred", ex);
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                               .body("An internal error occurred. Please try again later.");
+      }
+  }
+```
 
 </details>
 
