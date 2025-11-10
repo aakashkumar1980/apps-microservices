@@ -8,10 +8,11 @@ This roadmap covers two distinct preparation tracks based on your target compani
 
 ## 📊 Quick Overview
 
-| Track | Duration | Focus Areas | Target Companies |
-|-------|----------|-------------|------------------|
-| **Part 1 - Practical DSA** | 4-6 weeks | Problem-solving, Clean Code, System Logic | Service-based, Mid-tier Product Companies, Startups |
-| **Part 2 - FAANG-Level** | 8-12 weeks | Advanced Algorithms, Optimization, Complex DS | Amazon, Google, Meta, Netflix, Apple, Uber, Microsoft |
+| Track | Duration | Daily | Problems | Target Companies |
+|-------|----------|-------|----------|------------------|
+| **Part 1 - Practical DSA** | 4-6 weeks | 1-2 hrs | ~70 | Service-based, Mid-tier, Startups |
+| **Part 2 - FAANG-Level** | 8-12 weeks | 2-3 hrs | ~108 | FAANG, Unicorns, Tier-1 |
+
 
 ---
 
