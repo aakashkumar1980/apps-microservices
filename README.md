@@ -725,43 +725,6 @@ class Trie {
 **Daily Commitment:** 2-3 hours  
 **Weekly Mocks:** 2 interviews (starting Week 4)
 
-### 🎯 Part 2 Company Success Checklist
-
-#### Targeting Google? Master These:
-- ✅ **DP:** Edit Distance (LC 72) ⭐⭐⭐, Regular Expression Matching (LC 10) ⭐⭐⭐
-- ✅ **Graphs:** Dijkstra, Clone Graph (LC 133) ⭐⭐⭐
-- ✅ **Trie:** Word Search II (LC 212) ⭐⭐⭐
-- ✅ **Backtracking:** N-Queens (LC 51) ⭐⭐⭐, Combination Sum (LC 39) ⭐⭐
-- ✅ **Monotonic:** Largest Rectangle (LC 84) ⭐⭐⭐, Sliding Window Max (LC 239) ⭐⭐
-
-#### Targeting Amazon? Master These:
-- ✅ **Linked List:** Merge K Sorted Lists (LC 23) ⭐⭐⭐, Cycle Detection ⭐⭐
-- ✅ **Trees:** Validate BST (LC 98) ⭐⭐⭐, Serialize Tree (LC 297) ⭐⭐
-- ✅ **Graphs:** Topological Sort (LC 207/210) ⭐⭐⭐, Number of Islands (LC 200) ⭐⭐
-- ✅ **Union-Find:** Accounts Merge (LC 721) ⭐⭐⭐
-- ✅ **DP:** House Robber (LC 198) ⭐⭐⭐, Stock Problems ⭐⭐⭐
-- ✅ **Monotonic:** Daily Temperatures (LC 739) ⭐⭐, Trapping Rain Water (LC 42) ⭐⭐
-
-#### Targeting Microsoft? Master These:
-- ✅ **Linked Lists:** Reverse in K-groups (LC 25) ⭐⭐, Cycle Detection ⭐⭐
-- ✅ **Trees:** LCA (LC 236) ⭐⭐⭐, Diameter (LC 543) ⭐⭐
-- ✅ **Graphs:** Topological Sort ⭐⭐
-- ✅ **DP:** Word Break (LC 139) ⭐⭐⭐, LCS (LC 1143) ⭐⭐
-- ✅ **Backtracking:** Word Search (LC 79) ⭐⭐
-
-#### Targeting Facebook? Master These:
-- ✅ **Trees:** Serialize Tree (LC 297) ⭐⭐⭐, Vertical Order (LC 987) ⭐⭐
-- ✅ **Graphs:** Clone Graph (LC 133) ⭐⭐⭐, Bipartite Check (LC 785) ⭐⭐
-- ✅ **Greedy:** Meeting Rooms II (LC 253) ⭐⭐⭐
-- ✅ **Backtracking:** Generate Parentheses (LC 22) ⭐⭐⭐
-
-**🎯 Success Metrics:**
-- Solve hard problems in 35-45 minutes (with hints: 25-30 minutes)
-- Explain multiple approaches and optimization trade-offs
-- Strong time/space complexity analysis (asymptotic + practical)
-- Recognize problem patterns instantly (Union-Find, Monotonic Stack, Trie triggers)
-- Connect to system design concepts (caching, distributed systems, consistency)
-
 </details>
 
 ---
