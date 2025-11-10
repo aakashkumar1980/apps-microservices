@@ -370,6 +370,54 @@ From a development perspective, I implemented a robust validation layer for camp
 before committing data to Couchbase. This cut downstream rollback events by almost 30%. I also standardized exception handling using @ControllerAdvice, 
 which simplified debugging and improved error observability.
 
+<details>
+<summary>Validation & Exception Handling (click to expand)</summary>
+
+<b>Validation Example using Javax Annotations</b>
+1. First define the DTO with validation annotations as per the business rules or the agreed schema.
+```java
+  public class OfferRequestDto {
+    @NotNull(message = "Offer name cannot be null")
+    @Size(min = 5, max = 100, message = "Offer name must be between 5 and 100 characters")
+    private String offerName;
+    
+    @NotNull(message = "Start date cannot be null")
+    @Future(message = "Start date must be in the future")
+    private LocalDate startDate;
+    
+    @NotNull(message = "End date cannot be null")
+    @Future(message = "End date must be in the future")
+    private LocalDate endDate;
+    
+    @Min(value = 1, message = "Discount percentage must be at least 1%")
+    @Max(value = 100, message = "Discount percentage cannot exceed 100%")
+    private Integer discountPercentage;
+      
+    // Getters and Setters
+  }
+```
+
+2. Next, simply add @Valid annotation to the controller method parameter to trigger validation.
+```java
+  @RestController
+  @RequestMapping("/offers")
+  public class OfferController {
+  
+    @PostMapping
+    public ResponseEntity<String> createOffer(@Valid @RequestBody OfferRequestDto offerRequest) {
+        // If validation passes, proceed with business logic
+        return ResponseEntity.ok("Offer created successfully");
+    }
+  }
+```
+
+
+
+
+</details>
+
+
+
 <b>Java Streams Optimization</b><br>
 I also optimized several data processing modules using Java Streams to replace complex nested loops with clean, declarative pipelines.
 By leveraging operations like filter, map, groupingBy, and parallel streams, I improved both readability and performance of offer validation
