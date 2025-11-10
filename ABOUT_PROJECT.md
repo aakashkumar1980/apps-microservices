@@ -270,12 +270,30 @@ a bucket and partitions as sub-buckets within it.<br>
 When Offer Service publishes an "OfferCreated" event <i>{offerId: "123", discount: 20%}</i>, distributes either distributes it across partitions 
 using a key (e.g., offerId) or round-robin if no key is provided. The messages are stored in the partitions in the order they arrive like 
 in an arraylist. just like arraylist have an index, each message in a partition has an **offset** (0, 1, 2...) that uniquely identifies its position.
+Below is the code snippet to publish an event using Spring KafkaTemplate.
+```java
+  // Publish OfferCreated event to "offers-topic", first argument is the topic name, second is the key, third is the message payload
+  kafkaTemplate.send("offers-topic", offerId, offerCreatedEventJson);
+```
+
 
 <b>Consuming Events</b><br>
 <i>Across different services (Share Message)</i>:<br>
 Consumers (e.g., Merchant Service, Customer Service) subscribe to topics and read messages from partitions. Same messages can be consumed by 
 multiple services independently by using it's own **consumer group** names (i.e. MerchantServiceGroup, CustomerServiceGroup). Each consumer 
-tracks its own offsets per partition, so it knows which messages it has already processed.
+tracks its own offsets per partition, so it knows which messages it has already processed. When a consumer reads a message, it can **commit** 
+the offset to Kafka, so that if it restarts, it can resume from the last committed offset instead of re-reading all messages. The commit is either automatic 
+(at intervals) or manual (after processing using the code like below).
+```java
+  @KafkaListener(topics = "offers-topic", groupId = "MerchantServiceGroup")
+  public void listen(ConsumerRecord<String, String> record, Acknowledgment acknowledgment) {
+      // Process the message
+      System.out.println("Received message: " + record.value());
+      
+      // Manually commit offset after processing
+      acknowledgment.acknowledge();
+  }
+```
 
 <i>Across multiple instances (e.g. Docker PODs) of the same service (Scaling Messages)</i>:<br>
 If there are multiple instances of Merchant Service running (e.g., for load balancing), Kafka distributes partitions among them. so that 
