@@ -276,6 +276,30 @@ Below is the code snippet to publish an event using Spring KafkaTemplate.
   kafkaTemplate.send("offers-topic", offerId, offerCreatedEventJson);
 ```
 
+```properties
+# === Connection ===
+bootstrap.servers=broker1:9092,broker2:9092,broker3:9092
+
+# === Serialization ===
+key.serializer=org.apache.kafka.common.serialization.StringSerializer
+value.serializer=org.apache.kafka.common.serialization.StringSerializer
+
+# === Durability (No Message Loss) ===
+acks=all                           # Wait for all replicas (leader + followers)
+retries=2147483647                 # Retry until success (max int)
+enable.idempotence=true            # Kafka-level deduplication within producer session
+max.in.flight.requests.per.connection=5  # Can be >1 with idempotence enabled
+
+# === High Throughput ===
+batch.size=32768                   # 32 KB batches (larger = better throughput)
+linger.ms=10                       # Wait 10ms to batch more messages
+compression.type=lz4               # Fast compression (snappy or zstd also good)
+buffer.memory=67108864             # 64 MB buffer for batching
+
+# === Timeout ===
+request.timeout.ms=30000           # 30 seconds
+delivery.timeout.ms=120000         # 2 minutes total (includes retries)
+```
 
 <b>Consuming Events</b><br>
 <i>Across different services (Share Message)</i>:<br>
@@ -283,7 +307,16 @@ Consumers (e.g., Merchant Service, Customer Service) subscribe to topics and rea
 multiple services independently by using it's own **consumer group** names (i.e. MerchantServiceGroup, CustomerServiceGroup). Each consumer 
 tracks its own offsets per partition, so it knows which messages it has already processed. When a consumer reads a message, it can **commit** 
 the offset to Kafka, so that if it restarts, it can resume from the last committed offset instead of re-reading all messages. The commit is either automatic 
-(at intervals) or manual (after processing using the code like below).
+(at intervals) or manual (after processing using the code).
+
+<i>Across multiple instances (e.g. Docker PODs) of the same service (Scaling Messages)</i>:<br>
+If there are multiple instances of Merchant Service running (e.g., for load balancing), Kafka distributes partitions among them. so that 
+each instance processes a subset of partitions. For example,
+- Instance (POD 1) reads from Partition 0 and 1
+- Instance (POD 2) reads from Partition 2 and 3
+- Instance (POD 3) reads from Partition 4 and 5 etc.
+This way, Kafka ensures high throughput and fault tolerance by distributing messages across brokers and partitions, while allowing multiple 
+services and instances to consume events independently.
 ```java
   @KafkaListener(topics = "offers-topic", groupId = "MerchantServiceGroup")
   public void listen(ConsumerRecord<String, String> record, Acknowledgment acknowledgment) {
@@ -294,16 +327,6 @@ the offset to Kafka, so that if it restarts, it can resume from the last committ
       acknowledgment.acknowledge();
   }
 ```
-
-<i>Across multiple instances (e.g. Docker PODs) of the same service (Scaling Messages)</i>:<br>
-If there are multiple instances of Merchant Service running (e.g., for load balancing), Kafka distributes partitions among them. so that 
-each instance processes a subset of partitions. For example,
-- Instance (POD 1) reads from Partition 0 and 1
-- Instance (POD 2) reads from Partition 2 and 3
-- Instance (POD 3) reads from Partition 4 and 5 etc.
-This way, Kafka ensures high throughput and fault tolerance by distributing messages across brokers and partitions, while allowing multiple 
-services and instances to consume events independently.
-
 
 
 </details>
