@@ -517,12 +517,66 @@ In Java Streams, you can achieve the same result using Collectors.groupingBy() a
 ```
 </details>
 
-
-
 <b>Security and Reliability Enhancements</b><br>
 Security and reliability were other areas I strengthened. I integrated Okta-based OAuth2 across all partner APIs, enforcing granular scopes 
 for each operation. Combined with Resilience4j circuit breakers and retry mechanisms, this made our services resilient to network fluctuations 
 and partner outages.
+
+<details>
+<summary>Retry & Resilience4J (click to expand)</summary>
+
+<b>Retry Example</b><br>
+We will use Spring Boot's @Retry to simply try to call internal services which are within the company network e.g. database calls, internal REST API calls etc.
+The reason being that internal services are generally more reliable and have lower latency, so a simple retry mechanism is sufficient to handle transient failures.
+```java
+  import org.springframework.retry.annotation.Backoff;
+  import org.springframework.retry.annotation.Retryable;
+  import org.springframework.stereotype.Service;
+
+  @Service
+  public class InternalServiceClient {
+
+    @Retryable(
+      value = { InternalServiceException.class },       // Retry on this exception
+      maxAttempts = 5,                                  // Max 5 attempts
+      backoff = @Backoff(delay = 2000, multiplier = 2)  // Exponential backoff starting at 2s
+    )
+    public String callInternalService(String request) {
+      // Code to call internal service (e.g., REST API, database)
+      // If it fails, throw InternalServiceException to trigger retry
+    }
+  }
+```
+
+<b>Resilience4J Circuit Breaker Example</b><br>
+For external services (e.g., third-party APIs), we will use Resilience4J Circuit Breaker to prevent overwhelming the external service 
+during outages or high latency periods. This protects our system from cascading failures and allows it to degrade gracefully.
+
+Concept of Circuit Breaker:
+- Closed State: Normal operation, calls go through.
+- Open State: After a threshold of failures, the circuit opens, and calls are blocked for a timeout period.
+- Half-Open State: After the timeout, a limited number of test calls are allowed to check if the external service has recovered.
+
+```java
+  import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+  import org.springframework.stereotype.Service; 
+   
+  @Service
+  public class ExternalServiceClient {
+    @CircuitBreaker(name = "externalServiceCircuitBreaker", fallbackMethod = "fallbackResponse")
+    public String callExternalService(String request) {
+      // Code to call external service (e.g., third-party REST API)
+      // If it fails, Circuit Breaker will open after threshold is reached
+    }
+
+    // Fallback method when Circuit Breaker is open
+    public String fallbackResponse(String request, Throwable t) {
+      return "Default response due to external service failure";
+    }
+  }
+```
+
+</details>
 
 <b>CI/CD and Monitoring Improvements</b><br>
 On the delivery side, I led the CI/CD automation using GitHub Actions, Hydra, and XLR pipelines, bringing deployment time down by roughly 40% 
