@@ -260,7 +260,12 @@ I also tuned Kafka producer and consumer configurations, like batch size and lin
 <details>
 <summary>Kafka (click to expand)</summary>
 
+Kafka Architecture - Brokers, Topics, and Partitions
 ![_KafkaPODs](_readme_assets/kafka_pods.png)
+Kafka runs on multiple servers called brokers (like distributed post offices). Messages are organized into topics (e.g., "offers-topic"), 
+and each topic is split into partitions (numbered queues: P0, P1, P2) distributed across brokers for parallel processing. 
+<i>Each partition stores messages sequentially with retention (e.g., 7 days) and is replicated across multiple brokers for fault tolerance—if one broker fails, 
+replicas on other brokers continue serving messages.</i>
 
 </details>
 
