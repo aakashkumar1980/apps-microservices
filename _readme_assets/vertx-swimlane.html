@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vert.x - UML Activity Diagram (Swimlanes)</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            margin: 0;
+        }
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #782a90;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .mermaid {
+            text-align: center;
+            overflow-x: auto;
+        }
+        .info-box {
+            background: #f3e5f5;
+            border-left: 5px solid #9c27b0;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+        .info-box h3 {
+            color: #6a1b9a;
+            margin-bottom: 10px;
+        }
+        .info-box ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        .success-box {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .success-box h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid #333;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .comparison-table th {
+            background: #9c27b0;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Vert.x + Netty - UML Activity Diagram (Swimlanes)</h1>
+        <div class="subtitle">5 Parallel Users | POST /create-offer | 300ms Processing | Left-to-Right Flow</div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e3f2fd;"></div>
+                <span>Users/Client</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f3e5f5;"></div>
+                <span>Boss Thread</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e1bee7;"></div>
+                <span>Event Loop Pool</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e1f5fe;"></div>
+                <span>Handler/Callback</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ffebee;"></div>
+                <span>Worker Thread Pool</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e8f5e9;"></div>
+                <span>Database</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #c8e6c9;"></div>
+                <span>Callback Execution</span>
+            </div>
+        </div>
+        
+        <div class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
+graph LR
+    subgraph Users["👥 5 USERS<br/>(Clients)"]
+        U1(["User 1<br/>POST Request"])
+        U2(["User 2<br/>POST Request"])
+        U3(["User 3<br/>POST Request"])
+        U4(["User 4<br/>POST Request"])
+        U5(["User 5<br/>POST Request"])
+    end
+    
+    subgraph Boss["🎯 BOSS THREAD<br/>(Port 8080)"]
+        B1["Accept<br/>Connection 1<br/>→ Loop 0"]
+        B2["Accept<br/>Connection 2<br/>→ Loop 1"]
+        B3["Accept<br/>Connection 3<br/>→ Loop 2"]
+        B4["Accept<br/>Connection 4<br/>→ Loop 0"]
+        B5["Accept<br/>Connection 5<br/>→ Loop 3"]
+    end
+    
+    subgraph EventLoop["⚡ EVENT LOOP POOL<br/>(8 threads: 2×4 cores)"]
+        E1["Loop 0:<br/>User 1, 4<br/>Parse HTTP<br/>Parse JSON<br/>⚡ 0.4ms total"]
+        E2["Loop 1:<br/>User 2<br/>Parse HTTP<br/>Parse JSON<br/>⚡ 0.2ms"]
+        E3["Loop 2:<br/>User 3<br/>Parse HTTP<br/>Parse JSON<br/>⚡ 0.2ms"]
+        E4["Loop 3:<br/>User 5<br/>Parse HTTP<br/>Parse JSON<br/>⚡ 0.2ms"]
+        EStatus["<br/>Status:<br/>ALL 8 LOOPS<br/>FREE!<br/>✅ 0% blocked"]
+    end
+    
+    subgraph Handler["📞 HANDLER + CALLBACK<br/>(Event Loop executes)"]
+        H1["Handler 1:<br/>Validate JSON<br/>Business Logic<br/>Submit to Worker<br/>Register Callback<br/>🟢 Returns NOW"]
+        H2["Handler 2:<br/>Validate JSON<br/>Business Logic<br/>Submit to Worker<br/>Register Callback<br/>🟢 Returns NOW"]
+        H3["Handler 3:<br/>Validate JSON<br/>Business Logic<br/>Submit to Worker<br/>Register Callback<br/>🟢 Returns NOW"]
+        H4["Handler 4:<br/>Validate JSON<br/>Business Logic<br/>Submit to Worker<br/>Register Callback<br/>🟢 Returns NOW"]
+        H5["Handler 5:<br/>Validate JSON<br/>Business Logic<br/>Submit to Worker<br/>Register Callback<br/>🟢 Returns NOW"]
+    end
+    
+    subgraph Worker["🔧 WORKER THREAD POOL<br/>(20 threads)"]
+        W1["Worker 1:<br/>Execute<br/>Blocking<br/>DB Operation<br/>🔴 300ms"]
+        W2["Worker 2:<br/>Execute<br/>Blocking<br/>DB Operation<br/>🔴 300ms"]
+        W3["Worker 3:<br/>Execute<br/>Blocking<br/>DB Operation<br/>🔴 300ms"]
+        W4["Worker 4:<br/>Execute<br/>Blocking<br/>DB Operation<br/>🔴 300ms"]
+        W5["Worker 5:<br/>Execute<br/>Blocking<br/>DB Operation<br/>🔴 300ms"]
+        WStatus["<br/>Status:<br/>5/20 BUSY<br/>15 AVAILABLE"]
+    end
+    
+    subgraph Database["🗄️ DATABASE<br/>(PostgreSQL/MySQL)"]
+        DB1[("INSERT<br/>offer 1<br/>Execute<br/>300ms")]
+        DB2[("INSERT<br/>offer 2<br/>Execute<br/>300ms")]
+        DB3[("INSERT<br/>offer 3<br/>Execute<br/>300ms")]
+        DB4[("INSERT<br/>offer 4<br/>Execute<br/>300ms")]
+        DB5[("INSERT<br/>offer 5<br/>Execute<br/>300ms")]
+    end
+    
+    subgraph Callback["🔔 CALLBACK EXECUTION<br/>(Back on Event Loop)"]
+        CB1["Callback 1 Fires<br/>on Loop 0<br/>Result Received<br/>Build JSON<br/>Send Response"]
+        CB2["Callback 2 Fires<br/>on Loop 1<br/>Result Received<br/>Build JSON<br/>Send Response"]
+        CB3["Callback 3 Fires<br/>on Loop 2<br/>Result Received<br/>Build JSON<br/>Send Response"]
+        CB4["Callback 4 Fires<br/>on Loop 0<br/>Result Received<br/>Build JSON<br/>Send Response"]
+        CB5["Callback 5 Fires<br/>on Loop 3<br/>Result Received<br/>Build JSON<br/>Send Response"]
+    end
+    
+    subgraph Done["🎉 COMPLETE"]
+        D1(["User 1<br/>Receives<br/>Response"])
+        D2(["User 2<br/>Receives<br/>Response"])
+        D3(["User 3<br/>Receives<br/>Response"])
+        D4(["User 4<br/>Receives<br/>Response"])
+        D5(["User 5<br/>Receives<br/>Response"])
+    end
+    
+    U1 --> B1 --> E1 --> H1 --> W1 --> DB1 --> CB1 --> D1
+    U2 --> B2 --> E2 --> H2 --> W2 --> DB2 --> CB2 --> D2
+    U3 --> B3 --> E3 --> H3 --> W3 --> DB3 --> CB3 --> D3
+    U4 --> B4 --> E1 --> H4 --> W4 --> DB4 --> CB4 --> D4
+    U5 --> B5 --> E4 --> H5 --> W5 --> DB5 --> CB5 --> D5
+    
+    style Users fill:#e3f2fd,stroke:#2196f3,stroke-width:3px
+    style Boss fill:#f3e5f5,stroke:#9c27b0,stroke-width:3px
+    style EventLoop fill:#e1bee7,stroke:#7b1fa2,stroke-width:3px
+    style Handler fill:#e1f5fe,stroke:#0288d1,stroke-width:3px
+    style Worker fill:#ffebee,stroke:#f44336,stroke-width:3px
+    style Database fill:#e8f5e9,stroke:#4caf50,stroke-width:3px
+    style Callback fill:#c8e6c9,stroke:#388e3c,stroke-width:3px
+    style Done fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
+    
+    style U1 fill:#bbdefb,stroke:#1976d2,stroke-width:2px
+    style U2 fill:#bbdefb,stroke:#1976d2,stroke-width:2px
+    style U3 fill:#bbdefb,stroke:#1976d2,stroke-width:2px
+    style U4 fill:#bbdefb,stroke:#1976d2,stroke-width:2px
+    style U5 fill:#bbdefb,stroke:#1976d2,stroke-width:2px
+    
+    style E1 fill:#ce93d8,stroke:#7b1fa2,stroke-width:2px
+    style E2 fill:#ce93d8,stroke:#7b1fa2,stroke-width:2px
+    style E3 fill:#ce93d8,stroke:#7b1fa2,stroke-width:2px
+    style E4 fill:#ce93d8,stroke:#7b1fa2,stroke-width:2px
+    style EStatus fill:#81c784,stroke:#388e3c,stroke-width:3px
+    
+    style H1 fill:#b3e5fc,stroke:#0277bd,stroke-width:2px
+    style H2 fill:#b3e5fc,stroke:#0277bd,stroke-width:2px
+    style H3 fill:#b3e5fc,stroke:#0277bd,stroke-width:2px
+    style H4 fill:#b3e5fc,stroke:#0277bd,stroke-width:2px
+    style H5 fill:#b3e5fc,stroke:#0277bd,stroke-width:2px
+    
+    style W1 fill:#ef5350,stroke:#c62828,stroke-width:2px,color:#fff
+    style W2 fill:#ef5350,stroke:#c62828,stroke-width:2px,color:#fff
+    style W3 fill:#ef5350,stroke:#c62828,stroke-width:2px,color:#fff
+    style W4 fill:#ef5350,stroke:#c62828,stroke-width:2px,color:#fff
+    style W5 fill:#ef5350,stroke:#c62828,stroke-width:2px,color:#fff
+    style WStatus fill:#fff59d,stroke:#f57c00,stroke-width:2px
+    
+    style DB1 fill:#81c784,stroke:#388e3c,stroke-width:2px
+    style DB2 fill:#81c784,stroke:#388e3c,stroke-width:2px
+    style DB3 fill:#81c784,stroke:#388e3c,stroke-width:2px
+    style DB4 fill:#81c784,stroke:#388e3c,stroke-width:2px
+    style DB5 fill:#81c784,stroke:#388e3c,stroke-width:2px
+    
+    style CB1 fill:#a5d6a7,stroke:#2e7d32,stroke-width:2px
+    style CB2 fill:#a5d6a7,stroke:#2e7d32,stroke-width:2px
+    style CB3 fill:#a5d6a7,stroke:#2e7d32,stroke-width:2px
+    style CB4 fill:#a5d6a7,stroke:#2e7d32,stroke-width:2px
+    style CB5 fill:#a5d6a7,stroke:#2e7d32,stroke-width:2px
+    
+    style D1 fill:#66bb6a,stroke:#1b5e20,stroke-width:2px
+    style D2 fill:#66bb6a,stroke:#1b5e20,stroke-width:2px
+    style D3 fill:#66bb6a,stroke:#1b5e20,stroke-width:2px
+    style D4 fill:#66bb6a,stroke:#1b5e20,stroke-width:2px
+    style D5 fill:#66bb6a,stroke:#1b5e20,stroke-width:2px
+        </div>
+        
+        <div class="info-box">
+            <h3>📊 Vert.x Flow Explanation</h3>
+            <p><strong>Left-to-Right Journey for Each User:</strong></p>
+            <ol style="margin-left: 20px; line-height: 2;">
+                <li><strong>User Layer:</strong> 5 users simultaneously send POST requests to port 8080</li>
+                
+                <li><strong>Boss Thread:</strong> Single boss thread accepts connections and distributes to Event Loops
+                    <ul>
+                        <li>Round-robin distribution to 8 Event Loop threads</li>
+                        <li>User 1 & 4 → Loop 0 (gets 2 requests)</li>
+                        <li>User 2 → Loop 1</li>
+                        <li>User 3 → Loop 2</li>
+                        <li>User 5 → Loop 3</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Event Loop Pool (8 threads):</strong> Non-blocking request processing
+                    <ul>
+                        <li>Parse HTTP headers and JSON (very fast: 0.2ms each)</li>
+                        <li>Route request to appropriate handler</li>
+                        <li><strong>🟢 Event Loop remains FREE - never blocks!</strong></li>
+                        <li>Total Event Loop time: ~0.4ms for Loop 0, ~0.2ms for others</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Handler + Callback Registration:</strong> Executed ON Event Loop
+                    <ul>
+                        <li>Validate JSON payload</li>
+                        <li>Execute business logic (non-blocking parts)</li>
+                        <li>Submit blocking DB operation to Worker Thread Pool</li>
+                        <li>Register callback function for when DB completes</li>
+                        <li><strong>🟢 Handler returns immediately - doesn't wait!</strong></li>
+                    </ul>
+                </li>
+                
+                <li><strong>Worker Thread Pool (20 threads):</strong> Handles blocking operations
+                    <ul>
+                        <li>5 worker threads assigned (one per DB operation)</li>
+                        <li>🔴 Workers BLOCK for 300ms during DB INSERT</li>
+                        <li><strong>Critical: Workers block, NOT Event Loops!</strong></li>
+                        <li>15 workers remain available for other blocking tasks</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Database Layer:</strong> Executes INSERT queries (300ms each)
+                    <ul>
+                        <li>Same execution time as Spring Boot</li>
+                        <li>But Event Loops are FREE to handle more requests!</li>
+                    </ul>
+                </li>
+                
+                <li><strong>🔔 Callback Execution:</strong> When DB completes (after 300ms)
+                    <ul>
+                        <li>Worker thread triggers the registered callback</li>
+                        <li>Callback executes ON the original Event Loop</li>
+                        <li>Build JSON response from DB result</li>
+                        <li>Send HTTP 200 response to client</li>
+                        <li>Worker thread returns to pool</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Complete:</strong> User receives response after 300ms</li>
+            </ol>
+        </div>
+        
+        <div class="success-box">
+            <h3>✅ The Non-Blocking Advantage</h3>
+            
+            <p><strong>Timeline Analysis - Event Loop vs Worker Thread:</strong></p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Event Loop State</th>
+                        <th>Worker Thread State</th>
+                        <th>Activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0-0.5ms</td>
+                        <td>⚡ <strong>Active</strong></td>
+                        <td>🟢 Idle</td>
+                        <td>Event Loop parsing, routing, registering callback</td>
+                    </tr>
+                    <tr style="background: #e8f5e9;">
+                        <td><strong>0.5ms onwards</strong></td>
+                        <td><strong>✅ FREE!</strong></td>
+                        <td>⏳ Waiting</td>
+                        <td><strong>Event Loop handles 1000+ more requests!</strong></td>
+                    </tr>
+                    <tr>
+                        <td>0.5-300.5ms</td>
+                        <td>✅ <strong>FREE</strong></td>
+                        <td>🔴 <strong>BLOCKED</strong></td>
+                        <td>Worker executes DB operation, Event Loop processes others</td>
+                    </tr>
+                    <tr>
+                        <td>300.5-301ms</td>
+                        <td>⚡ <strong>Active</strong></td>
+                        <td>🟢 Returning to pool</td>
+                        <td>Callback fires on Event Loop, builds & sends response</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p style="margin-top: 20px;"><strong>Resource Efficiency Comparison:</strong></p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Spring Boot</th>
+                        <th>Vert.x</th>
+                        <th>Winner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Request-handling threads</strong></td>
+                        <td>5 threads (Tomcat pool)</td>
+                        <td>4 Event Loops (distributed)</td>
+                        <td>🏆 Vert.x</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Threads blocked</strong></td>
+                        <td>5 threads for 300ms</td>
+                        <td>0 Event Loops blocked!</td>
+                        <td>🏆 Vert.x</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Available for new requests</strong></td>
+                        <td>195/200 threads (97.5%)</td>
+                        <td>8/8 Event Loops (100%)</td>
+                        <td>🏆 Vert.x</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Thread efficiency</strong></td>
+                        <td>~2% (blocked 98% of time)</td>
+                        <td>100% (never blocked)</td>
+                        <td>🏆 Vert.x</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Concurrent request capacity</strong></td>
+                        <td>~200 (thread pool limit)</td>
+                        <td>10,000+ (memory limited)</td>
+                        <td>🏆 Vert.x</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memory per connection</strong></td>
+                        <td>~1 MB (thread stack)</td>
+                        <td>~Few KB (event-based)</td>
+                        <td>🏆 Vert.x</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Worker threads blocking</strong></td>
+                        <td>5 (main request threads)</td>
+                        <td>5 (separate worker pool)</td>
+                        <td>🤝 Same</td>
+                    </tr>
+                    <tr>
+                        <td><strong>User wait time</strong></td>
+                        <td>300ms</td>
+                        <td>300ms</td>
+                        <td>🤝 Same</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="margin-top: 25px; padding: 20px; background: #f3e5f5; border-radius: 8px; border-left: 5px solid #9c27b0;">
+                <h4 style="color: #6a1b9a; margin-bottom: 10px;">🎯 Key Architectural Difference</h4>
+                <p style="line-height: 1.8;"><strong>Spring Boot:</strong> Request-handling threads (Tomcat pool) do everything including blocking I/O<br>
+                → When they block, system cannot accept new requests efficiently</p>
+                
+                <p style="line-height: 1.8; margin-top: 10px;"><strong>Vert.x:</strong> Separation of concerns with two thread pools:
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Event Loops (8 threads):</strong> Handle I/O, never block, always available</li>
+                    <li><strong>Worker Pool (20 threads):</strong> Handle blocking operations, isolated from request handling</li>
+                </ul>
+                </p>
+                
+                <p style="margin-top: 15px; padding: 15px; background: #e8f5e9; border-radius: 5px;">
+                    <strong>💡 The Magic:</strong> Event Loops delegate blocking work to Workers via callbacks, 
+                    staying free to handle thousands of concurrent connections. This is the reactor pattern in action!
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis',
+                rankSpacing: 100,
+                nodeSpacing: 50
+            }
+        });
+    </script>
+</body>
+</html>
