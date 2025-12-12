@@ -93,13 +93,14 @@ public class TextParserUtility implements CommandLineRunner {
    *
    * <p><b>Time Complexity: O(n)</b>
    * <br>O(n) means the work grows proportionally with input size.
-   * <br>Like reading every page of a book - more pages = more work.
-   * <br>Worst case: "word" (no spaces) - we walk through all n characters.
+   * <br><i>Like reading every page of a book - more pages = more work.
+   * <br>Worst case: "word" (no spaces) - we walk through all n characters.</i>
    *
    * <p><b>Space Complexity: O(1)</b>
    * <br>O(1) means constant space - we use the same amount of memory regardless of input size.
-   * <br>Like opening a book to page 50 - book size doesn't matter.
-   * <br>We only use 2 variables: {@code length} (counter) and {@code i} (position pointer).
+   * Here, the number of variable instances does not grow proportionally with the input size.
+   * <br><i>Like opening a book to page 50 - book size doesn't matter.
+   * <br>We only use 2 variables: {@code length} (counter) and {@code i} (position pointer).</i>
    *
    * @param s the input string containing words separated by spaces
    * @return the length of the last word
