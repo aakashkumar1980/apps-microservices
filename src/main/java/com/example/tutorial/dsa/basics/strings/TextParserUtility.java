@@ -54,35 +54,11 @@ public class TextParserUtility implements CommandLineRunner {
     System.out.println("--- Analyzing Offer Titles (Last Word Extraction) ---\n");
     for (Offer offer : offers) {
       String title = offer.getTitle();
-      String lastWord = extractLastWord(title);
       int lastWordLength = lengthOfLastWord(title);
 
       System.out.printf("Offer: %s%n", offer.getOfferId());
       System.out.printf("  Title: \"%s\"%n", title);
-      System.out.printf("  Last Word: \"%s\" (length: %d)%n%n", lastWord, lastWordLength);
-    }
-
-    // Demonstrate parsing merchant names
-    System.out.println("--- Analyzing Merchant Names ---\n");
-    for (Offer offer : offers) {
-      String merchantName = offer.getMerchant().getName();
-      String lastWord = extractLastWord(merchantName);
-      int lastWordLength = lengthOfLastWord(merchantName);
-
-      System.out.printf("Merchant: \"%s\"%n", merchantName);
-      System.out.printf("  Last Word: \"%s\" (length: %d)%n%n", lastWord, lastWordLength);
-    }
-
-    // Demonstrate with offer descriptions (useful for search indexing)
-    System.out.println("--- Analyzing Offer Descriptions ---\n");
-    for (Offer offer : offers) {
-      String description = offer.getDescription();
-      String lastWord = extractLastWord(description);
-      int lastWordLength = lengthOfLastWord(description);
-
-      System.out.printf("Offer: %s%n", offer.getOfferId());
-      System.out.printf("  Description: \"%s\"%n", description);
-      System.out.printf("  Last Word: \"%s\" (length: %d)%n%n", lastWord, lastWordLength);
+      System.out.printf("  Last Word Length: %d%n%n", lastWordLength);
     }
   }
 
@@ -121,52 +97,4 @@ public class TextParserUtility implements CommandLineRunner {
     return length;
   }
 
-  /**
-   * Alternative approach using built-in String methods.
-   * This demonstrates how Java's String API can simplify the solution.
-   *
-   * <p>Time Complexity: O(n) for trim() + O(n) for lastIndexOf() = O(n)
-   * <p>Space Complexity: O(n) for trim() creating a new string
-   *
-   * @param s the input string
-   * @return the length of the last word
-   */
-  public static int lengthOfLastWordUsingBuiltIn(String s) {
-    if (s == null || s.isEmpty()) {
-      return 0;
-    }
-
-    String trimmed = s.trim();
-    if (trimmed.isEmpty()) {
-      return 0;
-    }
-
-    int lastSpaceIndex = trimmed.lastIndexOf(' ');
-    return trimmed.length() - lastSpaceIndex - 1;
-  }
-
-  /**
-   * Extracts the last word from a string.
-   * Useful for scenarios like extracting last name from full name.
-   *
-   * @param s the input string
-   * @return the last word, or empty string if none found
-   */
-  public static String extractLastWord(String s) {
-    if (s == null || s.isEmpty()) {
-      return "";
-    }
-
-    String trimmed = s.trim();
-    if (trimmed.isEmpty()) {
-      return "";
-    }
-
-    int lastSpaceIndex = trimmed.lastIndexOf(' ');
-    if (lastSpaceIndex == -1) {
-      return trimmed;
-    }
-
-    return trimmed.substring(lastSpaceIndex + 1);
-  }
 }
