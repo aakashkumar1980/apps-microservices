@@ -111,14 +111,15 @@ public class TextParserUtility implements CommandLineRunner {
     }
 
     int length = 0;
-    int i = s.length() - 1;
-
-    // Step 1: Skip trailing spaces
+    int i = s.length() - 1; // Start from the end of the string
+    // Step 1: Skip trailing spaces by moving left.
+    // Here using a loop we decrement index until we find a non-space character.
     while (i >= 0 && s.charAt(i) == ' ') {
       i--;
     }
 
-    // Step 2: Count characters of the last word
+    // Step 2: Count characters of the last word.
+    // In the second loop, we continue moving left and count characters until we hit a space or the start of the string.
     while (i >= 0 && s.charAt(i) != ' ') {
       length++;
       i--;
