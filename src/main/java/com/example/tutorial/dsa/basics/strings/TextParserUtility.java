@@ -64,13 +64,42 @@ public class TextParserUtility implements CommandLineRunner {
 
   /**
    * Finds the length of the last word in a string.
-   * LOGIC:
-   * 1. Start from the end of the string
-   * 2. Skip any trailing spaces
-   * 3. Count characters until we hit a space or beginning of string
    *
-   * <p>Time Complexity: O(n) where n is the length of the string
-   * <p>Space Complexity: O(1) - only using pointers
+   * <p><b>LOGIC:</b>
+   * <ol>
+   *   <li>Start from the end of the string</li>
+   *   <li>Skip any trailing spaces</li>
+   *   <li>Count characters until we hit a space or beginning of string</li>
+   * </ol>
+   *
+   * <p><b>Example Walkthrough:</b>
+   * <pre>
+   * Input: "   hello world   "
+   *
+   * Step 1: Skip trailing spaces (right to left)
+   *         "   hello world   "
+   *                        ←←←  (skip 3 spaces)
+   *                  ↑
+   *               Stop at 'd'
+   *
+   * Step 2: Count letters until we hit a space
+   *         "   hello world   "
+   *               ←←←←←  (count: w-o-r-l-d = 5 letters)
+   *              ↑
+   *           Stop at space
+   *
+   * Result: 5
+   * </pre>
+   *
+   * <p><b>Time Complexity: O(n)</b>
+   * <br>O(n) means the work grows proportionally with input size.
+   * <br>Like reading every page of a book - more pages = more work.
+   * <br>Worst case: "word" (no spaces) - we walk through all n characters.
+   *
+   * <p><b>Space Complexity: O(1)</b>
+   * <br>O(1) means constant space - we use the same amount of memory regardless of input size.
+   * <br>Like opening a book to page 50 - book size doesn't matter.
+   * <br>We only use 2 variables: {@code length} (counter) and {@code i} (position pointer).
    *
    * @param s the input string containing words separated by spaces
    * @return the length of the last word
