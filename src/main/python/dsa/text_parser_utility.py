@@ -11,13 +11,10 @@ Problem Statement:
 Real UseCase:
     In a credit card offers system, we often need to parse and analyze offer text:
     - Extract the last keyword from offer titles (e.g., "beverages" from "Spend $20, get $5 back on handcrafted beverages")
-    - Parse merchant names to extract business type (e.g., "Lines" from "Delta Air Lines")
-    - Analyze offer descriptions for categorization and search indexing
 
 Examples:
     - Input: "Spend $20, get $5 back on handcrafted beverages" -> Output: 9 (length of "beverages")
     - Input: "Delta Air Lines" -> Output: 5 (length of "Lines")
-    - Input: "   Valid in-store and mobile order   " -> Output: 5 (length of "order")
 
 Company Tags: Amazon, Microsoft
 
@@ -27,10 +24,10 @@ See: https://leetcode.com/problems/length-of-last-word/
 import sys
 import os
 
-# Add the python source root to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."))
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from com.example.tutorial.common.utils.sample_data_loader import load_offers
+from common.sample_data_loader import load_offers
 
 
 def length_of_last_word(s: str) -> int:
