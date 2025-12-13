@@ -1,5 +1,5 @@
 """
-MeetingRoomSchedulerMAIN
+MeetingRoomScheduler
 ----------------------------------
 This program finds minimum meeting rooms required using Min Heap.
 The core problem solved here is Meeting Rooms II (LeetCode #253).
@@ -95,7 +95,7 @@ def min_meeting_rooms_from_meetings(meetings: List[Meeting]) -> int:
 
 def main():
     """Main function to demonstrate the MeetingRoomScheduler."""
-    print("=== MeetingRoomSchedulerMAIN: Minimum Rooms Required Demo ===\n")
+    print("=== MeetingRoomScheduler: Minimum Rooms Required Demo ===\n")
 
     # Load meetings from sample data
     meetings = load_meetings()

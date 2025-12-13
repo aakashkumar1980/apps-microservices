@@ -1,5 +1,5 @@
 """
-ElevatorSystemDesignMAIN
+ElevatorSystemDesign
 ----------------------------------
 This program simulates an elevator system with multiple elevators.
 The core problem solved here is Design an Elevator System.
@@ -34,7 +34,7 @@ from com.example.tutorial.dsa.medium.simulation.elevator.elevator_system import 
 
 def main():
     """Main function to demonstrate the ElevatorSystemDesign."""
-    print("=== ElevatorSystemDesignMAIN: Elevator Simulation Demo ===\n")
+    print("=== ElevatorSystemDesign: Elevator Simulation Demo ===\n")
 
     # Create elevator system with 3 elevators and 10 floors
     system = ElevatorSystem(3, 10)

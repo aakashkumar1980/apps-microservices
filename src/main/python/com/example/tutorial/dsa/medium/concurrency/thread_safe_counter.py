@@ -1,5 +1,5 @@
 """
-ThreadSafeCounterMAIN
+ThreadSafeCounter
 ----------------------------------
 This program demonstrates various thread-safe counter implementations.
 The core concepts include atomic operations, locks, and thread synchronization.
@@ -79,7 +79,7 @@ def demo_lock_operations():
 
 def main():
     """Main function to demonstrate the ThreadSafeCounter."""
-    print("=== ThreadSafeCounterMAIN: Thread-Safe Counter Demo ===\n")
+    print("=== ThreadSafeCounter: Thread-Safe Counter Demo ===\n")
 
     num_threads = 10
     increments_per_thread = 1000

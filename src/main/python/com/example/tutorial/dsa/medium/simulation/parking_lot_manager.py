@@ -1,5 +1,5 @@
 """
-ParkingLotManagerMAIN
+ParkingLotManager
 ----------------------------------
 This program designs a parking lot system with multiple levels.
 The core problem solved here is Design Parking System (LeetCode #1603).
@@ -32,7 +32,7 @@ from com.example.tutorial.common.datamodel.vehicle import Vehicle, VehicleType
 
 def main():
     """Main function to demonstrate the ParkingLotManager."""
-    print("=== ParkingLotManagerMAIN: Parking System Demo ===\n")
+    print("=== ParkingLotManager: Parking System Demo ===\n")
 
     # Load vehicles from sample data
     vehicles = load_vehicles()

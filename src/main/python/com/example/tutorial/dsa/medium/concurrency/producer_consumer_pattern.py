@@ -1,5 +1,5 @@
 """
-ProducerConsumerPatternMAIN
+ProducerConsumerPattern
 ----------------------------------
 This program demonstrates the Producer-Consumer pattern using queues.
 The core problem solved here is Print in Order / Print FooBar Alternately (LeetCode #1114, #1115).
@@ -125,7 +125,7 @@ def demo_print_in_order():
 
 def main():
     """Main function to demonstrate the ProducerConsumerPattern."""
-    print("=== ProducerConsumerPatternMAIN: Thread Communication Demo ===\n")
+    print("=== ProducerConsumerPattern: Thread Communication Demo ===\n")
 
     # Load tasks from sample data
     tasks = load_tasks()
