@@ -1,5 +1,5 @@
 """
-MeetingRoomScheduler
+MeetingRoomSchedulerMAIN
 ----------------------------------
 This program finds minimum meeting rooms required using Min Heap.
 The core problem solved here is Meeting Rooms II (LeetCode #253).
@@ -9,8 +9,7 @@ Problem Statement:
     conference rooms required.
 
 Real UseCase:
-    In a credit card offers system:
-    - Schedule concurrent promotional campaigns
+    - Schedule concurrent meetings in conference rooms
     - Allocate processing servers for overlapping batch jobs
     - Manage concurrent customer support sessions
 
@@ -30,7 +29,8 @@ from typing import List
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."))
 
-from com.example.tutorial.common.utils.sample_data_loader import load_offers
+from com.example.tutorial.common.utils.sample_data_loader import load_meetings
+from com.example.tutorial.common.datamodel.meeting import Meeting
 
 
 def min_meeting_rooms(intervals: List[List[int]]) -> int:
@@ -46,27 +46,8 @@ def min_meeting_rooms(intervals: List[List[int]]) -> int:
         4. Heap size at any point = rooms in use
         5. Track maximum heap size seen
 
-    Example Walkthrough:
-        intervals = [[0,30], [5,10], [15,20]]
-        After sorting by start: [[0,30], [5,10], [15,20]]
-        min-heap tracks end times
-
-        Process [0,30]: heap empty, add 30 -> heap = [30], rooms = 1
-        Process [5,10]: heap[0]=30 > 5, meeting ongoing
-                        add 10 -> heap = [10, 30], rooms = 2
-        Process [15,20]: heap[0]=10 < 15, that room is free!
-                         pop 10, add 20 -> heap = [20, 30], rooms = 2
-
-        Max rooms needed: 2
-
     Time Complexity: O(n log n)
-        Sorting takes O(n log n), each heap operation O(log n).
-        Like a hotel receptionist sorting check-in times first, then tracking
-        which rooms are occupied using a quick-lookup system.
-
     Space Complexity: O(n)
-        Heap may contain all n meetings if all overlap.
-        Like the hotel's "occupied rooms" board - worst case all rooms are full.
 
     Args:
         intervals: List of [start, end] meeting times.
@@ -98,24 +79,38 @@ def min_meeting_rooms(intervals: List[List[int]]) -> int:
     return len(end_times)
 
 
+def min_meeting_rooms_from_meetings(meetings: List[Meeting]) -> int:
+    """
+    Finds minimum meeting rooms required using Meeting objects.
+
+    Args:
+        meetings: List of Meeting objects.
+
+    Returns:
+        Minimum number of meeting rooms required.
+    """
+    intervals = [meeting.to_interval() for meeting in meetings]
+    return min_meeting_rooms(intervals)
+
+
 def main():
     """Main function to demonstrate the MeetingRoomScheduler."""
-    print("=== MeetingRoomScheduler: Minimum Rooms Required Demo ===\n")
+    print("=== MeetingRoomSchedulerMAIN: Minimum Rooms Required Demo ===\n")
 
-    # Load credit card offers from sample data
-    offers = load_offers()
-    print(f"Loaded {len(offers)} offers from sample data.\n")
+    # Load meetings from sample data
+    meetings = load_meetings()
+    print(f"Loaded {len(meetings)} meetings from sample data.\n")
 
-    # Demonstrate with promotional campaign schedules
-    print("--- Scheduling Promotional Campaigns ---\n")
-    campaigns = [[9, 12], [10, 14], [11, 13], [14, 17], [15, 16]]
-    print("Campaign time slots:")
-    for c in campaigns:
-        print(f"  {c[0]}:00 - {c[1]}:00")
-    rooms = min_meeting_rooms(campaigns)
-    print(f"Minimum marketing channels needed: {rooms}\n")
+    # Demo with Meeting objects
+    print("--- Scheduling Meeting Rooms ---\n")
+    print("Meetings loaded:")
+    for meeting in meetings:
+        print(f"  {meeting}")
 
-    # Test cases
+    rooms_needed = min_meeting_rooms_from_meetings(meetings)
+    print(f"\nMinimum conference rooms needed: {rooms_needed}\n")
+
+    # Demo with time intervals
     print("--- Additional Examples ---\n")
     test_cases = [
         [[0, 30], [5, 10], [15, 20]],
