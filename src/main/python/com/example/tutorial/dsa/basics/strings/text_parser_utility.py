@@ -24,10 +24,10 @@ See: https://leetcode.com/problems/length-of-last-word/
 import sys
 import os
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+# Add python source root to path for imports
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."))
 
-from common.sample_data_loader import load_offers
+from com.example.tutorial.common.utils.sample_data_loader import load_offers
 
 
 def length_of_last_word(s: str) -> int:

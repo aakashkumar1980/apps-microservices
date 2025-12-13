@@ -8,7 +8,7 @@ Equivalent to the Java SampleDataLoader.java class.
 import json
 import os
 from typing import List
-from common.offer import Offer, Partner, Merchant, Eligibility
+from com.example.tutorial.common.datamodel.offer import Offer, Partner, Merchant, Eligibility
 
 
 def _parse_offer(data: dict) -> Offer:
@@ -46,7 +46,7 @@ def load_offers() -> List[Offer]:
         List of Offer objects parsed from offer.json
     """
     json_path = os.path.join(
-        os.path.dirname(__file__), "..", "..",
+        os.path.dirname(__file__), "..", "..", "..", "..",
         "resources", "sample_data", "offer.json"
     )
     json_path = os.path.normpath(json_path)

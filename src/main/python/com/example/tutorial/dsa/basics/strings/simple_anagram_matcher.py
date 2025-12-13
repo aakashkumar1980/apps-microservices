@@ -28,10 +28,10 @@ import sys
 import os
 from typing import Dict
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+# Add python source root to path for imports
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", ".."))
 
-from common.sample_data_loader import load_offers
+from com.example.tutorial.common.utils.sample_data_loader import load_offers
 
 
 def is_anagram(s: str, t: str) -> bool:
