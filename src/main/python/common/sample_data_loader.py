@@ -8,13 +8,14 @@ Equivalent to the Java SampleDataLoader.java class.
 import json
 import os
 from typing import List
-from common.offer import Offer, Partner, Merchant, Money
+from common.offer import Offer, Partner, Merchant, Eligibility
 
 
 def _parse_offer(data: dict) -> Offer:
     """Parse a single Offer from JSON dict."""
     partner_data = data.get("partner", {})
     merchant_data = data.get("merchant", {})
+    eligibility_data = data.get("eligibility", {})
 
     return Offer(
         offer_id=data.get("offerId"),
@@ -30,7 +31,10 @@ def _parse_offer(data: dict) -> Offer:
             brands=merchant_data.get("brands", [])
         ) if merchant_data else None,
         title=data.get("title"),
-        description=data.get("description")
+        description=data.get("description"),
+        eligibility=Eligibility(
+            categories=eligibility_data.get("categories", [])
+        ) if eligibility_data else None
     )
 
 

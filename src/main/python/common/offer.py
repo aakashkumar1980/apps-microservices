@@ -30,6 +30,11 @@ class Merchant:
 
 
 @dataclass
+class Eligibility:
+    categories: List[str] = field(default_factory=list)
+
+
+@dataclass
 class Offer:
     """Main Offer data model representing a credit card offer."""
     offer_id: Optional[str] = None
@@ -38,3 +43,4 @@ class Offer:
     merchant: Optional[Merchant] = None
     title: Optional[str] = None
     description: Optional[str] = None
+    eligibility: Optional[Eligibility] = None
