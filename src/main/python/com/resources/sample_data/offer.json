@@ -1,0 +1,178 @@
+[
+  {
+    "offerId": "OFR200101",
+    "campaignId": "CMP-STAR-2025-FALL",
+    "partner": { "partnerId": "P-CARDLYTICS", "name": "Cardlytics" },
+    "merchant": {
+      "merchantId": "M-STARBUCKS",
+      "name": "Starbucks",
+      "mcc": "5814",
+      "brands": ["Starbucks"],
+      "locations": [
+        { "storeId": "SB-SEA-001", "city": "Seattle", "state": "WA", "country": "US", "geo": { "lat": 47.6097, "lng": -122.3331 } },
+        { "storeId": "SB-PHX-014", "city": "Phoenix", "state": "AZ", "country": "US", "geo": { "lat": 33.4484, "lng": -112.0740 } }
+      ]
+    },
+    "title": "Spend $20, get $5 back on handcrafted beverages",
+    "description": "Valid in-store and mobile order. Excludes gift cards.",
+    "schedule": {
+      "start": "2025-09-15T00:00:00-07:00",
+      "end": "2025-12-15T23:59:59-08:00",
+      "timezone": "America/Los_Angeles",
+      "daysOfWeek": ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+      "blackoutDates": ["2025-11-28"]
+    },
+    "eligibility": {
+      "customerSegments": ["ALL"],
+      "enrollmentRequired": true,
+      "minSpend": { "amount": 20.00, "currency": "USD" },
+      "categories": ["COFFEE", "DINING"],
+      "channels": ["IN_STORE", "MOBILE_ORDER"],
+      "cardProducts": ["PLATINUM", "GOLD", "SILVER"],
+      "merchantAllowlist": ["M-STARBUCKS"],
+      "merchantDenylist": [],
+      "excludedMCCs": ["5947"]
+    },
+    "limits": {
+      "perTxnCap": { "amount": 5.00, "currency": "USD" },
+      "perCustomer": { "count": 3, "amount": { "value": 15.00, "currency": "USD" } },
+      "perOffer": { "count": 50000, "amount": { "value": 250000.00, "currency": "USD" } },
+      "velocity": { "dailyCount": 1, "weeklyAmount": { "value": 10.00, "currency": "USD" } }
+    },
+    "reward": { "type": "AMOUNT", "amount": { "value": 5.00, "currency": "USD" }, "notes": "Cashback credited within 7 days." },
+    "stacking": { "exclusive": true, "allowedWith": [] },
+    "status": {
+      "state": "ACTIVE",
+      "reason": null,
+      "updatedAt": "2025-09-15T00:00:00-07:00",
+      "history": [
+        { "state": "DRAFT", "at": "2025-08-25T10:02:00-07:00" },
+        { "state": "APPROVED", "at": "2025-09-01T14:30:00-07:00" },
+        { "state": "ACTIVE", "at": "2025-09-15T00:00:00-07:00" }
+      ]
+    },
+    "analytics": { "impressions": 120000, "clicks": 18000, "redemptions": 3200, "ctr": 0.15 },
+    "technical": { "idempotencyKey": "idem-200101", "dailyTpsHint": 140 },
+    "audit": {
+      "createdBy": "mktg_analyst@issuer.com",
+      "createdAt": "2025-08-25T10:02:00-07:00",
+      "lastModifiedBy": "offer_ops@issuer.com",
+      "lastModifiedAt": "2025-09-14T18:11:00-07:00"
+    },
+    "compliance": { "termsUrl": "https://issuer.example/terms/starbucks-200101", "restrictedRegions": ["PR"] },
+    "redemptionRules": { "channels": ["IN_STORE", "MOBILE_ORDER"], "codeType": "NONE", "issuerFunding": true },
+    "settlement": { "fundingModel": "ISSUER", "reimbursementWindowDays": 0 }
+  },
+  {
+    "offerId": "OFR200202",
+    "campaignId": "CMP-RETL-2025-Q4",
+    "partner": { "partnerId": "P-RAKUTEN", "name": "Rakuten" },
+    "merchant": {
+      "merchantId": "M-TARGET",
+      "name": "Target",
+      "mcc": "5411",
+      "brands": ["Target"],
+      "locations": []
+    },
+    "title": "5% back on groceries online — up to $25",
+    "description": "Valid on same-day pickup/delivery. Alcohol and gift cards excluded.",
+    "schedule": {
+      "start": "2025-10-01T00:00:00-07:00",
+      "end": "2025-11-30T23:59:59-08:00",
+      "timezone": "America/Los_Angeles",
+      "daysOfWeek": ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+      "blackoutDates": []
+    },
+    "eligibility": {
+      "customerSegments": ["ALL"],
+      "enrollmentRequired": false,
+      "minSpend": { "amount": 20.00, "currency": "USD" },
+      "categories": ["GROCERIES"],
+      "channels": ["ONLINE"],
+      "cardProducts": ["ALL"],
+      "merchantAllowlist": ["M-TARGET"],
+      "merchantDenylist": [],
+      "excludedMCCs": ["5921", "5999"]
+    },
+    "limits": {
+      "perTxnCap": { "amount": 10.00, "currency": "USD" },
+      "perCustomer": { "count": 10, "amount": { "value": 25.00, "currency": "USD" } },
+      "perOffer": { "count": 100000, "amount": { "value": 1000000.00, "currency": "USD" } },
+      "velocity": { "dailyCount": 3, "weeklyAmount": { "value": 25.00, "currency": "USD" } }
+    },
+    "reward": { "type": "PERCENT", "percent": 5.0, "currency": "USD" },
+    "stacking": { "exclusive": false, "allowedWith": ["LOYALTY_5_OFF"] },
+    "status": { "state": "ACTIVE", "reason": null, "updatedAt": "2025-10-01T00:00:00-07:00", "history": [] },
+    "analytics": { "impressions": 95000, "clicks": 13000, "redemptions": 2800, "ctr": 0.137 },
+    "technical": { "idempotencyKey": "idem-200202", "dailyTpsHint": 170 },
+    "audit": {
+      "createdBy": "partner_sync@issuer.com",
+      "createdAt": "2025-09-20T09:00:00-07:00",
+      "lastModifiedBy": "partner_sync@issuer.com",
+      "lastModifiedAt": "2025-10-03T12:00:00-07:00"
+    },
+    "compliance": { "termsUrl": "https://issuer.example/terms/target-200202", "restrictedRegions": [] },
+    "redemptionRules": { "channels": ["ONLINE"], "codeType": "NONE", "issuerFunding": true },
+    "settlement": { "fundingModel": "ISSUER", "reimbursementWindowDays": 0 }
+  },
+  {
+    "offerId": "OFR200303",
+    "campaignId": "CMP-TRAVEL-2025-HOL",
+    "partner": { "partnerId": "P-CARDLYTICS", "name": "Cardlytics" },
+    "merchant": {
+      "merchantId": "M-DELTA",
+      "name": "Delta Air Lines",
+      "mcc": "4511",
+      "brands": ["Delta"],
+      "locations": []
+    },
+    "title": "$75 off round-trip flights over $400 (Tue–Thu)",
+    "description": "Domestic US only; main cabin or higher.",
+    "schedule": {
+      "start": "2025-11-10T00:00:00-08:00",
+      "end": "2026-01-10T23:59:59-08:00",
+      "timezone": "America/Los_Angeles",
+      "daysOfWeek": ["TUE", "WED", "THU"],
+      "blackoutDates": ["2025-11-26", "2025-12-24", "2025-12-31"]
+    },
+    "eligibility": {
+      "customerSegments": ["GOLD", "PLATINUM"],
+      "enrollmentRequired": true,
+      "minSpend": { "amount": 400.00, "currency": "USD" },
+      "categories": ["TRAVEL"],
+      "channels": ["ONLINE"],
+      "cardProducts": ["TRAVEL_PLUS", "PLATINUM"],
+      "merchantAllowlist": ["M-DELTA"],
+      "merchantDenylist": [],
+      "excludedMCCs": ["4511GIFT"]
+    },
+    "limits": {
+      "perTxnCap": { "amount": 75.00, "currency": "USD" },
+      "perCustomer": { "count": 2, "amount": { "value": 150.00, "currency": "USD" } },
+      "perOffer": { "count": 20000, "amount": { "value": 1500000.00, "currency": "USD" } },
+      "velocity": { "dailyCount": 1, "weeklyAmount": { "value": 75.00, "currency": "USD" } }
+    },
+    "reward": { "type": "AMOUNT", "amount": { "value": 75.00, "currency": "USD" } },
+    "stacking": { "exclusive": true, "allowedWith": [] },
+    "status": {
+      "state": "PAUSED",
+      "reason": "Awaiting budget top-up",
+      "updatedAt": "2025-11-20T12:45:00-08:00",
+      "history": [
+        { "state": "ACTIVE", "at": "2025-11-10T00:00:00-08:00" },
+        { "state": "PAUSED", "at": "2025-11-20T12:45:00-08:00" }
+      ]
+    },
+    "analytics": { "impressions": 42000, "clicks": 5200, "redemptions": 600, "ctr": 0.124 },
+    "technical": { "idempotencyKey": "idem-200303", "dailyTpsHint": 60 },
+    "audit": {
+      "createdBy": "air_travel_pm@issuer.com",
+      "createdAt": "2025-10-25T11:11:00-07:00",
+      "lastModifiedBy": "fin_ops@issuer.com",
+      "lastModifiedAt": "2025-11-20T12:45:00-08:00"
+    },
+    "compliance": { "termsUrl": "https://issuer.example/terms/delta-200303", "restrictedRegions": ["PR", "GU"] },
+    "redemptionRules": { "channels": ["ONLINE"], "codeType": "NONE", "issuerFunding": false },
+    "settlement": { "fundingModel": "PARTNER", "reimbursementWindowDays": 30 }
+  }
+]
