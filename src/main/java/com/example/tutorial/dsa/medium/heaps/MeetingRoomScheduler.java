@@ -1,6 +1,6 @@
 package com.example.tutorial.dsa.medium.heaps;
 
-import com.example.tutorial.common.datamodel.Offer;
+import com.example.tutorial.common.datamodel.Meeting;
 import com.example.tutorial.common.utils.SampleDataLoader;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,11 +20,12 @@ import java.util.PriorityQueue;
  * Given an array of meeting time intervals, return the minimum number of
  * conference rooms required.
  *
- * <p><b>Real UseCase:</b> In a credit card offers system:
+ * <p><b>Real UseCase:</b>
  * <ul>
- *   <li>Schedule concurrent promotional campaigns</li>
- *   <li>Allocate processing servers for overlapping batch jobs</li>
- *   <li>Manage concurrent customer support sessions</li>
+ *   <li>Conference room booking systems</li>
+ *   <li>Calendar scheduling applications</li>
+ *   <li>Resource allocation for overlapping tasks</li>
+ *   <li>Server capacity planning for batch jobs</li>
  * </ul>
  *
  * <p><b>Examples:</b>
@@ -47,21 +48,25 @@ public class MeetingRoomScheduler implements CommandLineRunner {
   public void run(String... args) throws Exception {
     System.out.println("=== MeetingRoomScheduler: Minimum Rooms Required Demo ===\n");
 
-    // Load credit card offers from sample data
-    List<Offer> offers = SampleDataLoader.OFFERS_DTO.get();
-    System.out.println("Loaded " + offers.size() + " offers from sample data.\n");
+    // Load sample meetings - appropriate for scheduling demos
+    List<Meeting> meetings = SampleDataLoader.MEETINGS_DTO.get();
+    System.out.println("Loaded " + meetings.size() + " meetings from sample data.\n");
 
-    // Demonstrate with promotional campaign schedules
-    System.out.println("--- Scheduling Promotional Campaigns ---\n");
-    int[][] campaigns = {{9, 12}, {10, 14}, {11, 13}, {14, 17}, {15, 16}};
-    System.out.println("Campaign time slots:");
-    for (int[] c : campaigns) {
-      System.out.println("  " + c[0] + ":00 - " + c[1] + ":00");
+    // Display meetings
+    System.out.println("--- Today's Meeting Schedule ---\n");
+    for (Meeting meeting : meetings) {
+      System.out.println("  " + meeting);
     }
-    int rooms = minMeetingRooms(campaigns);
-    System.out.println("Minimum marketing channels needed: " + rooms + "\n");
 
-    // Test cases
+    // Convert meetings to intervals and calculate rooms needed
+    int[][] intervals = meetings.stream()
+        .map(Meeting::toInterval)
+        .toArray(int[][]::new);
+
+    int roomsNeeded = minMeetingRooms(intervals);
+    System.out.println("\nMinimum conference rooms needed: " + roomsNeeded + "\n");
+
+    // Additional test cases
     System.out.println("--- Additional Examples ---\n");
     int[][][] testCases = {
         {{0, 30}, {5, 10}, {15, 20}},
@@ -69,9 +74,9 @@ public class MeetingRoomScheduler implements CommandLineRunner {
         {{1, 5}, {2, 3}, {3, 6}, {5, 7}}
     };
 
-    for (int[][] intervals : testCases) {
-      int result = minMeetingRooms(intervals);
-      System.out.println("Intervals: " + formatIntervals(intervals));
+    for (int[][] testIntervals : testCases) {
+      int result = minMeetingRooms(testIntervals);
+      System.out.println("Intervals: " + formatIntervals(testIntervals));
       System.out.println("Minimum rooms: " + result + "\n");
     }
   }
@@ -147,6 +152,19 @@ public class MeetingRoomScheduler implements CommandLineRunner {
 
     // Heap size = rooms currently in use = max rooms needed.
     return endTimes.size();
+  }
+
+  /**
+   * Overloaded method that accepts Meeting objects directly.
+   *
+   * @param meetings list of Meeting objects
+   * @return minimum number of meeting rooms required
+   */
+  public static int minMeetingRooms(List<Meeting> meetings) {
+    int[][] intervals = meetings.stream()
+        .map(Meeting::toInterval)
+        .toArray(int[][]::new);
+    return minMeetingRooms(intervals);
   }
 
   private static String formatIntervals(int[][] intervals) {
