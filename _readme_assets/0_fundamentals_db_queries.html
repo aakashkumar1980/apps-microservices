@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL vs NoSQL - Database Queries</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .header {
+            background: #1a1a2e;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .sub-header {
+            background: #16213e;
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 15px 0;
+            border-radius: 6px;
+        }
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .three-col {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .card-header {
+            padding: 12px 15px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .bg-sql { background: linear-gradient(135deg, #4caf50, #2e7d32); }
+        .bg-nosql { background: linear-gradient(135deg, #ff9800, #f57c00); }
+        .bg-java { background: linear-gradient(135deg, #e91e63, #c2185b); }
+        
+        .border-sql { border: 2px solid #4caf50; }
+        .border-nosql { border: 2px solid #ff9800; }
+        .border-java { border: 2px solid #e91e63; }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 11px;
+            margin: 10px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px 8px;
+            text-align: left;
+        }
+        th.th-sql { background: #4caf50; color: white; }
+        th.th-nosql { background: #ff9800; color: white; }
+        th.th-blue { background: #2196f3; color: white; }
+        th.th-pink { background: #e91e63; color: white; }
+        th.th-purple { background: #9c27b0; color: white; }
+        th.th-gray { background: #607d8b; color: white; }
+        
+        .row-alt { background: #f9f9f9; }
+        .row-null { background: #ffcdd2; }
+        .row-highlight { background: #c8e6c9; }
+        .row-match { background: #bbdefb; }
+        .row-exclude { background: #ffcdd2; text-decoration: line-through; opacity: 0.6; }
+        
+        .group-label {
+            font-weight: bold;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        .group-label-green { background: #4caf50; color: white; }
+        .group-label-blue { background: #2196f3; color: white; }
+        
+        pre {
+            background: #263238;
+            color: #aed581;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+        pre.sql-code { border-left: 4px solid #4caf50; }
+        pre.nosql-code { border-left: 4px solid #ff9800; }
+        pre.java-code { border-left: 4px solid #e91e63; }
+        
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        .hl-keyword { color: #c792ea; }
+        .hl-function { color: #82aaff; }
+        .hl-string { color: #c3e88d; }
+        .hl-comment { color: #546e7a; font-style: italic; }
+        .hl-number { color: #f78c6c; }
+        .hl-type { color: #ffcb6b; }
+        .hl-index { color: #ffab40; background: #37474f; padding: 2px 4px; border-radius: 3px; }
+        
+        .usecase-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+            border-radius: 0 6px 6px 0;
+        }
+        .usecase-box b {
+            color: #1565c0;
+        }
+        
+        .key-concept-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .separator {
+            border-top: 3px solid #666;
+            margin: 30px 0;
+        }
+        
+        h3 {
+            margin: 15px 0 10px 0;
+            color: #333;
+            font-size: 14px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+        
+        .result-label {
+            background: #e8f5e9;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            display: inline-block;
+            margin: 10px 0 5px 0;
+        }
+        
+        .step-label {
+            background: #fff3e0;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            display: inline-block;
+            margin: 10px 0 5px 0;
+            color: #e65100;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin: 25px 0 15px 0;
+            padding: 10px;
+            background: linear-gradient(90deg, #e8eaf6, transparent);
+            border-left: 4px solid #3f51b5;
+        }
+        
+        .step-diagram {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .step-box {
+            background: white;
+            border: 2px solid #2196f3;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 8px 0;
+            font-size: 11px;
+        }
+        .step-arrow {
+            text-align: center;
+            color: #4caf50;
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        .step-num {
+            background: #2196f3;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .tip-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+        
+        .col-source {
+            font-size: 9px;
+            color: #666;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== DATABASE SECTION ==================== -->
+<div class="header">📊 DATABASE - SQL vs NoSQL Comparison</div>
+
+<!-- ========== TABLES / COLLECTIONS ========== -->
+<div class="section-title">1. Tables (SQL) vs Collections (NoSQL)</div>
+
+<div class="key-concept-box">
+    <b>🔑 Unique Keys for High-Performance Filtering:</b><br>
+    • <b>Primary Key (PK)</b> - Unique identifier, auto-indexed, fastest lookup O(1)<br>
+    • <b>Foreign Key (FK)</b> - Reference to parent table, should be indexed for JOINs<br>
+    • <b>Unique Index</b> - Ensures uniqueness + fast lookup (e.g., email, username)<br>
+    • <b>Composite Key</b> - Multiple columns as unique identifier (e.g., offer_id + customer_id)
+</div>
+
+<div class="comparison-container">
+    <!-- SQL Tables -->
+    <div class="card border-sql">
+        <div class="card-header bg-sql">
+            🗃️ SQL Tables (MySQL / PostgreSQL)
+        </div>
+        <div class="card-body">
+            <h3>CAMPAIGN</h3>
+            <table>
+                <tr>
+                    <th class="th-sql">id (PK) 🔑</th>
+                    <th class="th-sql">name</th>
+                    <th class="th-sql">start_date</th>
+                    <th class="th-sql">end_date</th>
+                    <th class="th-sql">status</th>
+                </tr>
+                <tr class="row-highlight"><td>C001</td><td>Summer Sale</td><td>2024-06-01</td><td>2024-08-31</td><td>ACTIVE</td></tr>
+                <tr class="row-alt"><td>C002</td><td>Holiday Promo</td><td>2024-12-01</td><td>2024-12-31</td><td>DRAFT</td></tr>
+                <tr class="row-highlight"><td>C003</td><td>Black Friday</td><td>2024-11-25</td><td>2024-11-30</td><td>ACTIVE</td></tr>
+            </table>
+            <div class="tip-box" style="font-size:10px;">
+                <b>Indexes:</b> PK on id (auto), idx_status on status
+            </div>
+            
+            <h3>OFFERS</h3>
+            <table>
+                <tr>
+                    <th class="th-sql">id (PK) 🔑</th>
+                    <th class="th-sql">campaign_id (FK) 🔗</th>
+                    <th class="th-sql">discount</th>
+                    <th class="th-sql">merchant</th>
+                </tr>
+                <tr class="row-match"><td>O001</td><td>C001</td><td>10%</td><td>Amazon</td></tr>
+                <tr class="row-match"><td>O002</td><td>C001</td><td>15%</td><td>Walmart</td></tr>
+                <tr class="row-match"><td>O003</td><td>C003</td><td>25%</td><td>BestBuy</td></tr>
+                <tr class="row-null"><td>O004</td><td><b>NULL</b></td><td>5%</td><td>Target</td></tr>
+            </table>
+            <div class="tip-box" style="font-size:10px;">
+                <b>Indexes:</b> PK on id, FK index on campaign_id for JOIN performance
+            </div>
+            
+            <h3>REDEMPTION</h3>
+            <table>
+                <tr>
+                    <th class="th-sql">id (PK) 🔑</th>
+                    <th class="th-sql">offer_id (FK) 🔗</th>
+                    <th class="th-sql">customer_id</th>
+                    <th class="th-sql">amount</th>
+                </tr>
+                <tr><td>R001</td><td>O001</td><td>CUST001</td><td>$50.00</td></tr>
+                <tr class="row-alt"><td>R002</td><td>O001</td><td>CUST002</td><td>$75.00</td></tr>
+                <tr><td>R003</td><td>O002</td><td>CUST001</td><td>$100.00</td></tr>
+                <tr class="row-alt"><td>R004</td><td>O003</td><td>CUST003</td><td>$200.00</td></tr>
+            </table>
+            <div class="tip-box" style="font-size:10px;">
+                <b>Indexes:</b> PK on id, FK index on offer_id, UNIQUE on (offer_id, customer_id)
+            </div>
+            
+            <div class="key-concept-box">
+                <b>🎨 Color Legend:</b><br>
+                🟢 Green = ACTIVE campaigns<br>
+                🔵 Blue = Matching FK relationships<br>
+                🔴 Red = NULL / Orphan records
+            </div>
+        </div>
+    </div>
+    
+    <!-- NoSQL Collections -->
+    <div class="card border-nosql">
+        <div class="card-header bg-nosql">
+            📦 NoSQL Collections (Couchbase)
+        </div>
+        <div class="card-body">
+            <h3>campaign Collection</h3>
+<pre class="nosql-code"><code><span class="hl-comment">/** Document Key: campaign::C001 (used for O(1) lookup) */</span>
+{
+  <span class="hl-string">"id"</span>: <span class="hl-string">"C001"</span>,              <span class="hl-comment">/** Primary Key - same as SQL */</span>
+  <span class="hl-string">"type"</span>: <span class="hl-string">"campaign"</span>,        <span class="hl-comment">/** Type discriminator (indexed) */</span>
+  <span class="hl-string">"name"</span>: <span class="hl-string">"Summer Sale"</span>,
+  <span class="hl-string">"status"</span>: <span class="hl-string">"ACTIVE"</span>,        <span class="hl-comment">/** Indexed field for filtering */</span>
+  <span class="hl-string">"startDate"</span>: <span class="hl-string">"2024-06-01"</span>,
+  <span class="hl-string">"endDate"</span>: <span class="hl-string">"2024-08-31"</span>
+}
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED:
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** Primary index on id for O(1) document lookup
+ *  - Example: 
+ *    SELECT * FROM campaign USE KEYS ['C001'] */</span>
+<span class="hl-index">CREATE PRIMARY INDEX idx_campaign_pk ON campaign;</span>
+
+<span class="hl-comment">/** Secondary index on type field
+ *  - Example: 
+ *    SELECT * FROM campaign 
+ *    WHERE type = 'campaign' */</span>
+<span class="hl-index">CREATE INDEX idx_campaign_type ON campaign(type);</span>
+
+<span class="hl-comment">/** Composite index on status with type filter
+ *  - Example: 
+ *    SELECT * FROM campaign 
+ *    WHERE type = 'campaign' 
+ *      AND status = 'ACTIVE' */</span>
+<span class="hl-index">CREATE INDEX idx_campaign_status ON campaign(status) 
+  WHERE type = 'campaign';</span></code></pre>
+
+            <h3>offers Collection</h3>
+<pre class="nosql-code"><code>{
+  <span class="hl-string">"id"</span>: <span class="hl-string">"O001"</span>,              <span class="hl-comment">/** Primary Key */</span>
+  <span class="hl-string">"type"</span>: <span class="hl-string">"offer"</span>,           <span class="hl-comment">/** Type discriminator (indexed) */</span>
+  <span class="hl-string">"campaign_id"</span>: <span class="hl-string">"C001"</span>,     <span class="hl-comment">/** FK reference (indexed for JOIN) */</span>
+  <span class="hl-string">"merchant"</span>: <span class="hl-string">"Amazon"</span>,
+  <span class="hl-string">"discount"</span>: { <span class="hl-string">"type"</span>: <span class="hl-string">"%"</span>, <span class="hl-string">"value"</span>: <span class="hl-number">10</span> }
+}
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED:
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** Secondary index on type field
+ *  - Example: 
+ *    SELECT * FROM offers 
+ *    WHERE type = 'offer' */</span>
+<span class="hl-index">CREATE INDEX idx_offers_type ON offers(type);</span>
+
+<span class="hl-comment">/** Index on FK campaign_id with type filter
+ *  - Example: 
+ *    SELECT * FROM offers 
+ *    WHERE type = 'offer' 
+ *      AND campaign_id = 'C001' */</span>
+<span class="hl-index">CREATE INDEX idx_offers_campaign ON offers(campaign_id) 
+  WHERE type = 'offer';</span></code></pre>
+
+            <h3>redemption Collection</h3>
+<pre class="nosql-code"><code>{
+  <span class="hl-string">"id"</span>: <span class="hl-string">"R001"</span>,              <span class="hl-comment">/** Primary Key */</span>
+  <span class="hl-string">"type"</span>: <span class="hl-string">"redemption"</span>,      <span class="hl-comment">/** Type discriminator (indexed) */</span>
+  <span class="hl-string">"offer_id"</span>: <span class="hl-string">"O001"</span>,        <span class="hl-comment">/** FK reference (indexed for JOIN) */</span>
+  <span class="hl-string">"customer_id"</span>: <span class="hl-string">"CUST001"</span>,
+  <span class="hl-string">"amount"</span>: <span class="hl-number">50.00</span>,
+  <span class="hl-string">"redeemedAt"</span>: <span class="hl-string">"2024-06-15"</span>
+}
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED:
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** Secondary index on type field
+ *  - Example: 
+ *    SELECT * FROM redemption 
+ *    WHERE type = 'redemption' */</span>
+<span class="hl-index">CREATE INDEX idx_redemption_type ON redemption(type);</span>
+
+<span class="hl-comment">/** Index on FK offer_id with type filter
+ *  - Example: 
+ *    SELECT * FROM redemption 
+ *    WHERE type = 'redemption' 
+ *      AND offer_id = 'O001' */</span>
+<span class="hl-index">CREATE INDEX idx_redemption_offer ON redemption(offer_id) 
+  WHERE type = 'redemption';</span></code></pre>
+
+            <div class="key-concept-box">
+                <b>🔑 NoSQL Key Strategy:</b><br>
+                • <b>id</b> = Primary Key (same name as SQL for consistency)<br>
+                • <b>type</b> = Type discriminator (MUST be indexed)<br>
+                • <b>*_id</b> = Foreign key references (indexed for JOINs)
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== SIMPLE QUERIES ========== -->
+<div class="section-title">2. Simple Queries - JOINs</div>
+
+<!-- INNER JOIN -->
+<div class="sub-header">2.1 INNER JOIN - Returns only matching rows from both tables</div>
+
+<div class="usecase-box">
+    <b>📋 Use Case:</b> Get all offers WITH their campaigns. Excludes offers without campaigns (O004 with NULL campaign_id). Used for: displaying offer details with campaign info.
+</div>
+
+<div class="comparison-container">
+    <div class="card border-sql">
+        <div class="card-header bg-sql">SQL - INNER JOIN</div>
+        <div class="card-body">
+<pre class="sql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  INNER JOIN: Returns ONLY rows where both tables have matching keys
+ *  
+ *  Query Execution Order:
+ *  1. Use idx_offers_campaign_id to scan offers table
+ *  2. For each offer, use idx_campaign_status to lookup campaign
+ *  3. Filter WHERE c.status = 'ACTIVE'
+ *  4. Return matching rows
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">SELECT</span> 
+  c.name,           <span class="hl-comment">/** from campaign table */</span>
+  o.merchant,       <span class="hl-comment">/** from offers table */</span>
+  o.discount        <span class="hl-comment">/** from offers table */</span>
+
+<span class="hl-comment">/** Start with campaign table */</span>
+<span class="hl-keyword">FROM</span> campaign c
+
+<span class="hl-comment">/** JOIN offers using FK index idx_offers_campaign_id */</span>
+<span class="hl-keyword">INNER JOIN</span> offers o 
+  <span class="hl-keyword">ON</span> c.id = o.campaign_id
+
+<span class="hl-comment">/** Filter using idx_campaign_status */</span>
+<span class="hl-keyword">WHERE</span> c.status = <span class="hl-string">'ACTIVE'</span>;
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED (in order of usage):
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** 1. Index on FK for JOIN lookup (used first)
+ *  - Example: 
+ *    SELECT * FROM offers 
+ *    WHERE campaign_id = 'C001' */</span>
+<span class="hl-index">CREATE INDEX idx_offers_campaign_id ON offers(campaign_id);</span>
+
+<span class="hl-comment">/** 2. Index on status for WHERE filtering
+ *  - Example: 
+ *    SELECT * FROM campaign 
+ *    WHERE status = 'ACTIVE' */</span>
+<span class="hl-index">CREATE INDEX idx_campaign_status ON campaign(status);</span></code></pre>
+
+            <div class="step-label">Step-by-Step Execution (Index Order):</div>
+            <div class="step-diagram">
+                <div class="step-box">
+                    <span class="step-num">1</span><b>Use idx_campaign_status</b> → Filter CAMPAIGN where status='ACTIVE'
+                    <table style="margin-top:8px;">
+                        <tr><th class="th-gray">id</th><th class="th-gray">name</th><th class="th-gray">status</th></tr>
+                        <tr class="row-highlight"><td>C001</td><td>Summer Sale</td><td>ACTIVE ✅</td></tr>
+                        <tr class="row-exclude"><td>C002</td><td>Holiday Promo</td><td>DRAFT ❌</td></tr>
+                        <tr class="row-highlight"><td>C003</td><td>Black Friday</td><td>ACTIVE ✅</td></tr>
+                    </table>
+                    <small>→ Index returns: [C001, C003]</small>
+                </div>
+                <div class="step-arrow">↓</div>
+                <div class="step-box">
+                    <span class="step-num">2</span><b>Use idx_offers_campaign_id</b> → Find OFFERS matching campaign_id
+                    <table style="margin-top:8px;">
+                        <tr><th class="th-gray">campaign_id</th><th class="th-gray">id</th><th class="th-gray">merchant</th><th class="th-gray">Match?</th></tr>
+                        <tr class="row-match"><td>C001</td><td>O001</td><td>Amazon</td><td>✅ Index hit</td></tr>
+                        <tr class="row-match"><td>C001</td><td>O002</td><td>Walmart</td><td>✅ Index hit</td></tr>
+                        <tr class="row-match"><td>C003</td><td>O003</td><td>BestBuy</td><td>✅ Index hit</td></tr>
+                        <tr class="row-exclude"><td>NULL</td><td>O004</td><td>Target</td><td>❌ No match</td></tr>
+                    </table>
+                    <small>→ Index returns: [O001, O002, O003]</small>
+                </div>
+                <div class="step-arrow">↓</div>
+                <div class="step-box">
+                    <span class="step-num">3</span><b>SELECT columns</b> - Project from joined result
+                </div>
+            </div>
+            
+            <div class="result-label">Final Result:</div>
+            <table>
+                <tr>
+                    <th class="th-sql">name<span class="col-source">(campaign)</span></th>
+                    <th class="th-sql">merchant<span class="col-source">(offers)</span></th>
+                    <th class="th-sql">discount<span class="col-source">(offers)</span></th>
+                </tr>
+                <tr><td>Summer Sale</td><td>Amazon</td><td>10%</td></tr>
+                <tr class="row-alt"><td>Summer Sale</td><td>Walmart</td><td>15%</td></tr>
+                <tr><td>Black Friday</td><td>BestBuy</td><td>25%</td></tr>
+            </table>
+            <p style="font-size:11px;color:#c62828;margin-top:8px;">❌ O004 (Target) excluded - NULL campaign_id has no match</p>
+        </div>
+    </div>
+    
+    <div class="card border-nosql">
+        <div class="card-header bg-nosql">NoSQL - N1QL JOIN (Couchbase)</div>
+        <div class="card-body">
+<pre class="nosql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  N1QL INNER JOIN: Similar syntax to SQL
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">SELECT</span> 
+  c.name,           <span class="hl-comment">/** from campaign collection */</span>
+  o.merchant,       <span class="hl-comment">/** from offers collection */</span>
+  o.discount        <span class="hl-comment">/** from offers collection */</span>
+
+<span class="hl-keyword">FROM</span> campaign c
+
+<span class="hl-keyword">INNER JOIN</span> offers o 
+  <span class="hl-keyword">ON</span> o.campaign_id = c.id
+
+<span class="hl-keyword">WHERE</span> c.type = <span class="hl-string">'campaign'</span>   <span class="hl-comment">/** type filter (indexed) */</span>
+  <span class="hl-keyword">AND</span> o.type = <span class="hl-string">'offer'</span>       <span class="hl-comment">/** type filter (indexed) */</span>
+  <span class="hl-keyword">AND</span> c.status = <span class="hl-string">'ACTIVE'</span>;
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED (in order of usage):
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** 1. Index on FK campaign_id for JOIN lookup
+ *  - Example: 
+ *    SELECT * FROM offers 
+ *    WHERE type = 'offer' 
+ *      AND campaign_id = 'C001' */</span>
+<span class="hl-index">CREATE INDEX idx_offers_campaign_id ON offers(campaign_id) 
+  WHERE type = 'offer';</span>
+
+<span class="hl-comment">/** 2. Composite index on status with type filter
+ *  - Example: 
+ *    SELECT * FROM campaign 
+ *    WHERE type = 'campaign' 
+ *      AND status = 'ACTIVE' */</span>
+<span class="hl-index">CREATE INDEX idx_campaign_status ON campaign(status) 
+  WHERE type = 'campaign';</span></code></pre>
+
+            <div class="result-label">Final Result:</div>
+            <table>
+                <tr>
+                    <th class="th-nosql">name<span class="col-source">(campaign)</span></th>
+                    <th class="th-nosql">merchant<span class="col-source">(offers)</span></th>
+                    <th class="th-nosql">discount<span class="col-source">(offers)</span></th>
+                </tr>
+                <tr><td>Summer Sale</td><td>Amazon</td><td>10%</td></tr>
+                <tr class="row-alt"><td>Summer Sale</td><td>Walmart</td><td>15%</td></tr>
+                <tr><td>Black Friday</td><td>BestBuy</td><td>25%</td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- LEFT OUTER JOIN -->
+<div class="sub-header">2.2 LEFT OUTER JOIN - All rows from left table + matching from right</div>
+
+<div class="usecase-box">
+    <b>📋 Use Case:</b> Get ALL offers, even those without campaigns. Shows orphan offers (O004) with NULL campaign name. Useful for: data quality audits, finding unlinked records.
+</div>
+
+<div class="comparison-container">
+    <div class="card border-sql">
+        <div class="card-header bg-sql">SQL - LEFT OUTER JOIN</div>
+        <div class="card-body">
+<pre class="sql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  LEFT OUTER JOIN: Returns ALL rows from LEFT table
+ *  - If match found in right table → include matched data
+ *  - If NO match found → include NULL for right table columns
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">SELECT</span> 
+  o.id,             <span class="hl-comment">/** always present (from left table) */</span>
+  o.merchant,       <span class="hl-comment">/** always present (from left table) */</span>
+  c.name            <span class="hl-comment">/** NULL if no matching campaign */</span>
+
+<span class="hl-comment">/** OFFERS is the LEFT table - ALL rows kept */</span>
+<span class="hl-keyword">FROM</span> offers o
+
+<span class="hl-comment">/** Try to find matching campaign for each offer */</span>
+<span class="hl-keyword">LEFT OUTER JOIN</span> campaign c 
+  <span class="hl-keyword">ON</span> o.campaign_id = c.id;
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED:
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** Index on campaign PK for fast lookup during JOIN
+ *  - Example: 
+ *    SELECT * FROM campaign 
+ *    WHERE id = 'C001' */</span>
+<span class="hl-index">CREATE INDEX idx_campaign_pk ON campaign(id);</span></code></pre>
+
+            <div class="step-label">Step-by-Step Execution:</div>
+            <div class="step-diagram">
+                <div class="step-box">
+                    <span class="step-num">1</span><b>Full Scan OFFERS</b> (LEFT table - all 4 rows kept)
+                    <table style="margin-top:8px;">
+                        <tr><th class="th-gray">id</th><th class="th-gray">campaign_id</th><th class="th-gray">merchant</th></tr>
+                        <tr><td>O001</td><td>C001</td><td>Amazon</td></tr>
+                        <tr><td>O002</td><td>C001</td><td>Walmart</td></tr>
+                        <tr><td>O003</td><td>C003</td><td>BestBuy</td></tr>
+                        <tr class="row-null"><td>O004</td><td>NULL</td><td>Target</td></tr>
+                    </table>
+                </div>
+                <div class="step-arrow">↓</div>
+                <div class="step-box">
+                    <span class="step-num">2</span><b>Use idx_campaign_pk</b> → Lookup campaign for each offer
+                    <table style="margin-top:8px;">
+                        <tr><th class="th-gray">offer.id</th><th class="th-gray">campaign_id</th><th class="th-gray">Match?</th><th class="th-gray">c.name</th></tr>
+                        <tr class="row-match"><td>O001</td><td>C001</td><td>✅ Found</td><td>Summer Sale</td></tr>
+                        <tr class="row-match"><td>O002</td><td>C001</td><td>✅ Found</td><td>Summer Sale</td></tr>
+                        <tr class="row-match"><td>O003</td><td>C003</td><td>✅ Found</td><td>Black Friday</td></tr>
+                        <tr class="row-null"><td>O004</td><td>NULL</td><td>❌ No lookup</td><td><b>NULL</b></td></tr>
+                    </table>
+                    <small>→ All 4 rows kept! O004 has NULL for campaign columns.</small>
+                </div>
+            </div>
+            
+            <div class="result-label">Final Result:</div>
+            <table>
+                <tr>
+                    <th class="th-sql">id<span class="col-source">(offers)</span></th>
+                    <th class="th-sql">merchant<span class="col-source">(offers)</span></th>
+                    <th class="th-sql">name<span class="col-source">(campaign)</span></th>
+                </tr>
+                <tr><td>O001</td><td>Amazon</td><td>Summer Sale</td></tr>
+                <tr class="row-alt"><td>O002</td><td>Walmart</td><td>Summer Sale</td></tr>
+                <tr><td>O003</td><td>BestBuy</td><td>Black Friday</td></tr>
+                <tr class="row-null"><td>O004</td><td>Target</td><td><b>NULL</b></td></tr>
+            </table>
+            <p style="font-size:11px;color:#2e7d32;margin-top:8px;">✅ O004 included with NULL campaign - useful for finding orphan records</p>
+        </div>
+    </div>
+    
+    <div class="card border-nosql">
+        <div class="card-header bg-nosql">NoSQL - LEFT OUTER JOIN (Couchbase)</div>
+        <div class="card-body">
+<pre class="nosql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  LEFT OUTER JOIN in N1QL: Same concept as SQL
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">SELECT</span> 
+  o.id,             <span class="hl-comment">/** from offers collection */</span>
+  o.merchant,       <span class="hl-comment">/** from offers collection */</span>
+  c.name            <span class="hl-comment">/** from campaign (NULL if no match) */</span>
+
+<span class="hl-keyword">FROM</span> offers o
+
+<span class="hl-keyword">LEFT OUTER JOIN</span> campaign c 
+  <span class="hl-keyword">ON</span> c.id = o.campaign_id
+  <span class="hl-keyword">AND</span> c.type = <span class="hl-string">'campaign'</span>
+
+<span class="hl-keyword">WHERE</span> o.type = <span class="hl-string">'offer'</span>;
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED:
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** 1. Index on offers type field
+ *  - Example: 
+ *    SELECT * FROM offers 
+ *    WHERE type = 'offer' */</span>
+<span class="hl-index">CREATE INDEX idx_offers_type ON offers(type);</span>
+
+<span class="hl-comment">/** 2. Index on campaign id for JOIN lookup
+ *  - Example: 
+ *    SELECT * FROM campaign 
+ *    WHERE type = 'campaign' 
+ *      AND id = 'C001' */</span>
+<span class="hl-index">CREATE INDEX idx_campaign_id ON campaign(id) 
+  WHERE type = 'campaign';</span></code></pre>
+
+            <div class="result-label">Final Result:</div>
+            <table>
+                <tr>
+                    <th class="th-nosql">id<span class="col-source">(offers)</span></th>
+                    <th class="th-nosql">merchant<span class="col-source">(offers)</span></th>
+                    <th class="th-nosql">name<span class="col-source">(campaign)</span></th>
+                </tr>
+                <tr><td>O001</td><td>Amazon</td><td>Summer Sale</td></tr>
+                <tr class="row-alt"><td>O002</td><td>Walmart</td><td>Summer Sale</td></tr>
+                <tr><td>O003</td><td>BestBuy</td><td>Black Friday</td></tr>
+                <tr class="row-null"><td>O004</td><td>Target</td><td><b>NULL</b></td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ========== ADVANCED QUERIES ========== -->
+<div class="section-title">3. Advanced Queries - Aggregations & Window Functions</div>
+
+<!-- AGGREGATION -->
+<div class="sub-header">3.1 GROUP BY Aggregation - COUNT, SUM, AVG, MAX, MIN</div>
+
+<div class="usecase-box">
+    <b>📋 Use Case:</b> Generate campaign performance dashboard - total redemptions, revenue, and averages per campaign. Used for: reporting, analytics, KPI tracking.
+</div>
+
+<div class="comparison-container">
+    <div class="card border-sql">
+        <div class="card-header bg-sql">SQL - GROUP BY</div>
+        <div class="card-body">
+<pre class="sql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  GROUP BY: Collapse multiple rows into one per group
+ *  
+ *  IMPORTANT RULES:
+ *  - SELECT can ONLY have: GROUP BY columns OR aggregate functions
+ *  - If you need other columns (like name), use outer query
+ *  - GROUP BY only needs the unique key (id), not dependent columns
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** Outer query to get additional columns like 'name' */</span>
+<span class="hl-keyword">SELECT</span> 
+  agg.id,           <span class="hl-comment">/** from aggregated result */</span>
+  c.name,           <span class="hl-comment">/** from campaign (joined) */</span>
+  agg.total_count,
+  agg.total_amount,
+  agg.avg_amount,
+  agg.max_amount
+<span class="hl-keyword">FROM</span> (
+  <span class="hl-comment">/** Inner query: GROUP BY with aggregates
+   *  SELECT only allows: GROUP BY columns + aggregate functions */</span>
+  <span class="hl-keyword">SELECT</span> 
+    c.id,           <span class="hl-comment">/** GROUP BY key (PK is unique) */</span>
+    
+    <span class="hl-comment">/** Aggregate functions - applied to each group */</span>
+    <span class="hl-function">COUNT</span>(r.id) <span class="hl-keyword">AS</span> total_count,       <span class="hl-comment">/** count rows */</span>
+    <span class="hl-function">SUM</span>(r.amount) <span class="hl-keyword">AS</span> total_amount,    <span class="hl-comment">/** sum amounts */</span>
+    <span class="hl-function">AVG</span>(r.amount) <span class="hl-keyword">AS</span> avg_amount,      <span class="hl-comment">/** average */</span>
+    <span class="hl-function">MAX</span>(r.amount) <span class="hl-keyword">AS</span> max_amount       <span class="hl-comment">/** maximum */</span>
+  
+  <span class="hl-keyword">FROM</span> campaign c
+  <span class="hl-keyword">INNER JOIN</span> offers o <span class="hl-keyword">ON</span> c.id = o.campaign_id
+  <span class="hl-keyword">INNER JOIN</span> redemption r <span class="hl-keyword">ON</span> o.id = r.offer_id
+  
+  <span class="hl-comment">/** GROUP BY only needs unique key (id)
+   *  No need to include 'name' - it depends on id */</span>
+  <span class="hl-keyword">GROUP BY</span> c.id
+  
+  <span class="hl-comment">/** HAVING filters AFTER grouping (unlike WHERE) */</span>
+  <span class="hl-keyword">HAVING</span> <span class="hl-function">COUNT</span>(r.id) > <span class="hl-number">1</span>
+  
+) agg
+<span class="hl-comment">/** Join back to get 'name' column */</span>
+<span class="hl-keyword">INNER JOIN</span> campaign c <span class="hl-keyword">ON</span> agg.id = c.id;
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED (in order of usage):
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** 1. FK index for offers → campaign JOIN
+ *  - Example: 
+ *    SELECT * FROM offers 
+ *    WHERE campaign_id = 'C001' */</span>
+<span class="hl-index">CREATE INDEX idx_offers_campaign_id ON offers(campaign_id);</span>
+
+<span class="hl-comment">/** 2. FK index for redemption → offers JOIN
+ *  - Example: 
+ *    SELECT * FROM redemption 
+ *    WHERE offer_id = 'O001' */</span>
+<span class="hl-index">CREATE INDEX idx_redemption_offer_id ON redemption(offer_id);</span></code></pre>
+
+            <div class="step-label">Step-by-Step Execution:</div>
+            <div class="step-diagram">
+                <div class="step-box">
+                    <span class="step-num">1</span><b>Use idx_offers_campaign_id + idx_redemption_offer_id</b> → 3-Table JOIN
+                    <table style="margin-top:8px;font-size:10px;">
+                        <tr><th class="th-gray">c.id</th><th class="th-gray">o.id</th><th class="th-gray">r.amount</th></tr>
+                        <tr class="row-highlight"><td>C001</td><td>O001</td><td>$50</td></tr>
+                        <tr class="row-highlight"><td>C001</td><td>O001</td><td>$75</td></tr>
+                        <tr class="row-highlight"><td>C001</td><td>O002</td><td>$100</td></tr>
+                        <tr class="row-match"><td>C003</td><td>O003</td><td>$200</td></tr>
+                    </table>
+                </div>
+                <div class="step-arrow">↓ GROUP BY c.id</div>
+                <div class="step-box">
+                    <span class="step-num">2</span><b>Grouped Data</b> - Rows collapsed by campaign id
+                    
+                    <!-- Group 1 -->
+                    <div style="border: 2px dashed #4caf50; background: #e8f5e9; padding: 8px; margin: 8px 0; border-radius: 6px;">
+                        <span class="group-label group-label-green">Group: C001</span>
+                        <table style="font-size:10px;margin-top:5px;">
+                            <tr><th class="th-gray">r.amount</th></tr>
+                            <tr><td>$50</td></tr>
+                            <tr><td>$75</td></tr>
+                            <tr><td>$100</td></tr>
+                        </table>
+                        <div style="font-size:10px;margin-top:5px;">
+                            COUNT=<b>3</b> ✅, SUM=<b>$225</b>, AVG=<b>$75</b>, MAX=<b>$100</b>
+                        </div>
+                    </div>
+                    
+                    <!-- Group 2 -->
+                    <div style="border: 2px dashed #2196f3; background: #e3f2fd; padding: 8px; margin: 8px 0; border-radius: 6px;">
+                        <span class="group-label group-label-blue">Group: C003</span>
+                        <table style="font-size:10px;margin-top:5px;">
+                            <tr><th class="th-gray">r.amount</th></tr>
+                            <tr><td>$200</td></tr>
+                        </table>
+                        <div style="font-size:10px;margin-top:5px;">
+                            COUNT=<b>1</b> → ❌ Excluded by HAVING COUNT > 1
+                        </div>
+                    </div>
+                </div>
+                <div class="step-arrow">↓ HAVING COUNT > 1</div>
+                <div class="step-box">
+                    <span class="step-num">3</span><b>Join back to campaign</b> to get 'name' column
+                </div>
+            </div>
+            
+            <div class="result-label">Final Result:</div>
+            <table>
+                <tr>
+                    <th class="th-sql">id<span class="col-source">(agg)</span></th>
+                    <th class="th-sql">name<span class="col-source">(campaign)</span></th>
+                    <th class="th-sql">count<span class="col-source">(agg)</span></th>
+                    <th class="th-sql">sum<span class="col-source">(agg)</span></th>
+                    <th class="th-sql">avg<span class="col-source">(agg)</span></th>
+                    <th class="th-sql">max<span class="col-source">(agg)</span></th>
+                </tr>
+                <tr><td>C001</td><td>Summer Sale</td><td>3</td><td>$225</td><td>$75</td><td>$100</td></tr>
+            </table>
+            <p style="font-size:11px;color:#c62828;margin-top:8px;">❌ C003 (Black Friday) excluded - only 1 redemption</p>
+        </div>
+    </div>
+    
+    <div class="card border-nosql">
+        <div class="card-header bg-nosql">NoSQL - N1QL Aggregation (Couchbase)</div>
+        <div class="card-body">
+<pre class="nosql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Couchbase N1QL GROUP BY
+ *  - Same concept as SQL GROUP BY
+ *  - Outer query to get additional columns (name)
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** Outer query to get 'name' column */</span>
+<span class="hl-keyword">SELECT</span> 
+  agg.id,           <span class="hl-comment">/** from aggregated result */</span>
+  c.name,           <span class="hl-comment">/** from campaign (joined) */</span>
+  agg.totalCount,
+  agg.totalAmount,
+  agg.avgAmount
+<span class="hl-keyword">FROM</span> (
+  <span class="hl-comment">/** Inner query: GROUP BY with aggregates */</span>
+  <span class="hl-keyword">SELECT</span> 
+    c.id,           <span class="hl-comment">/** GROUP BY key */</span>
+    <span class="hl-function">COUNT</span>(r) <span class="hl-keyword">AS</span> totalCount,
+    <span class="hl-function">SUM</span>(r.amount) <span class="hl-keyword">AS</span> totalAmount,
+    <span class="hl-function">AVG</span>(r.amount) <span class="hl-keyword">AS</span> avgAmount
+  <span class="hl-keyword">FROM</span> campaign c
+  <span class="hl-keyword">JOIN</span> offers o <span class="hl-keyword">ON</span> o.campaign_id = c.id
+  <span class="hl-keyword">JOIN</span> redemption r <span class="hl-keyword">ON</span> r.offer_id = o.id
+  <span class="hl-keyword">WHERE</span> c.type = <span class="hl-string">'campaign'</span>
+    <span class="hl-keyword">AND</span> o.type = <span class="hl-string">'offer'</span>
+    <span class="hl-keyword">AND</span> r.type = <span class="hl-string">'redemption'</span>
+  <span class="hl-keyword">GROUP BY</span> c.id     <span class="hl-comment">/** Only unique key needed */</span>
+  <span class="hl-keyword">HAVING</span> <span class="hl-function">COUNT</span>(r) > <span class="hl-number">1</span>
+) agg
+<span class="hl-comment">/** Join back to get 'name' column */</span>
+<span class="hl-keyword">JOIN</span> campaign c <span class="hl-keyword">ON</span> agg.id = c.id
+  <span class="hl-keyword">AND</span> c.type = <span class="hl-string">'campaign'</span>;
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED (in order of usage):
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** 1. Index on FK campaign_id for offers → campaign JOIN
+ *  - Example: 
+ *    SELECT * FROM offers 
+ *    WHERE type = 'offer' 
+ *      AND campaign_id = 'C001' */</span>
+<span class="hl-index">CREATE INDEX idx_offers_campaign ON offers(campaign_id) 
+  WHERE type = 'offer';</span>
+
+<span class="hl-comment">/** 2. Index on FK offer_id for redemption → offers JOIN
+ *  - Example: 
+ *    SELECT * FROM redemption 
+ *    WHERE type = 'redemption' 
+ *      AND offer_id = 'O001' */</span>
+<span class="hl-index">CREATE INDEX idx_redemption_offer ON redemption(offer_id) 
+  WHERE type = 'redemption';</span></code></pre>
+        </div>
+    </div>
+</div>
+
+<!-- RANK / PARTITION BY -->
+<div class="sub-header">3.2 PARTITION BY + ROW_NUMBER - Top N per Group</div>
+
+<div class="usecase-box">
+    <b>📋 Use Case:</b> Find the TOP redemption (highest amount) for EACH campaign. Useful for: identifying best-performing offers, leaderboard per campaign.
+</div>
+
+<div class="comparison-container">
+    <div class="card border-sql">
+        <div class="card-header bg-sql">SQL - ROW_NUMBER() with PARTITION BY</div>
+        <div class="card-body">
+<pre class="sql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  WINDOW FUNCTION: ROW_NUMBER() with PARTITION BY
+ *  - PARTITION BY: Divides data into groups (like GROUP BY)
+ *  - ORDER BY: Sorts within each partition
+ *  - ROW_NUMBER(): Assigns 1, 2, 3... within each partition
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">SELECT</span> * <span class="hl-keyword">FROM</span> (
+
+  <span class="hl-comment">/** Step 1: JOIN all tables to get redemptions with campaign info */</span>
+  <span class="hl-keyword">SELECT</span> 
+    c.id <span class="hl-keyword">AS</span> campaign_id,
+    c.name <span class="hl-keyword">AS</span> campaign,
+    o.merchant,
+    r.amount,
+    
+    <span class="hl-comment">/** Step 2: Apply window function */</span>
+    <span class="hl-function">ROW_NUMBER</span>() <span class="hl-keyword">OVER</span> (
+    
+      <span class="hl-comment">/** Step 2.1: PARTITION BY - create separate groups by campaign
+       *  Each campaign gets its own numbering starting from 1 */</span>
+      <span class="hl-keyword">PARTITION BY</span> c.id
+      
+      <span class="hl-comment">/** Step 2.2: ORDER BY - sort rows WITHIN each partition
+       *  DESC = highest amount gets row_number = 1 */</span>
+      <span class="hl-keyword">ORDER BY</span> r.amount <span class="hl-keyword">DESC</span>
+      
+    ) <span class="hl-keyword">AS</span> rn  <span class="hl-comment">/** Step 2.3: assigns 1,2,3... within each group */</span>
+    
+  <span class="hl-keyword">FROM</span> campaign c
+  <span class="hl-keyword">JOIN</span> offers o <span class="hl-keyword">ON</span> c.id = o.campaign_id
+  <span class="hl-keyword">JOIN</span> redemption r <span class="hl-keyword">ON</span> o.id = r.offer_id
+  
+) ranked
+
+<span class="hl-comment">/** Step 3: Filter to keep only TOP row (rn=1) per campaign */</span>
+<span class="hl-keyword">WHERE</span> rn = <span class="hl-number">1</span>;
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED:
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** 1. FK index for offers → campaign JOIN
+ *  - Example: 
+ *    SELECT * FROM offers 
+ *    WHERE campaign_id = 'C001' */</span>
+<span class="hl-index">CREATE INDEX idx_offers_campaign_id ON offers(campaign_id);</span>
+
+<span class="hl-comment">/** 2. FK index for redemption → offers JOIN
+ *  - Example: 
+ *    SELECT * FROM redemption 
+ *    WHERE offer_id = 'O001' */</span>
+<span class="hl-index">CREATE INDEX idx_redemption_offer_id ON redemption(offer_id);</span></code></pre>
+
+            <div class="step-label">Step-by-Step Execution:</div>
+            <div class="step-diagram">
+                <div class="step-box">
+                    <span class="step-num">1</span><b>Use indexes for 3-Table JOIN</b>
+                    <table style="margin-top:8px;font-size:10px;">
+                        <tr><th class="th-gray">c.id</th><th class="th-gray">c.name</th><th class="th-gray">o.merchant</th><th class="th-gray">r.amount</th></tr>
+                        <tr><td>C001</td><td>Summer Sale</td><td>Amazon</td><td>$50</td></tr>
+                        <tr><td>C001</td><td>Summer Sale</td><td>Amazon</td><td>$75</td></tr>
+                        <tr><td>C001</td><td>Summer Sale</td><td>Walmart</td><td>$100</td></tr>
+                        <tr><td>C003</td><td>Black Friday</td><td>BestBuy</td><td>$200</td></tr>
+                    </table>
+                </div>
+                <div class="step-arrow">↓ PARTITION BY c.id + ORDER BY amount DESC</div>
+                <div class="step-box">
+                    <span class="step-num">2</span><b>Partitioned & Numbered</b>
+                    
+                    <!-- Partition 1 -->
+                    <div style="border: 2px dashed #4caf50; background: #e8f5e9; padding: 8px; margin: 8px 0; border-radius: 6px;">
+                        <span class="group-label group-label-green">Partition: C001 (Summer Sale) - Sorted DESC</span>
+                        <table style="font-size:10px;margin-top:5px;">
+                            <tr><th class="th-gray">merchant</th><th class="th-gray">amount</th><th class="th-gray">rn</th></tr>
+                            <tr class="row-highlight"><td>Walmart</td><td>$100</td><td><b>1</b> ✅ TOP</td></tr>
+                            <tr><td>Amazon</td><td>$75</td><td>2</td></tr>
+                            <tr><td>Amazon</td><td>$50</td><td>3</td></tr>
+                        </table>
+                    </div>
+                    
+                    <!-- Partition 2 -->
+                    <div style="border: 2px dashed #2196f3; background: #e3f2fd; padding: 8px; margin: 8px 0; border-radius: 6px;">
+                        <span class="group-label group-label-blue">Partition: C003 (Black Friday)</span>
+                        <table style="font-size:10px;margin-top:5px;">
+                            <tr><th class="th-gray">merchant</th><th class="th-gray">amount</th><th class="th-gray">rn</th></tr>
+                            <tr class="row-highlight"><td>BestBuy</td><td>$200</td><td><b>1</b> ✅ TOP</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="step-arrow">↓ WHERE rn = 1</div>
+                <div class="step-box">
+                    <span class="step-num">3</span><b>Filter</b> - Keep only rows where rn = 1
+                </div>
+            </div>
+            
+            <div class="result-label">Final Result (Top 1 per campaign):</div>
+            <table>
+                <tr>
+                    <th class="th-sql">campaign_id<span class="col-source">(campaign)</span></th>
+                    <th class="th-sql">campaign<span class="col-source">(campaign)</span></th>
+                    <th class="th-sql">merchant<span class="col-source">(offers)</span></th>
+                    <th class="th-sql">amount<span class="col-source">(redemption)</span></th>
+                    <th class="th-sql">rn<span class="col-source">(computed)</span></th>
+                </tr>
+                <tr><td>C001</td><td>Summer Sale</td><td>Walmart</td><td>$100</td><td>1</td></tr>
+                <tr class="row-alt"><td>C003</td><td>Black Friday</td><td>BestBuy</td><td>$200</td><td>1</td></tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="card border-nosql">
+        <div class="card-header bg-nosql">NoSQL - N1QL Window Functions (Couchbase)</div>
+        <div class="card-body">
+<pre class="nosql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Couchbase N1QL (7.0+ supports window functions)
+ *  - Same syntax as SQL window functions
+ *  - PARTITION BY + ORDER BY within OVER clause
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">SELECT</span> * <span class="hl-keyword">FROM</span> (
+  <span class="hl-comment">/** Inner query: JOIN + Window Function */</span>
+  <span class="hl-keyword">SELECT</span> 
+    c.id <span class="hl-keyword">AS</span> campaign_id,  <span class="hl-comment">/** from campaign */</span>
+    c.name,               <span class="hl-comment">/** from campaign */</span>
+    o.merchant,           <span class="hl-comment">/** from offers */</span>
+    r.amount,             <span class="hl-comment">/** from redemption */</span>
+    
+    <span class="hl-comment">/** Window function: assigns row numbers within partition */</span>
+    <span class="hl-function">ROW_NUMBER</span>() <span class="hl-keyword">OVER</span> (
+      <span class="hl-keyword">PARTITION BY</span> c.id   <span class="hl-comment">/** group by campaign */</span>
+      <span class="hl-keyword">ORDER BY</span> r.amount <span class="hl-keyword">DESC</span>  <span class="hl-comment">/** highest first */</span>
+    ) <span class="hl-keyword">AS</span> rn              <span class="hl-comment">/** rn=1 is top per group */</span>
+    
+  <span class="hl-keyword">FROM</span> campaign c
+  <span class="hl-keyword">JOIN</span> offers o <span class="hl-keyword">ON</span> o.campaign_id = c.id
+  <span class="hl-keyword">JOIN</span> redemption r <span class="hl-keyword">ON</span> r.offer_id = o.id
+  <span class="hl-keyword">WHERE</span> c.type = <span class="hl-string">'campaign'</span>   <span class="hl-comment">/** type filter */</span>
+    <span class="hl-keyword">AND</span> o.type = <span class="hl-string">'offer'</span>       <span class="hl-comment">/** type filter */</span>
+    <span class="hl-keyword">AND</span> r.type = <span class="hl-string">'redemption'</span>  <span class="hl-comment">/** type filter */</span>
+) ranked
+<span class="hl-comment">/** Filter to keep only TOP row per campaign */</span>
+<span class="hl-keyword">WHERE</span> rn = <span class="hl-number">1</span>;
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  📌 INDEXES REQUIRED (in order of usage):
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment">/** 1. Index on FK campaign_id for offers → campaign JOIN
+ *  - Example: 
+ *    SELECT * FROM offers 
+ *    WHERE type = 'offer' 
+ *      AND campaign_id = 'C001' */</span>
+<span class="hl-index">CREATE INDEX idx_offers_campaign ON offers(campaign_id) 
+  WHERE type = 'offer';</span>
+
+<span class="hl-comment">/** 2. Index on FK offer_id for redemption → offers JOIN
+ *  - Example: 
+ *    SELECT * FROM redemption 
+ *    WHERE type = 'redemption' 
+ *      AND offer_id = 'O001' */</span>
+<span class="hl-index">CREATE INDEX idx_redemption_offer ON redemption(offer_id) 
+  WHERE type = 'redemption';</span></code></pre>
+        </div>
+    </div>
+</div>
+
+<!-- ========== JAVA STREAMS ========== -->
+<div class="section-title">4. Java 8 Streams - Equivalent Operations</div>
+
+<div class="usecase-box">
+    <b>⚠️ Best Practice:</b> Use Java Streams for small datasets (&lt;10K) or complex transformations. For large data, prefer database queries with proper indexes.
+</div>
+
+<div class="comparison-container three-col">
+    <!-- INNER JOIN Stream -->
+    <div class="card border-java">
+        <div class="card-header bg-java">☕ INNER JOIN (flatMap + filter)</div>
+        <div class="card-body">
+<pre class="java-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Simulate INNER JOIN using flatMap + filter
+ *  
+ *  flatMap purpose: Collects nested objects into one flat list
+ *  - Each campaign has multiple offers (1:N relationship)
+ *  - flatMap flattens: [[O001,O002], [O003]] → [O001,O002,O003]
+ *  - Without flatMap: would get List&lt;List&lt;Offer&gt;&gt; instead of List&lt;Offer&gt;
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-type">List</span>&lt;<span class="hl-type">CampaignOfferDTO</span>&gt; result = 
+  campaigns.<span class="hl-function">stream</span>()
+  
+    <span class="hl-comment">/** Step 1: Filter ACTIVE campaigns
+     *  - filter() keeps elements matching predicate
+     *  - Input:  [C001(ACTIVE), C002(DRAFT), C003(ACTIVE)]
+     *  - Output: [C001, C003] (only ACTIVE) */</span>
+    .<span class="hl-function">filter</span>(c -> <span class="hl-string">"ACTIVE"</span>
+        .equals(c.getStatus()))
+    
+    <span class="hl-comment">/** Step 2: flatMap - collect nested offers into one list
+     *  - For each campaign, find matching offers
+     *  - C001 has offers: [O001, O002]
+     *  - C003 has offers: [O003]
+     *  - flatMap flattens into: [O001, O002, O003]
+     *  - This is like SQL: FROM campaign JOIN offers */</span>
+    .<span class="hl-function">flatMap</span>(c -> 
+      offers.<span class="hl-function">stream</span>()
+        <span class="hl-comment">/** Filter offers by campaign_id (JOIN condition) */</span>
+        .<span class="hl-function">filter</span>(o -> c.getId()
+            .equals(o.getCampaignId()))
+        <span class="hl-comment">/** Step 3: Transform to DTO (like SELECT) */</span>
+        .<span class="hl-function">map</span>(o -> <span class="hl-keyword">new</span> <span class="hl-type">DTO</span>(
+            c.getName(), 
+            o.getMerchant()))
+    )
+    <span class="hl-comment">/** Step 4: Collect stream into List */</span>
+    .<span class="hl-function">collect</span>(<span class="hl-type">Collectors</span>.toList());</code></pre>
+            
+            <div class="step-diagram" style="font-size:10px;">
+                <b>Flow Diagram:</b><br>
+                [C001,C002,C003]<br>
+                ↓ filter(ACTIVE)<br>
+                [C001,C003]<br>
+                ↓ flatMap (flatten nested offers)<br>
+                C001→[O001,O002], C003→[O003]<br>
+                ↓ flattened to single list<br>
+                [O001,O002,O003]<br>
+                ↓ map(toDTO)<br>
+                <b>Result: 3 DTOs</b>
+            </div>
+        </div>
+    </div>
+    
+    <!-- GROUP BY Stream -->
+    <div class="card border-java">
+        <div class="card-header bg-java">☕ GROUP BY (groupingBy)</div>
+        <div class="card-body">
+<pre class="java-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Simulate GROUP BY with aggregations
+ *  
+ *  groupingBy purpose: Groups elements by a key
+ *  - Similar to SQL GROUP BY clause
+ *  - Returns Map&lt;Key, List&lt;Values&gt;&gt; or Map&lt;Key, AggregateResult&gt;
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-type">Map</span>&lt;<span class="hl-type">String</span>, <span class="hl-type">Stats</span>&gt; stats = 
+  redemptions.<span class="hl-function">stream</span>()
+  
+  <span class="hl-comment">/** Step 1: Group by campaign_id (like SQL GROUP BY)
+   *  - Creates buckets: key → list of values
+   *  - C001 → [R001($50), R002($75), R003($100)]
+   *  - C003 → [R004($200)] */</span>
+  .<span class="hl-function">collect</span>(<span class="hl-type">Collectors</span>.groupingBy(
+    <span class="hl-type">Redemption</span>::getCampaignId,
+    
+    <span class="hl-comment">/** Step 2: For each group, apply downstream collector
+     *  - collectingAndThen: collect first, then transform
+     *  - toList() collects group into List
+     *  - Lambda calculates aggregates on the List */</span>
+    <span class="hl-type">Collectors</span>.collectingAndThen(
+      <span class="hl-type">Collectors</span>.toList(),
+      list -> {
+        <span class="hl-comment">/** COUNT - same as SQL COUNT(*) */</span>
+        <span class="hl-keyword">int</span> count = list.size();
+        
+        <span class="hl-comment">/** SUM - same as SQL SUM(amount) */</span>
+        <span class="hl-keyword">double</span> sum = list.<span class="hl-function">stream</span>()
+          .<span class="hl-function">mapToDouble</span>(R::getAmount)
+          .<span class="hl-function">sum</span>();
+        
+        <span class="hl-comment">/** AVG - same as SQL AVG(amount) */</span>
+        <span class="hl-keyword">double</span> avg = sum / count;
+        
+        <span class="hl-keyword">return new</span> <span class="hl-type">Stats</span>(count, sum, avg);
+      }
+    )
+  ));</code></pre>
+            
+            <div class="step-diagram" style="font-size:10px;">
+                <b>Flow Diagram:</b><br>
+                [R001,R002,R003,R004]<br>
+                ↓ groupingBy(campaign_id)<br>
+                C001 → [R001($50),R002($75),R003($100)]<br>
+                C003 → [R004($200)]<br>
+                ↓ collectingAndThen (aggregate)<br>
+                C001 → {count:3, sum:$225, avg:$75}<br>
+                <b>C003 → {count:1, sum:$200, avg:$200}</b>
+            </div>
+        </div>
+    </div>
+    
+    <!-- TOP N Stream -->
+    <div class="card border-java">
+        <div class="card-header bg-java">☕ TOP N per Group (maxBy)</div>
+        <div class="card-body">
+<pre class="java-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Simulate PARTITION BY + TOP 1 (Window Function)
+ *  
+ *  maxBy purpose: Finds maximum element by comparator
+ *  - Similar to SQL: ROW_NUMBER() OVER (PARTITION BY ... ORDER BY) WHERE rn=1
+ *  - Returns Optional&lt;T&gt; (may be empty if group is empty)
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-type">Map</span>&lt;<span class="hl-type">String</span>, <span class="hl-type">Redemption</span>&gt; topPerCampaign = 
+  redemptions.<span class="hl-function">stream</span>()
+  
+  <span class="hl-comment">/** Step 1: Group by campaign_id (like PARTITION BY)
+   *  - Creates partitions for each campaign
+   *  - C001 → [R001($50), R002($75), R003($100)]
+   *  - C003 → [R004($200)] */</span>
+  .<span class="hl-function">collect</span>(<span class="hl-type">Collectors</span>.groupingBy(
+    <span class="hl-type">Redemption</span>::getCampaignId,
+    
+    <span class="hl-comment">/** Step 2: Find MAX in each group (like ORDER BY + TOP 1)
+     *  - maxBy finds the element with highest value
+     *  - Comparator.comparing extracts the comparison key */</span>
+    <span class="hl-type">Collectors</span>.collectingAndThen(
+      <span class="hl-comment">/** maxBy returns Optional&lt;Redemption&gt;
+       *  - Compares by amount field
+       *  - Returns element with highest amount */</span>
+      <span class="hl-type">Collectors</span>.maxBy(
+        <span class="hl-type">Comparator</span>.comparing(
+          <span class="hl-type">Redemption</span>::getAmount)),
+      
+      <span class="hl-comment">/** Unwrap Optional to get actual value
+       *  - orElse(null) handles empty groups */</span>
+      opt -> opt.orElse(<span class="hl-keyword">null</span>)
+    )
+  ));
+
+<span class="hl-comment">/** Result: Top redemption per campaign
+ *  - C001 → R003 ($100) - highest in group
+ *  - C003 → R004 ($200) - only one in group */</span></code></pre>
+            
+            <div class="step-diagram" style="font-size:10px;">
+                <b>Flow Diagram:</b><br>
+                [R001,R002,R003,R004]<br>
+                ↓ groupingBy(campaign_id)<br>
+                C001 → [$50,$75,$100]<br>
+                C003 → [$200]<br>
+                ↓ maxBy(amount)<br>
+                C001 → $100 (R003)<br>
+                <b>C003 → $200 (R004)</b>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
