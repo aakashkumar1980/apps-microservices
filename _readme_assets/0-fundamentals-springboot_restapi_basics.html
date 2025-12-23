@@ -46,9 +46,11 @@
         }
         .bg-gradle { background: linear-gradient(135deg, #3f51b5, #303f9f); }
         .bg-config { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
+        .bg-model { background: linear-gradient(135deg, #00bcd4, #0097a7); }
         .bg-postman { background: linear-gradient(135deg, #ff6c37, #e85a2a); }
         .bg-controller { background: linear-gradient(135deg, #ff9800, #f57c00); }
         .bg-service { background: linear-gradient(135deg, #4caf50, #388e3c); }
+        .bg-entity { background: linear-gradient(135deg, #795548, #5d4037); }
         .bg-repo { background: linear-gradient(135deg, #2196f3, #1976d2); }
         
         pre {
@@ -124,7 +126,7 @@
 <div class="key-concept-box">
     <b>📋 Request Flow:</b> POSTMAN → Controller → Service → Repository → Database<br>
     <b>📋 Response Flow:</b> Database → Repository → Service → Controller → POSTMAN<br>
-    <b>📋 Setup Flow:</b> build.gradle → Configuration → All Layers
+    <b>📋 Setup Flow:</b> build.gradle → Configuration → DTOs → Controller → Service → Entities → Repository
 </div>
 
 <div style="text-align: center; padding: 15px; font-size: 16px; color: #4caf50; font-weight: bold;">
@@ -205,6 +207,17 @@
 { <span class="hl-string">"id"</span>: <span class="hl-string">"C003"</span>, <span class="hl-string">"name"</span>: <span class="hl-string">"Black Friday Sale"</span>, <span class="hl-string">"status"</span>: <span class="hl-string">"ACTIVE"</span> }</code></pre>
             </div>
         </div>
+    </div>
+    
+    <div class="flow-arrow">→</div>
+    
+    <!-- Vertical Dotted Bar - Spring Boot Boundary -->
+    <div style="display:flex; flex-direction:column; align-items:center; padding: 0 10px;">
+        <div style="border-left: 3px dotted #4caf50; height: 100%; min-height: 400px;"></div>
+        <div style="writing-mode: vertical-rl; text-orientation: mixed; color: #4caf50; font-weight: bold; font-size: 12px; padding: 10px 0; white-space: nowrap;">
+            ← SPRING BOOT COMPONENTS →
+        </div>
+        <div style="border-left: 3px dotted #4caf50; height: 100%; min-height: 400px;"></div>
     </div>
     
     <div class="flow-arrow">→</div>
@@ -316,6 +329,79 @@ spring:
     password: ${CB_PASSWORD}
     bucket:
       name: campaign-bucket</code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flow-arrow">→</div>
+    
+    <!-- DTOs (Request/Response) -->
+    <div class="layer-box" style="min-width:380px;">
+        <div class="card">
+            <div class="card-header bg-model">📋 DTOs (Request/Response)</div>
+            <div class="card-body">
+<pre class="java-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Data Transfer Objects (DTOs)
+ *  - Used for API Request/Response
+ *  - Java Record (immutable, auto-generates getters, equals, hashCode)
+ *  - Standard since Java 16 (no Lombok needed)
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Request DTO - Used for POST/PUT request body
+ *  - Only fields that client can send
+ *  - id is NOT included (server generates it)
+ *  ═══════════════════════════════════════════════════════════ */</span>
+<span class="hl-keyword">public record</span> <span class="hl-type">CampaignRequest</span>(
+    <span class="hl-type">String</span> name,
+    <span class="hl-type">String</span> status,
+    <span class="hl-type">LocalDate</span> startDate,
+    <span class="hl-type">LocalDate</span> endDate
+) {}
+
+<span class="hl-comment">/** Usage:
+ *  CampaignRequest req = new CampaignRequest("Sale", "ACTIVE", ...);
+ *  String name = req.name();  // auto-generated getter
+ */</span>
+
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Response DTO - Used for API response
+ *  - Only fields that client needs to see
+ *  - May hide sensitive/internal fields
+ *  ═══════════════════════════════════════════════════════════ */</span>
+<span class="hl-keyword">public record</span> <span class="hl-type">CampaignResponse</span>(
+    <span class="hl-type">String</span> id,
+    <span class="hl-type">String</span> name,
+    <span class="hl-type">String</span> status,
+    <span class="hl-type">LocalDate</span> startDate,
+    <span class="hl-type">LocalDate</span> endDate
+) {
+    <span class="hl-comment">/** Static factory method to convert Entity → DTO */</span>
+    <span class="hl-keyword">public static</span> <span class="hl-type">CampaignResponse</span> fromEntity(<span class="hl-type">Campaign</span> entity) {
+        <span class="hl-keyword">return new</span> <span class="hl-type">CampaignResponse</span>(
+            entity.getId(),
+            entity.getName(),
+            entity.getStatus(),
+            entity.getStartDate(),
+            entity.getEndDate()
+        );
+    }
+}
+
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Stats DTO - For aggregated data response
+ *  ═══════════════════════════════════════════════════════════ */</span>
+<span class="hl-keyword">public record</span> <span class="hl-type">CampaignStats</span>(
+    <span class="hl-type">String</span> campaignId,
+    <span class="hl-type">String</span> campaignName,
+    <span class="hl-type">Long</span> totalRedemptions,
+    <span class="hl-type">Double</span> totalAmount,
+    <span class="hl-type">Double</span> averageAmount,
+    <span class="hl-type">Double</span> maxAmount
+) {}</code></pre>
             </div>
         </div>
     </div>
@@ -480,78 +566,847 @@ spring:
     
     <div class="flow-arrow">→</div>
     
-    <!-- Repository -->
-    <div class="layer-box" style="min-width: 340px;">
+    <!-- JPA Entities -->
+    <div class="layer-box" style="min-width:450px;">
         <div class="card">
-            <div class="card-header bg-repo">📦 Repository Layer</div>
+            <div class="card-header bg-entity">🗃️ JPA Entities (Data Models)</div>
             <div class="card-body">
-                <b style="color:#4caf50;">SQL (JPA Repository)</b>
+                <b style="color:#4caf50;">SQL Entities (JPA)</b>
 <pre class="sql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
- *  JPA Repository for SQL Database
- *  - Extends JpaRepository for built-in CRUD operations
- *  - Derived queries from method names
+ *  JPA Entity - Maps to SQL Table
+ *  - @Entity marks class as JPA entity
+ *  - @Table specifies table name
+ *  - Getters/setters omitted for brevity
  *  ═══════════════════════════════════════════════════════════ */</span>
 
+<span class="hl-keyword">@Entity</span>
+<span class="hl-keyword">@Table</span>(name = <span class="hl-string">"campaign"</span>)
+<span class="hl-keyword">public class</span> <span class="hl-type">Campaign</span> {
+
+    <span class="hl-keyword">@Id</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> id;
+    
+    <span class="hl-keyword">@Column</span>(name = <span class="hl-string">"name"</span>, nullable = <span class="hl-keyword">false</span>)
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> name;
+    
+    <span class="hl-keyword">@Column</span>(name = <span class="hl-string">"status"</span>)
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> status;
+    
+    <span class="hl-keyword">@Column</span>(name = <span class="hl-string">"start_date"</span>)
+    <span class="hl-keyword">private</span> <span class="hl-type">LocalDate</span> startDate;
+    
+    <span class="hl-keyword">@Column</span>(name = <span class="hl-string">"end_date"</span>)
+    <span class="hl-keyword">private</span> <span class="hl-type">LocalDate</span> endDate;
+    
+    <span class="hl-comment">/** One Campaign has Many Offers (1:N relationship) */</span>
+    <span class="hl-keyword">@OneToMany</span>(mappedBy = <span class="hl-string">"campaign"</span>, fetch = <span class="hl-type">FetchType</span>.LAZY)
+    <span class="hl-keyword">private</span> <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; offers;
+}
+
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Offer Entity - Has ManyToOne relationship with Campaign
+ *  - @ManyToOne: Many Offers belong to One Campaign
+ *  - @JoinColumn: Specifies FK column name
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">@Entity</span>
+<span class="hl-keyword">@Table</span>(name = <span class="hl-string">"offers"</span>)
+<span class="hl-keyword">public class</span> <span class="hl-type">Offer</span> {
+
+    <span class="hl-keyword">@Id</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> id;
+    
+    <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+     *  ManyToOne Relationship: Offer → Campaign
+     *  - This is an OBJECT reference (not just String campaignId)
+     *  - Enables: findByCampaign_Id(), findByCampaign_Status()
+     *  ═══════════════════════════════════════════════════════════ */</span>
+    <span class="hl-keyword">@ManyToOne</span>(fetch = <span class="hl-type">FetchType</span>.LAZY)
+    <span class="hl-keyword">@JoinColumn</span>(name = <span class="hl-string">"campaign_id"</span>)
+    <span class="hl-keyword">private</span> <span class="hl-type">Campaign</span> campaign;  <span class="hl-comment">/** Object, NOT String! */</span>
+    
+    <span class="hl-keyword">@Column</span>(name = <span class="hl-string">"merchant"</span>)
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> merchant;
+    
+    <span class="hl-keyword">@Column</span>(name = <span class="hl-string">"discount"</span>)
+    <span class="hl-keyword">private</span> <span class="hl-type">Double</span> discount;
+    
+    <span class="hl-comment">/** One Offer has Many Redemptions */</span>
+    <span class="hl-keyword">@OneToMany</span>(mappedBy = <span class="hl-string">"offer"</span>, fetch = <span class="hl-type">FetchType</span>.LAZY)
+    <span class="hl-keyword">private</span> <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; redemptions;
+}
+
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Redemption Entity
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">@Entity</span>
+<span class="hl-keyword">@Table</span>(name = <span class="hl-string">"redemption"</span>)
+<span class="hl-keyword">public class</span> <span class="hl-type">Redemption</span> {
+
+    <span class="hl-keyword">@Id</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> id;
+    
+    <span class="hl-keyword">@ManyToOne</span>(fetch = <span class="hl-type">FetchType</span>.LAZY)
+    <span class="hl-keyword">@JoinColumn</span>(name = <span class="hl-string">"offer_id"</span>)
+    <span class="hl-keyword">private</span> <span class="hl-type">Offer</span> offer;  <span class="hl-comment">/** Object reference */</span>
+    
+    <span class="hl-keyword">@Column</span>(name = <span class="hl-string">"customer_id"</span>)
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> customerId;
+    
+    <span class="hl-keyword">@Column</span>(name = <span class="hl-string">"amount"</span>)
+    <span class="hl-keyword">private</span> <span class="hl-type">Double</span> amount;
+}</code></pre>
+
+                <div style="background:#fff3e0; padding:10px; border-radius:5px; margin:15px 0; font-size:11px;">
+                    <b>🔄 SQL vs NoSQL Entity Comparison:</b><br>
+                    <table style="width:100%; margin-top:8px; border-collapse:collapse;">
+                        <tr style="background:#e3f2fd;">
+                            <th style="padding:5px; border:1px solid #ddd;">Aspect</th>
+                            <th style="padding:5px; border:1px solid #ddd;">SQL (JPA)</th>
+                            <th style="padding:5px; border:1px solid #ddd;">NoSQL (Couchbase)</th>
+                        </tr>
+                        <tr>
+                            <td style="padding:5px; border:1px solid #ddd;">Annotation</td>
+                            <td style="padding:5px; border:1px solid #ddd;"><code>@Entity</code></td>
+                            <td style="padding:5px; border:1px solid #ddd;"><code>@Document</code></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:5px; border:1px solid #ddd;">FK Reference</td>
+                            <td style="padding:5px; border:1px solid #ddd;"><code>Campaign campaign</code> (Object)</td>
+                            <td style="padding:5px; border:1px solid #ddd;"><code>String campaignId</code> (String)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:5px; border:1px solid #ddd;">Query Pattern</td>
+                            <td style="padding:5px; border:1px solid #ddd;"><code>findByCampaign_Status()</code></td>
+                            <td style="padding:5px; border:1px solid #ddd;"><code>@Query("N1QL JOIN...")</code></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:5px; border:1px solid #ddd;">Type Field</td>
+                            <td style="padding:5px; border:1px solid #ddd;">Not needed</td>
+                            <td style="padding:5px; border:1px solid #ddd;"><code>type = "offer"</code> (Required)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <b style="color:#ff9800;">NoSQL Documents (Couchbase)</b>
+<pre class="nosql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Couchbase Document - Maps to JSON Document
+ *  - @Document marks class as Couchbase document
+ *  - @Field for explicit field naming
+ *  - Uses String FK (not object) - NoSQL is denormalized
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">@Document</span>
+<span class="hl-keyword">public class</span> <span class="hl-type">Campaign</span> {
+
+    <span class="hl-keyword">@Id</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> id;
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> type = <span class="hl-string">"campaign"</span>;  <span class="hl-comment">/** Type discriminator */</span>
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> name;
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> status;
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">LocalDate</span> startDate;
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">LocalDate</span> endDate;
+    
+}
+
+
+<span class="hl-keyword">@Document</span>
+<span class="hl-keyword">public class</span> <span class="hl-type">Offer</span> {
+
+    <span class="hl-keyword">@Id</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> id;
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> type = <span class="hl-string">"offer"</span>;
+    
+    <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+     *  NoSQL uses String FK (NOT object reference)
+     *  - Documents are denormalized
+     *  - No JPA relationships in NoSQL
+     *  ═══════════════════════════════════════════════════════════ */</span>
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> campaignId;  <span class="hl-comment">/** String FK, NOT object! */</span>
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> merchant;
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">Double</span> discount;
+    
+}
+
+
+<span class="hl-keyword">@Document</span>
+<span class="hl-keyword">public class</span> <span class="hl-type">Redemption</span> {
+
+    <span class="hl-keyword">@Id</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> id;
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> type = <span class="hl-string">"redemption"</span>;
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> offerId;  <span class="hl-comment">/** String FK */</span>
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">String</span> customerId;
+    
+    <span class="hl-keyword">@Field</span>
+    <span class="hl-keyword">private</span> <span class="hl-type">Double</span> amount;
+    
+}</code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flow-arrow">→</div>
+    
+    <!-- Repository -->
+    <div class="layer-box" style="min-width: 1000px;">
+        <div class="card">
+            <div class="card-header bg-repo">📦 Repository Layer</div>
+            <div style="padding:15px;">
+                <table style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; border-collapse: collapse; width: 100%; max-width: 1200px; margin: 20px 0; border: 1px solid #d1d5db; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); color: #1f2937;">
+                <thead style="background-color: #111827; color: #ffffff;">
+                    <tr>
+                    <th style="padding: 14px 18px; text-align: left; text-transform: uppercase; font-size: 0.85em; letter-spacing: 0.05em;">Group</th>
+                    <th style="padding: 14px 18px; text-align: left; text-transform: uppercase; font-size: 0.85em; letter-spacing: 0.05em;">Keywords / Pattern</th>
+                    <th style="padding: 14px 18px; text-align: left; text-transform: uppercase; font-size: 0.85em; letter-spacing: 0.05em;">Example Method</th>
+                    <th style="padding: 14px 18px; text-align: left; text-transform: uppercase; font-size: 0.85em; letter-spacing: 0.05em;">SQL Generated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Section Header: QUERY STARTERS -->
+                    <tr style="background-color: #1f2937;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">📌 QUERY STARTERS</td>
+                    </tr>
+                    <tr style="background-color: #f0fdf4;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5; font-weight: bold; color: #166534;">Core Selectors</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bbf7d0; color: #166534;">find...By</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bbf7d0; color: #166534;">read...By</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bbf7d0; color: #166534;">query...By</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bbf7d0; color: #166534;">get...By</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bbf7d0; color: #166534;">search...By</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bbf7d0; color: #166534;">stream...By</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code style="color: #059669;"><b>findBy</b>Status(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code>SELECT * FROM table WHERE status = ?</code></td>
+                    </tr>
+                    <tr style="background-color: #f0fdf4;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5; font-weight: bold; color: #166534;">Uniqueness</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bbf7d0; color: #166534;">Distinct</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code style="color: #059669;">find<b>Distinct</b>ByStatus(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code>SELECT DISTINCT * FROM table WHERE status = ?</code></td>
+                    </tr>
+
+                    <!-- Section Header: LOGICAL OPERATORS -->
+                    <tr style="background-color: #1f2937;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">🔗 LOGICAL OPERATORS</td>
+                    </tr>
+                    <tr style="background-color: #faf5ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff; font-weight: bold; color: #6b21a8;">AND Condition</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #e9d5ff; color: #6b21a8;">And</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="color: #9333ea;">findByStatus<b>And</b>Name(String s, String n)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code>WHERE status = ? AND name = ?</code></td>
+                    </tr>
+                    <tr style="background-color: #faf5ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff; font-weight: bold; color: #6b21a8;">OR Condition</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #e9d5ff; color: #6b21a8;">Or</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="color: #9333ea;">findByStatus<b>Or</b>Name(String s, String n)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code>WHERE status = ? OR name = ?</code></td>
+                    </tr>
+
+                    <!-- Section Header: EQUALITY & COMPARISON -->
+                    <tr style="background-color: #1f2937;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">⚖️ EQUALITY & COMPARISON</td>
+                    </tr>
+                    <tr style="background-color: #eff6ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe; font-weight: bold; color: #1e40af;">Equality</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bfdbfe; color: #1e40af;">Is</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bfdbfe; color: #1e40af;">Equals</code> <span style="color:#64748b; font-size:0.85em;">(or just field name)</span></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="color: #2563eb;">findByStatus<b>Is</b>(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code>WHERE status = ?</code></td>
+                    </tr>
+                    <tr style="background-color: #eff6ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe; font-weight: bold; color: #1e40af;">Not Equal</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bfdbfe; color: #1e40af;">Not</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bfdbfe; color: #1e40af;">IsNot</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="color: #2563eb;">findByStatus<b>Not</b>(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code>WHERE status &lt;&gt; ?</code></td>
+                    </tr>
+                    <tr style="background-color: #eff6ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe; font-weight: bold; color: #1e40af;">Less Than</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bfdbfe; color: #1e40af;">LessThan</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="color: #2563eb;">findByPrice<b>LessThan</b>(Double max)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code>WHERE price &lt; ?</code></td>
+                    </tr>
+                    <tr style="background-color: #eff6ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe; font-weight: bold; color: #1e40af;">Less Than Equal</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bfdbfe; color: #1e40af;">LessThanEqual</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="color: #2563eb;">findByPrice<b>LessThanEqual</b>(Double max)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code>WHERE price &lt;= ?</code></td>
+                    </tr>
+                    <tr style="background-color: #eff6ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe; font-weight: bold; color: #1e40af;">Greater Than</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bfdbfe; color: #1e40af;">GreaterThan</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="color: #2563eb;">findByPrice<b>GreaterThan</b>(Double min)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code>WHERE price &gt; ?</code></td>
+                    </tr>
+                    <tr style="background-color: #eff6ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe; font-weight: bold; color: #1e40af;">Greater Than Equal</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bfdbfe; color: #1e40af;">GreaterThanEqual</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="color: #2563eb;">findByPrice<b>GreaterThanEqual</b>(Double min)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code>WHERE price &gt;= ?</code></td>
+                    </tr>
+                    <tr style="background-color: #eff6ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe; font-weight: bold; color: #1e40af;">Between Range</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bfdbfe; color: #1e40af;">Between</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code style="color: #2563eb;">findByPrice<b>Between</b>(Double min, Double max)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #dbeafe;"><code>WHERE price BETWEEN ? AND ?</code></td>
+                    </tr>
+
+                    <!-- Section Header: TEMPORAL (DATE/TIME) -->
+                    <tr style="background-color: #1f2937;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">📅 TEMPORAL (DATE/TIME)</td>
+                    </tr>
+                    <tr style="background-color: #ecfdf5;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5; font-weight: bold; color: #065f46;">Before</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #a7f3d0; color: #065f46;">Before</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code style="color: #059669;">findByCreatedDate<b>Before</b>(LocalDate d)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code>WHERE created_date &lt; ?</code></td>
+                    </tr>
+                    <tr style="background-color: #ecfdf5;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5; font-weight: bold; color: #065f46;">After</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #a7f3d0; color: #065f46;">After</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code style="color: #059669;">findByCreatedDate<b>After</b>(LocalDate d)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #d1fae5;"><code>WHERE created_date &gt; ?</code></td>
+                    </tr>
+
+                    <!-- Section Header: STRING MATCHING -->
+                    <tr style="background-color: #1f2937;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">🔤 STRING MATCHING</td>
+                    </tr>
+                    <tr style="background-color: #fff7ed;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5; font-weight: bold; color: #9a3412;">Like Pattern</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fed7aa; color: #9a3412;">Like</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fed7aa; color: #9a3412;">NotLike</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="color: #ea580c;">findByName<b>Like</b>(String pattern)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code>WHERE name LIKE ?</code> <span style="color:#64748b; font-size:0.85em;">(you provide %)</span></td>
+                    </tr>
+                    <tr style="background-color: #fff7ed;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5; font-weight: bold; color: #9a3412;">Contains</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fed7aa; color: #9a3412;">Containing</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fed7aa; color: #9a3412;">NotContaining</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="color: #ea580c;">findByName<b>Containing</b>(String kw)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code>WHERE name LIKE '%kw%'</code></td>
+                    </tr>
+                    <tr style="background-color: #fff7ed;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5; font-weight: bold; color: #9a3412;">Starts With</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fed7aa; color: #9a3412;">StartingWith</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="color: #ea580c;">findByName<b>StartingWith</b>(String prefix)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code>WHERE name LIKE 'prefix%'</code></td>
+                    </tr>
+                    <tr style="background-color: #fff7ed;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5; font-weight: bold; color: #9a3412;">Ends With</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fed7aa; color: #9a3412;">EndingWith</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="color: #ea580c;">findByName<b>EndingWith</b>(String suffix)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code>WHERE name LIKE '%suffix'</code></td>
+                    </tr>
+                    <tr style="background-color: #fff7ed;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5; font-weight: bold; color: #9a3412;">Case Insensitive</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fed7aa; color: #9a3412;">IgnoreCase</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fed7aa; color: #9a3412;">AllIgnoreCase</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="color: #ea580c;">findByName<b>IgnoreCase</b>(String n)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code>WHERE LOWER(name) = LOWER(?)</code></td>
+                    </tr>
+                    <tr style="background-color: #fff7ed;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5; font-weight: bold; color: #9a3412;">Regex</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fed7aa; color: #9a3412;">Regex</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fed7aa; color: #9a3412;">MatchesRegex</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><code style="color: #ea580c;">findByName<b>Regex</b>(String pattern)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffedd5;"><span style="color:#64748b; font-size:0.85em;">MongoDB/NoSQL only</span></td>
+                    </tr>
+
+                    <!-- Section Header: BOOLEAN & NULL -->
+                    <tr style="background-color: #1f2937;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">✓ BOOLEAN & NULL CHECKS</td>
+                    </tr>
+                    <tr style="background-color: #faf5ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff; font-weight: bold; color: #6b21a8;">True Check</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #e9d5ff; color: #6b21a8;">True</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #e9d5ff; color: #6b21a8;">IsTrue</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="color: #9333ea;">findByActive<b>True</b>()</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code>WHERE active = TRUE</code></td>
+                    </tr>
+                    <tr style="background-color: #faf5ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff; font-weight: bold; color: #6b21a8;">False Check</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #e9d5ff; color: #6b21a8;">False</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #e9d5ff; color: #6b21a8;">IsFalse</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="color: #9333ea;">findByActive<b>False</b>()</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code>WHERE active = FALSE</code></td>
+                    </tr>
+                    <tr style="background-color: #faf5ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff; font-weight: bold; color: #6b21a8;">Is Null</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #e9d5ff; color: #6b21a8;">IsNull</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #e9d5ff; color: #6b21a8;">Null</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="color: #9333ea;">findByDeletedAt<b>IsNull</b>()</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code>WHERE deleted_at IS NULL</code></td>
+                    </tr>
+                    <tr style="background-color: #faf5ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff; font-weight: bold; color: #6b21a8;">Is Not Null</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #e9d5ff; color: #6b21a8;">IsNotNull</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #e9d5ff; color: #6b21a8;">NotNull</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code style="color: #9333ea;">findByDeletedAt<b>IsNotNull</b>()</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #f3e8ff;"><code>WHERE deleted_at IS NOT NULL</code></td>
+                    </tr>
+
+                    <!-- Section Header: COLLECTIONS -->
+                    <tr style="background-color: #1f2937;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">📦 COLLECTIONS</td>
+                    </tr>
+                    <tr style="background-color: #fff1f2;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6; font-weight: bold; color: #9f1239;">In List</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fecdd3; color: #9f1239;">In</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code style="color: #e11d48;">findByStatus<b>In</b>(List&lt;String&gt; list)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code>WHERE status IN (?, ?, ?)</code></td>
+                    </tr>
+                    <tr style="background-color: #fff1f2;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6; font-weight: bold; color: #9f1239;">Not In List</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fecdd3; color: #9f1239;">NotIn</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code style="color: #e11d48;">findByStatus<b>NotIn</b>(List&lt;String&gt; list)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code>WHERE status NOT IN (?, ?)</code></td>
+                    </tr>
+                    <tr style="background-color: #fff1f2;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6; font-weight: bold; color: #9f1239;">Empty Collection</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fecdd3; color: #9f1239;">IsEmpty</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code style="color: #e11d48;">findByRoles<b>IsEmpty</b>()</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code>WHERE roles IS EMPTY</code></td>
+                    </tr>
+                    <tr style="background-color: #fff1f2;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6; font-weight: bold; color: #9f1239;">Not Empty Collection</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fecdd3; color: #9f1239;">IsNotEmpty</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code style="color: #e11d48;">findByRoles<b>IsNotEmpty</b>()</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #ffe4e6;"><code>WHERE roles IS NOT EMPTY</code></td>
+                    </tr>
+
+                    <!-- Section Header: RESULT CONTROL -->
+                    <tr style="background-color: #1f2937;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">🎯 RESULT CONTROL</td>
+                    </tr>
+                    <tr style="background-color: #f8fafc;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #334155;">First Result</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #cbd5e1; color: #334155;">First</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code style="color: #475569;">find<b>First</b>ByStatusOrderByDateDesc(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code>... ORDER BY date DESC LIMIT 1</code></td>
+                    </tr>
+                    <tr style="background-color: #f8fafc;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #334155;">Top N Results</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #cbd5e1; color: #334155;">Top</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #cbd5e1; color: #334155;">Top{N}</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code style="color: #475569;">find<b>Top5</b>ByStatusOrderByScoreDesc(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code>... ORDER BY score DESC LIMIT 5</code></td>
+                    </tr>
+                    <tr style="background-color: #f8fafc;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #334155;">Order Ascending</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #cbd5e1; color: #334155;">OrderBy{Field}Asc</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code style="color: #475569;">findByStatus<b>OrderByNameAsc</b>(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code>... ORDER BY name ASC</code></td>
+                    </tr>
+                    <tr style="background-color: #f8fafc;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #334155;">Order Descending</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #cbd5e1; color: #334155;">OrderBy{Field}Desc</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code style="color: #475569;">findByStatus<b>OrderByDateDesc</b>(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e2e8f0;"><code>... ORDER BY date DESC</code></td>
+                    </tr>
+
+                    <!-- Section Header: SYSTEM OPERATIONS -->
+                    <tr style="background-color: #1f2937;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">⚙️ SYSTEM OPERATIONS</td>
+                    </tr>
+                    <tr style="background-color: #f0f9ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe; font-weight: bold; color: #0369a1;">Count</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bae6fd; color: #0369a1;">countBy</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe;"><code style="color: #0284c7;"><b>countBy</b>Status(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe;"><code>SELECT COUNT(*) WHERE status = ?</code></td>
+                    </tr>
+                    <tr style="background-color: #f0f9ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe; font-weight: bold; color: #0369a1;">Exists Check</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bae6fd; color: #0369a1;">existsBy</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe;"><code style="color: #0284c7;"><b>existsBy</b>Email(String e)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe;"><code>SELECT CASE WHEN COUNT(*) > 0...</code></td>
+                    </tr>
+                    <tr style="background-color: #f0f9ff;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe; font-weight: bold; color: #0369a1;">Delete</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bae6fd; color: #0369a1;">deleteBy</code>, <code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #bae6fd; color: #0369a1;">removeBy</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe;"><code style="color: #0284c7;"><b>deleteBy</b>Status(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #e0f2fe;"><code>DELETE FROM table WHERE status = ?</code></td>
+                    </tr>
+
+                    <!-- Section Header: NESTED / RELATIONSHIP -->
+                    <tr style="background-color: #1f2937;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">🔗 NESTED PROPERTIES (SQL Only - Object Traversal)</td>
+                    </tr>
+                    <tr style="background-color: #fefce8;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3; font-weight: bold; color: #854d0e;">Single Level</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fde047; color: #854d0e;">{Object}_{Field}</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3;"><code style="color: #ca8a04;">findBy<b>Campaign_Id</b>(String id)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3;"><code>JOIN campaign c ... WHERE c.id = ?</code></td>
+                    </tr>
+                    <tr style="background-color: #fefce8;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3; font-weight: bold; color: #854d0e;">Nested Field</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fde047; color: #854d0e;">{Object}_{NestedField}</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3;"><code style="color: #ca8a04;">findBy<b>Campaign_Status</b>(String s)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3;"><code>JOIN campaign c ... WHERE c.status = ?</code></td>
+                    </tr>
+                    <tr style="background-color: #fefce8;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3; font-weight: bold; color: #854d0e;">Deep Nesting (2 levels)</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3;"><code style="background-color: #ffffff; padding: 2px 5px; border-radius: 4px; border: 1px solid #fde047; color: #854d0e;">{Obj1}_{Obj2}_{Field}</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3;"><code style="color: #ca8a04;">findBy<b>Offer_Campaign_Id</b>(String id)</code></td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fef9c3;"><code>JOIN offer o JOIN campaign c ... WHERE c.id = ?</code></td>
+                    </tr>
+
+                    <!-- Section Header: CANNOT DO -->
+                    <tr style="background-color: #7f1d1d;">
+                    <td colspan="4" style="padding: 10px 18px; color: #ffffff; font-weight: bold; font-size: 0.9em;">❌ CANNOT DO (Need @Query)</td>
+                    </tr>
+                    <tr style="background-color: #fef2f2;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; font-weight: bold; color: #991b1b;">Aggregations</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #991b1b;">SUM, AVG, MAX, MIN, COUNT with GROUP BY</td>
+                    <td colspan="2" style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #7f1d1d;">Use <code>@Query("SELECT SUM(amount) FROM ...")</code></td>
+                    </tr>
+                    <tr style="background-color: #fef2f2;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; font-weight: bold; color: #991b1b;">Grouping</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #991b1b;">GROUP BY, HAVING</td>
+                    <td colspan="2" style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #7f1d1d;">Use <code>@Query("... GROUP BY ... HAVING ...")</code></td>
+                    </tr>
+                    <tr style="background-color: #fef2f2;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; font-weight: bold; color: #991b1b;">Subqueries</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #991b1b;">Nested SELECT statements</td>
+                    <td colspan="2" style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #7f1d1d;">Use <code>@Query("... WHERE id IN (SELECT ...)")</code></td>
+                    </tr>
+                    <tr style="background-color: #fef2f2;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; font-weight: bold; color: #991b1b;">DTO Projections</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #991b1b;">SELECT new DTO(...)</td>
+                    <td colspan="2" style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #7f1d1d;">Use <code>@Query("SELECT new StatsDTO(c.id, SUM(...))")</code></td>
+                    </tr>
+                    <tr style="background-color: #fef2f2;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; font-weight: bold; color: #991b1b;">Calculations</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #991b1b;">Arithmetic: amount * quantity</td>
+                    <td colspan="2" style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #7f1d1d;">Use <code>@Query("SELECT amount * quantity FROM ...")</code></td>
+                    </tr>
+                    <tr style="background-color: #fef2f2;">
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; font-weight: bold; color: #991b1b;">UNION</td>
+                    <td style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #991b1b;">Combine multiple queries</td>
+                    <td colspan="2" style="padding: 12px 18px; border-bottom: 1px solid #fecaca; color: #7f1d1d;">Use native query with <code>@Query(nativeQuery=true)</code></td>
+                    </tr>
+                    <tr style="background-color: #fef2f2;">
+                    <td style="padding: 12px 18px; font-weight: bold; color: #991b1b;">SQL Functions</td>
+                    <td style="padding: 12px 18px; color: #991b1b;">DATE_FORMAT, CONCAT, COALESCE, etc.</td>
+                    <td colspan="2" style="padding: 12px 18px; color: #7f1d1d;">Use <code>@Query</code> with native SQL or JPQL functions</td>
+                    </tr>
+                </tbody>
+                </table>                
+            </div>
+
+            <div class="card-body">
+                <div style="display: flex; gap: 20px;">
+                    <!-- SQL Column -->
+                    <div style="flex: 1;">
+                        <b style="color:#4caf50; font-size: 14px;">SQL (JPA Repository)</b>
+<pre class="sql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════
+ *  JPA Repository - Uses Object References
+ *  - Underscore (_) traverses into related objects
+ *  ═══════════════════════════════════════════════ */</span>
+
+
+
+
+<span class="hl-comment">/* ═══════════════════════════════════════════════
+ *              CAMPAIGN REPOSITORY
+ * ═══════════════════════════════════════════════ */</span>
 <span class="hl-keyword">@Repository</span>
 <span class="hl-keyword">public interface</span> <span class="hl-type">CampaignRepository</span> 
     <span class="hl-keyword">extends</span> <span class="hl-type">JpaRepository</span>&lt;<span class="hl-type">Campaign</span>, <span class="hl-type">String</span>&gt; {
 
-  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
-   *  Built-in methods from JpaRepository:
-   *  - findAll()     → SELECT * FROM campaign
-   *  - findById(id)  → SELECT * FROM campaign WHERE id = ?
-   *  - save(entity)  → INSERT or UPDATE
-   *  - delete(id)    → DELETE FROM campaign WHERE id = ?
-   *  ═══════════════════════════════════════════════════════════ */</span>
-  
-  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
-   *  Derived Query - JPA generates SQL from method name
-   *  - findByStatus("ACTIVE") 
-   *  - Generates: SELECT * FROM campaign WHERE status = 'ACTIVE'
-   *  ═══════════════════════════════════════════════════════════ */</span>
+  <span class="hl-comment">/** Built-in: findAll(), findById(), save(), delete() */</span>
+
+  <span class="hl-comment">/** Derived Queries - Same for SQL & NoSQL */</span>
   <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByStatus(<span class="hl-type">String</span> status);
-  
-  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
-   *  Custom JPQL Query (optional)
-   *  - Use @Query when derived query is complex
-   *  ═══════════════════════════════════════════════════════════ */</span>
-  <span class="hl-keyword">@Query</span>(<span class="hl-string">"SELECT c FROM Campaign c 
-         WHERE c.status = :status 
-         AND c.startDate >= :date"</span>)
-  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findActiveAfterDate(
-    <span class="hl-keyword">@Param</span>(<span class="hl-string">"status"</span>) <span class="hl-type">String</span> status,
-    <span class="hl-keyword">@Param</span>(<span class="hl-string">"date"</span>) <span class="hl-type">LocalDate</span> date);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByStatusAndName(<span class="hl-type">String</span> s, <span class="hl-type">String</span> n);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByStatusOrName(<span class="hl-type">String</span> s, <span class="hl-type">String</span> n);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByStatusOrderByStartDateDesc(<span class="hl-type">String</span> s);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByStartDateBetween(<span class="hl-type">LocalDate</span> f, <span class="hl-type">LocalDate</span> t);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByEndDateGreaterThan(<span class="hl-type">LocalDate</span> d);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByEndDateLessThanEqual(<span class="hl-type">LocalDate</span> d);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByNameContaining(<span class="hl-type">String</span> keyword);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByNameStartingWith(<span class="hl-type">String</span> prefix);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByNameEndingWith(<span class="hl-type">String</span> suffix);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByStatusIn(<span class="hl-type">List</span>&lt;<span class="hl-type">String</span>&gt; statuses);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByEndDateIsNull();
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByEndDateIsNotNull();
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findTop5ByStatusOrderByStartDateDesc(<span class="hl-type">String</span> s);
+  <span class="hl-type">Campaign</span> findFirstByStatusOrderByStartDateAsc(<span class="hl-type">String</span> s);
+  <span class="hl-keyword">long</span> countByStatus(<span class="hl-type">String</span> status);
+  <span class="hl-keyword">boolean</span> existsByName(<span class="hl-type">String</span> name);
+  <span class="hl-keyword">void</span> deleteByStatus(<span class="hl-type">String</span> status);
+}
+
+
+
+
+<span class="hl-comment">/* ═══════════════════════════════════════════════
+ *              OFFER REPOSITORY
+ * ═══════════════════════════════════════════════ */</span>
+<span class="hl-keyword">@Repository</span>
+<span class="hl-keyword">public interface</span> <span class="hl-type">OfferRepository</span> 
+    <span class="hl-keyword">extends</span> <span class="hl-type">JpaRepository</span>&lt;<span class="hl-type">Offer</span>, <span class="hl-type">String</span>&gt; {
+
+  <span class="hl-comment">/** Own Field Queries - Same for SQL & NoSQL */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByMerchant(<span class="hl-type">String</span> merchant);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByDiscount(<span class="hl-type">Double</span> discount);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByDiscountGreaterThan(<span class="hl-type">Double</span> min);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByMerchantContaining(<span class="hl-type">String</span> kw);
+
+
+  <span class="hl-comment">/** ⚠️ NESTED - Uses underscore (_) for object traversal
+   *  Entity: private Campaign campaign; (Object)
+   */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByCampaign_Id(<span class="hl-type">String</span> campaignId);
+
+
+
+
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByCampaign_Status(<span class="hl-type">String</span> status);
+
+  <span class="hl-comment">/** Combined: Nested + Own Field */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByCampaign_IdAndDiscountGreaterThan(String id, Double min);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByCampaign_IdAndMerchantContaining(String id, String kw);
+
+
+
+
+
+
+
+
+
+  <span class="hl-comment">/** Complex: Multiple Campaign fields + Own field */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByCampaign_StatusAndCampaign_NameContaining
+      AndMerchantContainingOrderByDiscountDesc(
+      <span class="hl-type">String</span> status, <span class="hl-type">String</span> name, <span class="hl-type">String</span> merchant);
+}
+
+
+
+<span class="hl-comment">/* ═══════════════════════════════════════════════
+ *            REDEMPTION REPOSITORY
+ * ═══════════════════════════════════════════════ */</span>
+<span class="hl-keyword">@Repository</span>
+<span class="hl-keyword">public interface</span> <span class="hl-type">RedemptionRepository</span> 
+    <span class="hl-keyword">extends</span> <span class="hl-type">JpaRepository</span>&lt;<span class="hl-type">Redemption</span>, <span class="hl-type">String</span>&gt; {
+
+  <span class="hl-comment">/** Own Field Queries - Same for SQL & NoSQL */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; findByCustomerId(<span class="hl-type">String</span> custId);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; findByAmount(<span class="hl-type">Double</span> amount);
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; findByAmountGreaterThan(<span class="hl-type">Double</span> min);
+
+
+  <span class="hl-comment">/** ⚠️ NESTED - Single level (Redemption → Offer)
+   *  Entity: private Offer offer; (Object)
+   */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; findByOffer_Id(<span class="hl-type">String</span> offerId);
+
+  <span class="hl-comment">/** Combined: Nested + Own Field */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; findByOffer_IdAndCustomerId(String offerId, String custId);
+  <span class="hl-keyword">long</span> countByOffer_Id(<span class="hl-type">String</span> offerId);
+
+
+
+
+
+  <span class="hl-comment">/** ⚠️ DEEP NESTING - 2 levels (Redemption→Offer→Campaign)
+   *  Traverses: offer.campaign.id / offer.campaign.status
+   */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; findByOffer_Campaign_Id(<span class="hl-type">String</span> campId);
+
+
+
+
+
+
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; findByOffer_Campaign_Status(<span class="hl-type">String</span> s);
+
+
+
+
+
+
+  <span class="hl-keyword">long</span> countByOffer_Campaign_Id(<span class="hl-type">String</span> campaignId);
+
+
+
+
+
+  <span class="hl-comment">/** Custom JPQL - Aggregations (cannot do with derived) */</span>
+  <span class="hl-keyword">@Query</span>(<span class="hl-string">"SELECT new CampaignStats(c.id, c.name,
+           COUNT(r), SUM(r.amount), AVG(r.amount), MAX(r.amount))
+         FROM Campaign c JOIN c.offers o JOIN o.redemptions r
+         WHERE c.status = :status
+         GROUP BY c.id, c.name
+         HAVING COUNT(r) > :minCount
+         ORDER BY SUM(r.amount) DESC"</span>)
+  <span class="hl-type">List</span>&lt;<span class="hl-type">CampaignStats</span>&gt; getCampaignStatsByStatus(
+      <span class="hl-keyword">@Param</span>(<span class="hl-string">"status"</span>) <span class="hl-type">String</span> status,
+      <span class="hl-keyword">@Param</span>(<span class="hl-string">"minCount"</span>) <span class="hl-type">Long</span> minCount);
 }</code></pre>
+                    </div>
+                    
+                    <!-- NoSQL Column -->
+                    <div style="flex: 1;">
+                        <b style="color:#ff9800; font-size: 14px;">NoSQL (Couchbase Repository)</b>
+<pre class="nosql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════
+ *  Couchbase Repository - Uses String FK
+ *  - NO underscore (campaignId is String, not object)
+ *  - Need N1QL JOIN for cross-document queries
+ *  ═══════════════════════════════════════════════ */</span>
 
-                <b style="color:#ff9800;">NoSQL (Couchbase Repository)</b>
-<pre class="nosql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
- *  Couchbase Repository for NoSQL Database
- *  - Extends CouchbaseRepository for built-in CRUD
- *  - Uses N1QL queries with type filter
- *  ═══════════════════════════════════════════════════════════ */</span>
 
+
+<span class="hl-comment">/* ═══════════════════════════════════════════════
+ *              CAMPAIGN REPOSITORY
+ * ═══════════════════════════════════════════════ */</span>
 <span class="hl-keyword">@Repository</span>
 <span class="hl-keyword">public interface</span> <span class="hl-type">CampaignRepository</span> 
     <span class="hl-keyword">extends</span> <span class="hl-type">CouchbaseRepository</span>&lt;<span class="hl-type">Campaign</span>, <span class="hl-type">String</span>&gt; {
 
-  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
-   *  Built-in methods from CouchbaseRepository:
-   *  - findAll()     → SELECT * FROM bucket WHERE type='campaign'
-   *  - findById(id)  → SELECT * FROM bucket USE KEYS ['id']
-   *  - save(entity)  → UPSERT INTO bucket
-   *  - delete(id)    → DELETE FROM bucket USE KEYS ['id']
-   *  ═══════════════════════════════════════════════════════════ */</span>
+  <span class="hl-comment">/** Built-in: findAll(), findById(), save(), delete() */</span>
 
-  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
-   *  N1QL Query with type filter
-   *  - Generates: SELECT * FROM bucket 
-   *               WHERE type = 'campaign' AND status = 'ACTIVE'
-   *  ═══════════════════════════════════════════════════════════ */</span>
-  <span class="hl-keyword">@Query</span>(<span class="hl-string">"#{#n1ql.selectEntity} 
-         WHERE type = 'campaign' 
-         AND status = $1"</span>)
-  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByStatus(<span class="hl-type">String</span> status);
+  <span class="hl-comment">/** ✅ SAME AS SQL - All own field queries work:
+   *  - findByStatus(String status)
+   *  - findByStatusAndName(String s, String n)
+   *  - findByStatusOrName(String s, String n)
+   *  - findByStatusOrderByStartDateDesc(String s)
+   *  - findByStartDateBetween(LocalDate f, LocalDate t)
+   *  - findByEndDateGreaterThan(LocalDate d)
+   *  - findByEndDateLessThanEqual(LocalDate d)
+   *  - findByNameContaining(String keyword)
+   *  - findByNameStartingWith(String prefix)
+   *  - findByNameEndingWith(String suffix)
+   *  - findByStatusIn(List&lt;String&gt; statuses)
+   *  - findByEndDateIsNull()
+   *  - findByEndDateIsNotNull()
+   *  - findTop5ByStatusOrderByStartDateDesc(String s)
+   *  - findFirstByStatusOrderByStartDateAsc(String s)
+   *  - countByStatus(String status)
+   *  - existsByName(String name)
+   *  - deleteByStatus(String status)
+   */</span>
+}
+
+
+
+<span class="hl-comment">/* ═══════════════════════════════════════════════
+ *              OFFER REPOSITORY
+ * ═══════════════════════════════════════════════ */</span>
+<span class="hl-keyword">@Repository</span>
+<span class="hl-keyword">public interface</span> <span class="hl-type">OfferRepository</span> 
+    <span class="hl-keyword">extends</span> <span class="hl-type">CouchbaseRepository</span>&lt;<span class="hl-type">Offer</span>, <span class="hl-type">String</span>&gt; {
+
+  <span class="hl-comment">/** ✅ SAME AS SQL - Own field queries:
+   *  - findByMerchant(String merchant)
+   *  - findByDiscount(Double discount)
+   *  - findByDiscountGreaterThan(Double min)
+   *  - findByMerchantContaining(String kw)
+   */</span>
+
+  <span class="hl-comment">/** ⚠️ DIFFERENT - No underscore (String FK)
+   *  Entity: private String campaignId; (String)
+   */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByCampaignId(<span class="hl-type">String</span> campaignId);
+  <span class="hl-comment">/** ❌ Cannot do findByCampaign_Status - need N1QL */</span>
+  <span class="hl-keyword">@Query</span>(<span class="hl-string">"SELECT o.* FROM offers o JOIN campaign c 
+         ON o.campaignId = c.id WHERE o.type='offer' 
+         AND c.type='campaign' AND c.status = $1"</span>)
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByCampaignStatus(<span class="hl-type">String</span> status);
+
+  <span class="hl-comment">/** ✅ SAME - Combined: FK + Own Field
+   *  - findByCampaignIdAndDiscountGreaterThan(id, min)
+   *  - findByCampaignIdAndMerchantContaining(id, kw)
+   */</span>
+
+
+  <span class="hl-comment">/** ❌ Cannot do complex nested - need N1QL */</span>
+  <span class="hl-keyword">@Query</span>(<span class="hl-string">"SELECT o.* FROM offers o JOIN campaign c 
+         ON o.campaignId = c.id WHERE o.type='offer' 
+         AND c.type='campaign' AND c.status = $1
+         AND CONTAINS(LOWER(c.name), LOWER($2))
+         AND CONTAINS(LOWER(o.merchant), LOWER($3))
+         ORDER BY o.discount DESC"</span>)
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Offer</span>&gt; findByCampaignStatusAndNameAndMerchant(
+      <span class="hl-type">String</span> status, <span class="hl-type">String</span> name, <span class="hl-type">String</span> merchant);
+}
+
+
+
+
+<span class="hl-comment">/* ═══════════════════════════════════════════════
+ *            REDEMPTION REPOSITORY
+ * ═══════════════════════════════════════════════ */</span>
+<span class="hl-keyword">@Repository</span>
+<span class="hl-keyword">public interface</span> <span class="hl-type">RedemptionRepository</span> 
+    <span class="hl-keyword">extends</span> <span class="hl-type">CouchbaseRepository</span>&lt;<span class="hl-type">Redemption</span>, <span class="hl-type">String</span>&gt; {
+
+  <span class="hl-comment">/** ✅ SAME AS SQL - Own field queries:
+   *  - findByCustomerId(String custId)
+   *  - findByAmount(Double amount)
+   *  - findByAmountGreaterThan(Double min)
+   */</span>
+
+  <span class="hl-comment">/** ⚠️ DIFFERENT - No underscore (String FK)
+   *  Entity: private String offerId; (String)
+   */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; findByOfferId(<span class="hl-type">String</span> offerId);
+
+  <span class="hl-comment">/** ✅ SAME - Combined: FK + Own Field
+   *  - findByOfferIdAndCustomerId(offerId, custId)
+   *  - countByOfferId(String offerId)
+   */</span>
+
+  <span class="hl-comment">/** ❌ Cannot do deep nesting - need N1QL JOINs */</span>
+  <span class="hl-keyword">@Query</span>(<span class="hl-string">"SELECT r.* FROM redemption r 
+         JOIN offers o ON r.offerId = o.id
+         JOIN campaign c ON o.campaignId = c.id
+         WHERE r.type='redemption' AND o.type='offer' 
+         AND c.type='campaign' AND c.id = $1"</span>)
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; findByCampaignId(<span class="hl-type">String</span> campId);
+
+  <span class="hl-keyword">@Query</span>(<span class="hl-string">"SELECT r.* FROM redemption r 
+         JOIN offers o ON r.offerId = o.id
+         JOIN campaign c ON o.campaignId = c.id
+         WHERE r.type='redemption' AND o.type='offer' 
+         AND c.type='campaign' AND c.status = $1"</span>)
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Redemption</span>&gt; findByCampaignStatus(<span class="hl-type">String</span> s);
+
+  <span class="hl-keyword">@Query</span>(<span class="hl-string">"SELECT COUNT(r.id) FROM redemption r 
+         JOIN offers o ON r.offerId = o.id
+         JOIN campaign c ON o.campaignId = c.id
+         WHERE r.type='redemption' AND o.type='offer' 
+         AND c.type='campaign' AND c.id = $1"</span>)
+  <span class="hl-keyword">long</span> countByCampaignId(<span class="hl-type">String</span> campaignId);
+
+  <span class="hl-comment">/** N1QL Aggregations - Same logic as SQL JPQL */</span>
+  <span class="hl-keyword">@Query</span>(<span class="hl-string">"SELECT c.id AS campaignId, c.name AS campaignName,
+           COUNT(r.id) AS totalRedemptions,
+           SUM(r.amount) AS totalAmount,
+           AVG(r.amount) AS averageAmount,
+           MAX(r.amount) AS maxAmount
+         FROM redemption r JOIN offers o ON r.offerId=o.id
+         JOIN campaign c ON o.campaignId=c.id
+         WHERE r.type='redemption' AND o.type='offer' 
+         AND c.type='campaign' AND c.status = $1
+         GROUP BY c.id, c.name HAVING COUNT(r.id) > $2
+         ORDER BY SUM(r.amount) DESC"</span>)
+  <span class="hl-type">List</span>&lt;<span class="hl-type">CampaignStats</span>&gt; getCampaignStatsByStatus(
+      <span class="hl-type">String</span> status, <span class="hl-type">Long</span> minCount);
 }</code></pre>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -581,6 +1436,58 @@ spring:
     • <code>@PathVariable</code> - Extract ID from URL path (/{id})<br>
     • <code>@RequestParam</code> - Extract query parameters (?status=ACTIVE)<br>
     • <code>@RequestBody</code> - Parse JSON request body
+</div>
+
+<div class="key-concept-box" style="margin-top:20px;">
+    <b>🔗 SQL vs NoSQL: Underscore (_) Pattern Explained:</b><br><br>
+    
+    <b style="color:#4caf50;">SQL (JPA) - Object Relationships:</b>
+    <table style="width:100%; font-size:12px; border-collapse: collapse; margin:10px 0;">
+        <tr style="background:#e8f5e9;">
+            <th style="padding:8px; text-align:left; border:1px solid #ddd;">Entity Field</th>
+            <th style="padding:8px; text-align:left; border:1px solid #ddd;">Query Method</th>
+            <th style="padding:8px; text-align:left; border:1px solid #ddd;">SQL Generated</th>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;"><code>private Campaign campaign;</code></td>
+            <td style="padding:8px; border:1px solid #ddd;"><code>findByCampaign_Id()</code></td>
+            <td style="padding:8px; border:1px solid #ddd;">JOIN campaign... WHERE c.id = ?</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;"><code>private Campaign campaign;</code></td>
+            <td style="padding:8px; border:1px solid #ddd;"><code>findByCampaign_Status()</code></td>
+            <td style="padding:8px; border:1px solid #ddd;">JOIN campaign... WHERE c.status = ?</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;"><code>private Offer offer;</code></td>
+            <td style="padding:8px; border:1px solid #ddd;"><code>findByOffer_Campaign_Id()</code></td>
+            <td style="padding:8px; border:1px solid #ddd;">JOIN offers JOIN campaign... (2 levels)</td>
+        </tr>
+    </table>
+    
+    <b style="color:#ff9800;">NoSQL (Couchbase) - String FK Only:</b>
+    <table style="width:100%; font-size:12px; border-collapse: collapse; margin:10px 0;">
+        <tr style="background:#fff3e0;">
+            <th style="padding:8px; text-align:left; border:1px solid #ddd;">Entity Field</th>
+            <th style="padding:8px; text-align:left; border:1px solid #ddd;">Query Method</th>
+            <th style="padding:8px; text-align:left; border:1px solid #ddd;">Notes</th>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;"><code>private String campaignId;</code></td>
+            <td style="padding:8px; border:1px solid #ddd;"><code>findByCampaignId()</code></td>
+            <td style="padding:8px; border:1px solid #ddd;">✅ No underscore - simple String field</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;"><code>private String campaignId;</code></td>
+            <td style="padding:8px; border:1px solid #ddd;"><code>findByCampaign_Status()</code></td>
+            <td style="padding:8px; border:1px solid #ddd;">❌ CANNOT DO - no object to traverse</td>
+        </tr>
+        <tr>
+            <td style="padding:8px; border:1px solid #ddd;">Need Campaign.status?</td>
+            <td style="padding:8px; border:1px solid #ddd;"><code>@Query("N1QL JOIN...")</code></td>
+            <td style="padding:8px; border:1px solid #ddd;">✅ Use explicit N1QL query</td>
+        </tr>
+    </table>
 </div>
 
 </body>
