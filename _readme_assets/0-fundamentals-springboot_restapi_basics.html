@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot - Project Layers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .header {
+            background: #1a1a2e;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: visible;
+        }
+        .card-header {
+            padding: 12px 15px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .bg-gradle { background: linear-gradient(135deg, #3f51b5, #303f9f); }
+        .bg-config { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
+        .bg-postman { background: linear-gradient(135deg, #ff6c37, #e85a2a); }
+        .bg-controller { background: linear-gradient(135deg, #ff9800, #f57c00); }
+        .bg-service { background: linear-gradient(135deg, #4caf50, #388e3c); }
+        .bg-repo { background: linear-gradient(135deg, #2196f3, #1976d2); }
+        
+        pre {
+            background: #263238;
+            color: #aed581;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: pre;
+            margin: 10px 0;
+        }
+        pre.sql-code { border-left: 4px solid #4caf50; }
+        pre.nosql-code { border-left: 4px solid #ff9800; }
+        pre.java-code { border-left: 4px solid #e91e63; }
+        
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        .hl-keyword { color: #c792ea; }
+        .hl-function { color: #82aaff; }
+        .hl-string { color: #c3e88d; }
+        .hl-comment { color: #546e7a; font-style: italic; }
+        .hl-number { color: #f78c6c; }
+        .hl-type { color: #ffcb6b; }
+        
+        .flow-container {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            padding: 20px 0;
+            min-width: max-content;
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            color: #4caf50;
+            padding: 0 5px;
+        }
+        .layer-box {
+            flex: 1;
+            min-width: 200px;
+        }
+        .layer-box .card {
+            height: 100%;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .badge-sql { background: #c8e6c9; color: #2e7d32; }
+        .badge-nosql { background: #ffe0b2; color: #e65100; }
+        
+        .key-concept-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+            border-radius: 0 6px 6px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">🛠️ SPRING BOOT - Project Layers</div>
+
+<div class="key-concept-box">
+    <b>📋 Request Flow:</b> POSTMAN → Controller → Service → Repository → Database<br>
+    <b>📋 Response Flow:</b> Database → Repository → Service → Controller → POSTMAN<br>
+    <b>📋 Setup Flow:</b> build.gradle → Configuration → All Layers
+</div>
+
+<div style="text-align: center; padding: 15px; font-size: 16px; color: #4caf50; font-weight: bold;">
+    ← Request Flow Direction →
+</div>
+
+<div class="flow-container">
+    <!-- POSTMAN -->
+    <div class="layer-box" style="min-width:420px;">
+        <div class="card">
+            <div class="card-header bg-postman">📮 POSTMAN - API Testing</div>
+            <div class="card-body">
+<pre class="java-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  GET All Campaigns
+ *  ═══════════════════════════════════════════════════════════ */</span>
+<span class="hl-keyword">GET</span> http://localhost:8080/api/v1/campaigns
+
+<span class="hl-comment">/** Response: */</span>
+[
+  { <span class="hl-string">"id"</span>: <span class="hl-string">"C001"</span>, <span class="hl-string">"name"</span>: <span class="hl-string">"Summer Sale"</span>, <span class="hl-string">"status"</span>: <span class="hl-string">"ACTIVE"</span> },
+  { <span class="hl-string">"id"</span>: <span class="hl-string">"C002"</span>, <span class="hl-string">"name"</span>: <span class="hl-string">"Holiday Promo"</span>, <span class="hl-string">"status"</span>: <span class="hl-string">"DRAFT"</span> }
+]
+
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  GET Campaign by ID
+ *  ═══════════════════════════════════════════════════════════ */</span>
+<span class="hl-keyword">GET</span> http://localhost:8080/api/v1/campaigns/C001
+
+<span class="hl-comment">/** Response: */</span>
+{ <span class="hl-string">"id"</span>: <span class="hl-string">"C001"</span>, <span class="hl-string">"name"</span>: <span class="hl-string">"Summer Sale"</span>, <span class="hl-string">"status"</span>: <span class="hl-string">"ACTIVE"</span> }
+
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  GET Campaigns by Status (RequestParam)
+ *  ═══════════════════════════════════════════════════════════ */</span>
+<span class="hl-keyword">GET</span> http://localhost:8080/api/v1/campaigns?status=ACTIVE
+
+<span class="hl-comment">/** Response: */</span>
+[
+  { <span class="hl-string">"id"</span>: <span class="hl-string">"C001"</span>, <span class="hl-string">"name"</span>: <span class="hl-string">"Summer Sale"</span>, <span class="hl-string">"status"</span>: <span class="hl-string">"ACTIVE"</span> }
+]
+
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  POST Create Campaign
+ *  ═══════════════════════════════════════════════════════════ */</span>
+<span class="hl-keyword">POST</span> http://localhost:8080/api/v1/campaigns
+<span class="hl-keyword">Content-Type:</span> application/json
+
+<span class="hl-comment">/** Request Body: */</span>
+{
+  <span class="hl-string">"name"</span>: <span class="hl-string">"Black Friday"</span>,
+  <span class="hl-string">"status"</span>: <span class="hl-string">"DRAFT"</span>,
+  <span class="hl-string">"startDate"</span>: <span class="hl-string">"2024-11-29"</span>,
+  <span class="hl-string">"endDate"</span>: <span class="hl-string">"2024-12-02"</span>
+}
+
+<span class="hl-comment">/** Response: 201 Created */</span>
+{ <span class="hl-string">"id"</span>: <span class="hl-string">"C003"</span>, <span class="hl-string">"name"</span>: <span class="hl-string">"Black Friday"</span>, <span class="hl-string">"status"</span>: <span class="hl-string">"DRAFT"</span> }
+
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  PUT Update Campaign
+ *  ═══════════════════════════════════════════════════════════ */</span>
+<span class="hl-keyword">PUT</span> http://localhost:8080/api/v1/campaigns/C003
+<span class="hl-keyword">Content-Type:</span> application/json
+
+<span class="hl-comment">/** Request Body: */</span>
+{
+  <span class="hl-string">"name"</span>: <span class="hl-string">"Black Friday Sale"</span>,
+  <span class="hl-string">"status"</span>: <span class="hl-string">"ACTIVE"</span>,
+  <span class="hl-string">"startDate"</span>: <span class="hl-string">"2024-11-29"</span>,
+  <span class="hl-string">"endDate"</span>: <span class="hl-string">"2024-12-02"</span>
+}
+
+<span class="hl-comment">/** Response: 200 OK */</span>
+{ <span class="hl-string">"id"</span>: <span class="hl-string">"C003"</span>, <span class="hl-string">"name"</span>: <span class="hl-string">"Black Friday Sale"</span>, <span class="hl-string">"status"</span>: <span class="hl-string">"ACTIVE"</span> }</code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flow-arrow">→</div>
+    
+    <!-- build.gradle -->
+    <div class="layer-box">
+        <div class="card">
+            <div class="card-header bg-gradle">🛠️ build.gradle</div>
+            <div class="card-body">
+<pre class="sql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Database Dependencies Only
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+dependencies {
+  <span class="hl-comment">/** SQL Database (JPA + MySQL) */</span>
+  implementation <span class="hl-string">'org.springframework.boot:spring-boot-starter-data-jpa'</span>
+  runtimeOnly <span class="hl-string">'mysql:mysql-connector-java:8.0.33'</span>
+  
+  <span class="hl-comment">/** NoSQL Database (Couchbase) */</span>
+  implementation <span class="hl-string">'org.springframework.boot:spring-boot-starter-data-couchbase'</span>
+  
+}</code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flow-arrow">→</div>
+    
+    <!-- Configuration -->
+    <div class="layer-box" style="min-width:380px;">
+        <div class="card">
+            <div class="card-header bg-config">⚙️ Configuration</div>
+            <div class="card-body">
+<pre class="java-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Application.java - Main Entry Point
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">@SpringBootApplication</span>
+<span class="hl-keyword">@EnableCaching</span>
+<span class="hl-keyword">public class</span> <span class="hl-type">Application</span> {
+  <span class="hl-keyword">public static void</span> main(<span class="hl-type">String</span>[] args) {
+    <span class="hl-type">SpringApplication</span>.run(<span class="hl-type">Application</span>.class, args);
+  }
+}
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  CouchbaseConfig.java - NoSQL Database Configuration
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">@Configuration</span>
+<span class="hl-keyword">@EnableCouchbaseRepositories</span>(
+  basePackages = <span class="hl-string">"com.example.repository"</span>
+)
+<span class="hl-keyword">public class</span> <span class="hl-type">CouchbaseConfig</span> 
+    <span class="hl-keyword">extends</span> <span class="hl-type">AbstractCouchbaseConfiguration</span> {
+
+  <span class="hl-keyword">@Value</span>(<span class="hl-string">"${spring.couchbase.connection-string}"</span>)
+  <span class="hl-keyword">private</span> <span class="hl-type">String</span> connectionString;
+
+  <span class="hl-keyword">@Value</span>(<span class="hl-string">"${spring.couchbase.username}"</span>)
+  <span class="hl-keyword">private</span> <span class="hl-type">String</span> username;
+
+  <span class="hl-keyword">@Value</span>(<span class="hl-string">"${spring.couchbase.password}"</span>)
+  <span class="hl-keyword">private</span> <span class="hl-type">String</span> password;
+
+  <span class="hl-keyword">@Value</span>(<span class="hl-string">"${spring.couchbase.bucket.name}"</span>)
+  <span class="hl-keyword">private</span> <span class="hl-type">String</span> bucketName;
+
+  <span class="hl-keyword">@Override</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">String</span> getConnectionString() {
+    <span class="hl-keyword">return</span> connectionString;
+  }
+
+  <span class="hl-keyword">@Override</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">String</span> getUserName() {
+    <span class="hl-keyword">return</span> username;
+  }
+
+  <span class="hl-keyword">@Override</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">String</span> getPassword() {
+    <span class="hl-keyword">return</span> password;
+  }
+
+  <span class="hl-keyword">@Override</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">String</span> getBucketName() {
+    <span class="hl-keyword">return</span> bucketName;
+  }
+}
+
+<span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  application.yml - Properties
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-comment"># SQL Database (JPA + MySQL)</span>
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/campaign_db
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+<span class="hl-comment"># NoSQL Database (Couchbase)</span>
+  couchbase:
+    connection-string: localhost
+    username: ${CB_USERNAME}
+    password: ${CB_PASSWORD}
+    bucket:
+      name: campaign-bucket</code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flow-arrow">→</div>
+    
+    <!-- Controller -->
+    <div class="layer-box" style="min-width:350px;">
+        <div class="card">
+            <div class="card-header bg-controller">🎯 REST Controller</div>
+            <div class="card-body">
+<pre class="java-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  REST Controller Layer
+ *  - Handles HTTP requests
+ *  - Returns ResponseEntity for HTTP status control
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">@RestController</span>
+<span class="hl-keyword">@RequestMapping</span>(<span class="hl-string">"/api/v1/campaigns"</span>)
+<span class="hl-keyword">@RequiredArgsConstructor</span>
+<span class="hl-keyword">public class</span> <span class="hl-type">CampaignController</span> {
+
+  <span class="hl-keyword">private final</span> <span class="hl-type">CampaignService</span> service;
+  
+  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+   *  GET All Campaigns
+   *  - Returns: 200 OK with list
+   *  ═══════════════════════════════════════════════════════════ */</span>
+  <span class="hl-keyword">@GetMapping</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">ResponseEntity</span>&lt;<span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt;&gt; getAllCampaigns() {
+    <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; campaigns = service.findAll();
+    <span class="hl-keyword">return</span> <span class="hl-type">ResponseEntity</span>.ok(campaigns);
+  }
+  
+  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+   *  GET Campaign by ID (PathVariable)
+   *  - @PathVariable: extracts {id} from URL path
+   *  - Returns: 200 OK or 404 NOT_FOUND
+   *  ═══════════════════════════════════════════════════════════ */</span>
+  <span class="hl-keyword">@GetMapping</span>(<span class="hl-string">"/{id}"</span>)
+  <span class="hl-keyword">public</span> <span class="hl-type">ResponseEntity</span>&lt;<span class="hl-type">Campaign</span>&gt; getCampaignById(
+      <span class="hl-keyword">@PathVariable</span> <span class="hl-type">String</span> id) {
+    <span class="hl-type">Campaign</span> campaign = service.findById(id);
+    <span class="hl-keyword">return</span> <span class="hl-type">ResponseEntity</span>.ok(campaign);
+  }
+  
+  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+   *  GET Campaigns by Status (RequestParam)
+   *  - @RequestParam: extracts ?status=ACTIVE from query string
+   *  - Example: /api/v1/campaigns?status=ACTIVE
+   *  ═══════════════════════════════════════════════════════════ */</span>
+  <span class="hl-keyword">@GetMapping</span>(params = <span class="hl-string">"status"</span>)
+  <span class="hl-keyword">public</span> <span class="hl-type">ResponseEntity</span>&lt;<span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt;&gt; getCampaignsByStatus(
+      <span class="hl-keyword">@RequestParam</span> <span class="hl-type">String</span> status) {
+    <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; campaigns = service.findByStatus(status);
+    <span class="hl-keyword">return</span> <span class="hl-type">ResponseEntity</span>.ok(campaigns);
+  }
+  
+  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+   *  POST Create Campaign
+   *  - @RequestBody: parses JSON body into object
+   *  - Returns: 201 CREATED with created entity
+   *  ═══════════════════════════════════════════════════════════ */</span>
+  <span class="hl-keyword">@PostMapping</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">ResponseEntity</span>&lt;<span class="hl-type">Campaign</span>&gt; createCampaign(
+      <span class="hl-keyword">@RequestBody</span> <span class="hl-type">Campaign</span> request) {
+    <span class="hl-type">Campaign</span> created = service.create(request);
+    <span class="hl-keyword">return</span> <span class="hl-type">ResponseEntity</span>
+      .status(<span class="hl-type">HttpStatus</span>.CREATED)
+      .body(created);
+  }
+  
+  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+   *  PUT Update Campaign
+   *  - @PathVariable: extracts {id} from URL
+   *  - @RequestBody: parses JSON body
+   *  - Returns: 200 OK with updated entity
+   *  ═══════════════════════════════════════════════════════════ */</span>
+  <span class="hl-keyword">@PutMapping</span>(<span class="hl-string">"/{id}"</span>)
+  <span class="hl-keyword">public</span> <span class="hl-type">ResponseEntity</span>&lt;<span class="hl-type">Campaign</span>&gt; updateCampaign(
+      <span class="hl-keyword">@PathVariable</span> <span class="hl-type">String</span> id,
+      <span class="hl-keyword">@RequestBody</span> <span class="hl-type">Campaign</span> request) {
+    <span class="hl-type">Campaign</span> updated = service.update(id, request);
+    <span class="hl-keyword">return</span> <span class="hl-type">ResponseEntity</span>.ok(updated);
+  }
+}</code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flow-arrow">→</div>
+    
+    <!-- Service -->
+    <div class="layer-box" style="min-width:300px;">
+        <div class="card">
+            <div class="card-header bg-service">⚙️ Service Layer</div>
+            <div class="card-body">
+<pre class="java-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Service Layer
+ *  - Business logic
+ *  - Calls repository for data access
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">@Service</span>
+<span class="hl-keyword">@RequiredArgsConstructor</span>
+<span class="hl-keyword">public class</span> <span class="hl-type">CampaignService</span> {
+
+  <span class="hl-keyword">private final</span> <span class="hl-type">CampaignRepository</span> repository;
+  
+  <span class="hl-comment">/** GET All - calls repository.findAll() */</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findAll() {
+    <span class="hl-keyword">return</span> repository.findAll();
+  }
+  
+  <span class="hl-comment">/** GET by ID - calls repository.findById() */</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">Campaign</span> findById(<span class="hl-type">String</span> id) {
+    <span class="hl-keyword">return</span> repository.findById(id)
+      .orElseThrow(() -> <span class="hl-keyword">new</span> <span class="hl-type">RuntimeException</span>(
+        <span class="hl-string">"Campaign not found: "</span> + id));
+  }
+  
+  <span class="hl-comment">/** GET by Status - calls repository.findByStatus() */</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByStatus(<span class="hl-type">String</span> status) {
+    <span class="hl-keyword">return</span> repository.findByStatus(status);
+  }
+  
+  <span class="hl-comment">/** POST Create - calls repository.save() */</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">Campaign</span> create(<span class="hl-type">Campaign</span> request) {
+    <span class="hl-type">Campaign</span> campaign = <span class="hl-type">Campaign</span>.builder()
+      .id(generateId())
+      .name(request.getName())
+      .status(request.getStatus())
+      .startDate(request.getStartDate())
+      .endDate(request.getEndDate())
+      .build();
+      
+    <span class="hl-keyword">return</span> repository.save(campaign);
+  }
+  
+  <span class="hl-comment">/** PUT Update - calls repository.save() */</span>
+  <span class="hl-keyword">public</span> <span class="hl-type">Campaign</span> update(<span class="hl-type">String</span> id, <span class="hl-type">Campaign</span> request) {
+    <span class="hl-comment">/** 1. Fetch existing or throw exception */</span>
+    <span class="hl-type">Campaign</span> existing = findById(id);
+    
+    <span class="hl-comment">/** 2. Update fields */</span>
+    existing.setName(request.getName());
+    existing.setStatus(request.getStatus());
+    existing.setStartDate(request.getStartDate());
+    existing.setEndDate(request.getEndDate());
+    
+    <span class="hl-comment">/** 3. Save and return */</span>
+    <span class="hl-keyword">return</span> repository.save(existing);
+  }
+  
+  <span class="hl-keyword">private</span> <span class="hl-type">String</span> generateId() {
+    <span class="hl-keyword">return</span> <span class="hl-string">"C"</span> + <span class="hl-type">System</span>.currentTimeMillis();
+  }
+}</code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flow-arrow">→</div>
+    
+    <!-- Repository -->
+    <div class="layer-box" style="min-width: 340px;">
+        <div class="card">
+            <div class="card-header bg-repo">📦 Repository Layer</div>
+            <div class="card-body">
+                <b style="color:#4caf50;">SQL (JPA Repository)</b>
+<pre class="sql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  JPA Repository for SQL Database
+ *  - Extends JpaRepository for built-in CRUD operations
+ *  - Derived queries from method names
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">@Repository</span>
+<span class="hl-keyword">public interface</span> <span class="hl-type">CampaignRepository</span> 
+    <span class="hl-keyword">extends</span> <span class="hl-type">JpaRepository</span>&lt;<span class="hl-type">Campaign</span>, <span class="hl-type">String</span>&gt; {
+
+  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+   *  Built-in methods from JpaRepository:
+   *  - findAll()     → SELECT * FROM campaign
+   *  - findById(id)  → SELECT * FROM campaign WHERE id = ?
+   *  - save(entity)  → INSERT or UPDATE
+   *  - delete(id)    → DELETE FROM campaign WHERE id = ?
+   *  ═══════════════════════════════════════════════════════════ */</span>
+  
+  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+   *  Derived Query - JPA generates SQL from method name
+   *  - findByStatus("ACTIVE") 
+   *  - Generates: SELECT * FROM campaign WHERE status = 'ACTIVE'
+   *  ═══════════════════════════════════════════════════════════ */</span>
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByStatus(<span class="hl-type">String</span> status);
+  
+  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+   *  Custom JPQL Query (optional)
+   *  - Use @Query when derived query is complex
+   *  ═══════════════════════════════════════════════════════════ */</span>
+  <span class="hl-keyword">@Query</span>(<span class="hl-string">"SELECT c FROM Campaign c 
+         WHERE c.status = :status 
+         AND c.startDate >= :date"</span>)
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findActiveAfterDate(
+    <span class="hl-keyword">@Param</span>(<span class="hl-string">"status"</span>) <span class="hl-type">String</span> status,
+    <span class="hl-keyword">@Param</span>(<span class="hl-string">"date"</span>) <span class="hl-type">LocalDate</span> date);
+}</code></pre>
+
+                <b style="color:#ff9800;">NoSQL (Couchbase Repository)</b>
+<pre class="nosql-code"><code><span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+ *  Couchbase Repository for NoSQL Database
+ *  - Extends CouchbaseRepository for built-in CRUD
+ *  - Uses N1QL queries with type filter
+ *  ═══════════════════════════════════════════════════════════ */</span>
+
+<span class="hl-keyword">@Repository</span>
+<span class="hl-keyword">public interface</span> <span class="hl-type">CampaignRepository</span> 
+    <span class="hl-keyword">extends</span> <span class="hl-type">CouchbaseRepository</span>&lt;<span class="hl-type">Campaign</span>, <span class="hl-type">String</span>&gt; {
+
+  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+   *  Built-in methods from CouchbaseRepository:
+   *  - findAll()     → SELECT * FROM bucket WHERE type='campaign'
+   *  - findById(id)  → SELECT * FROM bucket USE KEYS ['id']
+   *  - save(entity)  → UPSERT INTO bucket
+   *  - delete(id)    → DELETE FROM bucket USE KEYS ['id']
+   *  ═══════════════════════════════════════════════════════════ */</span>
+
+  <span class="hl-comment">/** ═══════════════════════════════════════════════════════════
+   *  N1QL Query with type filter
+   *  - Generates: SELECT * FROM bucket 
+   *               WHERE type = 'campaign' AND status = 'ACTIVE'
+   *  ═══════════════════════════════════════════════════════════ */</span>
+  <span class="hl-keyword">@Query</span>(<span class="hl-string">"#{#n1ql.selectEntity} 
+         WHERE type = 'campaign' 
+         AND status = $1"</span>)
+  <span class="hl-type">List</span>&lt;<span class="hl-type">Campaign</span>&gt; findByStatus(<span class="hl-type">String</span> status);
+}</code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flow-arrow">→</div>
+    
+    <!-- Database -->
+    <div class="layer-box" style="min-width: 120px;">
+        <div class="card" style="text-align:center; padding: 30px 20px;">
+            <div style="font-size: 56px;">🗄️</div>
+            <div style="margin-top: 15px;">
+                <div><span class="badge badge-sql">SQL</span></div>
+                <div style="margin-top:3px;">MySQL</div>
+                <div style="margin-top: 15px;"><span class="badge badge-nosql">NoSQL</span></div>
+                <div style="margin-top:3px;">Couchbase</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="key-concept-box" style="margin-top:20px;">
+    <b>✅ REST API Standards Followed:</b><br>
+    • <code>@GetMapping</code> - Read operations (findAll, findById, findByStatus)<br>
+    • <code>@PostMapping</code> - Create operations (save new entity)<br>
+    • <code>@PutMapping</code> - Update operations (update existing entity)<br>
+    • <code>ResponseEntity</code> for HTTP status control (200 OK, 201 CREATED)<br>
+    • <code>@PathVariable</code> - Extract ID from URL path (/{id})<br>
+    • <code>@RequestParam</code> - Extract query parameters (?status=ACTIVE)<br>
+    • <code>@RequestBody</code> - Parse JSON request body
+</div>
+
+</body>
+</html>
