@@ -427,7 +427,7 @@
                 </p>
                 
                 <p class="intro-para">
-                    Eligible cardmembers discover these offers through the Offers Discovery Portal on web and mobile. When a customer enrolls in an offer and makes a qualifying purchase - for example, spending $100 at a restaurant - the Transaction Processing System sends real-time transaction data to our platform. The Transaction Matching Service identifies the match, the Rewards Engine calculates the reward, and the amount is credited to the customer's account.
+                    Eligible cardmembers discover these offers through the Offers Discovery Portal on web and mobile. When a customer enrolls in an offer and makes a qualifying purchase - for example, spending $100 at a restaurant - the Transaction Processing System sends real-time transaction data to the Offers Platform. The Transaction Matching Service identifies the match, the Rewards Engine calculates the reward, and the amount is credited to the customer's account.
                 </p>
                 
                 <p class="intro-para">
@@ -438,34 +438,34 @@
                 <div style="margin-top: 15px; padding: 15px; background: #f7fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
                     <div style="font-size: 12px; font-weight: bold; color: #4a5568; margin-bottom: 12px;">📋 Offer Lifecycle Flow:</div>
                     <div style="display: flex; align-items: stretch; flex-wrap: wrap; gap: 5px; justify-content: center;">
-                        <div style="background: #bee3f8; border: 2px solid #3182ce; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 140px; max-width: 160px;">
+                        <div style="background: #bee3f8; border: 2px solid #3182ce; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 150px; max-width: 170px;">
                             <div style="font-size: 12px; font-weight: bold; color: #2c5282;">Offer Creation</div>
-                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px;">Marketing defines offer terms, targeting rules, and budget limits.</div>
+                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px; line-height: 1.3;">Marketing team creates offers like "10% cashback at Whole Foods" or "3X points on dining". Defines terms, spend thresholds, expiry dates, and budget caps.</div>
                         </div>
                         <div style="font-size: 18px; color: #718096; display: flex; align-items: center;">→</div>
-                        <div style="background: #feebc8; border: 2px solid #dd6b20; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 140px; max-width: 160px;">
+                        <div style="background: #feebc8; border: 2px solid #dd6b20; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 150px; max-width: 170px;">
                             <div style="font-size: 12px; font-weight: bold; color: #c05621;">Offer Review</div>
-                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px;">Compliance and finance teams approve offer before go-live.</div>
+                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px; line-height: 1.3;">Multi-level approval workflow: Legal reviews T&Cs, Finance validates budget, VP gives final sign-off. Automated compliance checks run in parallel.</div>
                         </div>
                         <div style="font-size: 18px; color: #718096; display: flex; align-items: center;">→</div>
-                        <div style="background: #c6f6d5; border: 2px solid #38a169; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 140px; max-width: 160px;">
+                        <div style="background: #c6f6d5; border: 2px solid #38a169; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 150px; max-width: 170px;">
                             <div style="font-size: 12px; font-weight: bold; color: #276749;">Offer Publication</div>
-                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px;">Offer goes live on app/web for eligible cardmembers to view.</div>
+                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px; line-height: 1.3;">Approved offers go live on mobile app and website. Eligibility rules filter which cardmembers see each offer. AI ranks offers by predicted relevance.</div>
                         </div>
                         <div style="font-size: 18px; color: #718096; display: flex; align-items: center;">→</div>
-                        <div style="background: #e9d8fd; border: 2px solid #805ad5; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 140px; max-width: 160px;">
+                        <div style="background: #e9d8fd; border: 2px solid #805ad5; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 150px; max-width: 170px;">
                             <div style="font-size: 12px; font-weight: bold; color: #553c9a;">Enrollment</div>
-                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px;">Customer activates offer with one-click enrollment action.</div>
+                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px; line-height: 1.3;">Customer taps "Add Offer" button to activate. System validates eligibility, creates enrollment record, and sends confirmation notification via push/email.</div>
                         </div>
                         <div style="font-size: 18px; color: #718096; display: flex; align-items: center;">→</div>
-                        <div style="background: #fed7d7; border: 2px solid #e53e3e; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 140px; max-width: 160px;">
+                        <div style="background: #fed7d7; border: 2px solid #e53e3e; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 150px; max-width: 170px;">
                             <div style="font-size: 12px; font-weight: bold; color: #c53030;">Transaction Match</div>
-                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px;">Card purchase at qualifying merchant triggers offer match.</div>
+                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px; line-height: 1.3;">Card purchase triggers real-time matching. Example: $50 at Whole Foods matched against enrolled "10% cashback" offer within 500ms of authorization.</div>
                         </div>
                         <div style="font-size: 18px; color: #718096; display: flex; align-items: center;">→</div>
-                        <div style="background: #fefcbf; border: 2px solid #d69e2e; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 140px; max-width: 160px;">
+                        <div style="background: #fefcbf; border: 2px solid #d69e2e; border-radius: 6px; padding: 10px 12px; text-align: center; min-width: 150px; max-width: 170px;">
                             <div style="font-size: 12px; font-weight: bold; color: #975a16;">Reward Fulfillment</div>
-                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px;">Cashback or points credited to customer account.</div>
+                            <div style="font-size: 12px; color: #4a5568; margin-top: 3px; line-height: 1.3;">Rewards Engine calculates: $50 × 10% = $5 cashback. Credits customer account, updates points ledger, notifies customer, and queues for partner settlement.</div>
                         </div>
                     </div>
                     
@@ -507,7 +507,7 @@
                     
                     <div style="display: flex; align-items: flex-start; justify-content: center; gap: 0;">
                         <!-- LEFT: UPSTREAM (INBOUND + OUTBOUND grouped) -->
-                        <div style="display: flex; flex-direction: column; gap: 0; padding-right: 15px; border-right: 3px dashed #718096;">
+                        <div style="display: flex; flex-direction: column; gap: 0; padding-right: 15px;">
                             
                             <!-- UPSTREAM Container -->
                             <div style="border: 2px solid #4a5568; border-radius: 10px; padding: 12px; background: rgba(237, 242, 247, 0.5);">
@@ -519,7 +519,7 @@
                                         <div class="clickable-box" onclick="openPopup('inbound-popup')" style="border: 2px dashed #38a169; border-radius: 8px; padding: 10px; background: rgba(198, 246, 213, 0.3); min-width: 300px; position: relative;">
                                             <div style="position: absolute; top: 5px; right: 8px; font-size: 12px; color: #276749; background: #c6f6d5; padding: 2px 6px; border-radius: 10px; border: 1px solid #48bb78;">🔗 click to know more</div>
                                             <div style="font-size: 12px; font-weight: bold; color: #276749; margin-bottom: 4px; text-align: center;">⬇️ INBOUND (Data Sources → Platform)</div>
-                                            <div style="font-size: 12px; color: #4a5568; margin-bottom: 8px; text-align: center; line-height: 1.3;">Receives customer, transaction, and merchant data from enterprise and partner systems.</div>
+                                            <div style="font-size: 12px; color: #4a5568; margin-bottom: 8px; text-align: center; line-height: 1.3;">Receives customer profiles from CRM, real-time card transactions from Transaction Processing System, merchant reference data via daily batch files, and partner offer inventory through APIs.</div>
                                             
                                             <!-- Internal Sub-group -->
                                             <div style="border: 1px dashed #a0aec0; border-radius: 6px; padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.5);">
@@ -554,7 +554,7 @@
                                         <div class="clickable-box" onclick="openPopup('outbound-popup')" style="border: 2px dashed #e53e3e; border-radius: 8px; padding: 10px; background: rgba(254, 215, 215, 0.3); min-width: 300px; position: relative;">
                                             <div style="position: absolute; top: 5px; right: 8px; font-size: 12px; color: #c53030; background: #fed7d7; padding: 2px 6px; border-radius: 10px; border: 1px solid #fc8181;">🔗 click to know more</div>
                                             <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 4px; text-align: center;">⬆️ OUTBOUND (Platform → External APIs)</div>
-                                            <div style="font-size: 12px; color: #4a5568; margin-bottom: 8px; text-align: center; line-height: 1.3;">Calls external APIs for fraud checks, credit scores, and real-time validations.</div>
+                                            <div style="font-size: 12px; color: #4a5568; margin-bottom: 8px; text-align: center; line-height: 1.3;">Calls Fraud Detection APIs to validate redemptions, Credit Bureau APIs for eligibility enrichment, Geolocation APIs for location-based offers, and Partner APIs for real-time inventory checks.</div>
                                             
                                             <!-- Internal Sub-group -->
                                             <div style="border: 1px dashed #a0aec0; border-radius: 6px; padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.5);">
@@ -634,12 +634,12 @@
                         <div style="padding-left: 15px; display: flex; align-items: flex-start;">
                             <div style="border: 2px solid #805ad5; border-radius: 10px; padding: 12px; background: rgba(233, 216, 253, 0.3); min-width: 220px;">
                                 <div style="font-size: 12px; font-weight: bold; color: white; margin-bottom: 4px; text-align: center; padding: 5px 10px; background: #805ad5; border-radius: 5px;">⬇️ DOWNSTREAM</div>
-                                <div style="font-size: 12px; color: #553c9a; margin-bottom: 8px; text-align: center; line-height: 1.3;">Pushes processed data to enterprise systems for statements, compliance, and analytics.</div>
+                                <div style="font-size: 12px; color: #553c9a; margin-bottom: 8px; text-align: center; line-height: 1.3;">Publishes processed offer events, reward transactions, and audit logs to enterprise consumers via Kafka topics, REST APIs, and scheduled batch files for reporting and compliance.</div>
                                 
                                 <!-- All Internal - Enterprise Systems -->
                                 <div style="border: 1px dashed #a0aec0; border-radius: 6px; padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.5);">
                                     <div style="font-size: 12px; font-weight: bold; margin-bottom: 6px; padding: 3px 6px; border-radius: 3px; display: inline-block; background: #e9d8fd; color: #553c9a; border: 1px solid #9f7aea;">🏢 Internal (Enterprise Systems)</div>
-                                    <div style="font-size: 12px; color: #718096; margin-bottom: 4px;">Consumes offer events, rewards data, and audit logs.</div>
+                                    <div style="font-size: 12px; color: #718096; margin-bottom: 4px;">Statement System receives reward credits for monthly bills, Finance gets settlement data, Compliance receives full audit trails for regulatory inquiries.</div>
                                     <div>
                                         <span style="display: inline-block; padding: 5px 8px; margin: 2px; border-radius: 4px; font-size: 12px; font-weight: 500; background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a;">Statement System</span>
                                         <span style="display: inline-block; padding: 5px 8px; margin: 2px; border-radius: 4px; font-size: 12px; font-weight: 500; background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a;">Notification Platform</span>
@@ -689,39 +689,39 @@
                                     
                                     <!-- Portal cards in lifecycle flow order -->
                                     <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 3px;">
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">🎁 Offers Discovery</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Browse personalized offers by category, merchant, or reward type. AI-ranked.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Browse personalized offers filtered by category (Dining, Travel), merchant, or reward type. AI ranks offers by predicted redemption likelihood for each customer.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #276749; background: #f0fff4; padding: 3px 6px; border-radius: 8px; border: 1px dashed #9ae6b4; margin-top: auto;">👤 Cardmembers</div>
                                         </div>
                                         <div style="font-size: 14px; color: #a0aec0; display: flex; align-items: center;">→</div>
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">✅ Enrollment Portal</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">One-click offer activation. View terms, conditions, expiry dates.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">One-click activation with "Add Offer" button. Displays offer terms, spending requirements, expiry dates. Confirms enrollment via push notification and email.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #276749; background: #f0fff4; padding: 3px 6px; border-radius: 8px; border: 1px dashed #9ae6b4; margin-top: auto;">👤 Cardmembers</div>
                                         </div>
                                         <div style="font-size: 14px; color: #a0aec0; display: flex; align-items: center;">→</div>
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">📊 Progress Tracker</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Track spend progress. View "$320 of $500" status bars.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Visual spend progress bars showing "$320 of $500 spent". Lists qualifying transactions with dates and amounts. Shows days remaining until offer expires.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #276749; background: #f0fff4; padding: 3px 6px; border-radius: 8px; border: 1px dashed #9ae6b4; margin-top: auto;">👤 Cardmembers</div>
                                         </div>
                                         <div style="font-size: 14px; color: #a0aec0; display: flex; align-items: center;">→</div>
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">🏆 Rewards Portal</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">View cashback, points balance, statement credits, redemption history.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Displays cashback balance, points earned, statement credits applied. Full redemption history with dates and offers. Export to PDF for records.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #276749; background: #f0fff4; padding: 3px 6px; border-radius: 8px; border: 1px dashed #9ae6b4; margin-top: auto;">👤 Cardmembers</div>
                                         </div>
                                         <div style="width: 15px;"></div>
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #ed8936; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #ed8936; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">🏪 Merchant Portal</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">View offer performance, enrollment counts, redemption volumes.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Real-time dashboards showing offer impressions, enrollment counts, redemption volumes, and revenue impact. Filter by store location and date range.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #744210; background: #fffaf0; padding: 3px 6px; border-radius: 8px; border: 1px dashed #fbd38d; margin-top: auto;">🏪 Merchants</div>
                                         </div>
                                         <div style="font-size: 14px; color: #a0aec0; display: flex; align-items: center;">→</div>
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #ed8936; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #ed8936; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">🤝 Partner Portal</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Manage offer inventory, availability windows, settlement reports.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Manage offer inventory and availability windows. View weekly settlement reports with transaction-level breakdowns. Download invoices and reconciliation files.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #744210; background: #fffaf0; padding: 3px 6px; border-radius: 8px; border: 1px dashed #fbd38d; margin-top: auto;">🤝 Partners</div>
                                         </div>
                                     </div>
@@ -739,7 +739,7 @@
                     <div style="display: flex; align-items: stretch; justify-content: flex-start; gap: 0; margin: 15px 0;">
                         
                         <!-- LEFT: Blurred UPSTREAM -->
-                        <div style="border: 2px solid #cbd5e0; border-radius: 10px; padding: 10px; background: rgba(247, 250, 252, 0.8); opacity: 0.45; min-width: 110px;">
+                        <div style="border: 2px solid #cbd5e0; border-radius: 10px; padding: 10px; background: rgba(247, 250, 252, 0.8); opacity: 0.45; min-width: 110px; height: 200px;">
                             <div style="font-size: 12px; font-weight: bold; color: #4a5568; margin-bottom: 8px; text-align: center; padding: 4px 6px; background: #68d391; color: white; border-radius: 5px;">⬆️ UPSTREAM</div>
                             <div style="display: flex; flex-direction: column; gap: 5px;">
                                 <div style="border: 1px dashed #a0aec0; border-radius: 5px; padding: 5px; background: rgba(255,255,255,0.7); text-align: center;">
@@ -752,14 +752,13 @@
                         </div>
                         
                         <!-- Vertical Dotted Line (UPSTREAM to Lifecycle) -->
-                        <div style="width: 25px; display: flex; justify-content: center; align-items: center;">
-                            <div style="height: 80px; border-left: 2px dashed #cbd5e0;"></div>
+                        <div style="width: 25px; display: flex; justify-content: center;">
                         </div>
                         
                         <!-- CENTER: Offer Lifecycle Flow -->
-                        <div style="border: 2px solid #cbd5e0; border-radius: 10px; padding: 12px; background: white; opacity: 0.4; min-width: 580px;">
+                        <div style="border: 2px solid #cbd5e0; border-radius: 10px; padding: 12px; background: white; opacity: 0.4; min-width: 580px; height: 200px;">
                             <div style="font-size: 12px; font-weight: bold; color: #4a5568; margin-bottom: 10px; text-align: center;">📋 Offer Lifecycle Flow </div>
-                            <div style="display: flex; align-items: center; gap: 5px; justify-content: center; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
                                 <div style="background: #edf2f7; border: 1px solid #cbd5e0; border-radius: 5px; padding: 6px 8px; text-align: center; min-width: 70px;">
                                     <div style="font-size: 12px; font-weight: bold; color: #4a5568;">Offer Creation</div>
                                     <div style="font-size: 12px; color: #718096; margin-top: 2px;">Marketing/Admin</div>
@@ -798,7 +797,7 @@
                         </div>
                         
                         <!-- RIGHT: Blurred DOWNSTREAM -->
-                        <div style="border: 2px solid #cbd5e0; border-radius: 10px; padding: 10px; background: rgba(247, 250, 252, 0.8); opacity: 0.45; min-width: 120px;">
+                        <div style="border: 2px solid #cbd5e0; border-radius: 10px; padding: 10px; background: rgba(247, 250, 252, 0.8); opacity: 0.45; min-width: 120px; height: 200px;">
                             <div style="font-size: 12px; font-weight: bold; color: #4a5568; margin-bottom: 8px; text-align: center; padding: 4px 6px; background: #63b3ed; color: white; border-radius: 5px;">⬇️ DOWNSTREAM</div>
                             <div style="border: 1px dashed #a0aec0; border-radius: 5px; padding: 6px; background: rgba(255,255,255,0.7); text-align: center;">
                                 <div style="font-size: 12px; color: #718096;">Enterprise Systems</div>
@@ -806,7 +805,7 @@
                         </div>
                         
                         <!-- Spacer between DOWNSTREAM and UI Backend (no arrow) -->
-                        <div style="flex-grow: 1; min-width: 40px;"></div>
+                        <div style="flex-grow: 0.8; min-width: 40px;"></div>
                         
                         <!-- EXTREME RIGHT: UI Backend Services (Node.js) - Separate from flow -->
                         <div style="border: 2px dashed #e53e3e; border-radius: 10px; padding: 12px; background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%); min-width: 320px; max-width: 360px;">
@@ -823,27 +822,27 @@
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 4px;">
                                     <div style="background: white; border: 1px solid #9ae6b4; border-left: 3px solid #38a169; border-radius: 4px; padding: 3px 5px; font-size: 12px;">
                                         <strong style="color: #276749;">🎁 Offer Catalog</strong>
-                                        <div style="color: #718096; font-size: 12px;">Discovery + Search + Filter</div>
+                                        <div style="color: #718096; font-size: 12px;">Aggregates offers from microservices, applies personalization, returns paginated results with filters.</div>
                                     </div>
                                     <div style="background: white; border: 1px solid #9ae6b4; border-left: 3px solid #38a169; border-radius: 4px; padding: 3px 5px; font-size: 12px;">
                                         <strong style="color: #276749;">✅ Enrollment</strong>
-                                        <div style="color: #718096; font-size: 12px;">Activate + Terms + Notify</div>
+                                        <div style="color: #718096; font-size: 12px;">Validates eligibility, creates enrollment record, triggers confirmation notification to customer.</div>
                                     </div>
                                     <div style="background: white; border: 1px solid #9ae6b4; border-left: 3px solid #38a169; border-radius: 4px; padding: 3px 5px; font-size: 12px;">
                                         <strong style="color: #276749;">📊 Progress</strong>
-                                        <div style="color: #718096; font-size: 12px;">Spend Tracking + Status</div>
+                                        <div style="color: #718096; font-size: 12px;">Calculates spend progress from transactions, returns status bars and remaining amounts.</div>
                                     </div>
                                     <div style="background: white; border: 1px solid #9ae6b4; border-left: 3px solid #38a169; border-radius: 4px; padding: 3px 5px; font-size: 12px;">
                                         <strong style="color: #276749;">🏆 Rewards</strong>
-                                        <div style="color: #718096; font-size: 12px;">Balance + History + Export</div>
+                                        <div style="color: #718096; font-size: 12px;">Fetches points balance, cashback history, pending credits. Supports PDF export for statements.</div>
                                     </div>
                                     <div style="background: white; border: 1px solid #fbd38d; border-left: 3px solid #ed8936; border-radius: 4px; padding: 3px 5px; font-size: 12px;">
                                         <strong style="color: #c05621;">🏪 Merchant</strong>
-                                        <div style="color: #718096; font-size: 12px;">Performance + Analytics</div>
+                                        <div style="color: #718096; font-size: 12px;">Merchant dashboard APIs: offer impressions, enrollments, redemptions, revenue by location.</div>
                                     </div>
                                     <div style="background: white; border: 1px solid #fbd38d; border-left: 3px solid #ed8936; border-radius: 4px; padding: 3px 5px; font-size: 12px;">
                                         <strong style="color: #c05621;">🤝 Partner</strong>
-                                        <div style="color: #718096; font-size: 12px;">Inventory + Settlements</div>
+                                        <div style="color: #718096; font-size: 12px;">Partner APIs for offer inventory updates, availability windows, settlement reports download.</div>
                                     </div>
                                 </div>
                             </div>
@@ -854,19 +853,19 @@
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 4px;">
                                     <div style="background: white; border: 1px solid #90cdf4; border-left: 3px solid #4299e1; border-radius: 4px; padding: 3px 5px; font-size: 12px;">
                                         <strong style="color: #2b6cb0;">📊 Campaign Admin</strong>
-                                        <div style="color: #718096; font-size: 12px;">Create + Edit + Budget</div>
+                                        <div style="color: #718096; font-size: 12px;">CRUD operations for campaigns and offers. Budget allocation, targeting rules, scheduling.</div>
                                     </div>
                                     <div style="background: white; border: 1px solid #90cdf4; border-left: 3px solid #4299e1; border-radius: 4px; padding: 3px 5px; font-size: 12px;">
                                         <strong style="color: #2b6cb0;">✅ Approval Queue</strong>
-                                        <div style="color: #718096; font-size: 12px;">Review + Approve + Reject</div>
+                                        <div style="color: #718096; font-size: 12px;">Workflow APIs for approval stages: pending items, approve/reject actions, comments.</div>
                                     </div>
                                     <div style="background: white; border: 1px solid #90cdf4; border-left: 3px solid #4299e1; border-radius: 4px; padding: 3px 5px; font-size: 12px;">
                                         <strong style="color: #2b6cb0;">📈 Analytics</strong>
-                                        <div style="color: #718096; font-size: 12px;">KPIs + Reports + A/B</div>
+                                        <div style="color: #718096; font-size: 12px;">KPI aggregations, time-series data for charts, A/B test results, segment comparisons.</div>
                                     </div>
                                     <div style="background: white; border: 1px solid #90cdf4; border-left: 3px solid #4299e1; border-radius: 4px; padding: 3px 5px; font-size: 12px;">
                                         <strong style="color: #2b6cb0;">🎧 Support</strong>
-                                        <div style="color: #718096; font-size: 12px;">Lookup + Disputes + Fixes</div>
+                                        <div style="color: #718096; font-size: 12px;">Customer lookup, offer history, transaction trace. Manual credit and dispute resolution.</div>
                                     </div>
                                 </div>
                             </div>
@@ -898,39 +897,39 @@
                                     
                                     <!-- Portal cards in lifecycle flow order -->
                                     <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 3px;">
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">🤝 Partner Mgmt</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Onboard partners, manage contracts, commission rates.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Onboard new partners like Starbucks or Amazon. Manage contracts, commission rates (e.g., 2% per redemption), API credentials, and SLA terms.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #2b6cb0; background: #ebf8ff; padding: 3px 6px; border-radius: 8px; border: 1px dashed #90cdf4; margin-top: auto;">👤 Partner Relations</div>
                                         </div>
                                         <div style="font-size: 14px; color: #a0aec0; display: flex; align-items: center;">→</div>
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">📊 Campaign Mgmt</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Create campaigns, define offers, set targeting rules & budgets.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Create campaigns like "Summer Dining 2024". Define individual offers, targeting rules (e.g., Gold cardmembers only), budget caps, and scheduling.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #2b6cb0; background: #ebf8ff; padding: 3px 6px; border-radius: 8px; border: 1px dashed #90cdf4; margin-top: auto;">👤 Marketing</div>
                                         </div>
                                         <div style="font-size: 14px; color: #a0aec0; display: flex; align-items: center;">→</div>
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">✅ Approval Console</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Review pending campaigns. Legal, Finance, VP approvals.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Multi-stage approval workflow. Legal reviews T&Cs for compliance, Finance validates budget allocation, VP gives final sign-off before offers go live.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #2b6cb0; background: #ebf8ff; padding: 3px 6px; border-radius: 8px; border: 1px dashed #90cdf4; margin-top: auto;">👤 Legal / Finance</div>
                                         </div>
                                         <div style="font-size: 14px; color: #a0aec0; display: flex; align-items: center;">→</div>
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">📈 Analytics Portal</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">View KPIs, redemption rates, ROI, A/B test results.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Real-time KPI dashboards: enrollment rates, redemption velocity, ROI per campaign, A/B test results. Drill down by segment, time period, or offer type.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #2b6cb0; background: #ebf8ff; padding: 3px 6px; border-radius: 8px; border: 1px dashed #90cdf4; margin-top: auto;">👤 Analysts</div>
                                         </div>
                                         <div style="font-size: 14px; color: #a0aec0; display: flex; align-items: center;">→</div>
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">⚙️ Ops Console</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Monitor batch jobs, system health, alerts, troubleshooting.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Monitor batch job status (eligibility refresh, settlements). View system health metrics, Kafka lag, API latencies. Trigger manual reruns for failed jobs.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #2b6cb0; background: #ebf8ff; padding: 3px 6px; border-radius: 8px; border: 1px dashed #90cdf4; margin-top: auto;">👤 DevOps / MerOps</div>
                                         </div>
                                         <div style="font-size: 14px; color: #a0aec0; display: flex; align-items: center;">→</div>
-                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 120px; max-width: 140px;">
+                                        <div style="display: flex; flex-direction: column; padding: 8px 10px; margin: 3px; border-radius: 8px; font-size: 12px; background: white; border: 1px solid #e2e8f0; color: #2d3748; min-width: 140px; max-width: 160px;">
                                             <div style="font-weight: bold; font-size: 12px; margin-bottom: 4px;">🎧 Support Portal</div>
-                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Lookup customer offers, resolve "where's my cashback?" queries.</div>
+                                            <div style="font-size: 12px; color: #718096; line-height: 1.3; margin-bottom: 6px;">Customer lookup by account number. View enrolled offers, transaction matches, reward status. Resolve "where's my cashback?" queries with full audit trail.</div>
                                             <div style="display: flex; align-items: center; gap: 3px; font-size: 12px; color: #2b6cb0; background: #ebf8ff; padding: 3px 6px; border-radius: 8px; border: 1px dashed #90cdf4; margin-top: auto;">👤 Customer Service</div>
                                         </div>
                                     </div>
@@ -949,23 +948,31 @@
                 <div class="intro-section-title">📊 Platform Summary</div>
                 
                 <p class="intro-para">
-                    The platform comprises <strong>20+ Spring Boot microservices</strong> organized into 6 domains: Campaign & Offer, Customer, Transaction & Redemption, Rewards & Settlement, Merchant & Partner, and Communication. Each domain owns its data in Couchbase NoSQL database.
+                    <strong>🔷 Microservices Architecture:</strong> The platform comprises <strong>20+ Spring Boot microservices</strong> organized into 7 business domains: ① Merchant & Partner (merchant profiles, partner contracts, MCC mappings), ② Campaign & Offer (campaign lifecycle, targeting rules, budget management, approval workflows), ③ Real-time Analytics (Vert.X high-throughput services for impressions and click streams at 50K+ events/sec), ④ Customer (50M+ profiles, eligibility evaluation, enrollments, preferences), ⑤ Transaction & Redemption (5M+ daily transactions, real-time matching within 500ms), ⑥ Rewards & Settlement ($10M+ weekly partner settlements, points ledger), and ⑦ Communication (1M+ daily notifications across push/email/SMS).
                 </p>
                 
                 <p class="intro-para">
-                    <strong>3 Vert.X high-throughput services</strong> handle millions of events daily: <em>Offer Impressions Service</em> (tracks offer views), <em>Click Stream Service</em> (tracks user interactions), and <em>Real-time Transaction Matcher</em> (instant transaction-to-offer matching for push notifications). These services use non-blocking I/O to process 50,000+ events per second at peak.
+                    <strong>🖥️ UI Layer:</strong> <strong>12 React-based web portals</strong> serve two user categories. <em>External Portals</em> for cardmembers (Offers Discovery, Enrollment, Progress Tracker, Rewards) and partners (Merchant Portal, Partner Portal). <em>Internal Portals</em> for employees (Partner Management, Campaign Management, Approval Console, Analytics Portal, Ops Console, Support Portal). All portals are powered by <strong>10 Node.js BFF (Backend-for-Frontend) services</strong> that aggregate microservice calls into optimized API responses.
                 </p>
                 
                 <p class="intro-para">
-                    <strong>8 Node.js aggregator services</strong> provide optimized API responses for UI portals by combining multiple backend calls into single responses.
+                    <strong>⏰ Batch Processing:</strong> <strong>6 scheduled jobs</strong> run during off-peak hours (2-5 AM) via K8s CronJobs: <em>Eligibility Refresh</em> (daily pre-computation for 50M+ customers), <em>Offer Expiry</em> (deactivate expired offers, send reminders), <em>Daily Settlement</em> (aggregate redemptions by partner for Finance), <em>Report Generation</em> (KPI dashboards emailed before 8 AM), <em>Partner Settlement</em> (weekly invoices with transaction-level breakdowns), and <em>Data Archival</em> (monthly move to S3 Glacier for compliance retention).
                 </p>
                 
                 <p class="intro-para">
-                    <strong>6 scheduled batch jobs</strong> run during off-peak hours for heavy processing: <em>Eligibility Refresh</em> (nightly pre-computation for 50M+ customers), <em>Offer Expiry</em> (deactivate expired offers and enrollments), <em>Daily Settlement</em> (calculate partner payouts), <em>Report Generation</em> (KPI dashboards and executive summaries), <em>Partner Settlement</em> (weekly invoice generation), and <em>Data Archival</em> (monthly move to cold storage).
+                    <strong>🤖 AI/ML Systems:</strong> <strong>4 ML models</strong> deployed as REST APIs on AWS SageMaker, retrained weekly: <em>Recommendation Engine</em> (collaborative filtering to rank 100+ offers per customer in 50ms), <em>Propensity Model</em> (predicts redemption probability 0-100), <em>Fraud Detection</em> (anomaly detection for suspicious patterns), and <em>Customer Segmentation</em> (K-means clustering: Premium Diners, Deal Hunters, Travel Enthusiasts).
                 </p>
                 
                 <p class="intro-para">
-                    <strong>Key Technologies:</strong> Apache Kafka (event-driven messaging), Couchbase (NoSQL with full-text search), Redis (distributed caching), AWS API Gateway (rate limiting, WAF), Okta (OAuth2/OIDC), AWS Kinesis (event streaming), and Istio Service Mesh (egress proxy with mTLS).
+                    <strong>🌊 Data Streaming & Lake:</strong> All domain events flow through <strong>AWS Kinesis</strong> to <strong>S3 Data Lake</strong> (5+ years historical data) organized in medallion architecture (Bronze → Silver → Gold). <strong>AWS Glue</strong> ETL jobs transform data for analytics. <strong>Amazon Athena</strong> provides serverless SQL for ad-hoc queries. <strong>QuickSight</strong> dashboards serve Marketing, Finance, and Executive teams with real-time KPIs.
+                </p>
+                
+                <p class="intro-para">
+                    <strong>🔗 System Integration:</strong> <em>Upstream (Inbound)</em> receives customer profiles from CRM, real-time transactions from Transaction Processing System, merchant data via daily batch files, and partner inventory through APIs. <em>Upstream (Outbound)</em> calls Fraud Detection, Credit Bureau, Geolocation, and Partner APIs via Istio Service Mesh with mTLS. <em>Downstream</em> publishes to Statement System, Finance (General Ledger), Compliance & Audit, Enterprise Data Warehouse, and Customer 360 Platform.
+                </p>
+                
+                <p class="intro-para">
+                    <strong>⚙️ Key Technologies:</strong> Java 17 / Spring Boot 3.x (microservices), Vert.X (high-throughput event processing), Node.js 18+ / Express.js (BFF layer), React (UI portals), Couchbase (NoSQL with full-text search), Redis (distributed caching), Apache Kafka (event-driven messaging), AWS Kinesis (event streaming), AWS S3 / Glue / Athena (data lake), AWS SageMaker (ML models), AWS API Gateway (rate limiting, WAF), Okta (OAuth2/OIDC with mTLS for PCI-DSS), Istio Service Mesh (egress proxy, circuit breakers), and Kubernetes (container orchestration).
                 </p>
             </div>
         </div>
@@ -984,7 +991,7 @@
             <button class="modal-close" onclick="closePlatformModal()">×</button>
         <!-- MAIN PLATFORM -->
         <div class="platform-box">
-            <div class="platform-title">☁️ OFFERS PLATFORM (Our Domain)</div>
+            <div class="platform-title">☁️ OFFERS PLATFORM (Credit Card Offers)</div>
             
 <!-- Microservices Row - Lifecycle Flow -->
             <div class="group-box">
@@ -1001,20 +1008,20 @@
                         <div style="background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); border: 2px solid #ed8936; border-radius: 10px; padding: 10px; min-width: 250px; max-width: 270px; flex-shrink: 0;">
                             <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 6px; padding: 5px 8px; background: #feebc8; border-radius: 6px; text-align: center;">① 🏪 Merchant & Partner</div>
                             <div style="font-size: 12px; color: #4a5568; line-height: 1.3; margin-bottom: 8px; padding: 4px; background: rgba(255,255,255,0.7); border-radius: 4px;">
-                                Partners onboard, provide offer inventory. Merchant reference data for TXN matching.
+                                Foundation data for offers platform. Partners like Starbucks or Amazon onboard and provide offer inventory. Merchant reference data (100K+ merchants) enables accurate transaction matching using MCC codes and location identifiers.
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px;">
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #ed8936; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Merchant Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Merchant profiles, MCC codes, locations.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Stores merchant profiles, MCC codes, locations, and acquirer IDs for transaction matching.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #ed8936; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Partner Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Partner contracts, API credentials, commissions.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Manages partner contracts, API credentials, commission rates (e.g., 2%), and SLA terms.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #ed8936; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">MCC Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Category codes for targeting.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Merchant Category Codes mapping for targeting rules (e.g., MCC 5812 = Restaurants).</small>
                                 </div>
                             </div>
                             <div style="background: #f0fff4; border: 1px dashed #48bb78; border-radius: 5px; padding: 6px;">
@@ -1036,28 +1043,28 @@
                         <div style="background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); border: 2px solid #48bb78; border-radius: 10px; padding: 10px; min-width: 250px; max-width: 270px; flex-shrink: 0;">
                             <div style="font-size: 12px; font-weight: bold; color: #276749; margin-bottom: 6px; padding: 5px 8px; background: #c6f6d5; border-radius: 6px; text-align: center;">② 📢 Campaign & Offer</div>
                             <div style="font-size: 12px; color: #4a5568; line-height: 1.3; margin-bottom: 8px; padding: 4px; background: rgba(255,255,255,0.7); border-radius: 4px;">
-                                Campaign creation, offer config, targeting, budgets, approval workflows.
+                                Core business logic for offer lifecycle. Marketing creates campaigns like "Summer Dining 2024", defines offers with reward rules, sets targeting criteria (e.g., Gold cardmembers, $50K+ income), and manages $10M+ budgets with auto-pause controls.
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px;">
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #48bb78; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Campaign Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">CRUD, status: Draft → Active → Expired.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">CRUD operations, lifecycle states: Draft → Pending → Active → Paused → Expired.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #48bb78; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Offer Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Reward types, criteria, T&Cs.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Reward types (cashback %, fixed amount, multiplier), spending criteria, T&Cs.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #48bb78; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Targeting Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Eligibility rules, segments.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Rule engine for eligibility: card type, spend tier, geography, customer segment.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #48bb78; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Budget Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Budget tracking, auto-pause.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Real-time budget tracking, alerts at 80%, auto-pause at 100% utilization.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #48bb78; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Approval Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Legal → Finance → VP workflow.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Multi-stage workflow: Legal → Finance → VP with audit trail and SLA tracking.</small>
                                 </div>
                             </div>
                             <div style="background: #f0fff4; border: 1px dashed #48bb78; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
@@ -1084,16 +1091,16 @@
                         <div style="background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%); border: 2px dashed #ed8936; border-radius: 10px; padding: 10px; min-width: 250px; max-width: 270px; flex-shrink: 0;">
                             <div style="font-size: 12px; font-weight: bold; color: white; margin-bottom: 6px; padding: 5px 8px; background: #ed8936; border-radius: 6px; text-align: center;">③ ⚡ Real-time Analytics</div>
                             <div style="font-size: 12px; color: #4a5568; line-height: 1.3; margin-bottom: 8px; padding: 4px; background: rgba(255,255,255,0.7); border-radius: 4px;">
-                                High-throughput Vert.X services tracking user interactions. 50K+ events/sec.
+                                High-throughput Vert.X services (non-blocking I/O) tracking user interactions at 50K+ events/sec. Captures every offer impression, click, and navigation pattern for A/B testing, personalization, and ML model training.
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px;">
                                 <div style="background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%); border: 1px solid #e2e8f0; border-left: 3px solid #ed8936; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #c05621;">👁️ Offer Impressions Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Tracks every offer view. Customer ID, offer ID, timestamp, device.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Records every offer view: customer ID, offer ID, timestamp, device type, position in carousel.</small>
                                 </div>
                                 <div style="background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%); border: 1px solid #e2e8f0; border-left: 3px solid #ed8936; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #c05621;">🖱️ Click Stream Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">User interactions: clicks, taps, scrolls, navigation patterns.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">User journey tracking: clicks, scrolls, time on page, enrollment funnel drop-offs.</small>
                                 </div>
                             </div>
                             <div style="background: #f0fff4; border: 1px dashed #48bb78; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
@@ -1119,24 +1126,24 @@
                         <div style="background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); border: 2px solid #4299e1; border-radius: 10px; padding: 10px; min-width: 250px; max-width: 270px; flex-shrink: 0;">
                             <div style="font-size: 12px; font-weight: bold; color: #2b6cb0; margin-bottom: 6px; padding: 5px 8px; background: #bee3f8; border-radius: 6px; text-align: center;">④ 👤 Customer</div>
                             <div style="font-size: 12px; color: #4a5568; line-height: 1.3; margin-bottom: 8px; padding: 4px; background: rgba(255,255,255,0.7); border-radius: 4px;">
-                                Profiles, eligibility evaluation, enrollments, preferences.
+                                Customer-centric services managing 50M+ profiles. Aggregates data from Core Banking and CRM to evaluate eligibility in real-time. Handles enrollments (10K+/hour during campaigns) and maintains communication preferences for GDPR compliance.
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px;">
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #4299e1; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Customer Profile Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Unified profile from Core Banking & CRM.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Unified profile: card type, spend tier, credit score, demographics, segments.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #4299e1; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Eligibility Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Rules evaluation, personalized offers.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Real-time rules evaluation against targeting criteria. Returns personalized offer list.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #4299e1; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Enrollment Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Opt-in/out, Active/Completed status.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Manages opt-in/out, tracks status: Active → Completed → Expired.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #4299e1; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Preference Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Push, Email, SMS preferences.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Communication preferences: Push, Email, SMS. Opt-out management.</small>
                                 </div>
                             </div>
                             <div style="background: #f0fff4; border: 1px dashed #48bb78; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
@@ -1161,20 +1168,20 @@
                         <div style="background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); border: 2px solid #e53e3e; border-radius: 10px; padding: 10px; min-width: 250px; max-width: 270px; flex-shrink: 0;">
                             <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 6px; padding: 5px 8px; background: #fed7d7; border-radius: 6px; text-align: center;">⑤ 💳 Transaction & Redemption</div>
                             <div style="font-size: 12px; color: #4a5568; line-height: 1.3; margin-bottom: 8px; padding: 4px; background: rgba(255,255,255,0.7); border-radius: 4px;">
-                                TXN matching, redemption processing, disputes. Includes real-time matcher.
+                                Critical path for offer fulfillment. Processes 5M+ daily transactions, matches against 10M+ active enrollments using merchant ID and MCC code. Real-time matcher enables instant "You earned $5!" push notifications within 500ms of card swipe.
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px;">
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #e53e3e; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Transaction Matching Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Batch TXN feed, enrollment check, merchant/MCC validation.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Batch processing: validates merchant, checks enrollment, applies offer criteria.</small>
                                 </div>
                                 <div style="background: linear-gradient(135deg, #fffaf0 0%, #feebc8 100%); border: 1px solid #e2e8f0; border-left: 3px solid #ed8936; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #c05621;">⚡ Real-time TXN Matcher</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Instant matching for push notifications. "You earned $5!"</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Vert.X service for instant matching. Triggers push: "You earned $5 at Starbucks!"</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #e53e3e; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Redemption Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Creates redemption, triggers reward credit.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Creates redemption record, triggers reward credit, updates offer progress.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #e53e3e; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Dispute Service</strong>
@@ -1205,20 +1212,20 @@
                         <div style="background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); border: 2px solid #d69e2e; border-radius: 10px; padding: 10px; min-width: 250px; max-width: 270px; flex-shrink: 0;">
                             <div style="font-size: 12px; font-weight: bold; color: #975a16; margin-bottom: 6px; padding: 5px 8px; background: #fefcbf; border-radius: 6px; text-align: center;">⑥ 🏆 Rewards & Settlement</div>
                             <div style="font-size: 12px; color: #4a5568; line-height: 1.3; margin-bottom: 8px; padding: 4px; background: rgba(255,255,255,0.7); border-radius: 4px;">
-                                Reward calculations, points balance, B2B partner settlements.
+                                Financial engine for reward calculations and B2B settlements. Calculates cashback ($5 on $50 purchase), points (3X on dining), with caps ($25/month max). Maintains ledger for 50M+ accounts. Weekly partner settlements worth $10M+ with reconciliation files.
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px;">
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #d69e2e; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Rewards Engine</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Calculates: %, fixed, multipliers, caps, bonuses.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Calculates: percentage, fixed amount, multipliers, monthly caps, bonuses.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #d69e2e; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Points Ledger Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Balance management, credits, debits, expiry.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Double-entry ledger: credits, debits, pending, expired. Real-time balance queries.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #d69e2e; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Settlement Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">B2B settlements, partner payout files.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">B2B settlements: aggregates by partner, generates invoices, SFTP delivery.</small>
                                 </div>
                             </div>
                             <div style="background: #f0fff4; border: 1px dashed #48bb78; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
@@ -1244,16 +1251,16 @@
                         <div style="background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); border: 2px solid #9f7aea; border-radius: 10px; padding: 10px; min-width: 250px; max-width: 270px; flex-shrink: 0;">
                             <div style="font-size: 12px; font-weight: bold; color: #553c9a; margin-bottom: 6px; padding: 5px 8px; background: #e9d8fd; border-radius: 6px; text-align: center;">⑦ 📧 Communication</div>
                             <div style="font-size: 12px; color: #4a5568; line-height: 1.3; margin-bottom: 8px; padding: 4px; background: rgba(255,255,255,0.7); border-radius: 4px;">
-                                Notifications throughout lifecycle: enrollment, reward credit, expiry.
+                                Customer engagement throughout offer lifecycle. Sends enrollment confirmations, real-time reward alerts ("You earned $5!"), expiry reminders, and campaign promotions. Handles 1M+ daily notifications across push, email, and SMS channels with preference management.
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px;">
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #9f7aea; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Notification Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Orchestrates: preferences, channel selection, rate limits.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Orchestrates channel selection (push/email/SMS), respects preferences, rate limits.</small>
                                 </div>
                                 <div style="background: white; border: 1px solid #e2e8f0; border-left: 3px solid #9f7aea; border-radius: 4px; padding: 5px 6px; font-size: 12px;">
                                     <strong style="color: #2d3748;">Template Service</strong>
-                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Personalization tokens, multi-language.</small>
+                                    <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Personalization tokens (name, amount), multi-language support, A/B testing.</small>
                                 </div>
                             </div>
                             <div style="background: #f0fff4; border: 1px dashed #48bb78; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
@@ -1285,27 +1292,27 @@
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                                 <div style="background: white; border: 1px solid #d6bcfa; border-left: 3px solid #805ad5; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #553c9a;">🔄 Eligibility Refresh</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Daily pre-compute eligibility for all customers. Cache in Couchbase.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Daily pre-compute eligibility for all 50M+ cardmembers. Evaluates segment rules, credit scores, spend patterns. Results cached in Couchbase for sub-ms API response.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #d6bcfa; border-left: 3px solid #805ad5; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #553c9a;">⏳ Offer Expiry</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Daily deactivate expired offers, update enrollment status.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Daily scan for expired offers and enrollments. Updates status to "Expired", triggers customer notifications for unused offers expiring within 3 days.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #d6bcfa; border-left: 3px solid #805ad5; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #553c9a;">💰 Daily Settlement</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Morning aggregation of redemptions by partner for Finance.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Morning aggregation of previous day's redemptions by partner. Generates settlement files for Finance with transaction-level breakdowns and totals.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #d6bcfa; border-left: 3px solid #805ad5; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #553c9a;">📊 Report Generation</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Morning KPI reports for executive dashboards.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Morning KPI reports: enrollment rates, redemption volumes, budget utilization. Auto-emailed to executives and Marketing teams before 8 AM.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #d6bcfa; border-left: 3px solid #805ad5; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #553c9a;">🤝 Partner Settlement</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Weekly invoices with detailed breakdowns.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Weekly invoices with detailed breakdowns by offer and merchant location. Calculates partner commissions (e.g., 2% of redemption value). SFTP delivery.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #d6bcfa; border-left: 3px solid #805ad5; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #553c9a;">🗃️ Data Archival</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Monthly move old data to S3 cold storage.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Monthly archive of completed offers and transactions older than 2 years. Moves from Couchbase to S3 Glacier for compliance retention and cost savings.</div>
                                 </div>
                             </div>
                         </div>
@@ -1316,24 +1323,24 @@
                         <div style="border: 2px dashed #d69e2e; border-radius: 10px; padding: 12px; background: linear-gradient(135deg, #fffff0 0%, #fefcbf 100%);">
                             <div style="font-size: 12px; font-weight: bold; color: #975a16; margin-bottom: 8px; padding: 5px 10px; background: #d69e2e; color: white; border-radius: 5px; display: inline-block;">🤖 AI/ML SYSTEMS</div>
                             <div style="font-size: 12px; color: #4a5568; margin-bottom: 10px; line-height: 1.4;">
-                                ML models for personalization, prediction, and fraud detection. Deployed as APIs, called in real-time. Regular retraining adapts to behavior changes.
+                                ML models for personalization, prediction, and fraud detection. Deployed as REST APIs on SageMaker, called in real-time during offer discovery. Models retrained weekly on latest behavioral data.
                             </div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                                 <div style="background: white; border: 1px solid #f6e05e; border-left: 3px solid #d69e2e; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #975a16;">💡 Recommendation Engine</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Personalized offer ranking using collaborative filtering.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Collaborative filtering + content-based hybrid model. Ranks 100+ offers per customer in 50ms. "Customers who enrolled in Starbucks also liked Whole Foods."</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #f6e05e; border-left: 3px solid #d69e2e; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #975a16;">📊 Propensity Model</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Predict redemption probability (0-100 score).</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Predicts redemption probability (0-100 score) for each customer-offer pair. Uses spend history, demographics, and seasonal patterns. Scores refresh daily.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #f6e05e; border-left: 3px solid #d69e2e; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #975a16;">🚨 Fraud Detection</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Anomaly detection for suspicious redemption patterns.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Anomaly detection for suspicious patterns: same device enrolling in 50 offers, rapid redemptions across cities. Flags for manual review or auto-blocks.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #f6e05e; border-left: 3px solid #d69e2e; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #975a16;">👥 Customer Segmentation</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Behavioral clusters: Premium Diners, Deal Hunters, etc.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">K-means clustering creates behavioral segments: Premium Diners, Deal Hunters, Travel Enthusiasts. Used for targeted campaign creation and A/B testing.</div>
                                 </div>
                             </div>
                         </div>
@@ -1344,32 +1351,32 @@
                         <div style="border: 2px dashed #319795; border-radius: 10px; padding: 12px; background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);">
                             <div style="font-size: 12px; font-weight: bold; color: #234e52; margin-bottom: 8px; padding: 5px 10px; background: #319795; color: white; border-radius: 5px; display: inline-block;">🌊 DATA STREAMING & LAKE (AWS)</div>
                             <div style="font-size: 12px; color: #4a5568; margin-bottom: 10px; line-height: 1.4;">
-                                Event streaming pipeline for analytics, reporting, and ML training. All domain events flow to Data Lake.
+                                Event streaming pipeline for analytics, reporting, and ML training. All domain events (impressions, enrollments, redemptions) flow to S3 Data Lake via Kinesis for historical analysis.
                             </div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                                 <div style="background: white; border: 1px solid #81e6d9; border-left: 3px solid #319795; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #234e52;">🔥 Kinesis Streams</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Real-time event ingestion from all domains.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Real-time event ingestion from all domains. Partitioned by customer ID for ordered processing. 24-hour retention for replay.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #81e6d9; border-left: 3px solid #319795; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #234e52;">🚚 Kinesis Firehose</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Auto-delivery to S3 in Parquet format.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Auto-delivery to S3 every 5 minutes. Converts JSON to Parquet columnar format. Partitions by date: /year/month/day/.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #81e6d9; border-left: 3px solid #319795; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #234e52;">🗄️ S3 Data Lake</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Bronze → Silver → Gold medallion layers.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Medallion architecture: Bronze (raw), Silver (cleaned), Gold (aggregated). 5+ years of historical data for trend analysis and ML training.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #81e6d9; border-left: 3px solid #319795; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #234e52;">🔧 AWS Glue</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">ETL jobs + Data Catalog for schema.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">ETL jobs transform Bronze→Silver→Gold. Data Catalog provides schema registry for query engines. Scheduled via Glue Workflows.</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #81e6d9; border-left: 3px solid #319795; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #234e52;">🔍 Athena</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Serverless SQL on S3 for ad-hoc queries.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">Serverless SQL on S3. Ad-hoc queries like "redemptions in California last Tuesday". Pay-per-query ($5/TB scanned).</div>
                                 </div>
                                 <div style="background: white; border: 1px solid #81e6d9; border-left: 3px solid #319795; border-radius: 4px; padding: 6px 8px; font-size: 12px;">
                                     <strong style="color: #234e52;">📊 QuickSight</strong>
-                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">BI dashboards for business users.</div>
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">BI dashboards for Marketing, Finance, and Executives. Drag-and-drop visualizations. Campaign performance, KPI trends, settlement summaries.</div>
                                 </div>
                             </div>
                         </div>
@@ -1389,7 +1396,7 @@
             </div>
             <div class="popup-body">
                 <div class="group-desc" style="margin-bottom: 15px;">
-                    External systems that send data to our Offers Platform. This data is essential for eligibility evaluation, transaction matching, and offer personalization. Security protocols vary based on data sensitivity - PCI-DSS compliant systems use OAuth2 with mTLS, internal systems use OAuth2, and bulk transfers use encrypted SFTP.
+                    External systems that send data to the Offers Platform. This data is essential for eligibility evaluation, transaction matching, and offer personalization. Security protocols vary based on data sensitivity - PCI-DSS compliant systems use OAuth2 with mTLS, internal systems use OAuth2, and bulk transfers use encrypted SFTP.
                 </div>
                 
                 <!-- INTERNAL (Enterprise Systems) -->
@@ -1421,7 +1428,7 @@
                         <div class="system-group" style="background: #fff5f5; max-width: 100%; margin: 8px 0;">
                             <div class="system-group-title">💳 Transaction Processing System (Visa/Mastercard)</div>
                             <div class="system-group-desc">
-                                Processes all card payments globally. Sends real-time transaction feed including authorization events (card swipe), settlement events (payment cleared), and refund events. This feed enables our platform to match transactions against enrolled offers within seconds of purchase.
+                                Processes all card payments globally. Sends real-time transaction feed including authorization events (card swipe), settlement events (payment cleared), and refund events. This feed enables the Offers Platform to match transactions against enrolled offers within seconds of purchase.
                             </div>
                             <div class="system-group-apis">
                                 <span class="api-item">Real-time TXN Feed</span>
@@ -1540,7 +1547,7 @@
             </div>
             <div class="popup-body">
                 <div class="group-desc" style="margin-bottom: 15px;">
-                    External APIs that our platform calls for additional data or validation. All outbound calls are routed through Istio Service Mesh which handles mTLS certificate management, circuit breaker patterns, retry policies, rate limiting, and audit logging for compliance.
+                    External APIs that the Offers Platform calls for additional data or validation. All outbound calls are routed through Istio Service Mesh which handles mTLS certificate management, circuit breaker patterns, retry policies, rate limiting, and audit logging for compliance.
                 </div>
                 
                 <!-- INTERNAL (Enterprise APIs) -->
