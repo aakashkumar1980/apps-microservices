@@ -1,0 +1,2357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Offers Platform - Akhila's Focus Areas (5-Year Full-Stack Engineer)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; padding: 20px; }
+        h1 { text-align: center; color: #1a365d; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 10px; font-size: 14px; }
+        .focus-note { text-align: center; color: #2f855a; margin-bottom: 25px; font-size: 13px; background: #c6f6d5; padding: 10px; border-radius: 8px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+        .container { max-width: 1600px; margin: 0 auto; }
+        
+        /* Blur classes */
+        .blurred {
+            filter: blur(3px);
+            opacity: 0.35;
+            pointer-events: none;
+            user-select: none;
+        }
+        .semi-blurred {
+            filter: blur(1.5px);
+            opacity: 0.5;
+        }
+        
+        /* Highlight for focus areas */
+        .focus-area {
+            box-shadow: 0 0 15px rgba(72, 187, 120, 0.5);
+            border: 3px solid #48bb78 !important;
+            position: relative;
+        }
+        .focus-area::before {
+            content: "⭐ AKHILA'S FOCUS";
+            position: absolute;
+            top: -12px;
+            left: 10px;
+            background: #48bb78;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        /* Dotted box groups */
+        .group-box {
+            border: 2px dashed #999;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            background: rgba(255,255,255,0.7);
+        }
+        .group-title {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            padding: 5px 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .group-desc {
+            font-size: 12px;
+            color: #444;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            padding: 8px;
+            background: #f8f9fa;
+            border-left: 3px solid #4a5568;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* Service boxes */
+        .service {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 4px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            min-width: 130px;
+            vertical-align: top;
+        }
+        
+        /* Color coding */
+        .external { background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; }
+        .gateway { background: #feebc8; border: 1px solid #f6ad55; color: #744210; }
+        .rest-api { background: #bee3f8; border: 1px solid #63b3ed; color: #2a4365; }
+        .vertx { background: #c6f6d5; border: 1px solid #68d391; color: #22543d; }
+        .nodejs { background: #68d391; border: 1px solid #38a169; color: #22543d; }
+        .kafka { background: #e9d8fd; border: 1px solid #b794f4; color: #44337a; }
+        .kinesis { background: #fbd38d; border: 1px solid #ed8936; color: #744210; }
+        .datalake { background: #b2f5ea; border: 1px solid #38b2ac; color: #234e52; }
+        .datastore { background: #fbb6ce; border: 1px solid #ed64a6; color: #702459; }
+        .batch { background: #d6bcfa; border: 1px solid #9f7aea; color: #44337a; }
+        .ml { background: #9ae6b4; border: 1px solid #48bb78; color: #22543d; }
+        .portal { background: #90cdf4; border: 1px solid #4299e1; color: #2a4365; }
+        .downstream { background: #feb2b2; border: 1px solid #fc8181; color: #742a2a; }
+        .security { background: #fefcbf; border: 1px solid #ecc94b; color: #744210; }
+        
+        /* Flow arrows */
+        .flow-arrow-down {
+            text-align: center;
+            font-size: 24px;
+            color: #4a5568;
+            margin: 10px 0;
+        }
+        
+        /* Layout */
+        .row { display: flex; flex-wrap: wrap; gap: 15px; margin: 15px 0; }
+        .col { flex: 1; min-width: 300px; }
+        .col-wide { flex: 2; min-width: 500px; }
+        
+        /* Legend */
+        .legend {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .legend-title { font-weight: bold; margin-bottom: 10px; }
+        .legend-items { display: flex; flex-wrap: wrap; gap: 15px; }
+        .legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; }
+        .legend-color { width: 20px; height: 20px; border-radius: 4px; }
+        .legend-focus { background: #c6f6d5; border: 2px solid #48bb78; }
+        .legend-blur { background: #e2e8f0; filter: blur(2px); opacity: 0.5; }
+        
+        /* Platform box */
+        .platform-box {
+            border: 3px solid #4a5568;
+            border-radius: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            margin: 20px 0;
+        }
+        .platform-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #4a5568;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        /* Focus service highlight */
+        .service.focus {
+            border: 2px solid #48bb78 !important;
+            box-shadow: 0 0 8px rgba(72, 187, 120, 0.4);
+            position: relative;
+        }
+        
+        /* Scope indicator */
+        .scope-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        .scope-primary { background: #48bb78; color: white; }
+        .scope-secondary { background: #ed8936; color: white; }
+        .scope-awareness { background: #a0aec0; color: white; }
+        
+        /* Interview tips */
+        .interview-tip {
+            background: #fffaf0;
+            border: 1px solid #ed8936;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-top: 8px;
+            font-size: 11px;
+            color: #744210;
+        }
+        .interview-tip strong {
+            color: #c05621;
+        }
+        
+        /* Node.js specific styling */
+        .nodejs-module {
+            background: white;
+            border: 1px solid #68d391;
+            border-left: 3px solid #38a169;
+            border-radius: 4px;
+            padding: 6px 8px;
+            font-size: 11px;
+            margin: 3px;
+            display: inline-block;
+            min-width: 140px;
+        }
+        .nodejs-module strong {
+            color: #276749;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .nodejs-module small {
+            color: #718096;
+            font-size: 10px;
+        }
+        
+        /* Popup Styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .popup-overlay.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .popup-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e53e3e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .popup-header {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 5px;
+            padding-right: 40px;
+        }
+        .popup-subtitle {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .popup-section {
+            margin-bottom: 30px;
+        }
+        .popup-section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8px;
+            padding: 8px 12px;
+            background: #edf2f7;
+            border-radius: 6px;
+            border-left: 4px solid #4299e1;
+        }
+        .popup-section-desc {
+            font-size: 12px;
+            color: #4a5568;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        /* Module boxes in popup */
+        .module-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .module-box {
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #4299e1;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f7fafc;
+        }
+        .module-header {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        .module-user {
+            font-size: 11px;
+            color: #718096;
+            margin-bottom: 10px;
+        }
+        .page-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        .page-table th {
+            background: #edf2f7;
+            padding: 8px;
+            text-align: left;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .page-table td {
+            padding: 8px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        .page-table tr:hover {
+            background: #f0f4f8;
+        }
+        
+        /* API Mapping Styles */
+        .api-mapping-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .api-module-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .api-module-header {
+            padding: 10px 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .api-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        .api-table th {
+            background: #f7fafc;
+            padding: 8px 10px;
+            text-align: left;
+            font-weight: bold;
+            color: #2d3748;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .api-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        .api-table code {
+            background: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 11px;
+        }
+        .method {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            color: white;
+        }
+        .method.get { background: #48bb78; }
+        .method.post { background: #4299e1; }
+        .method.put { background: #ed8936; }
+        .method.delete { background: #e53e3e; }
+        
+        /* Project Structure Styles */
+        .project-structure {
+            background: #1a202c;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .folder-tree {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #e2e8f0;
+            margin: 0;
+            white-space: pre;
+        }
+        .folder-tree .folder { color: #fbd38d; font-weight: bold; }
+        .folder-tree .file { color: #90cdf4; }
+        .folder-tree .comment { color: #718096; font-style: italic; }
+        
+        /* Flow Comparison Styles */
+        .flow-comparison {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .flow-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .flow-header {
+            padding: 10px 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: center;
+        }
+        .flow-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #2d3748;
+            min-width: 100px;
+        }
+        .flow-step small {
+            display: block;
+            font-weight: normal;
+            color: #718096;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        .flow-arrow {
+            font-size: 18px;
+            color: #a0aec0;
+        }
+        
+        /* Detailed Flow Diagram */
+        .detailed-flow {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .detailed-flow-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .flow-lane {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+        .flow-lane.success {
+            background: #f0fff4;
+            border-color: #48bb78;
+        }
+        .lane-header {
+            font-size: 11px;
+            font-weight: bold;
+            color: #4299e1;
+            margin-bottom: 5px;
+        }
+        .lane-step {
+            font-size: 11px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+        .lane-step code {
+            background: #edf2f7;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+        }
+        .flow-connector {
+            font-size: 16px;
+            color: #a0aec0;
+        }
+        
+        /* Key Concepts */
+        .key-concepts {
+            background: #fffaf0;
+            border: 1px solid #ed8936;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .concept-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #c05621;
+            margin-bottom: 12px;
+        }
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+        }
+        .concept-card {
+            background: white;
+            border: 1px solid #fbd38d;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .concept-header {
+            background: #fbd38d;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #744210;
+        }
+        .concept-body {
+            padding: 10px;
+            font-size: 11px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+        .concept-body code {
+            background: #fef3c7;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+        }
+        
+        /* Clickable box */
+        .clickable-box {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .clickable-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+        }
+        .click-hint {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            font-size: 10px;
+            color: #48bb78;
+            background: #c6f6d5;
+            padding: 2px 8px;
+            border-radius: 10px;
+            border: 1px solid #68d391;
+        }
+        
+        /* Module Overview Table */
+        .module-overview-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .module-overview-table th {
+            background: #2d3748;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        .module-overview-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        .module-cell {
+            font-weight: bold;
+            text-align: center;
+            color: white;
+        }
+        .module-cell.campaign { background: #4299e1; }
+        .module-cell.approval { background: #48bb78; }
+        .module-cell.support { background: #ed8936; }
+
+        /* Page Detail Box */
+        .page-detail-box {
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #4299e1;
+            border-radius: 8px;
+            margin: 15px 0;
+            background: white;
+            overflow: hidden;
+        }
+        .page-detail-header {
+            padding: 12px 15px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .page-module-badge {
+            padding: 4px 10px;
+            border-radius: 15px;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .page-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .page-detail-reason {
+            padding: 10px 15px;
+            background: #fffaf0;
+            font-size: 11px;
+            color: #744210;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Wireframe */
+        .wireframe-container {
+            padding: 15px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .wireframe-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        .wireframe {
+            background: #1a202c;
+            border-radius: 6px;
+            padding: 15px;
+            overflow-x: auto;
+        }
+        .wireframe-code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #e2e8f0;
+            margin: 0;
+            white-space: pre;
+        }
+
+        /* Components & API Grid */
+        .components-api-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        .components-box, .api-box {
+            padding: 15px;
+        }
+        .components-box {
+            background: #f0fff4;
+            border-right: 1px solid #e2e8f0;
+        }
+        .api-box {
+            background: #ebf8ff;
+        }
+        .box-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        .compact-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        .compact-table th {
+            background: rgba(0,0,0,0.05);
+            padding: 6px 8px;
+            text-align: left;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .compact-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            vertical-align: top;
+        }
+        .compact-table code {
+            background: rgba(0,0,0,0.08);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+        }
+
+        /* HTTP Methods */
+        .method {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 9px;
+            font-weight: bold;
+            color: white;
+        }
+        .method.get { background: #48bb78; }
+        .method.post { background: #4299e1; }
+        .method.put { background: #ed8936; }
+
+        /* Coverage Table */
+        .coverage-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 10px;
+        }
+        .coverage-table th {
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #2d3748;
+            border: 1px solid #e2e8f0;
+        }
+        .coverage-table td {
+            padding: 6px 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        .coverage-table td:first-child {
+            text-align: left;
+            background: #f7fafc;
+        }
+        .coverage-table code {
+            background: #edf2f7;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+        }
+
+        /* ========== HTML WIREFRAME STYLES ========== */
+        .wireframe-html {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-size: 13px;
+            color: #2d3748;
+        }
+
+        /* Header */
+        .wf-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .wf-title { font-size: 18px; font-weight: bold; color: #1a365d; }
+        .wf-back-link { color: #4299e1; text-decoration: none; font-size: 13px; }
+
+        /* Buttons */
+        .wf-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .wf-btn:hover { opacity: 0.9; }
+        .wf-btn-primary { background: #4299e1; color: white; }
+        .wf-btn-secondary { background: #e2e8f0; color: #4a5568; }
+        .wf-btn-success { background: #48bb78; color: white; }
+        .wf-btn-danger { background: #e53e3e; color: white; }
+        .wf-btn-dashed { background: white; border: 2px dashed #cbd5e0; color: #718096; width: 100%; padding: 12px; }
+        .wf-btn-sm { padding: 4px 10px; font-size: 11px; }
+        .wf-btn-icon { background: none; border: none; cursor: pointer; font-size: 14px; }
+
+        /* Form Elements */
+        .wf-form-group { margin-bottom: 15px; }
+        .wf-label { display: block; font-size: 12px; font-weight: 600; color: #4a5568; margin-bottom: 5px; }
+        .wf-required { color: #e53e3e; }
+        .wf-input, .wf-select, .wf-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+            background: #f7fafc;
+            box-sizing: border-box;
+        }
+        .wf-textarea { min-height: 80px; resize: vertical; }
+        .wf-form-row { display: flex; gap: 15px; }
+        .wf-form-row .wf-form-group { flex: 1; }
+
+        /* Checkbox Group */
+        .wf-checkbox-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        .wf-checkbox { display: flex; align-items: center; gap: 5px; font-size: 12px; cursor: pointer; }
+
+        /* Stepper */
+        .wf-stepper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+        .wf-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .wf-step:hover .wf-step-number { transform: scale(1.1); }
+        .wf-step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .wf-step.active .wf-step-number { background: #4299e1; color: white; }
+        .wf-step.completed .wf-step-number { background: #48bb78; color: white; }
+        .wf-step-label { font-size: 11px; color: #718096; }
+        .wf-step.active .wf-step-label { color: #4299e1; font-weight: 600; }
+        .wf-step.completed .wf-step-label { color: #48bb78; }
+        .wf-step-line { width: 60px; height: 2px; background: #e2e8f0; margin: 0 10px; }
+        .wf-step-line.completed { background: #48bb78; }
+
+        /* Step Content */
+        .wf-step-content { 
+            padding: 20px; 
+            background: #f7fafc; 
+            border-radius: 8px; 
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .wf-step-title { font-size: 14px; font-weight: bold; color: #2d3748; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0; }
+
+        /* Offer Card */
+        .wf-offer-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .wf-offer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 600; }
+
+        /* Review Section */
+        .wf-review-section { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .wf-review-header { font-weight: bold; color: #2d3748; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .wf-review-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 12px; }
+        .wf-review-item { font-size: 12px; color: #4a5568; padding: 3px 0; }
+
+        /* Alert */
+        .wf-alert { padding: 12px 15px; border-radius: 6px; font-size: 12px; margin-top: 15px; }
+        .wf-alert-info { background: #ebf8ff; color: #2b6cb0; border: 1px solid #90cdf4; }
+
+        /* Footer */
+        .wf-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+        .wf-footer-right { display: flex; gap: 10px; }
+
+        /* Badges */
+        .wf-badge { padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .wf-badge-warning { background: #fef3c7; color: #92400e; }
+        .wf-badge-success { background: #c6f6d5; color: #22543d; }
+        .wf-badge-gold { background: #fbd38d; color: #744210; }
+        .wf-badge-platinum { background: #e2e8f0; color: #4a5568; }
+        .wf-badge-green { background: #c6f6d5; color: #276749; }
+
+        /* Tabs */
+        .wf-tabs { display: flex; gap: 0; border-bottom: 1px solid #e2e8f0; margin-bottom: 20px; }
+        .wf-tab { padding: 10px 20px; background: none; border: none; font-size: 12px; color: #718096; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .wf-tab:hover { color: #4299e1; }
+        .wf-tab.active { color: #4299e1; border-bottom-color: #4299e1; font-weight: 600; }
+
+        /* Tab Content */
+        .wf-tab-content { margin-bottom: 20px; }
+
+        /* Info Grid */
+        .wf-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
+        .wf-info-item { background: #f7fafc; padding: 12px; border-radius: 6px; }
+        .wf-info-label { font-size: 11px; color: #718096; display: block; margin-bottom: 3px; }
+        .wf-info-value { font-size: 14px; font-weight: 600; color: #2d3748; }
+
+        /* Section */
+        .wf-section { margin-bottom: 20px; }
+        .wf-section-title { font-size: 12px; font-weight: bold; color: #4a5568; margin-bottom: 10px; }
+        .wf-list { padding-left: 20px; font-size: 12px; color: #4a5568; line-height: 1.8; }
+
+        /* Action Buttons */
+        .wf-action-buttons { display: flex; justify-content: flex-end; gap: 15px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+
+        /* Modal Preview */
+        .wf-modal-preview { margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.05); border-radius: 8px; }
+        .wf-modal-label { font-size: 11px; color: #718096; margin-bottom: 10px; font-style: italic; }
+        .wf-modal { background: white; border-radius: 8px; max-width: 400px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .wf-modal-header { padding: 15px 20px; font-weight: bold; border-bottom: 1px solid #e2e8f0; }
+        .wf-modal-body { padding: 20px; font-size: 13px; color: #4a5568; }
+        .wf-modal-footer { padding: 15px 20px; display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; }
+
+        /* Toast Preview */
+        .wf-toast-preview { margin-top: 15px; }
+        .wf-toast-label { font-size: 11px; color: #718096; margin-bottom: 10px; font-style: italic; }
+        .wf-toast { padding: 12px 20px; border-radius: 6px; font-size: 12px; display: inline-block; }
+        .wf-toast-success { background: #c6f6d5; color: #22543d; border: 1px solid #48bb78; }
+
+        /* Search */
+        .wf-search-container { position: relative; margin-bottom: 25px; }
+        .wf-search-box { display: flex; align-items: center; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 15px; }
+        .wf-search-icon { color: #a0aec0; margin-right: 10px; }
+        .wf-search-input { flex: 1; border: none; background: transparent; font-size: 14px; outline: none; }
+        .wf-spinner { color: #4299e1; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Autocomplete */
+        .wf-autocomplete-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 8px 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 10; }
+        .wf-autocomplete-item { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; cursor: pointer; transition: background 0.2s; }
+        .wf-autocomplete-item:hover { background: #f7fafc; }
+        .wf-autocomplete-item:last-child { border-bottom: none; }
+        .wf-ac-name { font-weight: 600; color: #2d3748; }
+        .wf-ac-details { font-size: 11px; color: #718096; margin-top: 2px; }
+
+        /* Table */
+        .wf-table-container { background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+        .wf-table-header { padding: 15px; background: #f7fafc; font-weight: bold; border-bottom: 1px solid #e2e8f0; }
+        .wf-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .wf-table th { padding: 12px 15px; background: #edf2f7; text-align: left; font-weight: 600; color: #4a5568; }
+        .wf-table td { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; }
+        .wf-table tr:hover { background: #f7fafc; }
+        .wf-table tr:last-child td { border-bottom: none; }
+
+        /* Pagination */
+        .wf-pagination { display: flex; justify-content: center; align-items: center; gap: 15px; padding: 15px; background: #f7fafc; }
+        .wf-page-info { font-size: 12px; color: #718096; }
+
+        /* Campaign Card Header */
+        .wf-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .wf-campaign-title { font-size: 20px; font-weight: bold; color: #1a365d; margin: 0; }
+        .wf-meta { font-size: 12px; color: #718096; margin-top: 5px; }
+
+        /* Offer Detail Cards */
+        .wf-offer-detail-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .wf-offer-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .wf-offer-number {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .wf-offer-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 15px;
+        }
+        .wf-offer-detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Budget Styles */
+        .wf-budget-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .wf-budget-total {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .wf-budget-label {
+            color: rgba(255,255,255,0.8);
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .wf-budget-value {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .wf-budget-breakdown {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .wf-budget-metrics {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        /* Timeline Styles */
+        .wf-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .wf-timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e2e8f0;
+        }
+        .wf-timeline-item {
+            position: relative;
+            padding-bottom: 25px;
+        }
+        .wf-timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .wf-timeline-marker {
+            position: absolute;
+            left: -26px;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #e2e8f0;
+        }
+        .wf-marker-completed {
+            background: #48bb78;
+            box-shadow: 0 0 0 2px #48bb78;
+        }
+        .wf-marker-current {
+            background: #4299e1;
+            box-shadow: 0 0 0 2px #4299e1;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 2px #4299e1; }
+            50% { box-shadow: 0 0 0 6px rgba(66, 153, 225, 0.3); }
+        }
+        .wf-marker-pending {
+            background: #e2e8f0;
+        }
+        .wf-timeline-content {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .wf-timeline-pending .wf-timeline-content {
+            background: #f7fafc;
+            opacity: 0.7;
+        }
+        .wf-timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .wf-timeline-action {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .wf-timeline-date {
+            font-size: 11px;
+            color: #718096;
+        }
+        .wf-timeline-user {
+            font-size: 12px;
+            color: #4299e1;
+            margin-bottom: 5px;
+        }
+        .wf-timeline-comment {
+            font-size: 12px;
+            color: #4a5568;
+            background: #f7fafc;
+            padding: 8px 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        /* Responsive for Components/API grid */
+        @media (max-width: 768px) {
+            .components-api-grid {
+                grid-template-columns: 1fr;
+            }
+            .components-box {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .wf-form-row {
+                flex-direction: column;
+            }
+            .wf-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    
+    <!-- POPUP: Internal Portals React Details -->
+    <div id="react-portal-popup" class="popup-overlay" onclick="closePopupOnOverlay(event, 'react-portal-popup')">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('react-portal-popup')">✕</button>
+            <div class="popup-header">🖥️ Internal Portals - React Project Deep Dive</div>
+            <div class="popup-subtitle">Interview-Ready Architecture for 5-Year Full-Stack Engineer</div>
+            
+            <!-- Section 1: Module Overview -->
+            <div class="popup-section">
+                <div class="popup-section-title">📄 1. UI PAGES BY MODULE</div>
+                
+                <table class="module-overview-table">
+                    <thead>
+                        <tr><th>Module</th><th>Page</th><th>Functionality (20 words max)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="module-cell campaign">📊 Campaign<br>Management</td>
+                            <td><strong>CampaignListPage</strong></td>
+                            <td>View all campaigns with search, filters, sorting, and pagination</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CampaignFormPage</strong></td>
+                            <td>Create/Edit campaign with multi-step wizard (Details → Offers → Targeting → Review)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OfferBuilderPage</strong></td>
+                            <td>Add/Edit offers with reward rules, spending criteria, and terms</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" class="module-cell approval">✅ Approval<br>Console</td>
+                            <td><strong>ApprovalQueuePage</strong></td>
+                            <td>View pending approvals filtered by stage (Legal/Finance/VP)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ApprovalDetailPage</strong></td>
+                            <td>Review campaign details, approve/reject with comments, view audit history</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" class="module-cell support">🎧 Support<br>Portal</td>
+                            <td><strong>CustomerSearchPage</strong></td>
+                            <td>Search customers by account#, name, email with autocomplete dropdown</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CustomerDetailPage</strong></td>
+                            <td>View customer profile, enrolled offers, transactions, and disputes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Section 2: Detailed Page Breakdowns -->
+            <div class="popup-section">
+                <div class="popup-section-title">🔍 2. DETAILED PAGE BREAKDOWN (One per Module)</div>
+                <div class="popup-section-desc">Selected pages to cover all React components without duplication.</div>
+                
+                <!-- Campaign Management: CampaignFormPage -->
+                <div class="page-detail-box" style="border-left-color: #4299e1;">
+                    <div class="page-detail-header">
+                        <span class="page-module-badge" style="background: #4299e1;">📊 Campaign Management</span>
+                        <span class="page-name">CampaignFormPage (Create/Edit)</span>
+                    </div>
+                    <div class="page-detail-reason">
+                        <strong>Why selected:</strong> Covers form components, multi-step wizard, validation, complex state management
+                    </div>
+                    
+                    <!-- HTML Wireframe with Stepper -->
+                    <div class="wireframe-container">
+                        <div class="wireframe-title">Page Wireframe (Interactive Multi-Step):</div>
+                        <div class="wireframe-html">
+                            <!-- Header -->
+                            <div class="wf-header">
+                                <span class="wf-title">📊 Create Campaign</span>
+                                <button class="wf-btn wf-btn-secondary">Save Draft</button>
+                            </div>
+                            
+                            <!-- Stepper -->
+                            <div class="wf-stepper">
+                                <div class="wf-step active" id="step-ind-1" onclick="showStep(1)">
+                                    <div class="wf-step-number">1</div>
+                                    <div class="wf-step-label">Basic Info</div>
+                                </div>
+                                <div class="wf-step-line"></div>
+                                <div class="wf-step" id="step-ind-2" onclick="showStep(2)">
+                                    <div class="wf-step-number">2</div>
+                                    <div class="wf-step-label">Offers</div>
+                                </div>
+                                <div class="wf-step-line"></div>
+                                <div class="wf-step" id="step-ind-3" onclick="showStep(3)">
+                                    <div class="wf-step-number">3</div>
+                                    <div class="wf-step-label">Targeting</div>
+                                </div>
+                                <div class="wf-step-line"></div>
+                                <div class="wf-step" id="step-ind-4" onclick="showStep(4)">
+                                    <div class="wf-step-number">4</div>
+                                    <div class="wf-step-label">Review</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 1: Basic Info -->
+                            <div class="wf-step-content" id="wf-step-1">
+                                <div class="wf-step-title">Step 1: Basic Information</div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Campaign Name <span class="wf-required">*</span></label>
+                                    <input type="text" class="wf-input" placeholder="Summer Dining 2024" readonly>
+                                </div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Description</label>
+                                    <textarea class="wf-textarea" placeholder="Exclusive dining offers for Gold cardmembers..." readonly></textarea>
+                                </div>
+                                <div class="wf-form-row">
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">Start Date <span class="wf-required">*</span></label>
+                                        <input type="text" class="wf-input" placeholder="📅 Jan 1, 2024" readonly>
+                                    </div>
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">End Date <span class="wf-required">*</span></label>
+                                        <input type="text" class="wf-input" placeholder="📅 Mar 31, 2024" readonly>
+                                    </div>
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">Budget <span class="wf-required">*</span></label>
+                                        <input type="text" class="wf-input" placeholder="$ 500,000" readonly>
+                                    </div>
+                                </div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Status</label>
+                                    <select class="wf-select" disabled>
+                                        <option>Draft</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Offers -->
+                            <div class="wf-step-content" id="wf-step-2" style="display:none;">
+                                <div class="wf-step-title">Step 2: Add Offers</div>
+                                <div class="wf-offer-card">
+                                    <div class="wf-offer-header">
+                                        <span>Offer #1</span>
+                                        <button class="wf-btn-icon">🗑️</button>
+                                    </div>
+                                    <div class="wf-form-row">
+                                        <div class="wf-form-group">
+                                            <label class="wf-label">Merchant</label>
+                                            <input type="text" class="wf-input" placeholder="Cheesecake Factory" readonly>
+                                        </div>
+                                        <div class="wf-form-group">
+                                            <label class="wf-label">Reward Type</label>
+                                            <select class="wf-select" disabled>
+                                                <option>Cashback %</option>
+                                            </select>
+                                        </div>
+                                        <div class="wf-form-group">
+                                            <label class="wf-label">Value</label>
+                                            <input type="text" class="wf-input" placeholder="10%" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="wf-form-row">
+                                        <div class="wf-form-group">
+                                            <label class="wf-label">Min Spend</label>
+                                            <input type="text" class="wf-input" placeholder="$ 50" readonly>
+                                        </div>
+                                        <div class="wf-form-group">
+                                            <label class="wf-label">Max Reward</label>
+                                            <input type="text" class="wf-input" placeholder="$ 50" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="wf-btn wf-btn-dashed">+ Add Another Offer</button>
+                            </div>
+                            
+                            <!-- Step 3: Targeting -->
+                            <div class="wf-step-content" id="wf-step-3" style="display:none;">
+                                <div class="wf-step-title">Step 3: Targeting Rules</div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Card Types</label>
+                                    <div class="wf-checkbox-group">
+                                        <label class="wf-checkbox"><input type="checkbox" checked disabled> Gold</label>
+                                        <label class="wf-checkbox"><input type="checkbox" checked disabled> Platinum</label>
+                                        <label class="wf-checkbox"><input type="checkbox" disabled> Green</label>
+                                        <label class="wf-checkbox"><input type="checkbox" disabled> Corporate</label>
+                                    </div>
+                                </div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Customer Segment</label>
+                                    <select class="wf-select" disabled>
+                                        <option>Dining Enthusiasts</option>
+                                    </select>
+                                </div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Geographic Region</label>
+                                    <select class="wf-select" disabled>
+                                        <option>United States - All</option>
+                                    </select>
+                                </div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Account Age</label>
+                                    <div class="wf-form-row">
+                                        <input type="text" class="wf-input" placeholder="Min: 6 months" readonly>
+                                        <input type="text" class="wf-input" placeholder="Max: No limit" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4: Review -->
+                            <div class="wf-step-content" id="wf-step-4" style="display:none;">
+                                <div class="wf-step-title">Step 4: Review & Submit</div>
+                                <div class="wf-review-section">
+                                    <div class="wf-review-header">📋 Campaign Details</div>
+                                    <div class="wf-review-row"><span>Name:</span><strong>Summer Dining 2024</strong></div>
+                                    <div class="wf-review-row"><span>Duration:</span><strong>Jan 1 - Mar 31, 2024</strong></div>
+                                    <div class="wf-review-row"><span>Budget:</span><strong>$500,000</strong></div>
+                                </div>
+                                <div class="wf-review-section">
+                                    <div class="wf-review-header">🎁 Offers (3)</div>
+                                    <div class="wf-review-item">• 10% cashback at Cheesecake Factory (max $50)</div>
+                                    <div class="wf-review-item">• 5% cashback at Whole Foods (max $25)</div>
+                                    <div class="wf-review-item">• 3x points at Starbucks</div>
+                                </div>
+                                <div class="wf-review-section">
+                                    <div class="wf-review-header">🎯 Targeting</div>
+                                    <div class="wf-review-row"><span>Card Types:</span><strong>Gold, Platinum</strong></div>
+                                    <div class="wf-review-row"><span>Segment:</span><strong>Dining Enthusiasts</strong></div>
+                                    <div class="wf-review-row"><span>Region:</span><strong>United States - All</strong></div>
+                                </div>
+                                <div class="wf-alert wf-alert-info">
+                                    ℹ️ After submission, this campaign will be sent to Legal for approval.
+                                </div>
+                            </div>
+                            
+                            <!-- Footer Buttons -->
+                            <div class="wf-footer">
+                                <button class="wf-btn wf-btn-secondary">Cancel</button>
+                                <div class="wf-footer-right">
+                                    <button class="wf-btn wf-btn-secondary" id="wf-prev-btn" style="display:none;" onclick="prevStep()">← Previous</button>
+                                    <button class="wf-btn wf-btn-primary" id="wf-next-btn" onclick="nextStep()">Next →</button>
+                                    <button class="wf-btn wf-btn-success" id="wf-submit-btn" style="display:none;">Submit for Approval</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Components & APIs side by side -->
+                    <div class="components-api-grid">
+                        <div class="components-box">
+                            <div class="box-title">⚛️ React Components Used:</div>
+                            <table class="compact-table">
+                                <tr><th>Component</th><th>Purpose</th></tr>
+                                <tr><td><code>&lt;FormStepper&gt;</code></td><td>Multi-step wizard with step validation</td></tr>
+                                <tr><td><code>&lt;TextField&gt;</code></td><td>Text input with label, error display</td></tr>
+                                <tr><td><code>&lt;TextArea&gt;</code></td><td>Multi-line text input</td></tr>
+                                <tr><td><code>&lt;DatePicker&gt;</code></td><td>Calendar date selection</td></tr>
+                                <tr><td><code>&lt;SelectField&gt;</code></td><td>Dropdown single select</td></tr>
+                                <tr><td><code>&lt;MultiSelect&gt;</code></td><td>Checkbox multi-select</td></tr>
+                                <tr><td><code>&lt;Button&gt;</code></td><td>Primary/Secondary actions</td></tr>
+                            </table>
+                        </div>
+                        <div class="api-box">
+                            <div class="box-title">🔌 UI Backend REST APIs:</div>
+                            <table class="compact-table">
+                                <tr><th>Action</th><th>Endpoint</th><th>Method</th></tr>
+                                <tr><td>Load draft</td><td><code>/api/campaigns/:id</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Save draft</td><td><code>/api/campaigns</code></td><td><span class="method post">POST</span></td></tr>
+                                <tr><td>Update</td><td><code>/api/campaigns/:id</code></td><td><span class="method put">PUT</span></td></tr>
+                                <tr><td>Get card types</td><td><code>/api/targeting/card-types</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Validate budget</td><td><code>/api/budgets/validate</code></td><td><span class="method post">POST</span></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Approval Console: ApprovalDetailPage -->
+                <div class="page-detail-box" style="border-left-color: #48bb78;">
+                    <div class="page-detail-header">
+                        <span class="page-module-badge" style="background: #48bb78;">✅ Approval Console</span>
+                        <span class="page-name">ApprovalDetailPage (Review & Action)</span>
+                    </div>
+                    <div class="page-detail-reason">
+                        <strong>Why selected:</strong> Covers modals, toast notifications, status badges, tabs, action buttons
+                    </div>
+                    
+                    <!-- HTML Wireframe -->
+                    <div class="wireframe-container">
+                        <div class="wireframe-title">Page Wireframe:</div>
+                        <div class="wireframe-html">
+                            <!-- Header -->
+                            <div class="wf-header">
+                                <a href="#" class="wf-back-link">← Back to Queue</a>
+                            </div>
+                            
+                            <!-- Campaign Info -->
+                            <div class="wf-card-header">
+                                <div class="wf-campaign-info">
+                                    <h2 class="wf-campaign-title">Summer Dining 2024</h2>
+                                    <div class="wf-meta">Submitted by: John Smith | Jan 15, 2024</div>
+                                </div>
+                                <span class="wf-badge wf-badge-warning">PENDING_LEGAL</span>
+                            </div>
+                            
+                            <!-- Tabs -->
+                            <div class="wf-tabs">
+                                <button class="wf-tab active" id="approval-tab-1" onclick="showApprovalTab(1)">Summary</button>
+                                <button class="wf-tab" id="approval-tab-2" onclick="showApprovalTab(2)">Offers (3)</button>
+                                <button class="wf-tab" id="approval-tab-3" onclick="showApprovalTab(3)">Budget</button>
+                                <button class="wf-tab" id="approval-tab-4" onclick="showApprovalTab(4)">History</button>
+                            </div>
+                            
+                            <!-- Tab 1: Summary Content -->
+                            <div class="wf-tab-content" id="approval-content-1">
+                                <div class="wf-info-grid">
+                                    <div class="wf-info-item">
+                                        <span class="wf-info-label">Budget</span>
+                                        <span class="wf-info-value">$500,000</span>
+                                    </div>
+                                    <div class="wf-info-item">
+                                        <span class="wf-info-label">Duration</span>
+                                        <span class="wf-info-value">Jan 1 - Mar 31, 2024</span>
+                                    </div>
+                                    <div class="wf-info-item">
+                                        <span class="wf-info-label">Card Types</span>
+                                        <span class="wf-info-value">Gold, Platinum</span>
+                                    </div>
+                                    <div class="wf-info-item">
+                                        <span class="wf-info-label">Expected Enrollments</span>
+                                        <span class="wf-info-value">50,000</span>
+                                    </div>
+                                </div>
+                                <div class="wf-section">
+                                    <div class="wf-section-title">Offers Preview</div>
+                                    <ul class="wf-list">
+                                        <li>10% cashback at Cheesecake Factory (max $50)</li>
+                                        <li>5% cashback at Whole Foods (max $25)</li>
+                                        <li>3x points at Starbucks</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Tab 2: Offers Content -->
+                            <div class="wf-tab-content" id="approval-content-2" style="display: none;">
+                                <div class="wf-section-title">Campaign Offers (3)</div>
+                                
+                                <div class="wf-offer-detail-card">
+                                    <div class="wf-offer-detail-header">
+                                        <span class="wf-offer-number">Offer #1</span>
+                                        <span class="wf-badge wf-badge-success">Active</span>
+                                    </div>
+                                    <div class="wf-offer-detail-grid">
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Merchant</span>
+                                            <span class="wf-info-value">Cheesecake Factory</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Reward Type</span>
+                                            <span class="wf-info-value">Cashback %</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Reward Value</span>
+                                            <span class="wf-info-value">10%</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Min Spend</span>
+                                            <span class="wf-info-value">$50</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Max Reward</span>
+                                            <span class="wf-info-value">$50</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">MCC Codes</span>
+                                            <span class="wf-info-value">5812, 5813</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="wf-offer-detail-card">
+                                    <div class="wf-offer-detail-header">
+                                        <span class="wf-offer-number">Offer #2</span>
+                                        <span class="wf-badge wf-badge-success">Active</span>
+                                    </div>
+                                    <div class="wf-offer-detail-grid">
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Merchant</span>
+                                            <span class="wf-info-value">Whole Foods</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Reward Type</span>
+                                            <span class="wf-info-value">Cashback %</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Reward Value</span>
+                                            <span class="wf-info-value">5%</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Min Spend</span>
+                                            <span class="wf-info-value">$25</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Max Reward</span>
+                                            <span class="wf-info-value">$25</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">MCC Codes</span>
+                                            <span class="wf-info-value">5411</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="wf-offer-detail-card">
+                                    <div class="wf-offer-detail-header">
+                                        <span class="wf-offer-number">Offer #3</span>
+                                        <span class="wf-badge wf-badge-success">Active</span>
+                                    </div>
+                                    <div class="wf-offer-detail-grid">
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Merchant</span>
+                                            <span class="wf-info-value">Starbucks</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Reward Type</span>
+                                            <span class="wf-info-value">Points Multiplier</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Reward Value</span>
+                                            <span class="wf-info-value">3x Points</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Min Spend</span>
+                                            <span class="wf-info-value">$10</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">Max Reward</span>
+                                            <span class="wf-info-value">No Limit</span>
+                                        </div>
+                                        <div class="wf-offer-detail-item">
+                                            <span class="wf-info-label">MCC Codes</span>
+                                            <span class="wf-info-value">5814</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Tab 3: Budget Content -->
+                            <div class="wf-tab-content" id="approval-content-3" style="display: none;">
+                                <div class="wf-section-title">Budget Allocation</div>
+                                
+                                <div class="wf-budget-summary">
+                                    <div class="wf-budget-total">
+                                        <span class="wf-budget-label">Total Campaign Budget</span>
+                                        <span class="wf-budget-value">$500,000</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="wf-budget-breakdown">
+                                    <div class="wf-section-title" style="margin-top: 20px;">Budget by Offer</div>
+                                    <table class="wf-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Offer</th>
+                                                <th>Allocated</th>
+                                                <th>% of Total</th>
+                                                <th>Est. Redemptions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Cheesecake Factory (10% CB)</td>
+                                                <td>$200,000</td>
+                                                <td>40%</td>
+                                                <td>4,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Whole Foods (5% CB)</td>
+                                                <td>$150,000</td>
+                                                <td>30%</td>
+                                                <td>6,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Starbucks (3x Points)</td>
+                                                <td>$150,000</td>
+                                                <td>30%</td>
+                                                <td>15,000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="wf-budget-metrics">
+                                    <div class="wf-section-title" style="margin-top: 20px;">Projected Metrics</div>
+                                    <div class="wf-info-grid">
+                                        <div class="wf-info-item">
+                                            <span class="wf-info-label">Expected Enrollments</span>
+                                            <span class="wf-info-value">50,000</span>
+                                        </div>
+                                        <div class="wf-info-item">
+                                            <span class="wf-info-label">Est. Redemption Rate</span>
+                                            <span class="wf-info-value">50%</span>
+                                        </div>
+                                        <div class="wf-info-item">
+                                            <span class="wf-info-label">Cost per Enrollment</span>
+                                            <span class="wf-info-value">$10.00</span>
+                                        </div>
+                                        <div class="wf-info-item">
+                                            <span class="wf-info-label">ROI Projection</span>
+                                            <span class="wf-info-value">2.5x</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Tab 4: History Content -->
+                            <div class="wf-tab-content" id="approval-content-4" style="display: none;">
+                                <div class="wf-section-title">Approval History Timeline</div>
+                                
+                                <div class="wf-timeline">
+                                    <div class="wf-timeline-item">
+                                        <div class="wf-timeline-marker wf-marker-completed"></div>
+                                        <div class="wf-timeline-content">
+                                            <div class="wf-timeline-header">
+                                                <span class="wf-timeline-action">Campaign Created</span>
+                                                <span class="wf-timeline-date">Jan 10, 2024 - 9:30 AM</span>
+                                            </div>
+                                            <div class="wf-timeline-user">By: John Smith (Marketing Manager)</div>
+                                            <div class="wf-timeline-comment">Initial campaign draft created for Summer Dining promotion.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="wf-timeline-item">
+                                        <div class="wf-timeline-marker wf-marker-completed"></div>
+                                        <div class="wf-timeline-content">
+                                            <div class="wf-timeline-header">
+                                                <span class="wf-timeline-action">Submitted for Review</span>
+                                                <span class="wf-timeline-date">Jan 15, 2024 - 2:15 PM</span>
+                                            </div>
+                                            <div class="wf-timeline-user">By: John Smith (Marketing Manager)</div>
+                                            <div class="wf-timeline-comment">Campaign submitted to Legal team for compliance review.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="wf-timeline-item">
+                                        <div class="wf-timeline-marker wf-marker-current"></div>
+                                        <div class="wf-timeline-content">
+                                            <div class="wf-timeline-header">
+                                                <span class="wf-timeline-action">Pending Legal Review</span>
+                                                <span class="wf-timeline-date">Current</span>
+                                            </div>
+                                            <div class="wf-timeline-user">Assigned to: Sarah Johnson (Legal Counsel)</div>
+                                            <div class="wf-timeline-comment">Awaiting T&C review and compliance verification.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="wf-timeline-item wf-timeline-pending">
+                                        <div class="wf-timeline-marker wf-marker-pending"></div>
+                                        <div class="wf-timeline-content">
+                                            <div class="wf-timeline-header">
+                                                <span class="wf-timeline-action">Finance Review</span>
+                                                <span class="wf-timeline-date">Pending</span>
+                                            </div>
+                                            <div class="wf-timeline-user">Assigned to: Michael Chen (Finance Director)</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="wf-timeline-item wf-timeline-pending">
+                                        <div class="wf-timeline-marker wf-marker-pending"></div>
+                                        <div class="wf-timeline-content">
+                                            <div class="wf-timeline-header">
+                                                <span class="wf-timeline-action">VP Approval</span>
+                                                <span class="wf-timeline-date">Pending</span>
+                                            </div>
+                                            <div class="wf-timeline-user">Assigned to: Lisa Wang (VP Marketing)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Comment Box -->
+                            <div class="wf-form-group">
+                                <label class="wf-label">Add Comment</label>
+                                <textarea class="wf-textarea" placeholder="T&Cs look good. Approved from legal perspective." readonly></textarea>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="wf-action-buttons">
+                                <button class="wf-btn wf-btn-danger">Reject</button>
+                                <button class="wf-btn wf-btn-success">Approve</button>
+                            </div>
+                            
+                            <!-- Modal Preview -->
+                            <div class="wf-modal-preview">
+                                <div class="wf-modal-label">Modal Component (shown on Reject click):</div>
+                                <div class="wf-modal">
+                                    <div class="wf-modal-header">Confirm Rejection</div>
+                                    <div class="wf-modal-body">
+                                        Are you sure you want to reject this campaign? It will be returned to Marketing for revisions.
+                                    </div>
+                                    <div class="wf-modal-footer">
+                                        <button class="wf-btn wf-btn-secondary">Cancel</button>
+                                        <button class="wf-btn wf-btn-danger">Confirm Reject</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Toast Preview -->
+                            <div class="wf-toast-preview">
+                                <div class="wf-toast-label">Toast Component (shown on Approve success):</div>
+                                <div class="wf-toast wf-toast-success">
+                                    ✓ Approved! Sent to Finance for next review.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Components & APIs side by side -->
+                    <div class="components-api-grid">
+                        <div class="components-box">
+                            <div class="box-title">⚛️ React Components Used:</div>
+                            <table class="compact-table">
+                                <tr><th>Component</th><th>Purpose</th></tr>
+                                <tr><td><code>&lt;StatusBadge&gt;</code></td><td>Color-coded status (Pending/Approved/Rejected)</td></tr>
+                                <tr><td><code>&lt;Tabs&gt;</code></td><td>Tab navigation for sections</td></tr>
+                                <tr><td><code>&lt;TextArea&gt;</code></td><td>Comment input</td></tr>
+                                <tr><td><code>&lt;Button&gt;</code></td><td>Approve (primary), Reject (danger)</td></tr>
+                                <tr><td><code>&lt;Modal&gt;</code></td><td>Confirmation dialog before reject</td></tr>
+                                <tr><td><code>&lt;Toast&gt;</code></td><td>Success/error notification popup</td></tr>
+                            </table>
+                        </div>
+                        <div class="api-box">
+                            <div class="box-title">🔌 UI Backend REST APIs:</div>
+                            <table class="compact-table">
+                                <tr><th>Action</th><th>Endpoint</th><th>Method</th></tr>
+                                <tr><td>Load details</td><td><code>/api/approvals/:id</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Approve</td><td><code>/api/approvals/:id/approve</code></td><td><span class="method post">POST</span></td></tr>
+                                <tr><td>Reject</td><td><code>/api/approvals/:id/reject</code></td><td><span class="method post">POST</span></td></tr>
+                                <tr><td>Get history</td><td><code>/api/approvals/:id/history</code></td><td><span class="method get">GET</span></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Support Portal: CustomerSearchPage -->
+                <div class="page-detail-box" style="border-left-color: #ed8936;">
+                    <div class="page-detail-header">
+                        <span class="page-module-badge" style="background: #ed8936;">🎧 Support Portal</span>
+                        <span class="page-name">CustomerSearchPage (Search & Results)</span>
+                    </div>
+                    <div class="page-detail-reason">
+                        <strong>Why selected:</strong> Covers autocomplete, debounce hook, spinner, data table with pagination
+                    </div>
+                    
+                    <!-- HTML Wireframe -->
+                    <div class="wireframe-container">
+                        <div class="wireframe-title">Page Wireframe:</div>
+                        <div class="wireframe-html">
+                            <!-- Header -->
+                            <div class="wf-header">
+                                <span class="wf-title">🎧 Customer Lookup</span>
+                            </div>
+                            
+                            <!-- Search Box with Autocomplete -->
+                            <div class="wf-search-container">
+                                <div class="wf-search-box">
+                                    <span class="wf-search-icon">🔍</span>
+                                    <input type="text" class="wf-search-input" placeholder="Search by account #, name, or email..." value="john.doe" readonly>
+                                    <span class="wf-spinner">⟳</span>
+                                </div>
+                                
+                                <!-- Autocomplete Dropdown -->
+                                <div class="wf-autocomplete-dropdown">
+                                    <div class="wf-autocomplete-item">
+                                        <div class="wf-ac-name">John Doe</div>
+                                        <div class="wf-ac-details">john.doe@email.com • ****4532</div>
+                                    </div>
+                                    <div class="wf-autocomplete-item">
+                                        <div class="wf-ac-name">Johnny Doering</div>
+                                        <div class="wf-ac-details">johnny.d@email.com • ****8821</div>
+                                    </div>
+                                    <div class="wf-autocomplete-item">
+                                        <div class="wf-ac-name">Johnathan Doyle</div>
+                                        <div class="wf-ac-details">j.doyle@email.com • ****1156</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Results Table -->
+                            <div class="wf-table-container">
+                                <div class="wf-table-header">
+                                    <span>Search Results (3)</span>
+                                </div>
+                                <table class="wf-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Account #</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Card Type</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>****4532</td>
+                                            <td>John Doe</td>
+                                            <td>john.doe@email.com</td>
+                                            <td><span class="wf-badge wf-badge-gold">Gold</span></td>
+                                            <td><span class="wf-badge wf-badge-success">Active</span></td>
+                                            <td><button class="wf-btn wf-btn-sm wf-btn-primary">View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>****8821</td>
+                                            <td>Johnny Doering</td>
+                                            <td>johnny.d@email.com</td>
+                                            <td><span class="wf-badge wf-badge-platinum">Platinum</span></td>
+                                            <td><span class="wf-badge wf-badge-success">Active</span></td>
+                                            <td><button class="wf-btn wf-btn-sm wf-btn-primary">View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>****1156</td>
+                                            <td>Johnathan Doyle</td>
+                                            <td>j.doyle@email.com</td>
+                                            <td><span class="wf-badge wf-badge-green">Green</span></td>
+                                            <td><span class="wf-badge wf-badge-success">Active</span></td>
+                                            <td><button class="wf-btn wf-btn-sm wf-btn-primary">View</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <!-- Pagination -->
+                                <div class="wf-pagination">
+                                    <button class="wf-btn wf-btn-sm wf-btn-secondary" disabled>← Prev</button>
+                                    <span class="wf-page-info">Page 1 of 1</span>
+                                    <button class="wf-btn wf-btn-sm wf-btn-secondary" disabled>Next →</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Components & APIs side by side -->
+                    <div class="components-api-grid">
+                        <div class="components-box">
+                            <div class="box-title">⚛️ React Components Used:</div>
+                            <table class="compact-table">
+                                <tr><th>Component</th><th>Purpose</th></tr>
+                                <tr><td><code>&lt;Autocomplete&gt;</code></td><td>Type-ahead search with dropdown</td></tr>
+                                <tr><td><code>&lt;Spinner&gt;</code></td><td>Loading indicator while fetching</td></tr>
+                                <tr><td><code>&lt;DataTable&gt;</code></td><td>Sortable, paginated results table</td></tr>
+                                <tr><td><code>&lt;Button&gt;</code></td><td>View action button</td></tr>
+                                <tr><td><code>useDebounce</code></td><td>Delays API call until typing stops (300ms)</td></tr>
+                            </table>
+                        </div>
+                        <div class="api-box">
+                            <div class="box-title">🔌 UI Backend REST APIs:</div>
+                            <table class="compact-table">
+                                <tr><th>Action</th><th>Endpoint</th><th>Method</th></tr>
+                                <tr><td>Autocomplete</td><td><code>/api/customers/autocomplete?q=</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Full search</td><td><code>/api/customers/search?q=&page=</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Get customer</td><td><code>/api/customers/:id</code></td><td><span class="method get">GET</span></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+        <h1>🎯 Credit Card Offers Platform - Akhila's Focus Areas</h1>
+        <p class="subtitle">Full-Stack Engineer | 5 Years Experience | Interview Preparation Guide</p>
+        <div class="focus-note">
+            <strong>📌 Legend:</strong> 
+            <span style="background: #c6f6d5; padding: 2px 6px; border-radius: 4px; border: 2px solid #48bb78; margin: 0 5px;">⭐ Green Border = Your Focus</span>
+            <span style="filter: blur(2px); opacity: 0.5; margin: 0 5px;">Blurred = Context Only (Don't Deep Dive)</span>
+            <br><br>
+            <strong>Your Scope:</strong> React UI Portals → Node.JS BFF APIs → API Gateway → 3 Spring Boot APIs → 1 Vert.X Service → Kafka → Couchbase/Redis
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-title">📋 Your Experience Scope</div>
+            <div class="legend-items">
+                <div class="legend-item"><span class="scope-badge scope-primary">PRIMARY</span> Built & Own - Deep knowledge expected</div>
+                <div class="legend-item"><span class="scope-badge scope-secondary">SECONDARY</span> Integrated with - Good understanding</div>
+                <div class="legend-item"><span class="scope-badge scope-awareness">AWARENESS</span> Know it exists - High-level only</div>
+            </div>
+        </div>
+
+        <!-- UPSTREAM SYSTEMS - BLURRED -->
+        <div class="group-box blurred">
+            <div class="group-title">⬆️ UPSTREAM SYSTEMS (Data Sources)</div>
+            <div class="group-desc">"Systems that SEND data TO our platform" - You receive data from these but don't build them</div>
+            <div class="services-grid">
+                <div class="service external">🏛️ Core Banking</div>
+                <div class="service external">💳 Transaction Processing</div>
+                <div class="service external">👤 CRM (Salesforce)</div>
+                <div class="service external">📢 Marketing (Adobe)</div>
+                <div class="service external">✈️ Partner Systems</div>
+                <div class="service external">🔐 KYC/AML System</div>
+            </div>
+        </div>
+
+        <div class="flow-arrow-down blurred">⬇️ ⬇️ ⬇️</div>
+
+        <!-- UI LAYER - AKHILA'S FOCUS -->
+        <div class="row">
+            <!-- Internal Portals -->
+            <div class="col">
+                <div class="group-box focus-area clickable-box" onclick="openPopup('react-portal-popup')" style="position: relative;">
+                    <span class="click-hint">🔗 Click for Details</span>
+                    <div class="group-title">🖥️ INTERNAL PORTALS (React) <span class="scope-badge scope-primary">PRIMARY</span></div>
+                    <div class="group-desc">
+                        <strong>You built these!</strong> React-based SPAs for Amex employees. Features: campaign creation wizards, offer management forms, data tables with pagination, role-based access control UI.
+                    </div>
+                    <div class="services-grid">
+                        <div class="service portal focus">📊 Campaign Management<br><small>Marketing Team</small></div>
+                        <div class="service portal focus">✅ Approval Console<br><small>Legal/Finance</small></div>
+                        <div class="service portal focus">🎧 Support Portal<br><small>Customer Service</small></div>
+                        <div class="service portal semi-blurred">📈 Analytics Dashboard<br><small>Business Analysts</small></div>
+                        <div class="service portal semi-blurred">⚙️ Ops Console<br><small>DevOps/MerOps</small></div>
+                    </div>
+                    <div class="interview-tip">
+                        <strong>💡 Click this box</strong> to see detailed pages, API mappings, project structure, and React flow diagram for interviews.
+                    </div>
+                </div>
+            </div>
+
+            <!-- UI Backend Services - Node.JS -->
+            <div class="col">
+                <div class="group-box focus-area" style="background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);">
+                    <div class="group-title">🟢 UI BACKEND SERVICES (Node.JS BFF) <span class="scope-badge scope-primary">PRIMARY</span></div>
+                    <div class="group-desc">
+                        <strong>You built these!</strong> Backend-for-Frontend layer using Node.JS + Express. Aggregates multiple microservices into optimized UI responses. Handles session management, request transformation, response shaping.
+                    </div>
+                    
+                    <!-- Internal Portal APIs -->
+                    <div style="margin-bottom: 10px;">
+                        <div style="font-size: 11px; font-weight: bold; color: #2b6cb0; margin-bottom: 6px; padding: 3px 8px; background: #bee3f8; border-radius: 4px; display: inline-block;">🖥️ Internal Portal APIs</div>
+                        <div>
+                            <div class="nodejs-module">
+                                <strong>📊 Campaign Admin API</strong>
+                                <small>CRUD campaigns, offers, budget allocation, targeting rules</small>
+                            </div>
+                            <div class="nodejs-module">
+                                <strong>✅ Approval Queue API</strong>
+                                <small>Workflow stages, approve/reject, comments, audit trail</small>
+                            </div>
+                            <div class="nodejs-module">
+                                <strong>📈 Analytics API</strong>
+                                <small>KPI aggregations, time-series charts, A/B test results</small>
+                            </div>
+                            <div class="nodejs-module">
+                                <strong>🎧 Support API</strong>
+                                <small>Customer lookup, enrollment history, dispute resolution</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interview-tip">
+                        <strong>💡 Interview Tip:</strong> Explain BFF pattern benefits (reduce client complexity, optimize payloads), Express middleware (auth, logging, error handling), async/await with Promise.all for parallel microservice calls, response transformation, caching strategies.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-arrow-down">⬇️ API Requests (REST) ⬇️</div>
+
+        <!-- MAIN PLATFORM -->
+        <div class="platform-box">
+            <div class="platform-title">☁️ OFFERS PLATFORM (AWS EKS Cluster)</div>
+            
+            <!-- Security - SECONDARY FOCUS -->
+            <div class="group-box" style="background: #fffbeb; border-color: #ecc94b;">
+                <div class="group-title">🔐 SECURITY LAYER (Okta + API Gateway) <span class="scope-badge scope-secondary">SECONDARY</span></div>
+                <div class="group-desc">
+                    <strong>You integrated with this!</strong> Your React app redirects to Okta for login. Your Node.JS BFF validates tokens. Your Spring Boot APIs use @PreAuthorize for scope checks.
+                </div>
+                <div class="services-grid">
+                    <div class="service security focus">🎫 Okta OAuth2/OIDC<br><small>Token Issuance</small></div>
+                    <div class="service gateway semi-blurred">🛡️ AWS WAF<br><small>SQL/XSS Protection</small></div>
+                    <div class="service gateway semi-blurred">⏱️ Rate Limiting<br><small>Throttling</small></div>
+                </div>
+                <div class="interview-tip">
+                    <strong>💡 Interview Tip:</strong> Explain OAuth2 Authorization Code flow for UI login, how React stores tokens, Spring Security @PreAuthorize with scopes for method-level access control.
+                </div>
+            </div>
+
+            <div class="flow-arrow-down">⬇️ Authenticated Requests ⬇️</div>
+
+            <!-- Microservices Row -->
+            <div class="row">
+                <!-- REST APIs - PRIMARY FOCUS -->
+                <div class="col-wide">
+                    <div class="group-box focus-area">
+                        <div class="group-title">🔷 MICROSERVICES (Spring Boot REST APIs) <span class="scope-badge scope-primary">PRIMARY</span></div>
+                        <div class="group-desc">
+                            <strong>You built 3 of these!</strong> End-to-end ownership: API design, business logic, Couchbase integration, Kafka events, unit/integration tests.
+                        </div>
+                        
+                        <div style="margin: 10px 0;">
+                            <strong style="font-size: 12px; color: #276749;">✅ YOUR SERVICES (Deep Knowledge):</strong>
+                            <div class="services-grid">
+                                <div class="service rest-api focus">📢 Campaign Service<br><small>CRUD, State Machine</small></div>
+                                <div class="service rest-api focus">🎁 Offer Service<br><small>Reward Rules</small></div>
+                                <div class="service rest-api focus">📝 Enrollment Service<br><small>Opt-in/Opt-out</small></div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin: 10px 0;">
+                            <strong style="font-size: 12px; color: #718096;">📋 OTHER SERVICES (Your BFF calls these APIs):</strong>
+                            <div class="services-grid" style="opacity: 0.6;">
+                                <div class="service rest-api">🎯 Targeting Service</div>
+                                <div class="service rest-api">💰 Budget Service</div>
+                                <div class="service rest-api">👤 Customer Profile</div>
+                                <div class="service rest-api">✔️ Eligibility Service</div>
+                                <div class="service rest-api">💸 Redemption Service</div>
+                            </div>
+                        </div>
+                        
+                        <div class="interview-tip">
+                            <strong>💡 Interview Tip:</strong> Be ready to whiteboard: Campaign Service API endpoints, request/response DTOs, validation annotations (@Valid, custom validators), exception handling (@ControllerAdvice), Couchbase document structure, Kafka event publishing on state change.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vert.X Services - SECONDARY FOCUS -->
+                <div class="col">
+                    <div class="group-box focus-area">
+                        <div class="group-title">⚡ HIGH-THROUGHPUT (Vert.X) <span class="scope-badge scope-secondary">SECONDARY</span></div>
+                        <div class="group-desc">
+                            <strong>You built 1 of these!</strong> Impressions Service - tracks every offer view. Non-blocking, event-loop based.
+                        </div>
+                        <div class="services-grid">
+                            <div class="service vertx focus">👁️ Impressions Service<br><small>50K events/sec</small></div>
+                            <div class="service vertx semi-blurred">🖱️ Click Stream<br><small>User Interactions</small></div>
+                        </div>
+                        <div class="interview-tip">
+                            <strong>💡 Interview Tip:</strong> Explain why Vert.X over Spring Boot (non-blocking I/O, event loop), Verticle deployment, event bus communication, how you handle backpressure.
+                        </div>
+                    </div>
+
+                    <!-- AI/ML - BLURRED -->
+                    <div class="group-box blurred">
+                        <div class="group-title">🤖 AI/ML SYSTEMS <span class="scope-badge scope-awareness">AWARENESS</span></div>
+                        <div class="group-desc">Data science team owns these. You consume their APIs via BFF.</div>
+                        <div class="services-grid">
+                            <div class="service ml">💡 Recommendation Engine</div>
+                            <div class="service ml">📊 Propensity Model</div>
+                            <div class="service ml">🚨 Fraud Detection</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-arrow-down">⬇️ Events ⬇️</div>
+
+            <!-- Messaging & Data Layer - SECONDARY FOCUS -->
+            <div class="row">
+                <div class="col">
+                    <div class="group-box focus-area">
+                        <div class="group-title">📨 EVENT STREAMING (Apache Kafka) <span class="scope-badge scope-secondary">SECONDARY</span></div>
+                        <div class="group-desc">
+                            <strong>You produce & consume events!</strong> Your services publish domain events. You handle consumer lag, retries, DLQ.
+                        </div>
+                        <div class="services-grid">
+                            <div class="service kafka focus">campaign-events</div>
+                            <div class="service kafka focus">offer-events</div>
+                            <div class="service kafka focus">enrollment-events</div>
+                            <div class="service kafka semi-blurred">impression-events</div>
+                            <div class="service kafka semi-blurred">redemption-events</div>
+                        </div>
+                        <div class="interview-tip">
+                            <strong>💡 Interview Tip:</strong> Explain Kafka producer config (acks, retries, idempotence), consumer groups, offset management, exactly-once semantics, dead letter queue pattern for failed messages.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="group-box focus-area">
+                        <div class="group-title">💾 DATA STORES <span class="scope-badge scope-primary">PRIMARY</span></div>
+                        <div class="group-desc">
+                            <strong>You designed data models!</strong> Couchbase document structure, Redis cache strategies.
+                        </div>
+                        <div class="services-grid">
+                            <div class="service datastore focus">🗄️ Couchbase<br><small>Primary NoSQL DB</small></div>
+                            <div class="service datastore focus">⚡ Redis Cache<br><small>Offer Lookups</small></div>
+                            <div class="service datastore semi-blurred">🐘 PostgreSQL<br><small>Legacy/Reports</small></div>
+                        </div>
+                        <div class="interview-tip">
+                            <strong>💡 Interview Tip:</strong> Explain Couchbase document design (embedded vs referenced), N1QL queries, cache-aside pattern with Redis, TTL strategies, cache invalidation on updates.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Batch Processing - BLURRED -->
+            <div class="group-box blurred">
+                <div class="group-title">⏰ BATCH PROCESSING <span class="scope-badge scope-awareness">AWARENESS</span></div>
+                <div class="group-desc">Platform team owns batch jobs. You know they exist for eligibility refresh, settlements.</div>
+                <div class="services-grid">
+                    <div class="service batch">🔄 Eligibility Refresh</div>
+                    <div class="service batch">⏳ Offer Expiry</div>
+                    <div class="service batch">💰 Settlement Batch</div>
+                    <div class="service batch">📊 Report Generation</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-arrow-down blurred">⬇️ Stream Events ⬇️</div>
+
+        <!-- Data Lake - BLURRED -->
+        <div class="group-box blurred" style="background: linear-gradient(135deg, #e6fffa 0%, #ebf8ff 100%);">
+            <div class="group-title">🌊 DATA STREAMING & DATA LAKE (AWS) <span class="scope-badge scope-awareness">AWARENESS</span></div>
+            <div class="group-desc">Data Engineering team owns this. Your Kafka events flow here eventually. You might query Athena for analytics.</div>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="services-grid">
+                        <div class="service kinesis">📡 Kinesis Streams</div>
+                        <div class="service kinesis">🚚 Kinesis Firehose</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="services-grid">
+                        <div class="service datalake">📦 S3 Data Lake</div>
+                        <div class="service datalake">🧹 AWS Glue ETL</div>
+                        <div class="service datalake">🔍 Amazon Athena</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-arrow-down blurred">⬇️ ⬇️ ⬇️</div>
+
+        <!-- DOWNSTREAM SYSTEMS - BLURRED -->
+        <div class="group-box blurred">
+            <div class="group-title">⬇️ DOWNSTREAM SYSTEMS <span class="scope-badge scope-awareness">AWARENESS</span></div>
+            <div class="group-desc">Your events/APIs feed these systems. You don't own them.</div>
+            <div class="services-grid">
+                <div class="service downstream">🏆 Rewards System</div>
+                <div class="service downstream">📄 Statement System</div>
+                <div class="service downstream">📧 Notification Platform</div>
+                <div class="service downstream">📊 Data Warehouse</div>
+                <div class="service downstream">📋 Compliance</div>
+            </div>
+        </div>
+
+        <!-- Summary Box -->
+        <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 5px solid #48bb78;">
+            <div style="font-size: 16px; font-weight: bold; color: #276749; margin-bottom: 15px;">📝 AKHILA'S INTERVIEW SUMMARY</div>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">🎯 PRIMARY (Deep Dive Expected):</div>
+                    <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
+                        <li><strong>React UI:</strong> Campaign Management, Approval Console, Support Portal</li>
+                        <li><strong>Node.JS BFF:</strong> Express APIs, request aggregation, response shaping</li>
+                        <li><strong>Spring Boot APIs:</strong> Campaign Service, Offer Service, Enrollment Service</li>
+                        <li><strong>Vert.X:</strong> Impressions Service (high-throughput)</li>
+                        <li><strong>Couchbase:</strong> Document design, N1QL queries</li>
+                        <li><strong>Redis:</strong> Cache-aside pattern, TTL strategies</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">🔗 SECONDARY (Good Understanding):</div>
+                    <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
+                        <li><strong>OAuth2/Okta:</strong> Authorization Code flow, JWT validation</li>
+                        <li><strong>API Gateway:</strong> JWT Authorizer, rate limiting concept</li>
+                        <li><strong>Kafka:</strong> Producer/Consumer, consumer groups, DLQ</li>
+                        <li><strong>Other APIs:</strong> Eligibility, Targeting, Redemption (via BFF)</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">👁️ AWARENESS (Mention Only):</div>
+                    <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
+                        <li>Upstream systems (Core Banking, TPS, CRM)</li>
+                        <li>Data Lake (Kinesis, S3, Athena)</li>
+                        <li>Batch Processing (Eligibility Refresh, Settlements)</li>
+                        <li>AI/ML (Recommendations, Fraud Detection)</li>
+                        <li>Downstream systems (Rewards, Statements)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Tech Stack Summary -->
+            <div style="margin-top: 20px; padding: 15px; background: #f7fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <div style="font-weight: bold; color: #2d3748; margin-bottom: 10px;">🛠️ AKHILA'S TECH STACK:</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    <span style="background: #61dafb; color: #282c34; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">⚛️ React</span>
+                    <span style="background: #68d391; color: #22543d; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">🟢 Node.JS</span>
+                    <span style="background: #68d391; color: #22543d; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Express</span>
+                    <span style="background: #6db33f; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">🍃 Spring Boot</span>
+                    <span style="background: #782a90; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Vert.X</span>
+                    <span style="background: #ea2328; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Couchbase</span>
+                    <span style="background: #dc382d; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Redis</span>
+                    <span style="background: #231f20; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Kafka</span>
+                    <span style="background: #ff9900; color: #232f3e; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">☁️ AWS</span>
+                    <span style="background: #007ec6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Okta</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #2d3748; color: white; border-radius: 8px;">
+            <strong>Akhila Bezawada - Full-Stack Engineer | 5 Years Experience</strong><br>
+            <small>Credit Card Offers Platform - Interview Preparation Reference</small>
+        </div>
+    </div>
+    
+    <!-- JavaScript for Popup and Multi-Step Form -->
+    <script>
+        function openPopup(popupId) {
+            document.getElementById(popupId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closePopup(popupId) {
+            document.getElementById(popupId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function closePopupOnOverlay(event, popupId) {
+            if (event.target.id === popupId) {
+                closePopup(popupId);
+            }
+        }
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.popup-overlay.active').forEach(function(popup) {
+                    popup.classList.remove('active');
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Multi-step form stepper
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function showStep(step) {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepContent = document.getElementById('wf-step-' + i);
+                const stepIndicator = document.getElementById('step-ind-' + i);
+                if (stepContent) stepContent.style.display = 'none';
+                if (stepIndicator) {
+                    stepIndicator.classList.remove('active');
+                    if (i < step) {
+                        stepIndicator.classList.add('completed');
+                    } else {
+                        stepIndicator.classList.remove('completed');
+                    }
+                }
+            }
+            
+            // Update step lines
+            const stepLines = document.querySelectorAll('.wf-step-line');
+            stepLines.forEach((line, index) => {
+                if (index < step - 1) {
+                    line.classList.add('completed');
+                } else {
+                    line.classList.remove('completed');
+                }
+            });
+            
+            // Show current step
+            const currentStepContent = document.getElementById('wf-step-' + step);
+            const currentStepIndicator = document.getElementById('step-ind-' + step);
+            if (currentStepContent) currentStepContent.style.display = 'block';
+            if (currentStepIndicator) currentStepIndicator.classList.add('active');
+            
+            // Update buttons
+            const prevBtn = document.getElementById('wf-prev-btn');
+            const nextBtn = document.getElementById('wf-next-btn');
+            const submitBtn = document.getElementById('wf-submit-btn');
+            
+            if (prevBtn) prevBtn.style.display = step > 1 ? 'inline-block' : 'none';
+            if (nextBtn) nextBtn.style.display = step < totalSteps ? 'inline-block' : 'none';
+            if (submitBtn) submitBtn.style.display = step === totalSteps ? 'inline-block' : 'none';
+            
+            currentStep = step;
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                showStep(currentStep + 1);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        }
+
+        // Approval Detail Page Tabs
+        function showApprovalTab(tabNumber) {
+            // Hide all tab contents
+            for (let i = 1; i <= 4; i++) {
+                const content = document.getElementById('approval-content-' + i);
+                const tab = document.getElementById('approval-tab-' + i);
+                if (content) content.style.display = 'none';
+                if (tab) tab.classList.remove('active');
+            }
+            
+            // Show selected tab content
+            const selectedContent = document.getElementById('approval-content-' + tabNumber);
+            const selectedTab = document.getElementById('approval-tab-' + tabNumber);
+            if (selectedContent) selectedContent.style.display = 'block';
+            if (selectedTab) selectedTab.classList.add('active');
+        }
+    </script>
+</body>
+</html>
