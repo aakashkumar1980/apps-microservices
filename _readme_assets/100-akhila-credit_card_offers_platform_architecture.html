@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Offers Platform - Akhila's Focus Areas (5-Year Full-Stack Engineer)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; padding: 20px; }
+        h1 { text-align: center; color: #1a365d; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 10px; font-size: 14px; }
+        .focus-note { text-align: center; color: #2f855a; margin-bottom: 25px; font-size: 13px; background: #c6f6d5; padding: 10px; border-radius: 8px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+        .container { max-width: 1600px; margin: 0 auto; }
+        
+        /* Blur classes */
+        .blurred {
+            filter: blur(3px);
+            opacity: 0.35;
+            pointer-events: none;
+            user-select: none;
+        }
+        .semi-blurred {
+            filter: blur(1.5px);
+            opacity: 0.5;
+        }
+        
+        /* Highlight for focus areas */
+        .focus-area {
+            box-shadow: 0 0 15px rgba(72, 187, 120, 0.5);
+            border: 3px solid #48bb78 !important;
+            position: relative;
+        }
+        .focus-area::before {
+            content: "⭐ AKHILA'S FOCUS";
+            position: absolute;
+            top: -12px;
+            left: 10px;
+            background: #48bb78;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        /* Dotted box groups */
+        .group-box {
+            border: 2px dashed #999;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            background: rgba(255,255,255,0.7);
+        }
+        .group-title {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            padding: 5px 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .group-desc {
+            font-size: 12px;
+            color: #444;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            padding: 8px;
+            background: #f8f9fa;
+            border-left: 3px solid #4a5568;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* Service boxes */
+        .service {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 4px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            min-width: 130px;
+            vertical-align: top;
+        }
+        
+        /* Color coding */
+        .external { background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; }
+        .gateway { background: #feebc8; border: 1px solid #f6ad55; color: #744210; }
+        .rest-api { background: #bee3f8; border: 1px solid #63b3ed; color: #2a4365; }
+        .vertx { background: #c6f6d5; border: 1px solid #68d391; color: #22543d; }
+        .nodejs { background: #68d391; border: 1px solid #38a169; color: #22543d; }
+        .kafka { background: #e9d8fd; border: 1px solid #b794f4; color: #44337a; }
+        .kinesis { background: #fbd38d; border: 1px solid #ed8936; color: #744210; }
+        .datalake { background: #b2f5ea; border: 1px solid #38b2ac; color: #234e52; }
+        .datastore { background: #fbb6ce; border: 1px solid #ed64a6; color: #702459; }
+        .batch { background: #d6bcfa; border: 1px solid #9f7aea; color: #44337a; }
+        .ml { background: #9ae6b4; border: 1px solid #48bb78; color: #22543d; }
+        .portal { background: #90cdf4; border: 1px solid #4299e1; color: #2a4365; }
+        .downstream { background: #feb2b2; border: 1px solid #fc8181; color: #742a2a; }
+        .security { background: #fefcbf; border: 1px solid #ecc94b; color: #744210; }
+        
+        /* Flow arrows */
+        .flow-arrow-down {
+            text-align: center;
+            font-size: 24px;
+            color: #4a5568;
+            margin: 10px 0;
+        }
+        
+        /* Layout */
+        .row { display: flex; flex-wrap: wrap; gap: 15px; margin: 15px 0; }
+        .col { flex: 1; min-width: 300px; }
+        .col-wide { flex: 2; min-width: 500px; }
+        
+        /* Legend */
+        .legend {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .legend-title { font-weight: bold; margin-bottom: 10px; }
+        .legend-items { display: flex; flex-wrap: wrap; gap: 15px; }
+        .legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; }
+        .legend-color { width: 20px; height: 20px; border-radius: 4px; }
+        .legend-focus { background: #c6f6d5; border: 2px solid #48bb78; }
+        .legend-blur { background: #e2e8f0; filter: blur(2px); opacity: 0.5; }
+        
+        /* Platform box */
+        .platform-box {
+            border: 3px solid #4a5568;
+            border-radius: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            margin: 20px 0;
+        }
+        .platform-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #4a5568;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        /* Focus service highlight */
+        .service.focus {
+            border: 2px solid #48bb78 !important;
+            box-shadow: 0 0 8px rgba(72, 187, 120, 0.4);
+            position: relative;
+        }
+        
+        /* Scope indicator */
+        .scope-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        .scope-primary { background: #48bb78; color: white; }
+        .scope-secondary { background: #ed8936; color: white; }
+        .scope-awareness { background: #a0aec0; color: white; }
+        
+        /* Interview tips */
+        .interview-tip {
+            background: #fffaf0;
+            border: 1px solid #ed8936;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-top: 8px;
+            font-size: 11px;
+            color: #744210;
+        }
+        .interview-tip strong {
+            color: #c05621;
+        }
+        
+        /* Node.js specific styling */
+        .nodejs-module {
+            background: white;
+            border: 1px solid #68d391;
+            border-left: 3px solid #38a169;
+            border-radius: 4px;
+            padding: 6px 8px;
+            font-size: 11px;
+            margin: 3px;
+            display: inline-block;
+            min-width: 140px;
+        }
+        .nodejs-module strong {
+            color: #276749;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .nodejs-module small {
+            color: #718096;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Credit Card Offers Platform - Akhila's Focus Areas</h1>
+        <p class="subtitle">Full-Stack Engineer | 5 Years Experience | Interview Preparation Guide</p>
+        <div class="focus-note">
+            <strong>📌 Legend:</strong> 
+            <span style="background: #c6f6d5; padding: 2px 6px; border-radius: 4px; border: 2px solid #48bb78; margin: 0 5px;">⭐ Green Border = Your Focus</span>
+            <span style="filter: blur(2px); opacity: 0.5; margin: 0 5px;">Blurred = Context Only (Don't Deep Dive)</span>
+            <br><br>
+            <strong>Your Scope:</strong> React UI Portals → Node.JS BFF APIs → API Gateway → 3 Spring Boot APIs → 1 Vert.X Service → Kafka → Couchbase/Redis
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-title">📋 Your Experience Scope</div>
+            <div class="legend-items">
+                <div class="legend-item"><span class="scope-badge scope-primary">PRIMARY</span> Built & Own - Deep knowledge expected</div>
+                <div class="legend-item"><span class="scope-badge scope-secondary">SECONDARY</span> Integrated with - Good understanding</div>
+                <div class="legend-item"><span class="scope-badge scope-awareness">AWARENESS</span> Know it exists - High-level only</div>
+            </div>
+        </div>
+
+        <!-- UPSTREAM SYSTEMS - BLURRED -->
+        <div class="group-box blurred">
+            <div class="group-title">⬆️ UPSTREAM SYSTEMS (Data Sources)</div>
+            <div class="group-desc">"Systems that SEND data TO our platform" - You receive data from these but don't build them</div>
+            <div class="services-grid">
+                <div class="service external">🏛️ Core Banking</div>
+                <div class="service external">💳 Transaction Processing</div>
+                <div class="service external">👤 CRM (Salesforce)</div>
+                <div class="service external">📢 Marketing (Adobe)</div>
+                <div class="service external">✈️ Partner Systems</div>
+                <div class="service external">🔐 KYC/AML System</div>
+            </div>
+        </div>
+
+        <div class="flow-arrow-down blurred">⬇️ ⬇️ ⬇️</div>
+
+        <!-- UI LAYER - AKHILA'S FOCUS -->
+        <div class="row">
+            <!-- Internal Portals -->
+            <div class="col">
+                <div class="group-box focus-area">
+                    <div class="group-title">🖥️ INTERNAL PORTALS (React) <span class="scope-badge scope-primary">PRIMARY</span></div>
+                    <div class="group-desc">
+                        <strong>You built these!</strong> React-based SPAs for Amex employees. Features: campaign creation wizards, offer management forms, data tables with pagination, role-based access control UI.
+                    </div>
+                    <div class="services-grid">
+                        <div class="service portal focus">📊 Campaign Management<br><small>Marketing Team</small></div>
+                        <div class="service portal focus">✅ Approval Console<br><small>Legal/Finance</small></div>
+                        <div class="service portal focus">🎧 Support Portal<br><small>Customer Service</small></div>
+                        <div class="service portal semi-blurred">📈 Analytics Dashboard<br><small>Business Analysts</small></div>
+                        <div class="service portal semi-blurred">⚙️ Ops Console<br><small>DevOps/MerOps</small></div>
+                    </div>
+                    <div class="interview-tip">
+                        <strong>💡 Interview Tip:</strong> Explain React component structure, state management (Redux/Context), API integration with Axios, form validations (Formik/Yup), responsive design with Material-UI, role-based route guards.
+                    </div>
+                </div>
+            </div>
+
+            <!-- UI Backend Services - Node.JS -->
+            <div class="col">
+                <div class="group-box focus-area" style="background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);">
+                    <div class="group-title">🟢 UI BACKEND SERVICES (Node.JS BFF) <span class="scope-badge scope-primary">PRIMARY</span></div>
+                    <div class="group-desc">
+                        <strong>You built these!</strong> Backend-for-Frontend layer using Node.JS + Express. Aggregates multiple microservices into optimized UI responses. Handles session management, request transformation, response shaping.
+                    </div>
+                    
+                    <!-- Internal Portal APIs -->
+                    <div style="margin-bottom: 10px;">
+                        <div style="font-size: 11px; font-weight: bold; color: #2b6cb0; margin-bottom: 6px; padding: 3px 8px; background: #bee3f8; border-radius: 4px; display: inline-block;">🖥️ Internal Portal APIs</div>
+                        <div>
+                            <div class="nodejs-module">
+                                <strong>📊 Campaign Admin API</strong>
+                                <small>CRUD campaigns, offers, budget allocation, targeting rules</small>
+                            </div>
+                            <div class="nodejs-module">
+                                <strong>✅ Approval Queue API</strong>
+                                <small>Workflow stages, approve/reject, comments, audit trail</small>
+                            </div>
+                            <div class="nodejs-module">
+                                <strong>📈 Analytics API</strong>
+                                <small>KPI aggregations, time-series charts, A/B test results</small>
+                            </div>
+                            <div class="nodejs-module">
+                                <strong>🎧 Support API</strong>
+                                <small>Customer lookup, enrollment history, dispute resolution</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interview-tip">
+                        <strong>💡 Interview Tip:</strong> Explain BFF pattern benefits (reduce client complexity, optimize payloads), Express middleware (auth, logging, error handling), async/await with Promise.all for parallel microservice calls, response transformation, caching strategies.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-arrow-down">⬇️ API Requests (REST) ⬇️</div>
+
+        <!-- MAIN PLATFORM -->
+        <div class="platform-box">
+            <div class="platform-title">☁️ OFFERS PLATFORM (AWS EKS Cluster)</div>
+            
+            <!-- Security - SECONDARY FOCUS -->
+            <div class="group-box" style="background: #fffbeb; border-color: #ecc94b;">
+                <div class="group-title">🔐 SECURITY LAYER (Okta + API Gateway) <span class="scope-badge scope-secondary">SECONDARY</span></div>
+                <div class="group-desc">
+                    <strong>You integrated with this!</strong> Your React app redirects to Okta for login. Your Node.JS BFF validates tokens. Your Spring Boot APIs use @PreAuthorize for scope checks.
+                </div>
+                <div class="services-grid">
+                    <div class="service security focus">🎫 Okta OAuth2/OIDC<br><small>Token Issuance</small></div>
+                    <div class="service gateway semi-blurred">🛡️ AWS WAF<br><small>SQL/XSS Protection</small></div>
+                    <div class="service gateway semi-blurred">⏱️ Rate Limiting<br><small>Throttling</small></div>
+                </div>
+                <div class="interview-tip">
+                    <strong>💡 Interview Tip:</strong> Explain OAuth2 Authorization Code flow for UI login, how React stores tokens, Spring Security @PreAuthorize with scopes for method-level access control.
+                </div>
+            </div>
+
+            <div class="flow-arrow-down">⬇️ Authenticated Requests ⬇️</div>
+
+            <!-- Microservices Row -->
+            <div class="row">
+                <!-- REST APIs - PRIMARY FOCUS -->
+                <div class="col-wide">
+                    <div class="group-box focus-area">
+                        <div class="group-title">🔷 MICROSERVICES (Spring Boot REST APIs) <span class="scope-badge scope-primary">PRIMARY</span></div>
+                        <div class="group-desc">
+                            <strong>You built 3 of these!</strong> End-to-end ownership: API design, business logic, Couchbase integration, Kafka events, unit/integration tests.
+                        </div>
+                        
+                        <div style="margin: 10px 0;">
+                            <strong style="font-size: 12px; color: #276749;">✅ YOUR SERVICES (Deep Knowledge):</strong>
+                            <div class="services-grid">
+                                <div class="service rest-api focus">📢 Campaign Service<br><small>CRUD, State Machine</small></div>
+                                <div class="service rest-api focus">🎁 Offer Service<br><small>Reward Rules</small></div>
+                                <div class="service rest-api focus">📝 Enrollment Service<br><small>Opt-in/Opt-out</small></div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin: 10px 0;">
+                            <strong style="font-size: 12px; color: #718096;">📋 OTHER SERVICES (Your BFF calls these APIs):</strong>
+                            <div class="services-grid" style="opacity: 0.6;">
+                                <div class="service rest-api">🎯 Targeting Service</div>
+                                <div class="service rest-api">💰 Budget Service</div>
+                                <div class="service rest-api">👤 Customer Profile</div>
+                                <div class="service rest-api">✔️ Eligibility Service</div>
+                                <div class="service rest-api">💸 Redemption Service</div>
+                            </div>
+                        </div>
+                        
+                        <div class="interview-tip">
+                            <strong>💡 Interview Tip:</strong> Be ready to whiteboard: Campaign Service API endpoints, request/response DTOs, validation annotations (@Valid, custom validators), exception handling (@ControllerAdvice), Couchbase document structure, Kafka event publishing on state change.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vert.X Services - SECONDARY FOCUS -->
+                <div class="col">
+                    <div class="group-box focus-area">
+                        <div class="group-title">⚡ HIGH-THROUGHPUT (Vert.X) <span class="scope-badge scope-secondary">SECONDARY</span></div>
+                        <div class="group-desc">
+                            <strong>You built 1 of these!</strong> Impressions Service - tracks every offer view. Non-blocking, event-loop based.
+                        </div>
+                        <div class="services-grid">
+                            <div class="service vertx focus">👁️ Impressions Service<br><small>50K events/sec</small></div>
+                            <div class="service vertx semi-blurred">🖱️ Click Stream<br><small>User Interactions</small></div>
+                        </div>
+                        <div class="interview-tip">
+                            <strong>💡 Interview Tip:</strong> Explain why Vert.X over Spring Boot (non-blocking I/O, event loop), Verticle deployment, event bus communication, how you handle backpressure.
+                        </div>
+                    </div>
+
+                    <!-- AI/ML - BLURRED -->
+                    <div class="group-box blurred">
+                        <div class="group-title">🤖 AI/ML SYSTEMS <span class="scope-badge scope-awareness">AWARENESS</span></div>
+                        <div class="group-desc">Data science team owns these. You consume their APIs via BFF.</div>
+                        <div class="services-grid">
+                            <div class="service ml">💡 Recommendation Engine</div>
+                            <div class="service ml">📊 Propensity Model</div>
+                            <div class="service ml">🚨 Fraud Detection</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-arrow-down">⬇️ Events ⬇️</div>
+
+            <!-- Messaging & Data Layer - SECONDARY FOCUS -->
+            <div class="row">
+                <div class="col">
+                    <div class="group-box focus-area">
+                        <div class="group-title">📨 EVENT STREAMING (Apache Kafka) <span class="scope-badge scope-secondary">SECONDARY</span></div>
+                        <div class="group-desc">
+                            <strong>You produce & consume events!</strong> Your services publish domain events. You handle consumer lag, retries, DLQ.
+                        </div>
+                        <div class="services-grid">
+                            <div class="service kafka focus">campaign-events</div>
+                            <div class="service kafka focus">offer-events</div>
+                            <div class="service kafka focus">enrollment-events</div>
+                            <div class="service kafka semi-blurred">impression-events</div>
+                            <div class="service kafka semi-blurred">redemption-events</div>
+                        </div>
+                        <div class="interview-tip">
+                            <strong>💡 Interview Tip:</strong> Explain Kafka producer config (acks, retries, idempotence), consumer groups, offset management, exactly-once semantics, dead letter queue pattern for failed messages.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="group-box focus-area">
+                        <div class="group-title">💾 DATA STORES <span class="scope-badge scope-primary">PRIMARY</span></div>
+                        <div class="group-desc">
+                            <strong>You designed data models!</strong> Couchbase document structure, Redis cache strategies.
+                        </div>
+                        <div class="services-grid">
+                            <div class="service datastore focus">🗄️ Couchbase<br><small>Primary NoSQL DB</small></div>
+                            <div class="service datastore focus">⚡ Redis Cache<br><small>Offer Lookups</small></div>
+                            <div class="service datastore semi-blurred">🐘 PostgreSQL<br><small>Legacy/Reports</small></div>
+                        </div>
+                        <div class="interview-tip">
+                            <strong>💡 Interview Tip:</strong> Explain Couchbase document design (embedded vs referenced), N1QL queries, cache-aside pattern with Redis, TTL strategies, cache invalidation on updates.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Batch Processing - BLURRED -->
+            <div class="group-box blurred">
+                <div class="group-title">⏰ BATCH PROCESSING <span class="scope-badge scope-awareness">AWARENESS</span></div>
+                <div class="group-desc">Platform team owns batch jobs. You know they exist for eligibility refresh, settlements.</div>
+                <div class="services-grid">
+                    <div class="service batch">🔄 Eligibility Refresh</div>
+                    <div class="service batch">⏳ Offer Expiry</div>
+                    <div class="service batch">💰 Settlement Batch</div>
+                    <div class="service batch">📊 Report Generation</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-arrow-down blurred">⬇️ Stream Events ⬇️</div>
+
+        <!-- Data Lake - BLURRED -->
+        <div class="group-box blurred" style="background: linear-gradient(135deg, #e6fffa 0%, #ebf8ff 100%);">
+            <div class="group-title">🌊 DATA STREAMING & DATA LAKE (AWS) <span class="scope-badge scope-awareness">AWARENESS</span></div>
+            <div class="group-desc">Data Engineering team owns this. Your Kafka events flow here eventually. You might query Athena for analytics.</div>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="services-grid">
+                        <div class="service kinesis">📡 Kinesis Streams</div>
+                        <div class="service kinesis">🚚 Kinesis Firehose</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="services-grid">
+                        <div class="service datalake">📦 S3 Data Lake</div>
+                        <div class="service datalake">🧹 AWS Glue ETL</div>
+                        <div class="service datalake">🔍 Amazon Athena</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-arrow-down blurred">⬇️ ⬇️ ⬇️</div>
+
+        <!-- DOWNSTREAM SYSTEMS - BLURRED -->
+        <div class="group-box blurred">
+            <div class="group-title">⬇️ DOWNSTREAM SYSTEMS <span class="scope-badge scope-awareness">AWARENESS</span></div>
+            <div class="group-desc">Your events/APIs feed these systems. You don't own them.</div>
+            <div class="services-grid">
+                <div class="service downstream">🏆 Rewards System</div>
+                <div class="service downstream">📄 Statement System</div>
+                <div class="service downstream">📧 Notification Platform</div>
+                <div class="service downstream">📊 Data Warehouse</div>
+                <div class="service downstream">📋 Compliance</div>
+            </div>
+        </div>
+
+        <!-- Summary Box -->
+        <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 5px solid #48bb78;">
+            <div style="font-size: 16px; font-weight: bold; color: #276749; margin-bottom: 15px;">📝 AKHILA'S INTERVIEW SUMMARY</div>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">🎯 PRIMARY (Deep Dive Expected):</div>
+                    <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
+                        <li><strong>React UI:</strong> Campaign Management, Approval Console, Support Portal</li>
+                        <li><strong>Node.JS BFF:</strong> Express APIs, request aggregation, response shaping</li>
+                        <li><strong>Spring Boot APIs:</strong> Campaign Service, Offer Service, Enrollment Service</li>
+                        <li><strong>Vert.X:</strong> Impressions Service (high-throughput)</li>
+                        <li><strong>Couchbase:</strong> Document design, N1QL queries</li>
+                        <li><strong>Redis:</strong> Cache-aside pattern, TTL strategies</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">🔗 SECONDARY (Good Understanding):</div>
+                    <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
+                        <li><strong>OAuth2/Okta:</strong> Authorization Code flow, JWT validation</li>
+                        <li><strong>API Gateway:</strong> JWT Authorizer, rate limiting concept</li>
+                        <li><strong>Kafka:</strong> Producer/Consumer, consumer groups, DLQ</li>
+                        <li><strong>Other APIs:</strong> Eligibility, Targeting, Redemption (via BFF)</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 280px;">
+                    <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">👁️ AWARENESS (Mention Only):</div>
+                    <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
+                        <li>Upstream systems (Core Banking, TPS, CRM)</li>
+                        <li>Data Lake (Kinesis, S3, Athena)</li>
+                        <li>Batch Processing (Eligibility Refresh, Settlements)</li>
+                        <li>AI/ML (Recommendations, Fraud Detection)</li>
+                        <li>Downstream systems (Rewards, Statements)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Tech Stack Summary -->
+            <div style="margin-top: 20px; padding: 15px; background: #f7fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <div style="font-weight: bold; color: #2d3748; margin-bottom: 10px;">🛠️ AKHILA'S TECH STACK:</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    <span style="background: #61dafb; color: #282c34; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">⚛️ React</span>
+                    <span style="background: #68d391; color: #22543d; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">🟢 Node.JS</span>
+                    <span style="background: #68d391; color: #22543d; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Express</span>
+                    <span style="background: #6db33f; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">🍃 Spring Boot</span>
+                    <span style="background: #782a90; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Vert.X</span>
+                    <span style="background: #ea2328; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Couchbase</span>
+                    <span style="background: #dc382d; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Redis</span>
+                    <span style="background: #231f20; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Kafka</span>
+                    <span style="background: #ff9900; color: #232f3e; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">☁️ AWS</span>
+                    <span style="background: #007ec6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Okta</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #2d3748; color: white; border-radius: 8px;">
+            <strong>Akhila Bezawada - Full-Stack Engineer | 5 Years Experience</strong><br>
+            <small>Credit Card Offers Platform - Interview Preparation Reference</small>
+        </div>
+    </div>
+</body>
+</html>
