@@ -1024,7 +1024,7 @@
                                     <small style="color: #718096; display: block; margin-top: 2px; font-size: 12px; line-height: 1.2;">Merchant Category Codes mapping for targeting rules (e.g., MCC 5812 = Restaurants).</small>
                                 </div>
                             </div>
-                            <div style="background: #f0fff4; border: 1px dashed #48bb78; border-radius: 5px; padding: 6px;">
+                            <div style="background: #f0fff4; border: 1px dashed #48bb78; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
                                 <div style="font-size: 12px; font-weight: bold; color: #276749; margin-bottom: 4px;">📦 Data Models:</div>
                                 <div style="display: flex; flex-wrap: wrap; gap: 3px;">
                                     <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 5px; border-radius: 3px;">Merchant</span>
@@ -1032,6 +1032,18 @@
                                     <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 5px; border-radius: 3px;">PartnerContract</span>
                                     <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 5px; border-radius: 3px;">MCCMapping</span>
                                 </div>
+                            </div>
+                            <div style="background: #fffaf0; border: 1px dashed #ed8936; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 4px;">📡 Kafka Topics:</div>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">merchant-events <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">partner-events <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
+                            </div>
+                            <div style="background: #fff5f5; border: 1px dashed #fc8181; border-radius: 5px; padding: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 4px;">⚡ Redis Cache:</div>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">merchant:{id} <span style="color: #718096;">(TTL: 1h)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">partner:{id} <span style="color: #718096;">(TTL: 1h)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">mcc:{code} <span style="color: #718096;">(TTL: 24h)</span></span>
+                                <span style="background: #fbb6ce; border: 1px solid #d53f8c; color: #702459; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">idemp:merchant:{msgId} <span style="color: #718096;">(TTL: 7d)</span></span>
                             </div>
                         </div>
                         
@@ -1076,10 +1088,19 @@
                                     <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 5px; border-radius: 3px;">Budget</span>
                                 </div>
                             </div>
-                            <div style="background: #faf5ff; border: 1px dashed #9f7aea; border-radius: 5px; padding: 6px;">
-                                <div style="font-size: 12px; font-weight: bold; color: #553c9a; margin-bottom: 4px;">📡 Kinesis:</div>
-                                <span style="background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a; font-size: 12px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">Campaign Events</span>
-                                <span style="background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a; font-size: 12px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">Offer Events</span>
+                            <div style="background: #fffaf0; border: 1px dashed #ed8936; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 4px;">📡 Kafka Topics:</div>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">campaign-events <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">offer-events <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">budget-alerts <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
+                            </div>
+                            <div style="background: #fff5f5; border: 1px dashed #fc8181; border-radius: 5px; padding: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 4px;">⚡ Redis Cache:</div>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">campaign:{id} <span style="color: #718096;">(TTL: 15m)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">offer:{id} <span style="color: #718096;">(TTL: 15m)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">budget:{campaignId} <span style="color: #718096;">(TTL: 5m)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">targeting:{offerId} <span style="color: #718096;">(TTL: 30m)</span></span>
+                                <span style="background: #fbb6ce; border: 1px solid #d53f8c; color: #702459; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">idemp:campaign:{msgId} <span style="color: #718096;">(TTL: 7d)</span></span>
                             </div>
                         </div>
                         
@@ -1111,10 +1132,16 @@
                                     <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 5px; border-radius: 3px;">InteractionLog</span>
                                 </div>
                             </div>
-                            <div style="background: #faf5ff; border: 1px dashed #9f7aea; border-radius: 5px; padding: 6px;">
-                                <div style="font-size: 12px; font-weight: bold; color: #553c9a; margin-bottom: 4px;">📡 Kinesis:</div>
-                                <span style="background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a; font-size: 12px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">Impressions Stream</span>
-                                <span style="background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a; font-size: 12px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">Click Stream</span>
+                            <div style="background: #fffaf0; border: 1px dashed #ed8936; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 4px;">📡 Kafka Topics:</div>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">impressions-stream <span style="color: #c53030; font-weight: bold;">(at-most-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">click-stream <span style="color: #c53030; font-weight: bold;">(at-most-once)</span></span>
+                            </div>
+                            <div style="background: #fff5f5; border: 1px dashed #fc8181; border-radius: 5px; padding: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 4px;">⚡ Redis Cache:</div>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">impressions:offer:{id} <span style="color: #718096;">(Counter)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">clicks:offer:{id} <span style="color: #718096;">(Counter)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">session:{userId} <span style="color: #718096;">(TTL: 30m)</span></span>
                             </div>
                         </div>
                         
@@ -1154,9 +1181,17 @@
                                     <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 5px; border-radius: 3px;">Preference</span>
                                 </div>
                             </div>
-                            <div style="background: #faf5ff; border: 1px dashed #9f7aea; border-radius: 5px; padding: 6px;">
-                                <div style="font-size: 12px; font-weight: bold; color: #553c9a; margin-bottom: 4px;">📡 Kinesis:</div>
-                                <span style="background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a; font-size: 12px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">Enrollment Events</span>
+                            <div style="background: #fffaf0; border: 1px dashed #ed8936; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 4px;">📡 Kafka Topics:</div>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">enrollment-events <span style="color: #276749; font-weight: bold;">(exactly-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">profile-updates <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
+                            </div>
+                            <div style="background: #fff5f5; border: 1px dashed #fc8181; border-radius: 5px; padding: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 4px;">⚡ Redis Cache:</div>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">profile:{customerId} <span style="color: #718096;">(TTL: 1h)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">eligibility:{customerId} <span style="color: #718096;">(TTL: 15m)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">enrollments:{customerId} <span style="color: #718096;">(TTL: 5m)</span></span>
+                                <span style="background: #fbb6ce; border: 1px solid #d53f8c; color: #702459; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">idemp:profile:{msgId} <span style="color: #718096;">(TTL: 7d)</span></span>
                             </div>
                         </div>
                         
@@ -1197,10 +1232,16 @@
                                     <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 5px; border-radius: 3px;">Dispute</span>
                                 </div>
                             </div>
-                            <div style="background: #faf5ff; border: 1px dashed #9f7aea; border-radius: 5px; padding: 6px;">
-                                <div style="font-size: 12px; font-weight: bold; color: #553c9a; margin-bottom: 4px;">📡 Kinesis:</div>
-                                <span style="background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a; font-size: 12px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">TXN Events</span>
-                                <span style="background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a; font-size: 12px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">Redemption Events</span>
+                            <div style="background: #fffaf0; border: 1px dashed #ed8936; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 4px;">📡 Kafka Topics:</div>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">transaction-events <span style="color: #276749; font-weight: bold;">(exactly-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">redemption-events <span style="color: #276749; font-weight: bold;">(exactly-once)</span></span>
+                            </div>
+                            <div style="background: #fff5f5; border: 1px dashed #fc8181; border-radius: 5px; padding: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 4px;">⚡ Redis Cache:</div>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">enrollment:lookup:{odId} <span style="color: #718096;">(TTL: 1h)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">merchant:mcc:{code} <span style="color: #718096;">(TTL: 24h)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">matched:{txnId} <span style="color: #718096;">(TTL: 48h)</span></span>
                             </div>
                         </div>
                         
@@ -1236,10 +1277,16 @@
                                     <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 5px; border-radius: 3px;">Settlement</span>
                                 </div>
                             </div>
-                            <div style="background: #faf5ff; border: 1px dashed #9f7aea; border-radius: 5px; padding: 6px;">
-                                <div style="font-size: 12px; font-weight: bold; color: #553c9a; margin-bottom: 4px;">📡 Kinesis:</div>
-                                <span style="background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a; font-size: 12px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">Rewards Events</span>
-                                <span style="background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a; font-size: 12px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">Settlement Events</span>
+                            <div style="background: #fffaf0; border: 1px dashed #ed8936; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 4px;">📡 Kafka Topics:</div>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">reward-credits <span style="color: #276749; font-weight: bold;">(exactly-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">settlement-events <span style="color: #276749; font-weight: bold;">(exactly-once)</span></span>
+                            </div>
+                            <div style="background: #fff5f5; border: 1px dashed #fc8181; border-radius: 5px; padding: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 4px;">⚡ Redis Cache:</div>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">balance:{customerId} <span style="color: #718096;">(TTL: 5m)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">reward:rules:{offerId} <span style="color: #718096;">(TTL: 1h)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">monthly:cap:{odId} <span style="color: #718096;">(TTL: 24h)</span></span>
                             </div>
                         </div>
                         
@@ -1271,9 +1318,17 @@
                                     <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 5px; border-radius: 3px;">DeliveryStatus</span>
                                 </div>
                             </div>
-                            <div style="background: #faf5ff; border: 1px dashed #9f7aea; border-radius: 5px; padding: 6px;">
-                                <div style="font-size: 12px; font-weight: bold; color: #553c9a; margin-bottom: 4px;">📡 Kinesis:</div>
-                                <span style="background: #e9d8fd; border: 1px solid #9f7aea; color: #553c9a; font-size: 12px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">Notification Events</span>
+                            <div style="background: #fffaf0; border: 1px dashed #ed8936; border-radius: 5px; padding: 6px; margin-bottom: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 4px;">📡 Kafka Topics:</div>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">notification-events <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">notification-dlq <span style="color: #742a2a; font-weight: bold;">(dead-letter)</span></span>
+                            </div>
+                            <div style="background: #fff5f5; border: 1px dashed #fc8181; border-radius: 5px; padding: 6px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 4px;">⚡ Redis Cache:</div>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">template:{id} <span style="color: #718096;">(TTL: 1h)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">pref:{customerId} <span style="color: #718096;">(TTL: 1h)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">rate:limit:{custId} <span style="color: #718096;">(TTL: 1h)</span></span>
+                                <span style="background: #fbb6ce; border: 1px solid #d53f8c; color: #702459; font-size: 11px; padding: 2px 5px; border-radius: 3px; display: inline-block; margin: 1px;">idemp:notify:{msgId} <span style="color: #718096;">(TTL: 7d)</span></span>
                             </div>
                         </div>
                         
