@@ -72,6 +72,17 @@
             border-left: 3px solid #4a5568;
             border-radius: 0 5px 5px 0;
         }
+        .domain-intro {
+            background: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-left: 3px solid #319795;
+            border-radius: 0 6px 6px 0;
+            padding: 10px;
+            font-size: 11px;
+            color: #234e52;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
         
         /* Service boxes */
         .service {
@@ -211,10 +222,2551 @@
             color: #718096;
             font-size: 10px;
         }
+        
+        /* Popup Styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .popup-overlay.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .popup-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e53e3e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .popup-header {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 5px;
+            padding-right: 40px;
+        }
+        .popup-subtitle {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .popup-section {
+            margin-bottom: 30px;
+        }
+        .popup-section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8px;
+            padding: 8px 12px;
+            background: #edf2f7;
+            border-radius: 6px;
+            border-left: 4px solid #4299e1;
+        }
+        .popup-section-desc {
+            font-size: 12px;
+            color: #4a5568;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        /* Module boxes in popup */
+        .module-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .module-box {
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #4299e1;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f7fafc;
+        }
+        .module-header {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        .module-user {
+            font-size: 11px;
+            color: #718096;
+            margin-bottom: 10px;
+        }
+        .page-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        .page-table th {
+            background: #edf2f7;
+            padding: 8px;
+            text-align: left;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .page-table td {
+            padding: 8px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        .page-table tr:hover {
+            background: #f0f4f8;
+        }
+        
+        /* API Mapping Styles */
+        .api-mapping-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .api-module-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .api-module-header {
+            padding: 10px 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .api-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        .api-table th {
+            background: #f7fafc;
+            padding: 8px 10px;
+            text-align: left;
+            font-weight: bold;
+            color: #2d3748;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .api-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        .api-table code {
+            background: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 11px;
+        }
+        .method {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            color: white;
+        }
+        .method.get { background: #48bb78; }
+        .method.post { background: #4299e1; }
+        .method.put { background: #ed8936; }
+        .method.delete { background: #e53e3e; }
+        
+        /* Project Structure Styles */
+        .project-structure {
+            background: #1a202c;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .folder-tree {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #e2e8f0;
+            margin: 0;
+            white-space: pre;
+        }
+        .folder-tree .folder { color: #fbd38d; font-weight: bold; }
+        .folder-tree .file { color: #90cdf4; }
+        .folder-tree .comment { color: #718096; font-style: italic; }
+        
+        /* Flow Comparison Styles */
+        .flow-comparison {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .flow-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .flow-header {
+            padding: 10px 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: center;
+        }
+        .flow-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #2d3748;
+            min-width: 100px;
+        }
+        .flow-step small {
+            display: block;
+            font-weight: normal;
+            color: #718096;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        .flow-arrow {
+            font-size: 18px;
+            color: #a0aec0;
+        }
+        
+        /* Detailed Flow Diagram */
+        .detailed-flow {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .detailed-flow-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .flow-lane {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+        .flow-lane.success {
+            background: #f0fff4;
+            border-color: #48bb78;
+        }
+        .lane-header {
+            font-size: 11px;
+            font-weight: bold;
+            color: #4299e1;
+            margin-bottom: 5px;
+        }
+        .lane-step {
+            font-size: 11px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+        .lane-step code {
+            background: #edf2f7;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+        }
+        .flow-connector {
+            font-size: 16px;
+            color: #a0aec0;
+        }
+        
+        /* Key Concepts */
+        .key-concepts {
+            background: #fffaf0;
+            border: 1px solid #ed8936;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .concept-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #c05621;
+            margin-bottom: 12px;
+        }
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+        }
+        .concept-card {
+            background: white;
+            border: 1px solid #fbd38d;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .concept-header {
+            background: #fbd38d;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #744210;
+        }
+        .concept-body {
+            padding: 10px;
+            font-size: 11px;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+        .concept-body code {
+            background: #fef3c7;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+        }
+        
+        /* Clickable box */
+        .clickable-box {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .clickable-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+        }
+        .click-hint {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            font-size: 10px;
+            color: #48bb78;
+            background: #c6f6d5;
+            padding: 2px 8px;
+            border-radius: 10px;
+            border: 1px solid #68d391;
+        }
+        
+        /* Module Overview Table */
+        .module-overview-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .module-overview-table th {
+            background: #2d3748;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        .module-overview-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        .module-cell {
+            font-weight: bold;
+            text-align: center;
+            color: white;
+        }
+        .module-cell.campaign { background: #4299e1; }
+        .module-cell.approval { background: #48bb78; }
+        .module-cell.support { background: #ed8936; }
+
+        /* Page Detail Box */
+        .page-detail-box {
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #4299e1;
+            border-radius: 8px;
+            margin: 15px 0;
+            background: white;
+            overflow: hidden;
+        }
+        .page-detail-header {
+            padding: 12px 15px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .page-module-badge {
+            padding: 4px 10px;
+            border-radius: 15px;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .page-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .page-detail-reason {
+            padding: 10px 15px;
+            background: #fffaf0;
+            font-size: 11px;
+            color: #744210;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Wireframe */
+        .wireframe-container {
+            padding: 15px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .wireframe-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        .wireframe {
+            background: #1a202c;
+            border-radius: 6px;
+            padding: 15px;
+            overflow-x: auto;
+        }
+        .wireframe-code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #e2e8f0;
+            margin: 0;
+            white-space: pre;
+        }
+
+        /* Components & API Grid */
+        .components-api-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        .components-box, .api-box {
+            padding: 15px;
+        }
+        .components-box {
+            background: #f0fff4;
+            border-right: 1px solid #e2e8f0;
+        }
+        .api-box {
+            background: #ebf8ff;
+        }
+        .box-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        .compact-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        .compact-table th {
+            background: rgba(0,0,0,0.05);
+            padding: 6px 8px;
+            text-align: left;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .compact-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            vertical-align: top;
+        }
+        .compact-table code {
+            background: rgba(0,0,0,0.08);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+        }
+
+        /* HTTP Methods */
+        .method {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 9px;
+            font-weight: bold;
+            color: white;
+        }
+        .method.get { background: #48bb78; }
+        .method.post { background: #4299e1; }
+        .method.put { background: #ed8936; }
+
+        /* Coverage Table */
+        .coverage-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 10px;
+        }
+        .coverage-table th {
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #2d3748;
+            border: 1px solid #e2e8f0;
+        }
+        .coverage-table td {
+            padding: 6px 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        .coverage-table td:first-child {
+            text-align: left;
+            background: #f7fafc;
+        }
+        .coverage-table code {
+            background: #edf2f7;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+        }
+
+        /* ========== HTML WIREFRAME STYLES ========== */
+        .wireframe-html {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-size: 13px;
+            color: #2d3748;
+        }
+
+        /* Header */
+        .wf-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .wf-title { font-size: 18px; font-weight: bold; color: #1a365d; }
+        .wf-back-link { color: #4299e1; text-decoration: none; font-size: 13px; }
+
+        /* Buttons */
+        .wf-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .wf-btn:hover { opacity: 0.9; }
+        .wf-btn-primary { background: #4299e1; color: white; }
+        .wf-btn-secondary { background: #e2e8f0; color: #4a5568; }
+        .wf-btn-success { background: #48bb78; color: white; }
+        .wf-btn-danger { background: #e53e3e; color: white; }
+        .wf-btn-dashed { background: white; border: 2px dashed #cbd5e0; color: #718096; width: 100%; padding: 12px; }
+        .wf-btn-sm { padding: 4px 10px; font-size: 11px; }
+        .wf-btn-icon { background: none; border: none; cursor: pointer; font-size: 14px; }
+
+        /* Form Elements */
+        .wf-form-group { margin-bottom: 15px; }
+        .wf-label { display: block; font-size: 12px; font-weight: 600; color: #4a5568; margin-bottom: 5px; }
+        .wf-required { color: #e53e3e; }
+        .wf-input, .wf-select, .wf-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+            background: #f7fafc;
+            box-sizing: border-box;
+        }
+        .wf-textarea { min-height: 80px; resize: vertical; }
+        .wf-form-row { display: flex; gap: 15px; }
+        .wf-form-row .wf-form-group { flex: 1; }
+
+        /* Checkbox Group */
+        .wf-checkbox-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        .wf-checkbox { display: flex; align-items: center; gap: 5px; font-size: 12px; cursor: pointer; }
+
+        /* Stepper */
+        .wf-stepper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+        .wf-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .wf-step:hover .wf-step-number { transform: scale(1.1); }
+        .wf-step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .wf-step.active .wf-step-number { background: #4299e1; color: white; }
+        .wf-step.completed .wf-step-number { background: #48bb78; color: white; }
+        .wf-step-label { font-size: 11px; color: #718096; }
+        .wf-step.active .wf-step-label { color: #4299e1; font-weight: 600; }
+        .wf-step.completed .wf-step-label { color: #48bb78; }
+        .wf-step-line { width: 60px; height: 2px; background: #e2e8f0; margin: 0 10px; }
+        .wf-step-line.completed { background: #48bb78; }
+
+        /* Step Content */
+        .wf-step-content { 
+            padding: 20px; 
+            background: #f7fafc; 
+            border-radius: 8px; 
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .wf-step-title { font-size: 14px; font-weight: bold; color: #2d3748; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0; }
+
+        /* Offer Card */
+        .wf-offer-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .wf-offer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 600; }
+
+        /* Review Section */
+        .wf-review-section { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .wf-review-header { font-weight: bold; color: #2d3748; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+        .wf-review-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 12px; }
+        .wf-review-item { font-size: 12px; color: #4a5568; padding: 3px 0; }
+
+        /* Alert */
+        .wf-alert { padding: 12px 15px; border-radius: 6px; font-size: 12px; margin-top: 15px; }
+        .wf-alert-info { background: #ebf8ff; color: #2b6cb0; border: 1px solid #90cdf4; }
+
+        /* Footer */
+        .wf-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+        .wf-footer-right { display: flex; gap: 10px; }
+
+        /* Badges */
+        .wf-badge { padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .wf-badge-warning { background: #fef3c7; color: #92400e; }
+        .wf-badge-success { background: #c6f6d5; color: #22543d; }
+        .wf-badge-gold { background: #fbd38d; color: #744210; }
+        .wf-badge-platinum { background: #e2e8f0; color: #4a5568; }
+        .wf-badge-green { background: #c6f6d5; color: #276749; }
+
+        /* Tabs */
+        .wf-tabs { display: flex; gap: 0; border-bottom: 1px solid #e2e8f0; margin-bottom: 20px; }
+        .wf-tab { padding: 10px 20px; background: none; border: none; font-size: 12px; color: #718096; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .wf-tab:hover { color: #4299e1; }
+        .wf-tab.active { color: #4299e1; border-bottom-color: #4299e1; font-weight: 600; }
+
+        /* Tab Content */
+        .wf-tab-content { margin-bottom: 20px; }
+
+        /* Info Grid */
+        .wf-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
+        .wf-info-item { background: #f7fafc; padding: 12px; border-radius: 6px; }
+        .wf-info-label { font-size: 11px; color: #718096; display: block; margin-bottom: 3px; }
+        .wf-info-value { font-size: 14px; font-weight: 600; color: #2d3748; }
+
+        /* Section */
+        .wf-section { margin-bottom: 20px; }
+        .wf-section-title { font-size: 12px; font-weight: bold; color: #4a5568; margin-bottom: 10px; }
+        .wf-list { padding-left: 20px; font-size: 12px; color: #4a5568; line-height: 1.8; }
+
+        /* Action Buttons */
+        .wf-action-buttons { display: flex; justify-content: flex-end; gap: 15px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+
+        /* Modal Preview */
+        .wf-modal-preview { margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.05); border-radius: 8px; }
+        .wf-modal-label { font-size: 11px; color: #718096; margin-bottom: 10px; font-style: italic; }
+        .wf-modal { background: white; border-radius: 8px; max-width: 400px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .wf-modal-header { padding: 15px 20px; font-weight: bold; border-bottom: 1px solid #e2e8f0; }
+        .wf-modal-body { padding: 20px; font-size: 13px; color: #4a5568; }
+        .wf-modal-footer { padding: 15px 20px; display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; }
+
+        /* Toast Preview */
+        .wf-toast-preview { margin-top: 15px; }
+        .wf-toast-label { font-size: 11px; color: #718096; margin-bottom: 10px; font-style: italic; }
+        .wf-toast { padding: 12px 20px; border-radius: 6px; font-size: 12px; display: inline-block; }
+        .wf-toast-success { background: #c6f6d5; color: #22543d; border: 1px solid #48bb78; }
+
+        /* Search */
+        .wf-search-container { position: relative; margin-bottom: 25px; }
+        .wf-search-box { display: flex; align-items: center; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 15px; }
+        .wf-search-icon { color: #a0aec0; margin-right: 10px; }
+        .wf-search-input { flex: 1; border: none; background: transparent; font-size: 14px; outline: none; }
+        .wf-spinner { color: #4299e1; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Autocomplete */
+        .wf-autocomplete-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 8px 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 10; }
+        .wf-autocomplete-item { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; cursor: pointer; transition: background 0.2s; }
+        .wf-autocomplete-item:hover { background: #f7fafc; }
+        .wf-autocomplete-item:last-child { border-bottom: none; }
+        .wf-ac-name { font-weight: 600; color: #2d3748; }
+        .wf-ac-details { font-size: 11px; color: #718096; margin-top: 2px; }
+
+        /* Table */
+        .wf-table-container { background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+        .wf-table-header { padding: 15px; background: #f7fafc; font-weight: bold; border-bottom: 1px solid #e2e8f0; }
+        .wf-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .wf-table th { padding: 12px 15px; background: #edf2f7; text-align: left; font-weight: 600; color: #4a5568; }
+        .wf-table td { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; }
+        .wf-table tr:hover { background: #f7fafc; }
+        .wf-table tr:last-child td { border-bottom: none; }
+
+        /* Pagination */
+        .wf-pagination { display: flex; justify-content: center; align-items: center; gap: 15px; padding: 15px; background: #f7fafc; }
+        .wf-page-info { font-size: 12px; color: #718096; }
+
+        /* Campaign Card Header */
+        .wf-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .wf-campaign-title { font-size: 20px; font-weight: bold; color: #1a365d; margin: 0; }
+        .wf-meta { font-size: 12px; color: #718096; margin-top: 5px; }
+
+        /* Offer Detail Cards */
+        .wf-offer-detail-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .wf-offer-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .wf-offer-number {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .wf-offer-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 15px;
+        }
+        .wf-offer-detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Budget Styles */
+        .wf-budget-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .wf-budget-total {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .wf-budget-label {
+            color: rgba(255,255,255,0.8);
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .wf-budget-value {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .wf-budget-breakdown {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .wf-budget-metrics {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        /* Timeline Styles */
+        .wf-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .wf-timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e2e8f0;
+        }
+        .wf-timeline-item {
+            position: relative;
+            padding-bottom: 25px;
+        }
+        .wf-timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .wf-timeline-marker {
+            position: absolute;
+            left: -26px;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #e2e8f0;
+        }
+        .wf-marker-completed {
+            background: #48bb78;
+            box-shadow: 0 0 0 2px #48bb78;
+        }
+        .wf-marker-current {
+            background: #4299e1;
+            box-shadow: 0 0 0 2px #4299e1;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 2px #4299e1; }
+            50% { box-shadow: 0 0 0 6px rgba(66, 153, 225, 0.3); }
+        }
+        .wf-marker-pending {
+            background: #e2e8f0;
+        }
+        .wf-timeline-content {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .wf-timeline-pending .wf-timeline-content {
+            background: #f7fafc;
+            opacity: 0.7;
+        }
+        .wf-timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .wf-timeline-action {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .wf-timeline-date {
+            font-size: 11px;
+            color: #718096;
+        }
+        .wf-timeline-user {
+            font-size: 12px;
+            color: #4299e1;
+            margin-bottom: 5px;
+        }
+        .wf-timeline-comment {
+            font-size: 12px;
+            color: #4a5568;
+            background: #f7fafc;
+            padding: 8px 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        /* Zone Card Styles */
+        .wf-zone-info {
+            margin: 15px 0;
+        }
+        .wf-zone-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .wf-zone-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .wf-zone-name {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .wf-zone-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .wf-zone-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            padding: 5px 0;
+        }
+        .wf-badge-danger {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        /* Rule Card Styles */
+        .wf-rule-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .wf-rule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .wf-rule-number {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .wf-rule-actions {
+            display: flex;
+            gap: 5px;
+        }
+        .wf-rule-flow {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            flex-wrap: wrap;
+        }
+        .wf-rule-zone {
+            background: #ebf8ff;
+            border: 1px solid #90cdf4;
+            border-radius: 6px;
+            padding: 10px 15px;
+            min-width: 150px;
+        }
+        .wf-zone-source {
+            background: #e6fffa;
+            border-color: #81e6d9;
+        }
+        .wf-zone-dest {
+            background: #ebf8ff;
+            border-color: #90cdf4;
+        }
+        .wf-zone-blocked {
+            background: #fed7d7;
+            border-color: #fc8181;
+        }
+        .wf-zone-label {
+            font-size: 10px;
+            color: #718096;
+            text-transform: uppercase;
+        }
+        .wf-zone-value {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 13px;
+        }
+        .wf-rule-arrow {
+            font-size: 24px;
+            color: #a0aec0;
+        }
+        .wf-rule-details {
+            font-size: 12px;
+            color: #4a5568;
+        }
+        .wf-rule-port, .wf-rule-protocol {
+            margin: 3px 0;
+        }
+        .wf-rule-action-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .wf-action-allow {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        .wf-action-block {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        /* Test Summary Stats */
+        .wf-test-summary {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .wf-test-stat {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .wf-test-pass {
+            background: #c6f6d5;
+        }
+        .wf-test-block {
+            background: #fed7d7;
+        }
+        .wf-test-warning {
+            background: #fefcbf;
+        }
+        .wf-test-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .wf-test-label {
+            font-size: 12px;
+            color: #4a5568;
+            margin-top: 5px;
+        }
+        .wf-alert-success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #48bb78;
+        }
+
+        /* Stats Row */
+        .wf-stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .wf-stat-card {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .wf-stat-blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .wf-stat-green { background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); color: white; }
+        .wf-stat-red { background: linear-gradient(135deg, #fc8181 0%, #e53e3e 100%); color: white; }
+        .wf-stat-orange { background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%); color: white; }
+        .wf-stat-number {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .wf-stat-label {
+            font-size: 11px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* Header Actions */
+        .wf-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .wf-live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #e53e3e;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Filter Pills */
+        .wf-filter-pills {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .wf-filter-label {
+            font-size: 12px;
+            color: #718096;
+        }
+        .wf-pill {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .wf-pill:hover {
+            border-color: #4299e1;
+            color: #4299e1;
+        }
+        .wf-pill-active {
+            background: #4299e1;
+            color: white;
+            border-color: #4299e1;
+        }
+        .wf-pill-danger {
+            border-color: #fc8181;
+            color: #e53e3e;
+        }
+
+        /* Traffic Badges */
+        .wf-traffic-badge {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .wf-traffic-allowed {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        .wf-traffic-blocked {
+            background: #fed7d7;
+            color: #c53030;
+        }
+        .wf-row-violation {
+            background: #fff5f5;
+        }
+        .wf-refresh-time {
+            font-size: 11px;
+            color: #718096;
+        }
+
+        /* Violation Alert */
+        .wf-violation-alert {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #fff5f5;
+            border: 1px solid #fc8181;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .wf-violation-icon {
+            font-size: 24px;
+        }
+        .wf-violation-content {
+            flex: 1;
+        }
+        .wf-violation-title {
+            font-weight: 600;
+            color: #c53030;
+            margin-bottom: 3px;
+        }
+        .wf-violation-desc {
+            font-size: 12px;
+            color: #742a2a;
+        }
+
+        /* ========== NODE.JS POPUP STYLES ========== */
+        
+        /* API Module Section */
+        .api-module-section {
+            margin-bottom: 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .api-module-header {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .api-sql-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        .api-sql-table th {
+            background: #edf2f7;
+            padding: 10px;
+            text-align: left;
+            font-weight: 600;
+            color: #4a5568;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .api-sql-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        .api-sql-table tr:last-child td {
+            border-bottom: none;
+        }
+        .api-sql-table td:first-child {
+            width: 25%;
+            font-family: 'Consolas', monospace;
+            color: #2b6cb0;
+        }
+        .api-sql-table td:nth-child(2) {
+            width: 10%;
+        }
+        .api-sql-table td:nth-child(3) {
+            font-family: 'Consolas', monospace;
+            font-size: 10px;
+            color: #553c9a;
+            background: #faf5ff;
+            border-radius: 4px;
+            padding: 8px;
+        }
+        .api-sql-table tr:hover {
+            background: #edf2f7;
+        }
+
+        /* SQL Code Blocks */
+        .sql-code {
+            margin: 0;
+            padding: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #553c9a;
+            background: #faf5ff;
+            border-radius: 4px;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        /* Sample Data Tables */
+        .db-sample-tables {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        .db-sample-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .db-sample-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+        }
+        .db-sample-scroll {
+            overflow-x: auto;
+        }
+        .db-sample-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+        .db-sample-table th {
+            background: #edf2f7;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #4a5568;
+            border-bottom: 2px solid #cbd5e0;
+            font-family: 'Consolas', monospace;
+        }
+        .db-sample-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #2d3748;
+        }
+        .db-sample-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+        .db-sample-table tr:hover {
+            background: #edf2f7;
+        }
+        .db-sample-table td:first-child {
+            font-weight: 600;
+            color: #805ad5;
+        }
+
+        /* Responsive for DB sample tables */
+        @media (max-width: 900px) {
+            .db-sample-tables {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Responsive for Components/API grid */
+        @media (max-width: 768px) {
+            .components-api-grid {
+                grid-template-columns: 1fr;
+            }
+            .components-box {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .wf-form-row {
+                flex-direction: column;
+            }
+            .wf-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+    
+    <!-- POPUP: Internal Portals React Details -->
+    <div id="react-portal-popup" class="popup-overlay" onclick="closePopupOnOverlay(event, 'react-portal-popup')">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('react-portal-popup')">✕</button>
+            <div class="popup-header">🖥️ Healthcare IoMT Device Registry & Policy Management Portal</div>
+            <div class="popup-subtitle">Internal Admin Tool for Healthcare Microsegmentation (ColorTokens)</div>
+            
+            <!-- Section 1: Module Overview -->
+            <div class="popup-section">
+                <div class="popup-section-title">📄 1. UI PAGES BY MODULE</div>
+                
+                <table class="module-overview-table">
+                    <thead>
+                        <tr><th>Module</th><th>Page</th><th>Functionality (20 words max)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" class="module-cell campaign">🏥 Device<br>Registry</td>
+                            <td><strong>DeviceListPage</strong></td>
+                            <td>View all IoMT devices with search, filters by zone/type/status, and pagination</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DeviceFormPage</strong></td>
+                            <td>Register/Edit device with multi-step wizard (Basic Info → Network → Zone → Review)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DeviceDetailPage</strong></td>
+                            <td>View device details, traffic history, policy violations, and compliance status</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" class="module-cell approval">🔒 Policy<br>Management</td>
+                            <td><strong>PolicyListPage</strong></td>
+                            <td>View all microsegmentation policies with status (Active/Draft/Disabled)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PolicyBuilderPage</strong></td>
+                            <td>Create/Edit policy rules (Source Zone → Destination Zone, Ports, Allow/Block)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" class="module-cell support">📋 Compliance<br>& Reports</td>
+                            <td><strong>TrafficMonitorPage</strong></td>
+                            <td>Real-time traffic visualization with policy compliance indicators (green/red)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ComplianceReportPage</strong></td>
+                            <td>Generate HIPAA audit reports, export violations, view compliance timeline</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Section 2: Detailed Page Breakdowns -->
+            <div class="popup-section">
+                <div class="popup-section-title">🔍 2. DETAILED PAGE BREAKDOWN (One per Module)</div>
+                <div class="popup-section-desc">Selected pages to cover all React components without duplication.</div>
+                
+                <!-- Device Registry: DeviceFormPage -->
+                <div class="page-detail-box" style="border-left-color: #4299e1;">
+                    <div class="page-detail-header">
+                        <span class="page-module-badge" style="background: #4299e1;">🏥 Device Registry</span>
+                        <span class="page-name">DeviceFormPage (Register/Edit IoMT Device)</span>
+                    </div>
+                    <div class="page-detail-reason">
+                        <strong>Why selected:</strong> Covers form components, multi-step wizard, validation, complex state management
+                    </div>
+                    
+                    <!-- HTML Wireframe with Stepper -->
+                    <div class="wireframe-container">
+                        <div class="wireframe-title">Page Wireframe (Interactive Multi-Step):</div>
+                        <div class="wireframe-html">
+                            <!-- Header -->
+                            <div class="wf-header">
+                                <span class="wf-title">🏥 Register IoMT Device</span>
+                                <button class="wf-btn wf-btn-secondary">Save Draft</button>
+                            </div>
+                            
+                            <!-- Stepper -->
+                            <div class="wf-stepper">
+                                <div class="wf-step active" id="step-ind-1" onclick="showStep(1)">
+                                    <div class="wf-step-number">1</div>
+                                    <div class="wf-step-label">Basic Info</div>
+                                </div>
+                                <div class="wf-step-line"></div>
+                                <div class="wf-step" id="step-ind-2" onclick="showStep(2)">
+                                    <div class="wf-step-number">2</div>
+                                    <div class="wf-step-label">Network</div>
+                                </div>
+                                <div class="wf-step-line"></div>
+                                <div class="wf-step" id="step-ind-3" onclick="showStep(3)">
+                                    <div class="wf-step-number">3</div>
+                                    <div class="wf-step-label">Zone</div>
+                                </div>
+                                <div class="wf-step-line"></div>
+                                <div class="wf-step" id="step-ind-4" onclick="showStep(4)">
+                                    <div class="wf-step-number">4</div>
+                                    <div class="wf-step-label">Review</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 1: Basic Info -->
+                            <div class="wf-step-content" id="wf-step-1">
+                                <div class="wf-step-title">Step 1: Device Information</div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Device Name <span class="wf-required">*</span></label>
+                                    <input type="text" class="wf-input" placeholder="MRI-Scanner-Floor3-Room201" readonly>
+                                </div>
+                                <div class="wf-form-row">
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">Device Type <span class="wf-required">*</span></label>
+                                        <select class="wf-select" disabled>
+                                            <option>MRI Scanner</option>
+                                        </select>
+                                    </div>
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">Vendor <span class="wf-required">*</span></label>
+                                        <select class="wf-select" disabled>
+                                            <option>Siemens Healthineers</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="wf-form-row">
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">Model</label>
+                                        <input type="text" class="wf-input" placeholder="MAGNETOM Vida" readonly>
+                                    </div>
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">Serial Number</label>
+                                        <input type="text" class="wf-input" placeholder="SN-2024-MRI-00421" readonly>
+                                    </div>
+                                </div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Location</label>
+                                    <input type="text" class="wf-input" placeholder="Building A, Floor 3, Room 201" readonly>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Network Configuration -->
+                            <div class="wf-step-content" id="wf-step-2" style="display:none;">
+                                <div class="wf-step-title">Step 2: Network Configuration</div>
+                                <div class="wf-form-row">
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">IP Address <span class="wf-required">*</span></label>
+                                        <input type="text" class="wf-input" placeholder="192.168.10.45" readonly>
+                                    </div>
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">MAC Address <span class="wf-required">*</span></label>
+                                        <input type="text" class="wf-input" placeholder="00:1A:2B:3C:4D:5E" readonly>
+                                    </div>
+                                </div>
+                                <div class="wf-form-row">
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">Subnet Mask</label>
+                                        <input type="text" class="wf-input" placeholder="255.255.255.0" readonly>
+                                    </div>
+                                    <div class="wf-form-group">
+                                        <label class="wf-label">Default Gateway</label>
+                                        <input type="text" class="wf-input" placeholder="192.168.10.1" readonly>
+                                    </div>
+                                </div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Communication Ports</label>
+                                    <div class="wf-checkbox-group">
+                                        <label class="wf-checkbox"><input type="checkbox" checked disabled> 443 (HTTPS)</label>
+                                        <label class="wf-checkbox"><input type="checkbox" checked disabled> 22 (SSH)</label>
+                                        <label class="wf-checkbox"><input type="checkbox" disabled> 3389 (RDP)</label>
+                                        <label class="wf-checkbox"><input type="checkbox" checked disabled> 104 (DICOM)</label>
+                                    </div>
+                                </div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Agent Status</label>
+                                    <select class="wf-select" disabled>
+                                        <option>Agentless (Gatekeeper Protected)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Zone Assignment -->
+                            <div class="wf-step-content" id="wf-step-3" style="display:none;">
+                                <div class="wf-step-title">Step 3: Security Zone Assignment</div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Security Zone <span class="wf-required">*</span></label>
+                                    <select class="wf-select" disabled>
+                                        <option>Medical Imaging Zone (Critical)</option>
+                                    </select>
+                                </div>
+                                <div class="wf-zone-info">
+                                    <div class="wf-zone-card">
+                                        <div class="wf-zone-header">
+                                            <span class="wf-badge wf-badge-danger">Critical</span>
+                                            <span class="wf-zone-name">Medical Imaging Zone</span>
+                                        </div>
+                                        <div class="wf-zone-details">
+                                            <div class="wf-zone-row"><span>Devices in Zone:</span><strong>24</strong></div>
+                                            <div class="wf-zone-row"><span>Active Policies:</span><strong>8</strong></div>
+                                            <div class="wf-zone-row"><span>Allowed Outbound:</span><strong>PACS Server, EHR Gateway</strong></div>
+                                            <div class="wf-zone-row"><span>Blocked:</span><strong>Internet, Guest Network</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wf-form-group">
+                                    <label class="wf-label">Compliance Tags</label>
+                                    <div class="wf-checkbox-group">
+                                        <label class="wf-checkbox"><input type="checkbox" checked disabled> HIPAA</label>
+                                        <label class="wf-checkbox"><input type="checkbox" checked disabled> FDA 21 CFR Part 11</label>
+                                        <label class="wf-checkbox"><input type="checkbox" disabled> PCI-DSS</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4: Review -->
+                            <div class="wf-step-content" id="wf-step-4" style="display:none;">
+                                <div class="wf-step-title">Step 4: Review & Register</div>
+                                <div class="wf-review-section">
+                                    <div class="wf-review-header">🏥 Device Information</div>
+                                    <div class="wf-review-row"><span>Name:</span><strong>MRI-Scanner-Floor3-Room201</strong></div>
+                                    <div class="wf-review-row"><span>Type:</span><strong>MRI Scanner</strong></div>
+                                    <div class="wf-review-row"><span>Vendor:</span><strong>Siemens Healthineers - MAGNETOM Vida</strong></div>
+                                    <div class="wf-review-row"><span>Location:</span><strong>Building A, Floor 3, Room 201</strong></div>
+                                </div>
+                                <div class="wf-review-section">
+                                    <div class="wf-review-header">🌐 Network Configuration</div>
+                                    <div class="wf-review-row"><span>IP Address:</span><strong>192.168.10.45</strong></div>
+                                    <div class="wf-review-row"><span>MAC Address:</span><strong>00:1A:2B:3C:4D:5E</strong></div>
+                                    <div class="wf-review-row"><span>Ports:</span><strong>443, 22, 104 (DICOM)</strong></div>
+                                    <div class="wf-review-row"><span>Agent:</span><strong>Agentless (Gatekeeper)</strong></div>
+                                </div>
+                                <div class="wf-review-section">
+                                    <div class="wf-review-header">🔒 Security Zone</div>
+                                    <div class="wf-review-row"><span>Zone:</span><strong>Medical Imaging Zone (Critical)</strong></div>
+                                    <div class="wf-review-row"><span>Compliance:</span><strong>HIPAA, FDA 21 CFR Part 11</strong></div>
+                                </div>
+                                <div class="wf-alert wf-alert-info">
+                                    ℹ️ After registration, this device will be automatically protected by 8 active policies in the Medical Imaging Zone.
+                                </div>
+                            </div>
+                            
+                            <!-- Footer Buttons -->
+                            <div class="wf-footer">
+                                <button class="wf-btn wf-btn-secondary">Cancel</button>
+                                <div class="wf-footer-right">
+                                    <button class="wf-btn wf-btn-secondary" id="wf-prev-btn" style="display:none;" onclick="prevStep()">← Previous</button>
+                                    <button class="wf-btn wf-btn-primary" id="wf-next-btn" onclick="nextStep()">Next →</button>
+                                    <button class="wf-btn wf-btn-success" id="wf-submit-btn" style="display:none;">Register Device</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- APIs -->
+                    <div class="components-api-grid" style="grid-template-columns: 1fr;">
+                        <div class="api-box" style="border-right: none;">
+                            <div class="box-title">🔌 REST APIs:</div>
+                            <table class="compact-table">
+                                <tr><th>Action</th><th>Endpoint</th><th>Method</th></tr>
+                                <tr><td>Load device</td><td><code>/api/devices/:id</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Save device</td><td><code>/api/devices</code></td><td><span class="method post">POST</span></td></tr>
+                                <tr><td>Update device</td><td><code>/api/devices/:id</code></td><td><span class="method put">PUT</span></td></tr>
+                                <tr><td>Get zones</td><td><code>/api/zones</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Get device types</td><td><code>/api/device-types</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Validate IP</td><td><code>/api/network/validate-ip</code></td><td><span class="method post">POST</span></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Policy Management: PolicyBuilderPage -->
+                <div class="page-detail-box" style="border-left-color: #48bb78;">
+                    <div class="page-detail-header">
+                        <span class="page-module-badge" style="background: #48bb78;">🔒 Policy Management</span>
+                        <span class="page-name">PolicyBuilderPage (Create/Edit Microsegmentation Policy)</span>
+                    </div>
+                    <div class="page-detail-reason">
+                        <strong>Why selected:</strong> Covers dynamic rule builder, modals, toast notifications, status badges, tabs
+                    </div>
+                    
+                    <!-- HTML Wireframe -->
+                    <div class="wireframe-container">
+                        <div class="wireframe-title">Page Wireframe:</div>
+                        <div class="wireframe-html">
+                            <!-- Header -->
+                            <div class="wf-header">
+                                <a href="#" class="wf-back-link">← Back to Policies</a>
+                                <span class="wf-badge wf-badge-warning">DRAFT</span>
+                            </div>
+                            
+                            <!-- Policy Info -->
+                            <div class="wf-card-header">
+                                <div class="wf-campaign-info">
+                                    <h2 class="wf-campaign-title">Medical Imaging Zone - PACS Access Policy</h2>
+                                    <div class="wf-meta">Created by: Admin | Last modified: Jan 15, 2024</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Tabs -->
+                            <div class="wf-tabs">
+                                <button class="wf-tab active" id="policy-tab-1" onclick="showPolicyTab(1)">Rules</button>
+                                <button class="wf-tab" id="policy-tab-2" onclick="showPolicyTab(2)">Affected Devices</button>
+                                <button class="wf-tab" id="policy-tab-3" onclick="showPolicyTab(3)">Test Results</button>
+                                <button class="wf-tab" id="policy-tab-4" onclick="showPolicyTab(4)">Audit Log</button>
+                            </div>
+                            
+                            <!-- Tab 1: Rules Content -->
+                            <div class="wf-tab-content" id="policy-content-1">
+                                <div class="wf-section-title">Policy Rules</div>
+                                
+                                <!-- Rule 1 -->
+                                <div class="wf-rule-card">
+                                    <div class="wf-rule-header">
+                                        <span class="wf-rule-number">Rule #1</span>
+                                        <div class="wf-rule-actions">
+                                            <button class="wf-btn-icon">✏️</button>
+                                            <button class="wf-btn-icon">🗑️</button>
+                                        </div>
+                                    </div>
+                                    <div class="wf-rule-flow">
+                                        <div class="wf-rule-zone wf-zone-source">
+                                            <div class="wf-zone-label">Source</div>
+                                            <div class="wf-zone-value">Medical Imaging Zone</div>
+                                        </div>
+                                        <div class="wf-rule-arrow">→</div>
+                                        <div class="wf-rule-zone wf-zone-dest">
+                                            <div class="wf-zone-label">Destination</div>
+                                            <div class="wf-zone-value">PACS Server Zone</div>
+                                        </div>
+                                        <div class="wf-rule-details">
+                                            <div class="wf-rule-port"><strong>Port:</strong> 104 (DICOM)</div>
+                                            <div class="wf-rule-protocol"><strong>Protocol:</strong> TCP</div>
+                                        </div>
+                                        <div class="wf-rule-action-badge wf-action-allow">✓ ALLOW</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Rule 2 -->
+                                <div class="wf-rule-card">
+                                    <div class="wf-rule-header">
+                                        <span class="wf-rule-number">Rule #2</span>
+                                        <div class="wf-rule-actions">
+                                            <button class="wf-btn-icon">✏️</button>
+                                            <button class="wf-btn-icon">🗑️</button>
+                                        </div>
+                                    </div>
+                                    <div class="wf-rule-flow">
+                                        <div class="wf-rule-zone wf-zone-source">
+                                            <div class="wf-zone-label">Source</div>
+                                            <div class="wf-zone-value">Medical Imaging Zone</div>
+                                        </div>
+                                        <div class="wf-rule-arrow">→</div>
+                                        <div class="wf-rule-zone wf-zone-dest">
+                                            <div class="wf-zone-label">Destination</div>
+                                            <div class="wf-zone-value">EHR Gateway Zone</div>
+                                        </div>
+                                        <div class="wf-rule-details">
+                                            <div class="wf-rule-port"><strong>Port:</strong> 443 (HTTPS)</div>
+                                            <div class="wf-rule-protocol"><strong>Protocol:</strong> TCP</div>
+                                        </div>
+                                        <div class="wf-rule-action-badge wf-action-allow">✓ ALLOW</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Rule 3 - Block -->
+                                <div class="wf-rule-card">
+                                    <div class="wf-rule-header">
+                                        <span class="wf-rule-number">Rule #3</span>
+                                        <div class="wf-rule-actions">
+                                            <button class="wf-btn-icon">✏️</button>
+                                            <button class="wf-btn-icon">🗑️</button>
+                                        </div>
+                                    </div>
+                                    <div class="wf-rule-flow">
+                                        <div class="wf-rule-zone wf-zone-source">
+                                            <div class="wf-zone-label">Source</div>
+                                            <div class="wf-zone-value">Medical Imaging Zone</div>
+                                        </div>
+                                        <div class="wf-rule-arrow">→</div>
+                                        <div class="wf-rule-zone wf-zone-dest wf-zone-blocked">
+                                            <div class="wf-zone-label">Destination</div>
+                                            <div class="wf-zone-value">Internet / External</div>
+                                        </div>
+                                        <div class="wf-rule-details">
+                                            <div class="wf-rule-port"><strong>Port:</strong> Any</div>
+                                            <div class="wf-rule-protocol"><strong>Protocol:</strong> Any</div>
+                                        </div>
+                                        <div class="wf-rule-action-badge wf-action-block">✗ BLOCK</div>
+                                    </div>
+                                </div>
+                                
+                                <button class="wf-btn wf-btn-dashed">+ Add New Rule</button>
+                            </div>
+                            
+                            <!-- Tab 2: Affected Devices -->
+                            <div class="wf-tab-content" id="policy-content-2" style="display: none;">
+                                <div class="wf-section-title">Devices Affected by This Policy (24)</div>
+                                <table class="wf-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Device Name</th>
+                                            <th>Type</th>
+                                            <th>IP Address</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>MRI-Scanner-Floor3-Room201</td>
+                                            <td>MRI Scanner</td>
+                                            <td>192.168.10.45</td>
+                                            <td><span class="wf-badge wf-badge-success">Protected</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CT-Scanner-Floor2-Room105</td>
+                                            <td>CT Scanner</td>
+                                            <td>192.168.10.46</td>
+                                            <td><span class="wf-badge wf-badge-success">Protected</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ultrasound-Floor1-Room012</td>
+                                            <td>Ultrasound</td>
+                                            <td>192.168.10.47</td>
+                                            <td><span class="wf-badge wf-badge-success">Protected</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>X-Ray-ER-Room001</td>
+                                            <td>X-Ray Machine</td>
+                                            <td>192.168.10.48</td>
+                                            <td><span class="wf-badge wf-badge-warning">Pending</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="wf-pagination">
+                                    <button class="wf-btn wf-btn-sm wf-btn-secondary" disabled>← Prev</button>
+                                    <span class="wf-page-info">Page 1 of 6</span>
+                                    <button class="wf-btn wf-btn-sm wf-btn-secondary">Next →</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Tab 3: Test Results -->
+                            <div class="wf-tab-content" id="policy-content-3" style="display: none;">
+                                <div class="wf-section-title">Policy Test Results</div>
+                                <div class="wf-test-summary">
+                                    <div class="wf-test-stat wf-test-pass">
+                                        <div class="wf-test-number">142</div>
+                                        <div class="wf-test-label">Connections Allowed</div>
+                                    </div>
+                                    <div class="wf-test-stat wf-test-block">
+                                        <div class="wf-test-number">23</div>
+                                        <div class="wf-test-label">Connections Blocked</div>
+                                    </div>
+                                    <div class="wf-test-stat wf-test-warning">
+                                        <div class="wf-test-number">3</div>
+                                        <div class="wf-test-label">Warnings</div>
+                                    </div>
+                                </div>
+                                <div class="wf-alert wf-alert-success">
+                                    ✓ Policy simulation completed. No critical issues found.
+                                </div>
+                                <div class="wf-section-title" style="margin-top: 20px;">Recent Test Traffic</div>
+                                <table class="wf-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Source</th>
+                                            <th>Destination</th>
+                                            <th>Port</th>
+                                            <th>Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>MRI-Scanner-F3</td>
+                                            <td>PACS Server</td>
+                                            <td>104</td>
+                                            <td><span class="wf-badge wf-badge-success">Allowed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CT-Scanner-F2</td>
+                                            <td>8.8.8.8 (Internet)</td>
+                                            <td>443</td>
+                                            <td><span class="wf-badge wf-badge-danger">Blocked</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- Tab 4: Audit Log -->
+                            <div class="wf-tab-content" id="policy-content-4" style="display: none;">
+                                <div class="wf-section-title">Policy Change History</div>
+                                
+                                <div class="wf-timeline">
+                                    <div class="wf-timeline-item">
+                                        <div class="wf-timeline-marker wf-marker-completed"></div>
+                                        <div class="wf-timeline-content">
+                                            <div class="wf-timeline-header">
+                                                <span class="wf-timeline-action">Policy Created</span>
+                                                <span class="wf-timeline-date">Jan 10, 2024 - 9:30 AM</span>
+                                            </div>
+                                            <div class="wf-timeline-user">By: Sarah Chen (Security Admin)</div>
+                                            <div class="wf-timeline-comment">Initial policy created for Medical Imaging Zone microsegmentation.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="wf-timeline-item">
+                                        <div class="wf-timeline-marker wf-marker-completed"></div>
+                                        <div class="wf-timeline-content">
+                                            <div class="wf-timeline-header">
+                                                <span class="wf-timeline-action">Rule Added</span>
+                                                <span class="wf-timeline-date">Jan 12, 2024 - 2:15 PM</span>
+                                            </div>
+                                            <div class="wf-timeline-user">By: Sarah Chen (Security Admin)</div>
+                                            <div class="wf-timeline-comment">Added Rule #2: Allow HTTPS to EHR Gateway.</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="wf-timeline-item">
+                                        <div class="wf-timeline-marker wf-marker-current"></div>
+                                        <div class="wf-timeline-content">
+                                            <div class="wf-timeline-header">
+                                                <span class="wf-timeline-action">Rule Modified</span>
+                                                <span class="wf-timeline-date">Jan 15, 2024 - 11:00 AM</span>
+                                            </div>
+                                            <div class="wf-timeline-user">By: Admin</div>
+                                            <div class="wf-timeline-comment">Modified Rule #3: Block all external traffic.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="wf-action-buttons">
+                                <button class="wf-btn wf-btn-secondary">Test Policy</button>
+                                <button class="wf-btn wf-btn-danger">Disable</button>
+                                <button class="wf-btn wf-btn-success">Activate Policy</button>
+                            </div>
+                            
+                            <!-- Modal Preview -->
+                            <div class="wf-modal-preview">
+                                <div class="wf-modal-label">Modal Component (shown on Activate click):</div>
+                                <div class="wf-modal">
+                                    <div class="wf-modal-header">Confirm Policy Activation</div>
+                                    <div class="wf-modal-body">
+                                        Are you sure you want to activate this policy? It will immediately affect <strong>24 devices</strong> in the Medical Imaging Zone.
+                                    </div>
+                                    <div class="wf-modal-footer">
+                                        <button class="wf-btn wf-btn-secondary">Cancel</button>
+                                        <button class="wf-btn wf-btn-success">Activate</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Toast Preview -->
+                            <div class="wf-toast-preview">
+                                <div class="wf-toast-label">Toast Component (shown on success):</div>
+                                <div class="wf-toast wf-toast-success">
+                                    ✓ Policy activated! 24 devices are now protected.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- APIs -->
+                    <div class="components-api-grid" style="grid-template-columns: 1fr;">
+                        <div class="api-box" style="border-right: none;">
+                            <div class="box-title">🔌 REST APIs:</div>
+                            <table class="compact-table">
+                                <tr><th>Action</th><th>Endpoint</th><th>Method</th></tr>
+                                <tr><td>Load policy</td><td><code>/api/policies/:id</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Save policy</td><td><code>/api/policies</code></td><td><span class="method post">POST</span></td></tr>
+                                <tr><td>Add rule</td><td><code>/api/policies/:id/rules</code></td><td><span class="method post">POST</span></td></tr>
+                                <tr><td>Test policy</td><td><code>/api/policies/:id/test</code></td><td><span class="method post">POST</span></td></tr>
+                                <tr><td>Activate</td><td><code>/api/policies/:id/activate</code></td><td><span class="method put">PUT</span></td></tr>
+                                <tr><td>Get audit log</td><td><code>/api/policies/:id/audit</code></td><td><span class="method get">GET</span></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Compliance & Reports: DeviceSearchPage -->
+                <div class="page-detail-box" style="border-left-color: #ed8936;">
+                    <div class="page-detail-header">
+                        <span class="page-module-badge" style="background: #ed8936;">📋 Compliance & Reports</span>
+                        <span class="page-name">TrafficMonitorPage (Real-time Traffic & Compliance)</span>
+                    </div>
+                    <div class="page-detail-reason">
+                        <strong>Why selected:</strong> Covers autocomplete search, debounce hook, spinner, data table with real-time updates, charts
+                    </div>
+                    
+                    <!-- HTML Wireframe -->
+                    <div class="wireframe-container">
+                        <div class="wireframe-title">Page Wireframe:</div>
+                        <div class="wireframe-html">
+                            <!-- Header -->
+                            <div class="wf-header">
+                                <span class="wf-title">📋 Traffic Monitor - Real-time Compliance</span>
+                                <div class="wf-header-actions">
+                                    <span class="wf-live-indicator">🔴 LIVE</span>
+                                    <button class="wf-btn wf-btn-secondary">Export Report</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Stats Summary -->
+                            <div class="wf-stats-row">
+                                <div class="wf-stat-card wf-stat-blue">
+                                    <div class="wf-stat-number">1,247</div>
+                                    <div class="wf-stat-label">Total Connections (24h)</div>
+                                </div>
+                                <div class="wf-stat-card wf-stat-green">
+                                    <div class="wf-stat-number">1,189</div>
+                                    <div class="wf-stat-label">Policy Compliant</div>
+                                </div>
+                                <div class="wf-stat-card wf-stat-red">
+                                    <div class="wf-stat-number">58</div>
+                                    <div class="wf-stat-label">Violations Blocked</div>
+                                </div>
+                                <div class="wf-stat-card wf-stat-orange">
+                                    <div class="wf-stat-number">95.3%</div>
+                                    <div class="wf-stat-label">Compliance Rate</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Search Box with Autocomplete -->
+                            <div class="wf-search-container">
+                                <div class="wf-search-box">
+                                    <span class="wf-search-icon">🔍</span>
+                                    <input type="text" class="wf-search-input" placeholder="Search by device name, IP, or zone..." value="MRI" readonly>
+                                    <span class="wf-spinner">⟳</span>
+                                </div>
+                                
+                                <!-- Autocomplete Dropdown -->
+                                <div class="wf-autocomplete-dropdown">
+                                    <div class="wf-autocomplete-item">
+                                        <div class="wf-ac-name">MRI-Scanner-Floor3-Room201</div>
+                                        <div class="wf-ac-details">192.168.10.45 • Medical Imaging Zone</div>
+                                    </div>
+                                    <div class="wf-autocomplete-item">
+                                        <div class="wf-ac-name">MRI-Scanner-Floor2-Room108</div>
+                                        <div class="wf-ac-details">192.168.10.52 • Medical Imaging Zone</div>
+                                    </div>
+                                    <div class="wf-autocomplete-item">
+                                        <div class="wf-ac-name">MRI-Workstation-Radiology</div>
+                                        <div class="wf-ac-details">192.168.11.20 • Clinical Workstation Zone</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Filter Pills -->
+                            <div class="wf-filter-pills">
+                                <span class="wf-filter-label">Filter:</span>
+                                <button class="wf-pill wf-pill-active">All Traffic</button>
+                                <button class="wf-pill">Compliant Only</button>
+                                <button class="wf-pill wf-pill-danger">Violations Only</button>
+                                <button class="wf-pill">Medical Imaging Zone</button>
+                                <button class="wf-pill">PACS Server Zone</button>
+                            </div>
+                            
+                            <!-- Traffic Table -->
+                            <div class="wf-table-container">
+                                <div class="wf-table-header">
+                                    <span>Live Traffic Log</span>
+                                    <span class="wf-refresh-time">Last updated: 2 seconds ago</span>
+                                </div>
+                                <table class="wf-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Source Device</th>
+                                            <th>Destination</th>
+                                            <th>Port</th>
+                                            <th>Policy</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>14:32:05</td>
+                                            <td>MRI-Scanner-F3</td>
+                                            <td>PACS Server</td>
+                                            <td>104 (DICOM)</td>
+                                            <td>Medical Imaging Policy</td>
+                                            <td><span class="wf-traffic-badge wf-traffic-allowed">✓ Allowed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>14:32:03</td>
+                                            <td>CT-Scanner-F2</td>
+                                            <td>EHR Gateway</td>
+                                            <td>443 (HTTPS)</td>
+                                            <td>Medical Imaging Policy</td>
+                                            <td><span class="wf-traffic-badge wf-traffic-allowed">✓ Allowed</span></td>
+                                        </tr>
+                                        <tr class="wf-row-violation">
+                                            <td>14:31:58</td>
+                                            <td>Infusion-Pump-ICU</td>
+                                            <td>8.8.8.8 (Internet)</td>
+                                            <td>443</td>
+                                            <td>ICU Devices Policy</td>
+                                            <td><span class="wf-traffic-badge wf-traffic-blocked">✗ Blocked</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>14:31:55</td>
+                                            <td>Ultrasound-F1</td>
+                                            <td>PACS Server</td>
+                                            <td>104 (DICOM)</td>
+                                            <td>Medical Imaging Policy</td>
+                                            <td><span class="wf-traffic-badge wf-traffic-allowed">✓ Allowed</span></td>
+                                        </tr>
+                                        <tr class="wf-row-violation">
+                                            <td>14:31:50</td>
+                                            <td>MRI-Scanner-F3</td>
+                                            <td>Unknown External</td>
+                                            <td>22 (SSH)</td>
+                                            <td>Medical Imaging Policy</td>
+                                            <td><span class="wf-traffic-badge wf-traffic-blocked">✗ Blocked</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <!-- Pagination -->
+                                <div class="wf-pagination">
+                                    <button class="wf-btn wf-btn-sm wf-btn-secondary" disabled>← Prev</button>
+                                    <span class="wf-page-info">Page 1 of 125</span>
+                                    <button class="wf-btn wf-btn-sm wf-btn-secondary">Next →</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Violation Alert -->
+                            <div class="wf-violation-alert">
+                                <div class="wf-violation-icon">⚠️</div>
+                                <div class="wf-violation-content">
+                                    <div class="wf-violation-title">Recent Violation Detected</div>
+                                    <div class="wf-violation-desc">Infusion-Pump-ICU attempted unauthorized connection to external IP. Connection blocked by ICU Devices Policy.</div>
+                                </div>
+                                <button class="wf-btn wf-btn-sm wf-btn-primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- APIs -->
+                    <div class="components-api-grid" style="grid-template-columns: 1fr;">
+                        <div class="api-box" style="border-right: none;">
+                            <div class="box-title">🔌 REST APIs:</div>
+                            <table class="compact-table">
+                                <tr><th>Action</th><th>Endpoint</th><th>Method</th></tr>
+                                <tr><td>Search devices</td><td><code>/api/devices/search?q=</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Get traffic logs</td><td><code>/api/traffic?zone=&status=</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Get stats</td><td><code>/api/traffic/stats</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Get violations</td><td><code>/api/traffic/violations</code></td><td><span class="method get">GET</span></td></tr>
+                                <tr><td>Export report</td><td><code>/api/reports/traffic</code></td><td><span class="method post">POST</span></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- POPUP: Node.JS Backend Services Details -->
+    <div id="nodejs-backend-popup" class="popup-overlay" onclick="closePopupOnOverlay(event, 'nodejs-backend-popup')">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('nodejs-backend-popup')">✕</button>
+            <div class="popup-header">🟢 Node.JS UI Backend Services</div>
+            <div class="popup-subtitle">Express + MySQL + Sequelize ORM (ColorTokens Healthcare IoMT)</div>
+            
+            <!-- Section 1: REST APIs with SQL Queries -->
+            <div class="popup-section">
+                <div class="popup-section-title">🔌 1. REST APIs & SQL QUERIES</div>
+                
+                <!-- Device Registry APIs -->
+                <div class="api-module-section">
+                    <div class="api-module-header">🏥 Device Registry APIs</div>
+                    <table class="api-sql-table">
+                        <thead>
+                            <tr><th>Endpoint</th><th>Method</th><th>SQL Query</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>/api/devices</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  d.id,
+  d.name,
+  d.ip_address,
+  d.mac_address,
+  d.status,
+  z.name AS zone_name,
+  dt.name AS type_name
+FROM devices AS d
+  LEFT JOIN zones AS z ON z.id = d.zone_id
+  LEFT JOIN device_types AS dt ON dt.id = d.device_type_id
+ORDER BY d.created_at DESC</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/devices/:id</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  d.*,
+  z.name AS zone_name,
+  z.risk_level AS zone_risk,
+  dt.name AS type_name,
+  dt.category
+FROM devices AS d
+  LEFT JOIN zones AS z ON z.id = d.zone_id
+  LEFT JOIN device_types AS dt ON dt.id = d.device_type_id
+WHERE
+  d.id = ?</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/devices</code></td>
+                                <td><span class="method post">POST</span></td>
+                                <td><pre class="sql-code">INSERT INTO devices (
+  name,
+  device_type_id,
+  vendor,
+  model,
+  ip_address,
+  mac_address,
+  zone_id,
+  location,
+  status
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/devices/:id</code></td>
+                                <td><span class="method put">PUT</span></td>
+                                <td><pre class="sql-code">UPDATE devices
+SET
+  name = ?,
+  ip_address = ?,
+  zone_id = ?,
+  status = ?,
+  updated_at = NOW()
+WHERE
+  id = ?</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/devices/search?q=</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  id,
+  name,
+  ip_address,
+  zone_id
+FROM devices
+WHERE
+  name LIKE CONCAT('%', ?, '%')
+  OR ip_address LIKE CONCAT('%', ?, '%')
+LIMIT 10</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/zones</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  id,
+  name,
+  description,
+  risk_level,
+  device_count
+FROM zones
+ORDER BY name</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/device-types</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  id,
+  name,
+  category,
+  risk_level
+FROM device_types
+ORDER BY category, name</pre></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Policy Management APIs -->
+                <div class="api-module-section">
+                    <div class="api-module-header">🔒 Policy Management APIs</div>
+                    <table class="api-sql-table">
+                        <thead>
+                            <tr><th>Endpoint</th><th>Method</th><th>SQL Query</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>/api/policies</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  p.id,
+  p.name,
+  p.description,
+  p.status,
+  p.created_by,
+  COUNT(pr.id) AS rule_count
+FROM policies AS p
+  LEFT JOIN policy_rules AS pr ON pr.policy_id = p.id
+GROUP BY p.id
+ORDER BY p.created_at DESC</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/policies/:id</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  p.id,
+  p.name,
+  p.status,
+  pr.id AS rule_id,
+  pr.port,
+  pr.protocol,
+  pr.action,
+  sz.name AS source_zone,
+  dz.name AS dest_zone
+FROM policies AS p
+  LEFT JOIN policy_rules AS pr ON pr.policy_id = p.id
+  LEFT JOIN zones AS sz ON sz.id = pr.source_zone_id
+  LEFT JOIN zones AS dz ON dz.id = pr.dest_zone_id
+WHERE
+  p.id = ?</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/policies</code></td>
+                                <td><span class="method post">POST</span></td>
+                                <td><pre class="sql-code">INSERT INTO policies (
+  name,
+  description,
+  status,
+  created_by,
+  created_at
+) VALUES (?, ?, 'draft', ?, NOW())</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/policies/:id/rules</code></td>
+                                <td><span class="method post">POST</span></td>
+                                <td><pre class="sql-code">INSERT INTO policy_rules (
+  policy_id,
+  source_zone_id,
+  dest_zone_id,
+  port,
+  protocol,
+  action,
+  priority
+) VALUES (?, ?, ?, ?, ?, ?, ?)</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/policies/:id/activate</code></td>
+                                <td><span class="method put">PUT</span></td>
+                                <td><pre class="sql-code">UPDATE policies
+SET
+  status = 'active',
+  updated_at = NOW()
+WHERE
+  id = ?</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/policies/:id/audit</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  id,
+  action,
+  performed_by,
+  timestamp
+FROM audit_logs
+WHERE
+  entity_type = 'policy'
+  AND entity_id = ?
+ORDER BY timestamp DESC</pre></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Traffic & Compliance APIs -->
+                <div class="api-module-section">
+                    <div class="api-module-header">📋 Traffic Monitor & Compliance APIs</div>
+                    <table class="api-sql-table">
+                        <thead>
+                            <tr><th>Endpoint</th><th>Method</th><th>SQL Query</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>/api/traffic?zone=&status=</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  t.id,
+  t.dest_ip,
+  t.dest_port,
+  t.is_compliant,
+  t.action_taken,
+  t.timestamp,
+  d.name AS device_name,
+  p.name AS policy_name
+FROM traffic_logs AS t
+  LEFT JOIN devices AS d ON d.id = t.source_device_id
+  LEFT JOIN policies AS p ON p.id = t.policy_id
+WHERE
+  d.zone_id = ?
+  AND t.is_compliant = ?
+ORDER BY t.timestamp DESC
+LIMIT 100</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/traffic/stats</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  COUNT(*) AS total,
+  SUM(is_compliant) AS compliant,
+  SUM(NOT is_compliant) AS violations
+FROM traffic_logs
+WHERE
+  timestamp >= DATE_SUB(NOW(), INTERVAL 24 HOUR)</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/traffic/violations</code></td>
+                                <td><span class="method get">GET</span></td>
+                                <td><pre class="sql-code">SELECT
+  t.id,
+  t.dest_ip,
+  t.dest_port,
+  t.timestamp,
+  d.name AS device_name,
+  d.ip_address AS device_ip
+FROM traffic_logs AS t
+  LEFT JOIN devices AS d ON d.id = t.source_device_id
+WHERE
+  t.is_compliant = FALSE
+ORDER BY t.timestamp DESC
+LIMIT 50</pre></td>
+                            </tr>
+                            <tr>
+                                <td><code>/api/reports/traffic</code></td>
+                                <td><span class="method post">POST</span></td>
+                                <td><pre class="sql-code">SELECT
+  DATE(timestamp) AS date,
+  COUNT(*) AS total,
+  SUM(is_compliant) AS allowed,
+  SUM(NOT is_compliant) AS blocked
+FROM traffic_logs
+WHERE
+  timestamp BETWEEN ? AND ?
+GROUP BY DATE(timestamp)
+ORDER BY date</pre></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Section 2: Database Tables with Sample Data -->
+            <div class="popup-section">
+                <div class="popup-section-title">🗄️ 2. MySQL DATABASE TABLES</div>
+                
+                <div class="db-sample-tables">
+                    <!-- devices table -->
+                    <div class="db-sample-card">
+                        <div class="db-sample-header">🏥 devices</div>
+                        <div class="db-sample-scroll">
+                            <table class="db-sample-table">
+                                <thead>
+                                    <tr><th>id (pk)</th><th>name</th><th>device_type_id (fk)</th><th>vendor</th><th>ip_address</th><th>mac_address</th><th>zone_id (fk)</th><th>status</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>MRI-Scanner-F3-R201</td><td>1</td><td>Siemens</td><td>192.168.10.45</td><td>00:1A:2B:3C:4D:5E</td><td>1</td><td>active</td></tr>
+                                    <tr><td>2</td><td>CT-Scanner-F2-R105</td><td>2</td><td>GE Healthcare</td><td>192.168.10.46</td><td>00:1A:2B:3C:4D:5F</td><td>1</td><td>active</td></tr>
+                                    <tr><td>3</td><td>Infusion-Pump-ICU-01</td><td>3</td><td>Baxter</td><td>192.168.11.20</td><td>00:1A:2B:3C:4D:60</td><td>2</td><td>active</td></tr>
+                                    <tr><td>4</td><td>Ventilator-ICU-05</td><td>4</td><td>Philips</td><td>192.168.11.25</td><td>00:1A:2B:3C:4D:61</td><td>2</td><td>pending</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- device_types table -->
+                    <div class="db-sample-card">
+                        <div class="db-sample-header">📋 device_types</div>
+                        <div class="db-sample-scroll">
+                            <table class="db-sample-table">
+                                <thead>
+                                    <tr><th>id (pk)</th><th>name</th><th>category</th><th>risk_level</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>MRI Scanner</td><td>Imaging</td><td>critical</td></tr>
+                                    <tr><td>2</td><td>CT Scanner</td><td>Imaging</td><td>critical</td></tr>
+                                    <tr><td>3</td><td>Infusion Pump</td><td>Patient Care</td><td>high</td></tr>
+                                    <tr><td>4</td><td>Ventilator</td><td>Patient Care</td><td>critical</td></tr>
+                                    <tr><td>5</td><td>Patient Monitor</td><td>Monitoring</td><td>high</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- zones table -->
+                    <div class="db-sample-card">
+                        <div class="db-sample-header">🔒 zones</div>
+                        <div class="db-sample-scroll">
+                            <table class="db-sample-table">
+                                <thead>
+                                    <tr><th>id (pk)</th><th>name</th><th>description</th><th>risk_level</th><th>device_count</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>Medical Imaging Zone</td><td>MRI, CT, X-Ray devices</td><td>critical</td><td>24</td></tr>
+                                    <tr><td>2</td><td>ICU Zone</td><td>Intensive care unit devices</td><td>critical</td><td>45</td></tr>
+                                    <tr><td>3</td><td>PACS Server Zone</td><td>Image storage servers</td><td>high</td><td>8</td></tr>
+                                    <tr><td>4</td><td>EHR Gateway Zone</td><td>Electronic health records</td><td>high</td><td>12</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- policies table -->
+                    <div class="db-sample-card">
+                        <div class="db-sample-header">📜 policies</div>
+                        <div class="db-sample-scroll">
+                            <table class="db-sample-table">
+                                <thead>
+                                    <tr><th>id (pk)</th><th>name</th><th>description</th><th>status</th><th>created_by</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>Medical Imaging - PACS Access</td><td>Allow imaging devices to PACS</td><td>active</td><td>admin</td></tr>
+                                    <tr><td>2</td><td>ICU Devices - EHR Access</td><td>Allow ICU to EHR gateway</td><td>active</td><td>admin</td></tr>
+                                    <tr><td>3</td><td>Block External Traffic</td><td>Block all internet access</td><td>active</td><td>admin</td></tr>
+                                    <tr><td>4</td><td>New Imaging Policy</td><td>Draft policy for testing</td><td>draft</td><td>sarah.chen</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- policy_rules table -->
+                    <div class="db-sample-card">
+                        <div class="db-sample-header">⚡ policy_rules</div>
+                        <div class="db-sample-scroll">
+                            <table class="db-sample-table">
+                                <thead>
+                                    <tr><th>id (pk)</th><th>policy_id (fk)</th><th>source_zone_id (fk)</th><th>dest_zone_id (fk)</th><th>port</th><th>protocol</th><th>action</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>1</td><td>1</td><td>3</td><td>104</td><td>TCP</td><td>allow</td></tr>
+                                    <tr><td>2</td><td>1</td><td>1</td><td>4</td><td>443</td><td>TCP</td><td>allow</td></tr>
+                                    <tr><td>3</td><td>2</td><td>2</td><td>4</td><td>443</td><td>TCP</td><td>allow</td></tr>
+                                    <tr><td>4</td><td>3</td><td>1</td><td>NULL</td><td>any</td><td>any</td><td>block</td></tr>
+                                    <tr><td>5</td><td>3</td><td>2</td><td>NULL</td><td>any</td><td>any</td><td>block</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- traffic_logs table -->
+                    <div class="db-sample-card">
+                        <div class="db-sample-header">📊 traffic_logs</div>
+                        <div class="db-sample-scroll">
+                            <table class="db-sample-table">
+                                <thead>
+                                    <tr><th>id (pk)</th><th>source_device_id (fk)</th><th>dest_ip</th><th>dest_port</th><th>policy_id (fk)</th><th>is_compliant</th><th>action_taken</th><th>timestamp</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1001</td><td>1</td><td>192.168.12.10</td><td>104</td><td>1</td><td>1</td><td>allowed</td><td>2024-01-15 14:32:05</td></tr>
+                                    <tr><td>1002</td><td>2</td><td>192.168.13.5</td><td>443</td><td>1</td><td>1</td><td>allowed</td><td>2024-01-15 14:32:03</td></tr>
+                                    <tr><td>1003</td><td>3</td><td>8.8.8.8</td><td>443</td><td>3</td><td>0</td><td>blocked</td><td>2024-01-15 14:31:58</td></tr>
+                                    <tr><td>1004</td><td>1</td><td>104.26.5.120</td><td>22</td><td>3</td><td>0</td><td>blocked</td><td>2024-01-15 14:31:50</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- audit_logs table -->
+                    <div class="db-sample-card">
+                        <div class="db-sample-header">📝 audit_logs</div>
+                        <div class="db-sample-scroll">
+                            <table class="db-sample-table">
+                                <thead>
+                                    <tr><th>id (pk)</th><th>entity_type</th><th>entity_id</th><th>action</th><th>performed_by</th><th>timestamp</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>policy</td><td>1</td><td>created</td><td>admin</td><td>2024-01-10 09:30:00</td></tr>
+                                    <tr><td>2</td><td>policy</td><td>1</td><td>rule_added</td><td>sarah.chen</td><td>2024-01-12 14:15:00</td></tr>
+                                    <tr><td>3</td><td>policy</td><td>1</td><td>activated</td><td>admin</td><td>2024-01-13 10:00:00</td></tr>
+                                    <tr><td>4</td><td>device</td><td>4</td><td>created</td><td>john.doe</td><td>2024-01-15 11:00:00</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interview-tip" style="margin-top: 20px;">
+                <strong>💡 Interview Tip:</strong> Be ready to explain: Express route handling, Sequelize ORM queries vs raw SQL, 
+                JOIN operations for related data, pagination with LIMIT/OFFSET, and indexing strategies for traffic_logs table.
+            </div>
+            
+        </div>
+    </div>
+
         <h1>🎯 Credit Card Offers Platform - Akhila's Focus Areas</h1>
         <p class="subtitle">Full-Stack Engineer | 5 Years Experience | Interview Preparation Guide</p>
         <div class="focus-note">
@@ -222,7 +2774,7 @@
             <span style="background: #c6f6d5; padding: 2px 6px; border-radius: 4px; border: 2px solid #48bb78; margin: 0 5px;">⭐ Green Border = Your Focus</span>
             <span style="filter: blur(2px); opacity: 0.5; margin: 0 5px;">Blurred = Context Only (Don't Deep Dive)</span>
             <br><br>
-            <strong>Your Scope:</strong> React UI Portals → Node.JS BFF APIs → API Gateway → 3 Spring Boot APIs → 1 Vert.X Service → Kafka → Couchbase/Redis
+            <strong>Your Scope:</strong> React UI Portals → Node.JS BFF APIs (MySQL) → 3 Spring Boot APIs (Couchbase) → 1 Vert.X Service
         </div>
         
         <!-- Legend -->
@@ -255,30 +2807,37 @@
         <div class="row">
             <!-- Internal Portals -->
             <div class="col">
-                <div class="group-box focus-area">
+                <div class="group-box focus-area clickable-box" onclick="openPopup('react-portal-popup')" style="position: relative;">
+                    <span class="click-hint">🔗 Click for Details</span>
                     <div class="group-title">🖥️ INTERNAL PORTALS (React) <span class="scope-badge scope-primary">PRIMARY</span></div>
                     <div class="group-desc">
-                        <strong>You built these!</strong> React-based SPAs for Amex employees. Features: campaign creation wizards, offer management forms, data tables with pagination, role-based access control UI.
+                        <div class="domain-intro">
+                            <strong>🏥 Domain:</strong> Hospitals use thousands of medical devices (MRI scanners, infusion pumps, ventilators) connected to their network. These IoMT (Internet of Medical Things) devices are vulnerable to cyberattacks. ColorTokens helps hospitals protect these devices by creating "security zones" and controlling which devices can talk to each other — preventing hackers from moving through the network if one device is compromised.
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <strong>You built these!</strong> React-based SPAs for Healthcare IoMT Device Registry & Policy Management. Features: device registration wizards, microsegmentation policy builder, real-time traffic monitoring, HIPAA compliance reports.
+                        </div>
                     </div>
                     <div class="services-grid">
-                        <div class="service portal focus">📊 Campaign Management<br><small>Marketing Team</small></div>
-                        <div class="service portal focus">✅ Approval Console<br><small>Legal/Finance</small></div>
-                        <div class="service portal focus">🎧 Support Portal<br><small>Customer Service</small></div>
-                        <div class="service portal semi-blurred">📈 Analytics Dashboard<br><small>Business Analysts</small></div>
-                        <div class="service portal semi-blurred">⚙️ Ops Console<br><small>DevOps/MerOps</small></div>
+                        <div class="service portal focus">🏥 Device Registry<br><small>Security Admin</small></div>
+                        <div class="service portal focus">🔒 Policy Management<br><small>Security Team</small></div>
+                        <div class="service portal focus">📋 Compliance Reports<br><small>Auditors</small></div>
+                        <div class="service portal semi-blurred">📈 Traffic Monitor<br><small>SOC Team</small></div>
+                        <div class="service portal semi-blurred">⚙️ Zone Config<br><small>Network Admin</small></div>
                     </div>
                     <div class="interview-tip">
-                        <strong>💡 Interview Tip:</strong> Explain React component structure, state management (Redux/Context), API integration with Axios, form validations (Formik/Yup), responsive design with Material-UI, role-based route guards.
+                        <strong>💡 Click this box</strong> to see detailed pages, API mappings, wireframes, and React components for interviews.
                     </div>
                 </div>
             </div>
 
             <!-- UI Backend Services - Node.JS -->
             <div class="col">
-                <div class="group-box focus-area" style="background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);">
-                    <div class="group-title">🟢 UI BACKEND SERVICES (Node.JS BFF) <span class="scope-badge scope-primary">PRIMARY</span></div>
+                <div class="group-box focus-area clickable-box" onclick="openPopup('nodejs-backend-popup')" style="position: relative; background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);">
+                    <span class="click-hint">🔗 Click for Details</span>
+                    <div class="group-title">🟢 UI BACKEND SERVICES (Node.JS) <span class="scope-badge scope-primary">PRIMARY</span></div>
                     <div class="group-desc">
-                        <strong>You built these!</strong> Backend-for-Frontend layer using Node.JS + Express. Aggregates multiple microservices into optimized UI responses. Handles session management, request transformation, response shaping.
+                        <strong>You built these!</strong> Backend-for-Frontend layer using Node.JS + Express + MySQL. Aggregates device data, policy rules, and traffic logs. Handles session management, request transformation, response shaping.
                     </div>
                     
                     <!-- Internal Portal APIs -->
@@ -286,102 +2845,91 @@
                         <div style="font-size: 11px; font-weight: bold; color: #2b6cb0; margin-bottom: 6px; padding: 3px 8px; background: #bee3f8; border-radius: 4px; display: inline-block;">🖥️ Internal Portal APIs</div>
                         <div>
                             <div class="nodejs-module">
-                                <strong>📊 Campaign Admin API</strong>
-                                <small>CRUD campaigns, offers, budget allocation, targeting rules</small>
+                                <strong>🏥 Device Registry API</strong>
+                                <small>CRUD IoMT devices, network config, zone assignment</small>
                             </div>
                             <div class="nodejs-module">
-                                <strong>✅ Approval Queue API</strong>
-                                <small>Workflow stages, approve/reject, comments, audit trail</small>
+                                <strong>🔒 Policy Management API</strong>
+                                <small>CRUD policies, rules, activate/disable, test simulation</small>
                             </div>
                             <div class="nodejs-module">
-                                <strong>📈 Analytics API</strong>
-                                <small>KPI aggregations, time-series charts, A/B test results</small>
+                                <strong>📊 Traffic Monitor API</strong>
+                                <small>Real-time traffic logs, violation alerts, compliance stats</small>
                             </div>
                             <div class="nodejs-module">
-                                <strong>🎧 Support API</strong>
-                                <small>Customer lookup, enrollment history, dispute resolution</small>
+                                <strong>📋 Compliance API</strong>
+                                <small>HIPAA audit reports, export logs, compliance timeline</small>
                             </div>
                         </div>
                     </div>
                     
                     <div class="interview-tip">
-                        <strong>💡 Interview Tip:</strong> Explain BFF pattern benefits (reduce client complexity, optimize payloads), Express middleware (auth, logging, error handling), async/await with Promise.all for parallel microservice calls, response transformation, caching strategies.
+                        <strong>💡 Click this box</strong> to see project structure, database schema, and API details for interviews.
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="flow-arrow-down">⬇️ API Requests (REST) ⬇️</div>
-
         <!-- MAIN PLATFORM -->
         <div class="platform-box">
             <div class="platform-title">☁️ OFFERS PLATFORM (AWS EKS Cluster)</div>
-            
-            <!-- Security - SECONDARY FOCUS -->
-            <div class="group-box" style="background: #fffbeb; border-color: #ecc94b;">
-                <div class="group-title">🔐 SECURITY LAYER (Okta + API Gateway) <span class="scope-badge scope-secondary">SECONDARY</span></div>
-                <div class="group-desc">
-                    <strong>You integrated with this!</strong> Your React app redirects to Okta for login. Your Node.JS BFF validates tokens. Your Spring Boot APIs use @PreAuthorize for scope checks.
-                </div>
-                <div class="services-grid">
-                    <div class="service security focus">🎫 Okta OAuth2/OIDC<br><small>Token Issuance</small></div>
-                    <div class="service gateway semi-blurred">🛡️ AWS WAF<br><small>SQL/XSS Protection</small></div>
-                    <div class="service gateway semi-blurred">⏱️ Rate Limiting<br><small>Throttling</small></div>
-                </div>
-                <div class="interview-tip">
-                    <strong>💡 Interview Tip:</strong> Explain OAuth2 Authorization Code flow for UI login, how React stores tokens, Spring Security @PreAuthorize with scopes for method-level access control.
-                </div>
-            </div>
-
-            <div class="flow-arrow-down">⬇️ Authenticated Requests ⬇️</div>
 
             <!-- Microservices Row -->
             <div class="row">
                 <!-- REST APIs - PRIMARY FOCUS -->
                 <div class="col-wide">
-                    <div class="group-box focus-area">
+                    <div class="group-box focus-area" style="position: relative;">
                         <div class="group-title">🔷 MICROSERVICES (Spring Boot REST APIs) <span class="scope-badge scope-primary">PRIMARY</span></div>
                         <div class="group-desc">
                             <strong>You built 3 of these!</strong> End-to-end ownership: API design, business logic, Couchbase integration, Kafka events, unit/integration tests.
                         </div>
                         
-                        <div style="margin: 10px 0;">
-                            <strong style="font-size: 12px; color: #276749;">✅ YOUR SERVICES (Deep Knowledge):</strong>
-                            <div class="services-grid">
-                                <div class="service rest-api focus">📢 Campaign Service<br><small>CRUD, State Machine</small></div>
-                                <div class="service rest-api focus">🎁 Offer Service<br><small>Reward Rules</small></div>
-                                <div class="service rest-api focus">📝 Enrollment Service<br><small>Opt-in/Opt-out</small></div>
+                        <!-- Campaign Service -->
+                        <div style="margin: 10px 0; padding: 12px; background: #ebf8ff; border-left: 3px solid #3182ce; border-radius: 0 6px 6px 0;">
+                            <div style="font-weight: bold; color: #2b6cb0; margin-bottom: 8px;">📢 1. CAMPAIGN SERVICE</div>
+                            <div style="padding: 10px; background: #f7fafc; border-radius: 6px; color: #718096; font-size: 12px;">
+                                <strong>🚧 TODO:</strong> API endpoints, request/response DTOs, Couchbase document structure, state machine, Kafka events
                             </div>
                         </div>
                         
-                        <div style="margin: 10px 0;">
-                            <strong style="font-size: 12px; color: #718096;">📋 OTHER SERVICES (Your BFF calls these APIs):</strong>
-                            <div class="services-grid" style="opacity: 0.6;">
-                                <div class="service rest-api">🎯 Targeting Service</div>
-                                <div class="service rest-api">💰 Budget Service</div>
-                                <div class="service rest-api">👤 Customer Profile</div>
-                                <div class="service rest-api">✔️ Eligibility Service</div>
-                                <div class="service rest-api">💸 Redemption Service</div>
+                        <!-- Offer Service -->
+                        <div style="margin: 10px 0; padding: 12px; background: #ebf8ff; border-left: 3px solid #3182ce; border-radius: 0 6px 6px 0;">
+                            <div style="font-weight: bold; color: #2b6cb0; margin-bottom: 8px;">🎁 2. OFFER SERVICE</div>
+                            <div style="padding: 10px; background: #f7fafc; border-radius: 6px; color: #718096; font-size: 12px;">
+                                <strong>🚧 TODO:</strong> API endpoints, reward rules, eligibility checks, Couchbase document structure, Kafka events
+                            </div>
+                        </div>
+                        
+                        <!-- Enrollment Service -->
+                        <div style="margin: 10px 0; padding: 12px; background: #ebf8ff; border-left: 3px solid #3182ce; border-radius: 0 6px 6px 0;">
+                            <div style="font-weight: bold; color: #2b6cb0; margin-bottom: 8px;">📝 3. ENROLLMENT SERVICE</div>
+                            <div style="padding: 10px; background: #f7fafc; border-radius: 6px; color: #718096; font-size: 12px;">
+                                <strong>🚧 TODO:</strong> API endpoints, opt-in/opt-out logic, enrollment status, Couchbase document structure, Kafka events
                             </div>
                         </div>
                         
                         <div class="interview-tip">
-                            <strong>💡 Interview Tip:</strong> Be ready to whiteboard: Campaign Service API endpoints, request/response DTOs, validation annotations (@Valid, custom validators), exception handling (@ControllerAdvice), Couchbase document structure, Kafka event publishing on state change.
+                            <strong>💡 Interview Tip:</strong> Be ready to whiteboard: API endpoints, request/response DTOs, validation annotations (@Valid, custom validators), exception handling (@ControllerAdvice), Couchbase document structure, Kafka event publishing on state change.
                         </div>
                     </div>
                 </div>
 
                 <!-- Vert.X Services - SECONDARY FOCUS -->
                 <div class="col">
-                    <div class="group-box focus-area">
+                    <div class="group-box focus-area" style="position: relative;">
                         <div class="group-title">⚡ HIGH-THROUGHPUT (Vert.X) <span class="scope-badge scope-secondary">SECONDARY</span></div>
                         <div class="group-desc">
                             <strong>You built 1 of these!</strong> Impressions Service - tracks every offer view. Non-blocking, event-loop based.
                         </div>
-                        <div class="services-grid">
-                            <div class="service vertx focus">👁️ Impressions Service<br><small>50K events/sec</small></div>
-                            <div class="service vertx semi-blurred">🖱️ Click Stream<br><small>User Interactions</small></div>
+                        
+                        <!-- Impressions Service -->
+                        <div style="margin: 10px 0; padding: 12px; background: #f0fff4; border-left: 3px solid #38a169; border-radius: 0 6px 6px 0;">
+                            <div style="font-weight: bold; color: #276749; margin-bottom: 8px;">👁️ 1. IMPRESSIONS SERVICE</div>
+                            <div style="padding: 10px; background: #f7fafc; border-radius: 6px; color: #718096; font-size: 12px;">
+                                <strong>🚧 TODO:</strong> Verticle architecture, event bus communication, high-throughput patterns, backpressure handling, Kafka producer integration
+                            </div>
                         </div>
+                        
                         <div class="interview-tip">
                             <strong>💡 Interview Tip:</strong> Explain why Vert.X over Spring Boot (non-blocking I/O, event loop), Verticle deployment, event bus communication, how you handle backpressure.
                         </div>
@@ -399,97 +2947,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="flow-arrow-down">⬇️ Events ⬇️</div>
-
-            <!-- Messaging & Data Layer - SECONDARY FOCUS -->
-            <div class="row">
-                <div class="col">
-                    <div class="group-box focus-area">
-                        <div class="group-title">📨 EVENT STREAMING (Apache Kafka) <span class="scope-badge scope-secondary">SECONDARY</span></div>
-                        <div class="group-desc">
-                            <strong>You produce & consume events!</strong> Your services publish domain events. You handle consumer lag, retries, DLQ.
-                        </div>
-                        <div class="services-grid">
-                            <div class="service kafka focus">campaign-events</div>
-                            <div class="service kafka focus">offer-events</div>
-                            <div class="service kafka focus">enrollment-events</div>
-                            <div class="service kafka semi-blurred">impression-events</div>
-                            <div class="service kafka semi-blurred">redemption-events</div>
-                        </div>
-                        <div class="interview-tip">
-                            <strong>💡 Interview Tip:</strong> Explain Kafka producer config (acks, retries, idempotence), consumer groups, offset management, exactly-once semantics, dead letter queue pattern for failed messages.
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="group-box focus-area">
-                        <div class="group-title">💾 DATA STORES <span class="scope-badge scope-primary">PRIMARY</span></div>
-                        <div class="group-desc">
-                            <strong>You designed data models!</strong> Couchbase document structure, Redis cache strategies.
-                        </div>
-                        <div class="services-grid">
-                            <div class="service datastore focus">🗄️ Couchbase<br><small>Primary NoSQL DB</small></div>
-                            <div class="service datastore focus">⚡ Redis Cache<br><small>Offer Lookups</small></div>
-                            <div class="service datastore semi-blurred">🐘 PostgreSQL<br><small>Legacy/Reports</small></div>
-                        </div>
-                        <div class="interview-tip">
-                            <strong>💡 Interview Tip:</strong> Explain Couchbase document design (embedded vs referenced), N1QL queries, cache-aside pattern with Redis, TTL strategies, cache invalidation on updates.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Batch Processing - BLURRED -->
-            <div class="group-box blurred">
-                <div class="group-title">⏰ BATCH PROCESSING <span class="scope-badge scope-awareness">AWARENESS</span></div>
-                <div class="group-desc">Platform team owns batch jobs. You know they exist for eligibility refresh, settlements.</div>
-                <div class="services-grid">
-                    <div class="service batch">🔄 Eligibility Refresh</div>
-                    <div class="service batch">⏳ Offer Expiry</div>
-                    <div class="service batch">💰 Settlement Batch</div>
-                    <div class="service batch">📊 Report Generation</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="flow-arrow-down blurred">⬇️ Stream Events ⬇️</div>
-
-        <!-- Data Lake - BLURRED -->
-        <div class="group-box blurred" style="background: linear-gradient(135deg, #e6fffa 0%, #ebf8ff 100%);">
-            <div class="group-title">🌊 DATA STREAMING & DATA LAKE (AWS) <span class="scope-badge scope-awareness">AWARENESS</span></div>
-            <div class="group-desc">Data Engineering team owns this. Your Kafka events flow here eventually. You might query Athena for analytics.</div>
-            
-            <div class="row">
-                <div class="col">
-                    <div class="services-grid">
-                        <div class="service kinesis">📡 Kinesis Streams</div>
-                        <div class="service kinesis">🚚 Kinesis Firehose</div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="services-grid">
-                        <div class="service datalake">📦 S3 Data Lake</div>
-                        <div class="service datalake">🧹 AWS Glue ETL</div>
-                        <div class="service datalake">🔍 Amazon Athena</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="flow-arrow-down blurred">⬇️ ⬇️ ⬇️</div>
-
-        <!-- DOWNSTREAM SYSTEMS - BLURRED -->
-        <div class="group-box blurred">
-            <div class="group-title">⬇️ DOWNSTREAM SYSTEMS <span class="scope-badge scope-awareness">AWARENESS</span></div>
-            <div class="group-desc">Your events/APIs feed these systems. You don't own them.</div>
-            <div class="services-grid">
-                <div class="service downstream">🏆 Rewards System</div>
-                <div class="service downstream">📄 Statement System</div>
-                <div class="service downstream">📧 Notification Platform</div>
-                <div class="service downstream">📊 Data Warehouse</div>
-                <div class="service downstream">📋 Compliance</div>
-            </div>
         </div>
 
         <!-- Summary Box -->
@@ -500,31 +2957,26 @@
                 <div style="flex: 1; min-width: 280px;">
                     <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">🎯 PRIMARY (Deep Dive Expected):</div>
                     <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
-                        <li><strong>React UI:</strong> Campaign Management, Approval Console, Support Portal</li>
-                        <li><strong>Node.JS BFF:</strong> Express APIs, request aggregation, response shaping</li>
+                        <li><strong>React UI:</strong> Device Registry, Policy Management, Compliance Reports (Healthcare IoMT)</li>
+                        <li><strong>Node.JS BFF:</strong> Express APIs, MySQL, Sequelize ORM, REST endpoints</li>
                         <li><strong>Spring Boot APIs:</strong> Campaign Service, Offer Service, Enrollment Service</li>
-                        <li><strong>Vert.X:</strong> Impressions Service (high-throughput)</li>
-                        <li><strong>Couchbase:</strong> Document design, N1QL queries</li>
-                        <li><strong>Redis:</strong> Cache-aside pattern, TTL strategies</li>
+                        <li><strong>Vert.X:</strong> Impressions Service (high-throughput, event-loop)</li>
                     </ul>
                 </div>
                 <div style="flex: 1; min-width: 280px;">
                     <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">🔗 SECONDARY (Good Understanding):</div>
                     <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
-                        <li><strong>OAuth2/Okta:</strong> Authorization Code flow, JWT validation</li>
-                        <li><strong>API Gateway:</strong> JWT Authorizer, rate limiting concept</li>
+                        <li><strong>MySQL:</strong> Table design, JOINs, foreign keys, indexes</li>
+                        <li><strong>Couchbase:</strong> Document design, N1QL queries</li>
                         <li><strong>Kafka:</strong> Producer/Consumer, consumer groups, DLQ</li>
-                        <li><strong>Other APIs:</strong> Eligibility, Targeting, Redemption (via BFF)</li>
                     </ul>
                 </div>
                 <div style="flex: 1; min-width: 280px;">
                     <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">👁️ AWARENESS (Mention Only):</div>
                     <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
                         <li>Upstream systems (Core Banking, TPS, CRM)</li>
-                        <li>Data Lake (Kinesis, S3, Athena)</li>
-                        <li>Batch Processing (Eligibility Refresh, Settlements)</li>
                         <li>AI/ML (Recommendations, Fraud Detection)</li>
-                        <li>Downstream systems (Rewards, Statements)</li>
+                        <li>Batch Processing, Data Lake, Downstream systems</li>
                     </ul>
                 </div>
             </div>
@@ -536,13 +2988,12 @@
                     <span style="background: #61dafb; color: #282c34; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">⚛️ React</span>
                     <span style="background: #68d391; color: #22543d; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">🟢 Node.JS</span>
                     <span style="background: #68d391; color: #22543d; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Express</span>
+                    <span style="background: #00758f; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">🐬 MySQL</span>
                     <span style="background: #6db33f; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">🍃 Spring Boot</span>
                     <span style="background: #782a90; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Vert.X</span>
                     <span style="background: #ea2328; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Couchbase</span>
-                    <span style="background: #dc382d; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Redis</span>
                     <span style="background: #231f20; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Kafka</span>
                     <span style="background: #ff9900; color: #232f3e; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">☁️ AWS</span>
-                    <span style="background: #007ec6; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold;">Okta</span>
                 </div>
             </div>
         </div>
@@ -553,5 +3004,127 @@
             <small>Credit Card Offers Platform - Interview Preparation Reference</small>
         </div>
     </div>
+    
+    <!-- JavaScript for Popup and Multi-Step Form -->
+    <script>
+        function openPopup(popupId) {
+            document.getElementById(popupId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closePopup(popupId) {
+            document.getElementById(popupId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function closePopupOnOverlay(event, popupId) {
+            if (event.target.id === popupId) {
+                closePopup(popupId);
+            }
+        }
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.popup-overlay.active').forEach(function(popup) {
+                    popup.classList.remove('active');
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Multi-step form stepper
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function showStep(step) {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepContent = document.getElementById('wf-step-' + i);
+                const stepIndicator = document.getElementById('step-ind-' + i);
+                if (stepContent) stepContent.style.display = 'none';
+                if (stepIndicator) {
+                    stepIndicator.classList.remove('active');
+                    if (i < step) {
+                        stepIndicator.classList.add('completed');
+                    } else {
+                        stepIndicator.classList.remove('completed');
+                    }
+                }
+            }
+            
+            // Update step lines
+            const stepLines = document.querySelectorAll('.wf-step-line');
+            stepLines.forEach((line, index) => {
+                if (index < step - 1) {
+                    line.classList.add('completed');
+                } else {
+                    line.classList.remove('completed');
+                }
+            });
+            
+            // Show current step
+            const currentStepContent = document.getElementById('wf-step-' + step);
+            const currentStepIndicator = document.getElementById('step-ind-' + step);
+            if (currentStepContent) currentStepContent.style.display = 'block';
+            if (currentStepIndicator) currentStepIndicator.classList.add('active');
+            
+            // Update buttons
+            const prevBtn = document.getElementById('wf-prev-btn');
+            const nextBtn = document.getElementById('wf-next-btn');
+            const submitBtn = document.getElementById('wf-submit-btn');
+            
+            if (prevBtn) prevBtn.style.display = step > 1 ? 'inline-block' : 'none';
+            if (nextBtn) nextBtn.style.display = step < totalSteps ? 'inline-block' : 'none';
+            if (submitBtn) submitBtn.style.display = step === totalSteps ? 'inline-block' : 'none';
+            
+            currentStep = step;
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                showStep(currentStep + 1);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        }
+
+        // Approval Detail Page Tabs
+        function showApprovalTab(tabNumber) {
+            // Hide all tab contents
+            for (let i = 1; i <= 4; i++) {
+                const content = document.getElementById('approval-content-' + i);
+                const tab = document.getElementById('approval-tab-' + i);
+                if (content) content.style.display = 'none';
+                if (tab) tab.classList.remove('active');
+            }
+            
+            // Show selected tab content
+            const selectedContent = document.getElementById('approval-content-' + tabNumber);
+            const selectedTab = document.getElementById('approval-tab-' + tabNumber);
+            if (selectedContent) selectedContent.style.display = 'block';
+            if (selectedTab) selectedTab.classList.add('active');
+        }
+
+        // Policy Builder Page Tabs
+        function showPolicyTab(tabNumber) {
+            // Hide all tab contents
+            for (let i = 1; i <= 4; i++) {
+                const content = document.getElementById('policy-content-' + i);
+                const tab = document.getElementById('policy-tab-' + i);
+                if (content) content.style.display = 'none';
+                if (tab) tab.classList.remove('active');
+            }
+            
+            // Show selected tab content
+            const selectedContent = document.getElementById('policy-content-' + tabNumber);
+            const selectedTab = document.getElementById('policy-tab-' + tabNumber);
+            if (selectedContent) selectedContent.style.display = 'block';
+            if (selectedTab) selectedTab.classList.add('active');
+        }
+    </script>
 </body>
 </html>
