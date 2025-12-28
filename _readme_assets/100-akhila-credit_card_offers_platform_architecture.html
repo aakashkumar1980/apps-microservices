@@ -2973,21 +2973,22 @@ ORDER BY date</pre></td>
                             <!-- REST API + N1QL Query Mapping Table -->
                             <div>
                                 <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">🌐 REST API | 🔍 Spring Data Couchbase Query:</div>
-                                <table style="width: 100%; border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
+                                <div style="overflow-x: auto;">
+                                <table style="width: 100%; min-width: 500px; border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
                                     <thead>
                                         <tr style="background: #edf2f7;">
-                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #2d3748;">REST API</th>
-                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #805ad5;">Derived Query</th>
-                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #718096;">Category</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #2d3748; white-space: nowrap;">REST API</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #805ad5; white-space: nowrap;">Derived Query</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #718096; white-space: nowrap;">Category</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr><td colspan="3" style="padding: 4px 8px; background: #c6f6d5; color: #22543d; font-weight: bold;">📌 Simple</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns?status=X</td><td style="padding: 4px 8px; color: #805ad5;">findByStatus(String)</td><td style="padding: 4px 8px; color: #718096;">Query Starter</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns/active</td><td style="padding: 4px 8px; color: #805ad5;">findByActiveTrue()</td><td style="padding: 4px 8px; color: #718096;">Boolean Check</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns/distinct?type=X</td><td style="padding: 4px 8px; color: #805ad5;">findDistinctByType(String)</td><td style="padding: 4px 8px; color: #718096;">Uniqueness</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns?status=X</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByStatus(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Query Starter</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns/active</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByActiveTrue()</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Boolean Check</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns/distinct?type=X</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findDistinctByType(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Uniqueness</td></tr>
                                         <tr><td colspan="3" style="padding: 4px 8px; background: #feebc8; color: #744210; font-weight: bold;">⚖️ Medium</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns?statuses=X,Y</td><td style="padding: 4px 8px; color: #805ad5;">findByStatusIn(Collection&lt;String&gt;)</td><td style="padding: 4px 8px; color: #718096;">Collections (In)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns?statuses=X,Y</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByStatusIn(Collection&lt;String&gt;)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Collections (In)</td></tr>
                                         <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns/exclude?statuses=X,Y</td><td style="padding: 4px 8px; color: #805ad5;">findByStatusNotIn(Collection&lt;String&gt;)</td><td style="padding: 4px 8px; color: #718096;">Collections (NotIn)</td></tr>
                                         <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns?start=X&end=Y</td><td style="padding: 4px 8px; color: #805ad5;">findByStartDateBetween(LocalDate, LocalDate)</td><td style="padding: 4px 8px; color: #718096;">Comparison</td></tr>
                                         <tr><td colspan="3" style="padding: 4px 8px; background: #fed7d7; color: #742a2a; font-weight: bold;">⚙️ Complex</td></tr>
@@ -2996,6 +2997,7 @@ ORDER BY date</pre></td>
                                         <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /campaigns/no-rules</td><td style="padding: 4px 8px; color: #805ad5;">findByTargetingRulesIsEmpty()</td><td style="padding: 4px 8px; color: #718096;">Collections (Empty)</td></tr>
                                     </tbody>
                                 </table>
+                                </div>
                             </div>
                         </div>
                         
@@ -3016,32 +3018,34 @@ ORDER BY date</pre></td>
                             <!-- REST API + N1QL Query Mapping Table -->
                             <div>
                                 <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">🌐 REST API | 🔍 Spring Data Couchbase Query:</div>
-                                <table style="width: 100%; border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
+                                <div style="overflow-x: auto;">
+                                <table style="width: 100%; min-width: 500px; border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
                                     <thead>
                                         <tr style="background: #edf2f7;">
-                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #2d3748;">REST API</th>
-                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #805ad5;">Derived Query</th>
-                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #718096;">Category</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #2d3748; white-space: nowrap;">REST API</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #805ad5; white-space: nowrap;">Derived Query</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #718096; white-space: nowrap;">Category</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr><td colspan="3" style="padding: 4px 8px; background: #c6f6d5; color: #22543d; font-weight: bold;">📌 Simple</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/valid</td><td style="padding: 4px 8px; color: #805ad5;">findByDeletedAtIsNull()</td><td style="padding: 4px 8px; color: #718096;">Null (IsNull)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/expired</td><td style="padding: 4px 8px; color: #805ad5;">findByExpiredAtIsNotNull()</td><td style="padding: 4px 8px; color: #718096;">Null (IsNotNull)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?before=date</td><td style="padding: 4px 8px; color: #805ad5;">findByCreatedDateBefore(LocalDate)</td><td style="padding: 4px 8px; color: #718096;">Temporal (Before)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?after=date</td><td style="padding: 4px 8px; color: #805ad5;">findByCreatedDateAfter(LocalDate)</td><td style="padding: 4px 8px; color: #718096;">Temporal (After)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/valid</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByDeletedAtIsNull()</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Null (IsNull)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/expired</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByExpiredAtIsNotNull()</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Null (IsNotNull)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?before=date</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByCreatedDateBefore(LocalDate)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Temporal (Before)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?after=date</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByCreatedDateAfter(LocalDate)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Temporal (After)</td></tr>
                                         <tr><td colspan="3" style="padding: 4px 8px; background: #feebc8; color: #744210; font-weight: bold;">⚖️ Medium</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?maxSpend=100</td><td style="padding: 4px 8px; color: #805ad5;">findByMinSpendLessThan(Double)</td><td style="padding: 4px 8px; color: #718096;">Comparison (LessThan)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?minReward=50</td><td style="padding: 4px 8px; color: #805ad5;">findByRewardAmountGreaterThanEqual(Double)</td><td style="padding: 4px 8px; color: #718096;">Comparison (GreaterThanEqual)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/search?q=coffee</td><td style="padding: 4px 8px; color: #805ad5;">findByNameContaining(String)</td><td style="padding: 4px 8px; color: #718096;">String (Containing)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?prefix=SUMMER</td><td style="padding: 4px 8px; color: #805ad5;">findByCodeStartingWith(String)</td><td style="padding: 4px 8px; color: #718096;">String (StartingWith)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?suffix=2024</td><td style="padding: 4px 8px; color: #805ad5;">findByCodeEndingWith(String)</td><td style="padding: 4px 8px; color: #718096;">String (EndingWith)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?maxSpend=100</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByMinSpendLessThan(Double)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Comparison (LessThan)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?minReward=50</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByRewardAmountGreaterThanEqual(Double)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Comparison (GTE)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/search?q=coffee</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByNameContaining(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">String (Containing)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?prefix=SUMMER</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByCodeStartingWith(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">String (StartingWith)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers?suffix=2024</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByCodeEndingWith(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">String (EndingWith)</td></tr>
                                         <tr><td colspan="3" style="padding: 4px 8px; background: #fed7d7; color: #742a2a; font-weight: bold;">⚙️ Complex</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/first?status=X</td><td style="padding: 4px 8px; color: #805ad5;">findFirstByStatus(String)</td><td style="padding: 4px 8px; color: #718096;">Result (First)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/top10?status=X</td><td style="padding: 4px 8px; color: #805ad5;">findTop10ByStatusOrderByCreatedDateDesc(String)</td><td style="padding: 4px 8px; color: #718096;">Result (Top + Order)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/count?status=X</td><td style="padding: 4px 8px; color: #805ad5;">countByStatus(String)</td><td style="padding: 4px 8px; color: #718096;">System (count)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/first?status=X</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findFirstByStatus(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Result (First)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/top10?status=X</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findTop10ByStatusOrderByCreatedDateDesc(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Result (Top+Order)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /offers/count?status=X</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">countByStatus(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">System (count)</td></tr>
                                     </tbody>
                                 </table>
+                                </div>
                             </div>
                         </div>
                         
@@ -3061,27 +3065,29 @@ ORDER BY date</pre></td>
                             <!-- REST API + N1QL Query Mapping Table -->
                             <div>
                                 <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">🌐 REST API | 🔍 Spring Data Couchbase Query:</div>
-                                <table style="width: 100%; border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
+                                <div style="overflow-x: auto;">
+                                <table style="width: 100%; min-width: 500px; border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
                                     <thead>
                                         <tr style="background: #edf2f7;">
-                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #2d3748;">REST API</th>
-                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #805ad5;">Derived Query</th>
-                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #718096;">Category</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #2d3748; white-space: nowrap;">REST API</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #805ad5; white-space: nowrap;">Derived Query</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #718096; white-space: nowrap;">Category</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr><td colspan="3" style="padding: 4px 8px; background: #c6f6d5; color: #22543d; font-weight: bold;">📌 Simple</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /enrollments?status=X</td><td style="padding: 4px 8px; color: #805ad5;">findByStatusIs(String)</td><td style="padding: 4px 8px; color: #718096;">Equality (Is)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /enrollments/inactive</td><td style="padding: 4px 8px; color: #805ad5;">findByStatusNot(String)</td><td style="padding: 4px 8px; color: #718096;">Equality (Not)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /enrollments?status=X</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByStatusIs(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Equality (Is)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /enrollments/inactive</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByStatusNot(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Equality (Not)</td></tr>
                                         <tr><td colspan="3" style="padding: 4px 8px; background: #feebc8; color: #744210; font-weight: bold;">⚖️ Medium</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /enrollments?cust=X&status=Y</td><td style="padding: 4px 8px; color: #805ad5;">findByCustomerIdAndStatus(String, String)</td><td style="padding: 4px 8px; color: #718096;">Logical (And)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #276749; font-weight: bold;">GET</span> /enrollments/filter?status=X|Y</td><td style="padding: 4px 8px; color: #805ad5;">findByStatusOrOfferId(String, String)</td><td style="padding: 4px 8px; color: #718096;">Logical (Or)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /enrollments?cust=X&status=Y</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByCustomerIdAndStatus(String, String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Logical (And)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /enrollments/filter?status=X|Y</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">findByStatusOrOfferId(String, String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Logical (Or)</td></tr>
                                         <tr><td colspan="3" style="padding: 4px 8px; background: #fed7d7; color: #742a2a; font-weight: bold;">⚙️ Complex</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #2b6cb0; font-weight: bold;">POST</span> /enrollments</td><td style="padding: 4px 8px; color: #805ad5;">existsByCustomerIdAndOfferId(String, String)</td><td style="padding: 4px 8px; color: #718096;">System (exists)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #c53030; font-weight: bold;">DELETE</span> /enrollments?status=X</td><td style="padding: 4px 8px; color: #805ad5;">deleteByStatus(String)</td><td style="padding: 4px 8px; color: #718096;">System (delete)</td></tr>
-                                        <tr><td style="padding: 4px 8px;"><span style="color: #c53030; font-weight: bold;">DELETE</span> /enrollments/expired</td><td style="padding: 4px 8px; color: #805ad5;">removeByStatusAndExpiredTrue(String)</td><td style="padding: 4px 8px; color: #718096;">System (remove)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #2b6cb0; font-weight: bold;">POST</span> /enrollments</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">existsByCustomerIdAndOfferId(String, String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">System (exists)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #c53030; font-weight: bold;">DELETE</span> /enrollments?status=X</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">deleteByStatus(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">System (delete)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #c53030; font-weight: bold;">DELETE</span> /enrollments/expired</td><td style="padding: 4px 8px; color: #805ad5; white-space: nowrap;">removeByStatusAndExpiredTrue(String)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">System (remove)</td></tr>
                                     </tbody>
                                 </table>
+                                </div>
                             </div>
                         </div>
                         
@@ -3123,30 +3129,73 @@ ORDER BY date</pre></td>
                         
                         <!-- Impressions Service -->
                         <div style="margin: 10px 0; padding: 12px; background: #f0fff4; border-left: 3px solid #38a169; border-radius: 0 6px 6px 0;">
-                            <div style="font-weight: bold; color: #276749; margin-bottom: 8px;">👁️ 1. IMPRESSIONS SERVICE</div>
-                            <div style="padding: 10px; background: #f7fafc; border-radius: 6px; color: #718096; font-size: 12px;">
-                                <strong>🚧 TODO:</strong> Verticle architecture, event bus communication, high-throughput patterns, backpressure handling, Kafka producer integration
+                            <div style="font-weight: bold; color: #276749; margin-bottom: 8px;">👁️ 1. IMPRESSIONS SERVICE <span style="font-weight: normal; color: #718096;">(NIO Performance Focus)</span></div>
+                            
+                            <!-- Data Models -->
+                            <div style="margin-bottom: 8px;">
+                                <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models: <span style="font-weight: normal; color: #718096;">(click to view JSON)</span></div>
+                                <div style="display: flex; flex-wrap: wrap; gap: 3px;">
+                                    <span class="dm-clickable" onclick="openDataModel('Impression')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Impression</span>
+                                    <span class="dm-clickable" onclick="openDataModel('ImpressionBatch')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">ImpressionBatch</span>
+                                    <span class="dm-clickable" onclick="openDataModel('OfferAnalytics')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">OfferAnalytics</span>
+                                </div>
+                            </div>
+                            
+                            <!-- REST API + NIO Pattern Mapping Table -->
+                            <div>
+                                <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">🌐 REST API | ⚡ NIO Implementation Pattern:</div>
+                                <div style="overflow-x: auto;">
+                                <table style="width: 100%; min-width: 500px; border-collapse: collapse; font-family: 'Courier New', monospace; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
+                                    <thead>
+                                        <tr style="background: #edf2f7;">
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #2d3748; white-space: nowrap;">REST API</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #276749; white-space: nowrap;">NIO Pattern</th>
+                                            <th style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; color: #718096; white-space: nowrap;">Why?</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td colspan="3" style="padding: 4px 8px; background: #bee3f8; color: #2a4365; font-weight: bold;">🔥 Fire & Forget (Write-Heavy)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #2b6cb0; font-weight: bold;">POST</span> /impressions</td><td style="padding: 4px 8px; color: #276749; white-space: nowrap;">202 + EventBus.publish()</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Non-blocking return</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #2b6cb0; font-weight: bold;">POST</span> /impressions/batch</td><td style="padding: 4px 8px; color: #276749; white-space: nowrap;">Buffer → Flush (100ms/1000)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Batch optimization</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #2b6cb0; font-weight: bold;">POST</span> /clicks/{offerId}</td><td style="padding: 4px 8px; color: #276749; white-space: nowrap;">Redis INCR (async)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Atomic, no DB</td></tr>
+                                        <tr><td colspan="3" style="padding: 4px 8px; background: #c6f6d5; color: #22543d; font-weight: bold;">📊 Parallel Fetch (Read-Heavy)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /analytics/offer/{id}</td><td style="padding: 4px 8px; color: #276749; white-space: nowrap;">CompositeFuture.all()</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Parallel 3 Redis calls</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /analytics/campaign/{id}</td><td style="padding: 4px 8px; color: #276749; white-space: nowrap;">CompositeFuture.join()</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Fan-out, aggregate</td></tr>
+                                        <tr><td colspan="3" style="padding: 4px 8px; background: #fed7d7; color: #742a2a; font-weight: bold;">🌊 Streaming (Real-time)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /stream/impressions</td><td style="padding: 4px 8px; color: #276749; white-space: nowrap;">SSE (Server-Sent Events)</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Push, no polling</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">WS</span> /ws/live-stats</td><td style="padding: 4px 8px; color: #276749; white-space: nowrap;">WebSocket + Backpressure</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">Bi-directional</td></tr>
+                                        <tr><td colspan="3" style="padding: 4px 8px; background: #e9d8fd; color: #553c9a; font-weight: bold;">⚙️ Worker Pool (Blocking Ops)</td></tr>
+                                        <tr><td style="padding: 4px 8px; white-space: nowrap;"><span style="color: #276749; font-weight: bold;">GET</span> /reports/daily</td><td style="padding: 4px 8px; color: #276749; white-space: nowrap;">executeBlocking()</td><td style="padding: 4px 8px; color: #718096; white-space: nowrap;">CPU-intensive</td></tr>
+                                    </tbody>
+                                </table>
+                                </div>
                             </div>
                         </div>
                         
                         <!-- Kafka Topics -->
                         <div style="background: #fffaf0; border: 1px dashed #ed8936; border-radius: 5px; padding: 8px; margin-top: 10px;">
-                            <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 6px;">📡 Kafka Topics:</div>
+                            <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 6px;">📡 Kafka Topics: <span style="font-weight: normal; color: #718096;">(async produce from EventBus)</span></div>
                             <div style="display: flex; flex-wrap: wrap; gap: 4px;">
-                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">impressions-stream <span style="color: #c53030; font-weight: bold;">(at-most-once)</span></span>
-                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">click-stream <span style="color: #c53030; font-weight: bold;">(at-most-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">impression.created <span style="color: #c53030; font-weight: bold;">(at-most-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">impression.batch <span style="color: #c53030; font-weight: bold;">(at-most-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">click.tracked <span style="color: #c53030; font-weight: bold;">(at-most-once)</span></span>
                             </div>
                         </div>
                         
                         <!-- Redis Cache -->
                         <div style="background: #fff5f5; border: 1px dashed #fc8181; border-radius: 5px; padding: 8px; margin-top: 8px;">
-                            <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 6px;">⚡ Redis Cache:</div>
-                            <div style="display: flex; flex-wrap: wrap; gap: 4px;">
-                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">impressions:offer:{id} <span style="color: #718096;">(Counter)</span></span>
-                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">clicks:offer:{id} <span style="color: #718096;">(Counter)</span></span>
-                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">session:{odId} <span style="color: #718096;">(TTL: 30m)</span></span>
+                            <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 6px;">⚡ Redis (Async Client):</div>
+                            <div style="font-size: 12px; color: #718096; margin-bottom: 4px;">Atomic Counters (POST /clicks, GET /analytics):</div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px;">
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">impressions:offer:{id} <span style="color: #718096;">(INCR)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">clicks:offer:{id} <span style="color: #718096;">(INCR)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">users:offer:{id} <span style="color: #718096;">(HyperLogLog)</span></span>
                             </div>
-                            <div style="font-size: 12px; color: #718096; margin-top: 4px; font-style: italic;">ℹ️ No idempotency cache needed (at-most-once: loss OK, no duplicates)</div>
+                            <div style="font-size: 12px; color: #718096; margin-bottom: 4px;">Write Buffer (POST /impressions/batch):</div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                <span style="background: #fbb6ce; border: 1px solid #d53f8c; color: #702459; font-size: 12px; padding: 3px 6px; border-radius: 3px;">buffer:impressions <span style="color: #718096;">(LIST → flush 100ms)</span></span>
+                            </div>
+                            <div style="font-size: 12px; color: #718096; margin-top: 4px; font-style: italic;">ℹ️ No idempotency needed (at-most-once: loss OK, no duplicates)</div>
                         </div>
                     </div>
 
@@ -3172,19 +3221,19 @@ ORDER BY date</pre></td>
                 <div style="flex: 1; min-width: 280px;">
                     <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">🎯 PRIMARY (Deep Dive Expected):</div>
                     <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
-                        <li><strong>React UI:</strong> Device Registry, Policy Management, Compliance Reports (Healthcare IoMT)</li>
-                        <li><strong>Node.JS BFF:</strong> Express APIs, MySQL, Sequelize ORM, REST endpoints</li>
-                        <li><strong>Spring Boot APIs:</strong> Campaign Service, Offer Service, Enrollment Service</li>
-                        <li><strong>Vert.X:</strong> Impressions Service (high-throughput, event-loop)</li>
+                        <li><strong>React UI:</strong> Device Registry, Policy Management, Compliance (Healthcare IoMT)</li>
+                        <li><strong>Node.JS BFF:</strong> Express APIs, MySQL, Sequelize ORM</li>
+                        <li><strong>Spring Boot:</strong> REST APIs, JPA Derived Queries (28 patterns), Couchbase N1QL</li>
+                        <li><strong>Vert.X:</strong> NIO patterns (CompositeFuture, EventBus, SSE, WebSocket)</li>
                     </ul>
                 </div>
                 <div style="flex: 1; min-width: 280px;">
                     <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">🔗 SECONDARY (Good Understanding):</div>
                     <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
                         <li><strong>MySQL:</strong> Table design, JOINs, foreign keys, indexes</li>
-                        <li><strong>Couchbase:</strong> Document design, N1QL queries</li>
-                        <li><strong>Redis:</strong> Cache-aside pattern, TTL strategies, idempotency keys</li>
-                        <li><strong>Kafka:</strong> Producer/Consumer, consumer groups, DLQ, delivery modes</li>
+                        <li><strong>Couchbase:</strong> Document design, denormalized models</li>
+                        <li><strong>Redis:</strong> Cache-aside, counters (INCR), HyperLogLog, idempotency</li>
+                        <li><strong>Kafka:</strong> at-least-once, at-most-once, exactly-once delivery</li>
                     </ul>
                 </div>
                 <div style="flex: 1; min-width: 280px;">
@@ -3206,7 +3255,9 @@ ORDER BY date</pre></td>
                     <span style="background: #68d391; color: #22543d; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">Express</span>
                     <span style="background: #00758f; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">🐬 MySQL</span>
                     <span style="background: #6db33f; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">🍃 Spring Boot</span>
-                    <span style="background: #782a90; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">Vert.X</span>
+                    <span style="background: #6db33f; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">JPA Queries</span>
+                    <span style="background: #782a90; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">⚡ Vert.X</span>
+                    <span style="background: #782a90; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">NIO/Async</span>
                     <span style="background: #ea2328; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">Couchbase</span>
                     <span style="background: #dc382d; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">Redis</span>
                     <span style="background: #231f20; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">Kafka</span>
@@ -3524,6 +3575,101 @@ ORDER BY date</pre></td>
 <span class="key">EXPIRED</span>    <span class="comment">// removeByStatusAndExpiredTrue()</span>
 <span class="key">CANCELLED</span>  <span class="comment">// deleteByStatus("CANCELLED")</span>
 <span class="key">REDEEMED</span>   <span class="comment">// findByCustomerIdAndStatus()</span></div>
+        </div>
+    </div>
+    
+    <!-- ========== VERT.X IMPRESSIONS SERVICE DATA MODELS ========== -->
+    
+    <!-- Impression Model -->
+    <div id="dm-modal-Impression" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'Impression')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 Impression.java (Vert.X)</span>
+                <button class="dm-modal-close" onclick="closeDataModel('Impression')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"id"</span>: <span class="string">"imp_uuid"</span>,
+  <span class="key">"eventType"</span>: <span class="string">"VIEW"</span>,  <span class="comment">// VIEW | CLICK | DISMISS</span>
+  <span class="key">"timestamp"</span>: <span class="number">1719849600000</span>,  <span class="comment">// epoch ms (fast)</span>
+  <span class="key">"sessionId"</span>: <span class="string">"sess_abc123"</span>,
+  
+  <span class="comment">// 🔗 References (no JOINs - denormalized for speed)</span>
+  <span class="key">"offerId"</span>: <span class="string">"offer_uuid"</span>,
+  <span class="key">"campaignId"</span>: <span class="string">"camp_uuid"</span>,
+  <span class="key">"customerId"</span>: <span class="string">"cust_12345"</span>,
+  
+  <span class="comment">// 📊 Analytics metadata (embedded)</span>
+  <span class="key">"source"</span>: <span class="string">"MOBILE_APP"</span>,  <span class="comment">// WEB | MOBILE_APP | EMAIL</span>
+  <span class="key">"placement"</span>: <span class="string">"HOME_CAROUSEL"</span>
+}</div>
+        </div>
+    </div>
+    
+    <!-- ImpressionBatch Model -->
+    <div id="dm-modal-ImpressionBatch" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'ImpressionBatch')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 ImpressionBatch.java (Vert.X)</span>
+                <button class="dm-modal-close" onclick="closeDataModel('ImpressionBatch')">✕</button>
+            </div>
+            <div class="dm-json"><span class="comment">// POST /impressions/batch - Buffer optimization</span>
+{
+  <span class="key">"batchId"</span>: <span class="string">"batch_uuid"</span>,
+  <span class="key">"size"</span>: <span class="number">1000</span>,  <span class="comment">// flush threshold</span>
+  <span class="key">"impressions"</span>: [
+    { <span class="key">"offerId"</span>: <span class="string">"o1"</span>, <span class="key">"ts"</span>: <span class="number">1719849600001</span> },
+    { <span class="key">"offerId"</span>: <span class="string">"o2"</span>, <span class="key">"ts"</span>: <span class="number">1719849600002</span> }
+  ],
+  
+  <span class="comment">// ⚡ NIO Pattern: Buffer → Flush</span>
+  <span class="comment">// - Collect in Redis LIST (LPUSH)</span>
+  <span class="comment">// - Flush every 100ms OR 1000 items</span>
+  <span class="comment">// - Bulk write to Kafka/Cassandra</span>
+  
+  <span class="key">"flushStrategy"</span>: <span class="string">"TIME_OR_SIZE"</span>,
+  <span class="key">"maxWaitMs"</span>: <span class="number">100</span>,
+  <span class="key">"maxSize"</span>: <span class="number">1000</span>
+}</div>
+        </div>
+    </div>
+    
+    <!-- OfferAnalytics Model -->
+    <div id="dm-modal-OfferAnalytics" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'OfferAnalytics')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 OfferAnalytics.java (Vert.X)</span>
+                <button class="dm-modal-close" onclick="closeDataModel('OfferAnalytics')">✕</button>
+            </div>
+            <div class="dm-json"><span class="comment">// GET /analytics/offer/{id}</span>
+<span class="comment">// ⚡ CompositeFuture.all() - Parallel fetch pattern</span>
+{
+  <span class="key">"offerId"</span>: <span class="string">"offer_uuid"</span>,
+  
+  <span class="comment">// Future 1: Redis GET impressions:offer:{id}</span>
+  <span class="key">"impressions"</span>: <span class="number">125430</span>,
+  
+  <span class="comment">// Future 2: Redis GET clicks:offer:{id}</span>
+  <span class="key">"clicks"</span>: <span class="number">3842</span>,
+  
+  <span class="comment">// Future 3: Computed after join</span>
+  <span class="key">"ctr"</span>: <span class="number">3.06</span>,  <span class="comment">// clicks/impressions × 100</span>
+  
+  <span class="comment">// Future 4: Redis PFCOUNT (HyperLogLog)</span>
+  <span class="key">"uniqueUsers"</span>: <span class="number">45230</span>,
+  
+  <span class="key">"period"</span>: <span class="string">"LAST_24H"</span>,
+  <span class="key">"computedAt"</span>: <span class="number">1719849600000</span>
+}
+
+<span class="comment">// Vert.X Implementation:</span>
+<span class="comment">// Future&lt;Long&gt; f1 = redis.get("impressions:offer:" + id);</span>
+<span class="comment">// Future&lt;Long&gt; f2 = redis.get("clicks:offer:" + id);</span>
+<span class="comment">// Future&lt;Long&gt; f3 = redis.pfcount("users:offer:" + id);</span>
+<span class="comment">// CompositeFuture.all(f1, f2, f3).onSuccess(cf -> {</span>
+<span class="comment">//   long imp = cf.resultAt(0);</span>
+<span class="comment">//   long clk = cf.resultAt(1);</span>
+<span class="comment">//   double ctr = (clk * 100.0) / imp;</span>
+<span class="comment">// });</span></div>
         </div>
     </div>
 </body>
