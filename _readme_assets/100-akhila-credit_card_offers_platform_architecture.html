@@ -3211,9 +3211,187 @@ ORDER BY date</pre></td>
                     </div>
                 </div>
             </div>
+            
+            <!-- Batch Processing Row - Full Width -->
+            <div class="row">
+                <div style="width: 100%;">
+                    <div class="group-box focus-area" style="position: relative;">
+                        <div class="group-title">⏰ BATCH PROCESSING (Spring Boot + Java Threads) <span class="scope-badge scope-secondary">SECONDARY</span></div>
+                        <div class="group-desc">
+                            Scheduled background jobs for small data operations. Heavy processing (50M+ records) goes to Spark. Triggered by K8s CronJobs, uses Redis distributed locks.
+                        </div>
+                        
+                        <!-- Batch Jobs Container -->
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                            
+                            <!-- Job 1: Expiry Scan -->
+                            <div style="flex: 1; min-width: 280px; padding: 12px; background: #faf5ff; border-left: 3px solid #805ad5; border-radius: 0 6px 6px 0;">
+                                <div style="font-weight: bold; color: #553c9a; margin-bottom: 6px;">⏳ 1. EXPIRY SCAN <span style="font-weight: normal; color: #718096;">(Daily 2 AM)</span></div>
+                                <div style="font-size: 11px; color: #4a5568; margin-bottom: 8px; line-height: 1.4;">
+                                    Scans all offers and enrollments past their end date. Marks them as "EXPIRED" and triggers notification for offers expiring within 3 days.
+                                </div>
+                                
+                                <!-- Data Models -->
+                                <div style="margin-bottom: 8px;">
+                                    <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models:</div>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 3px;">
+                                        <span class="dm-clickable" onclick="openDataModel('BatchJob')" style="background: #e9d8fd; border: 1px solid #805ad5; color: #553c9a; font-size: 12px; padding: 2px 6px; border-radius: 3px;">BatchJob</span>
+                                        <span class="dm-clickable" onclick="openDataModel('BatchResult')" style="background: #e9d8fd; border: 1px solid #805ad5; color: #553c9a; font-size: 12px; padding: 2px 6px; border-radius: 3px;">BatchResult</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Threading Pattern -->
+                                <div style="overflow-x: auto;">
+                                <table style="width: 100%; min-width: 280px; border-collapse: collapse; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
+                                    <tr style="background: #edf2f7;">
+                                        <th style="padding: 4px 8px; text-align: left; color: #553c9a; white-space: nowrap;">Threading Pattern</th>
+                                        <th style="padding: 4px 8px; text-align: left; color: #718096; white-space: nowrap;">Interview Q</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 8px; color: #805ad5; font-family: monospace; white-space: nowrap;">CountDownLatch</td>
+                                        <td style="padding: 4px 8px; color: #718096; white-space: nowrap;">"Wait for N threads to complete"</td>
+                                    </tr>
+                                </table>
+                                </div>
+                                <div style="font-size: 11px; color: #718096; margin-top: 6px;">
+                                    📊 ~5K offers/enrollments → 5 partitions → latch.await()
+                                </div>
+                            </div>
+                            
+                            <!-- Job 2: DLQ Retry Handler -->
+                            <div style="flex: 1; min-width: 280px; padding: 12px; background: #fff5f5; border-left: 3px solid #c53030; border-radius: 0 6px 6px 0;">
+                                <div style="font-weight: bold; color: #c53030; margin-bottom: 6px;">🔄 2. DLQ RETRY HANDLER <span style="font-weight: normal; color: #718096;">(Daily 3 AM)</span></div>
+                                <div style="font-size: 11px; color: #4a5568; margin-bottom: 8px; line-height: 1.4;">
+                                    Retries failed microservice events from Dead Letter Queue. After 3 retries, escalates to P2 support via PagerDuty for manual investigation.
+                                </div>
+                                
+                                <!-- Data Models -->
+                                <div style="margin-bottom: 8px;">
+                                    <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models:</div>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 3px;">
+                                        <span class="dm-clickable" onclick="openDataModel('FailedEvent')" style="background: #fed7d7; border: 1px solid #c53030; color: #742a2a; font-size: 12px; padding: 2px 6px; border-radius: 3px;">FailedEvent</span>
+                                        <span class="dm-clickable" onclick="openDataModel('BatchResult')" style="background: #fed7d7; border: 1px solid #c53030; color: #742a2a; font-size: 12px; padding: 2px 6px; border-radius: 3px;">BatchResult</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Threading Pattern -->
+                                <div style="overflow-x: auto;">
+                                <table style="width: 100%; min-width: 280px; border-collapse: collapse; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
+                                    <tr style="background: #edf2f7;">
+                                        <th style="padding: 4px 8px; text-align: left; color: #c53030; white-space: nowrap;">Threading Pattern</th>
+                                        <th style="padding: 4px 8px; text-align: left; color: #718096; white-space: nowrap;">Interview Q</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 8px; color: #c53030; font-family: monospace; white-space: nowrap;">Semaphore</td>
+                                        <td style="padding: 4px 8px; color: #718096; white-space: nowrap;">"Rate limit concurrent operations"</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 8px; color: #c53030; font-family: monospace; white-space: nowrap;">CF.handle()/exceptionally()</td>
+                                        <td style="padding: 4px 8px; color: #718096; white-space: nowrap;">"Error handling in Future chain"</td>
+                                    </tr>
+                                </table>
+                                </div>
+                                <div style="font-size: 11px; color: #718096; margin-top: 6px;">
+                                    📊 ~500 events → Semaphore(10) → retry/escalate P2
+                                </div>
+                            </div>
+                            
+                            <!-- Job 3: Daily Settlement -->
+                            <div style="flex: 1; min-width: 280px; padding: 12px; background: #f0fff4; border-left: 3px solid #38a169; border-radius: 0 6px 6px 0;">
+                                <div style="font-weight: bold; color: #276749; margin-bottom: 6px;">💰 3. DAILY SETTLEMENT <span style="font-weight: normal; color: #718096;">(Daily 5 AM)</span></div>
+                                <div style="font-size: 11px; color: #4a5568; margin-bottom: 8px; line-height: 1.4;">
+                                    Aggregates previous day's redemptions by partner. Generates settlement CSV files with transaction breakdowns and uploads to S3 for Finance team.
+                                </div>
+                                
+                                <!-- Data Models -->
+                                <div style="margin-bottom: 8px;">
+                                    <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models:</div>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 3px;">
+                                        <span class="dm-clickable" onclick="openDataModel('BatchJob')" style="background: #c6f6d5; border: 1px solid #38a169; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">BatchJob</span>
+                                        <span class="dm-clickable" onclick="openDataModel('BatchResult')" style="background: #c6f6d5; border: 1px solid #38a169; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">BatchResult</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Threading Pattern -->
+                                <div style="overflow-x: auto;">
+                                <table style="width: 100%; min-width: 280px; border-collapse: collapse; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
+                                    <tr style="background: #edf2f7;">
+                                        <th style="padding: 4px 8px; text-align: left; color: #276749; white-space: nowrap;">Threading Pattern</th>
+                                        <th style="padding: 4px 8px; text-align: left; color: #718096; white-space: nowrap;">Interview Q</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 8px; color: #276749; font-family: monospace; white-space: nowrap;">CyclicBarrier</td>
+                                        <td style="padding: 4px 8px; color: #718096; white-space: nowrap;">"Sync threads at multiple phases"</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 8px; color: #276749; font-family: monospace; white-space: nowrap;">ReentrantLock</td>
+                                        <td style="padding: 4px 8px; color: #718096; white-space: nowrap;">"When to use over synchronized?"</td>
+                                    </tr>
+                                </table>
+                                </div>
+                                <div style="font-size: 11px; color: #718096; margin-top: 6px;">
+                                    📊 ~50K txns → 3 phases → CSV to S3
+                                </div>
+                            </div>
+                            
+                            <!-- Job 4: Soft-Delete Cleanup -->
+                            <div style="flex: 1; min-width: 280px; padding: 12px; background: #ebf8ff; border-left: 3px solid #3182ce; border-radius: 0 6px 6px 0;">
+                                <div style="font-weight: bold; color: #2b6cb0; margin-bottom: 6px;">🗑️ 4. SOFT-DELETE CLEANUP <span style="font-weight: normal; color: #718096;">(Monthly 1st)</span></div>
+                                <div style="font-size: 11px; color: #4a5568; margin-bottom: 8px; line-height: 1.4;">
+                                    Permanently removes records soft-deleted over 90 days ago. Allows concurrent reads during scan phase, blocks only during actual deletion.
+                                </div>
+                                
+                                <!-- Data Models -->
+                                <div style="margin-bottom: 8px;">
+                                    <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models:</div>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 3px;">
+                                        <span class="dm-clickable" onclick="openDataModel('BatchJob')" style="background: #bee3f8; border: 1px solid #3182ce; color: #2a4365; font-size: 12px; padding: 2px 6px; border-radius: 3px;">BatchJob</span>
+                                        <span class="dm-clickable" onclick="openDataModel('BatchResult')" style="background: #bee3f8; border: 1px solid #3182ce; color: #2a4365; font-size: 12px; padding: 2px 6px; border-radius: 3px;">BatchResult</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Threading Pattern -->
+                                <div style="overflow-x: auto;">
+                                <table style="width: 100%; min-width: 280px; border-collapse: collapse; font-size: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
+                                    <tr style="background: #edf2f7;">
+                                        <th style="padding: 4px 8px; text-align: left; color: #2b6cb0; white-space: nowrap;">Threading Pattern</th>
+                                        <th style="padding: 4px 8px; text-align: left; color: #718096; white-space: nowrap;">Interview Q</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 4px 8px; color: #2b6cb0; font-family: monospace; white-space: nowrap;">ReadWriteLock</td>
+                                        <td style="padding: 4px 8px; color: #718096; white-space: nowrap;">"Concurrent reads, exclusive writes"</td>
+                                    </tr>
+                                </table>
+                                </div>
+                                <div style="font-size: 11px; color: #718096; margin-top: 6px;">
+                                    📊 ~1K records → read scan → exclusive delete
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- DLQ Topics Consumed -->
+                        <div style="background: #fffaf0; border: 1px dashed #ed8936; border-radius: 5px; padding: 8px; margin-top: 10px;">
+                            <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 6px;">📡 Kafka DLQ Topics: <span style="font-weight: normal; color: #718096;">(consumed by DLQ Retry Handler)</span></div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">dlq.campaign.events</span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">dlq.offer.events</span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">dlq.enrollment.events</span>
+                                <span style="background: #fed7d7; border: 1px solid #c53030; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">→ alert.p2.escalation <span style="color: #718096;">(publish)</span></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Redis Usage -->
+                        <div style="background: #fff5f5; border: 1px dashed #fc8181; border-radius: 5px; padding: 8px; margin-top: 8px;">
+                            <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 6px;">⚡ Redis:</div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">batch:lock:{jobType} <span style="color: #718096;">(SETNX - distributed lock)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">dlq:processed:{eventId} <span style="color: #718096;">(SET - idempotency)</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Summary Box -->
         <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-left: 5px solid #48bb78;">
             <div style="font-size: 16px; font-weight: bold; color: #276749; margin-bottom: 15px;">📝 AKHILA'S INTERVIEW SUMMARY</div>
             
@@ -3230,10 +3408,10 @@ ORDER BY date</pre></td>
                 <div style="flex: 1; min-width: 280px;">
                     <div style="font-weight: bold; color: #2d3748; margin-bottom: 8px;">🔗 SECONDARY (Good Understanding):</div>
                     <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
-                        <li><strong>MySQL:</strong> Table design, JOINs, foreign keys, indexes</li>
+                        <li><strong>Batch Processing:</strong> CountDownLatch, Semaphore, CyclicBarrier, ReentrantLock, ReadWriteLock</li>
                         <li><strong>Couchbase:</strong> Document design, denormalized models</li>
-                        <li><strong>Redis:</strong> Cache-aside, counters (INCR), HyperLogLog, idempotency</li>
-                        <li><strong>Kafka:</strong> at-least-once, at-most-once, exactly-once delivery</li>
+                        <li><strong>Redis:</strong> Cache-aside, counters (INCR), HyperLogLog, distributed locks</li>
+                        <li><strong>Kafka:</strong> at-least-once, at-most-once, exactly-once, DLQ handling</li>
                     </ul>
                 </div>
                 <div style="flex: 1; min-width: 280px;">
@@ -3241,7 +3419,7 @@ ORDER BY date</pre></td>
                     <ul style="font-size: 12px; color: #4a5568; line-height: 1.8; padding-left: 20px;">
                         <li>Upstream systems (Core Banking, TPS, CRM)</li>
                         <li>AI/ML (Recommendations, Fraud Detection)</li>
-                        <li>Batch Processing, Data Lake, Downstream systems</li>
+                        <li>Heavy Batch (Spark), Data Lake, Downstream systems</li>
                     </ul>
                 </div>
             </div>
@@ -3258,6 +3436,7 @@ ORDER BY date</pre></td>
                     <span style="background: #6db33f; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">JPA Queries</span>
                     <span style="background: #782a90; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">⚡ Vert.X</span>
                     <span style="background: #782a90; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">NIO/Async</span>
+                    <span style="background: #b07219; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">☕ Java Concurrency</span>
                     <span style="background: #ea2328; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">Couchbase</span>
                     <span style="background: #dc382d; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">Redis</span>
                     <span style="background: #231f20; color: white; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">Kafka</span>
@@ -3670,6 +3849,129 @@ ORDER BY date</pre></td>
 <span class="comment">//   long clk = cf.resultAt(1);</span>
 <span class="comment">//   double ctr = (clk * 100.0) / imp;</span>
 <span class="comment">// });</span></div>
+        </div>
+    </div>
+    
+    <!-- ========== BATCH PROCESSING DATA MODELS ========== -->
+    
+    <!-- BatchJob Model -->
+    <div id="dm-modal-BatchJob" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'BatchJob')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 BatchJob.java (Batch Processing)</span>
+                <button class="dm-modal-close" onclick="closeDataModel('BatchJob')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"id"</span>: <span class="string">"job_uuid"</span>,
+  <span class="key">"type"</span>: <span class="string">"EXPIRY_SCAN"</span>,  <span class="comment">// EXPIRY_SCAN | DLQ_RETRY | SETTLEMENT | CLEANUP</span>
+  <span class="key">"status"</span>: <span class="string">"RUNNING"</span>,  <span class="comment">// PENDING | RUNNING | COMPLETED | FAILED</span>
+  <span class="key">"startTime"</span>: <span class="string">"2024-06-15T02:00:00Z"</span>,
+  <span class="key">"endTime"</span>: <span class="string">"2024-06-15T02:05:30Z"</span>,
+  <span class="key">"recordsProcessed"</span>: <span class="number">5000</span>,
+  <span class="key">"errorCount"</span>: <span class="number">12</span>
+}
+
+<span class="comment">// ⏳ Expiry Scan - CountDownLatch Pattern</span>
+<span class="comment">// Problem: Wait for N partition threads to complete</span>
+
+<span class="comment">CountDownLatch latch = new CountDownLatch(5); // 5 partitions</span>
+
+<span class="comment">for (List&lt;Offer&gt; partition : partitions) {</span>
+<span class="comment">    executor.submit(() -> {</span>
+<span class="comment">        try {</span>
+<span class="comment">            processPartition(partition);</span>
+<span class="comment">        } finally {</span>
+<span class="comment">            latch.countDown();  // decrement count</span>
+<span class="comment">        }</span>
+<span class="comment">    });</span>
+<span class="comment">}</span>
+
+<span class="comment">latch.await();  // blocks until count = 0</span>
+<span class="comment">log.info("All partitions completed");</span></div>
+        </div>
+    </div>
+    
+    <!-- FailedEvent Model -->
+    <div id="dm-modal-FailedEvent" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'FailedEvent')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 FailedEvent.java (DLQ Retry)</span>
+                <button class="dm-modal-close" onclick="closeDataModel('FailedEvent')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"id"</span>: <span class="string">"evt_uuid"</span>,
+  <span class="key">"serviceName"</span>: <span class="string">"campaign-service"</span>,
+  <span class="key">"operation"</span>: <span class="string">"UPDATE_BUDGET"</span>,
+  <span class="key">"payload"</span>: <span class="string">"{\"campaignId\":\"c1\",\"amount\":5000}"</span>,
+  <span class="key">"errorType"</span>: <span class="string">"TIMEOUT"</span>,  <span class="comment">// TIMEOUT | CONFLICT | VALIDATION</span>
+  <span class="key">"errorMsg"</span>: <span class="string">"Connection timeout after 30s"</span>,
+  <span class="key">"retryCount"</span>: <span class="number">1</span>,
+  <span class="key">"createdAt"</span>: <span class="string">"2024-06-14T15:30:00Z"</span>
+}
+
+<span class="comment">// 🔄 DLQ Retry - Semaphore + handle() Pattern</span>
+<span class="comment">// Problem: Rate limit retries + handle errors in chain</span>
+
+<span class="comment">Semaphore permits = new Semaphore(10);  // max 10 concurrent</span>
+
+<span class="comment">events.forEach(event -> {</span>
+<span class="comment">    permits.acquire();  // blocks if 10 already running</span>
+<span class="comment">    </span>
+<span class="comment">    CompletableFuture</span>
+<span class="comment">        .supplyAsync(() -> callService(event))</span>
+<span class="comment">        .thenApply(r -> markSuccess(event))</span>
+<span class="comment">        .exceptionally(ex -> incrementRetry(event))</span>
+<span class="comment">        .handle((result, ex) -> {</span>
+<span class="comment">            permits.release();  // always release</span>
+<span class="comment">            if (event.getRetryCount() >= 3) {</span>
+<span class="comment">                escalateP2(event);  // PagerDuty</span>
+<span class="comment">            }</span>
+<span class="comment">            return result;</span>
+<span class="comment">        });</span>
+<span class="comment">});</span></div>
+        </div>
+    </div>
+    
+    <!-- BatchResult Model -->
+    <div id="dm-modal-BatchResult" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'BatchResult')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 BatchResult.java (Settlement)</span>
+                <button class="dm-modal-close" onclick="closeDataModel('BatchResult')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"jobId"</span>: <span class="string">"job_uuid"</span>,
+  <span class="key">"successCount"</span>: <span class="number">49500</span>,
+  <span class="key">"failureCount"</span>: <span class="number">500</span>,
+  <span class="key">"escalatedCount"</span>: <span class="number">25</span>,
+  <span class="key">"outputPath"</span>: <span class="string">"s3://settlements/2024-06-15.csv"</span>,
+  <span class="key">"duration"</span>: <span class="string">"PT5M30S"</span>
+}
+
+<span class="comment">// 💰 Settlement - CyclicBarrier + ReentrantLock Pattern</span>
+<span class="comment">// Problem: Multi-phase processing + safe aggregation</span>
+
+<span class="comment">CyclicBarrier barrier = new CyclicBarrier(4);  // 4 threads</span>
+<span class="comment">ReentrantLock lock = new ReentrantLock();</span>
+<span class="comment">Map&lt;String, Double&gt; totals = new HashMap&lt;&gt;();</span>
+
+<span class="comment">// Phase 1: Fetch (parallel)</span>
+<span class="comment">List&lt;Txn&gt; myTxns = fetchPartnerTxns(partnerId);</span>
+<span class="comment">barrier.await();  // sync point - all threads wait here</span>
+
+<span class="comment">// Phase 2: Aggregate (with lock)</span>
+<span class="comment">lock.lock();</span>
+<span class="comment">try {</span>
+<span class="comment">    totals.merge(partnerId, sum, Double::sum);</span>
+<span class="comment">} finally {</span>
+<span class="comment">    lock.unlock();</span>
+<span class="comment">}</span>
+<span class="comment">barrier.await();  // sync point</span>
+
+<span class="comment">// Phase 3: Generate CSV (single thread)</span>
+<span class="comment">if (Thread.currentThread().getName().equals("thread-0")) {</span>
+<span class="comment">    writeToS3(totals);</span>
+<span class="comment">}</span></div>
         </div>
     </div>
 </body>
