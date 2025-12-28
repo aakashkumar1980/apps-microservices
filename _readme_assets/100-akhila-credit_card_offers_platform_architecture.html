@@ -1576,6 +1576,83 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* Data Model Modal Styles */
+        .dm-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .dm-modal-overlay.active {
+            display: flex;
+        }
+        .dm-modal {
+            background: #1a202c;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .dm-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #4a5568;
+        }
+        .dm-modal-title {
+            color: #68d391;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .dm-modal-close {
+            background: #e53e3e;
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .dm-modal-close:hover {
+            background: #c53030;
+        }
+        .dm-json {
+            background: #2d3748;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #e2e8f0;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        .dm-json .key { color: #90cdf4; }
+        .dm-json .string { color: #68d391; }
+        .dm-json .number { color: #f6ad55; }
+        .dm-json .boolean { color: #fc8181; }
+        .dm-json .comment { color: #718096; font-style: italic; }
+        .dm-clickable {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .dm-clickable:hover {
+            background: #9ae6b4 !important;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -2885,11 +2962,11 @@ ORDER BY date</pre></td>
                             
                             <!-- Data Models -->
                             <div style="margin-bottom: 8px;">
-                                <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models:</div>
+                                <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models: <span style="font-weight: normal; color: #718096;">(click to view JSON)</span></div>
                                 <div style="display: flex; flex-wrap: wrap; gap: 3px;">
-                                    <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Campaign</span>
-                                    <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Budget</span>
-                                    <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">TargetingRule</span>
+                                    <span class="dm-clickable" onclick="openDataModel('Campaign')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Campaign</span>
+                                    <span class="dm-clickable" onclick="openDataModel('Budget')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Budget</span>
+                                    <span class="dm-clickable" onclick="openDataModel('TargetingRule')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">TargetingRule</span>
                                 </div>
                             </div>
                             
@@ -2928,11 +3005,11 @@ ORDER BY date</pre></td>
                             
                             <!-- Data Models -->
                             <div style="margin-bottom: 8px;">
-                                <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models:</div>
+                                <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models: <span style="font-weight: normal; color: #718096;">(click to view JSON)</span></div>
                                 <div style="display: flex; flex-wrap: wrap; gap: 3px;">
-                                    <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Offer</span>
-                                    <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">RewardRule</span>
-                                    <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Merchant</span>
+                                    <span class="dm-clickable" onclick="openDataModel('Offer')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Offer</span>
+                                    <span class="dm-clickable" onclick="openDataModel('RewardRule')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">RewardRule</span>
+                                    <span class="dm-clickable" onclick="openDataModel('Merchant')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Merchant</span>
                                 </div>
                             </div>
                             
@@ -2974,10 +3051,10 @@ ORDER BY date</pre></td>
                             
                             <!-- Data Models -->
                             <div style="margin-bottom: 8px;">
-                                <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models:</div>
+                                <div style="font-size: 12px; font-weight: bold; color: #2d3748; margin-bottom: 4px;">📦 Data Models: <span style="font-weight: normal; color: #718096;">(click to view JSON)</span></div>
                                 <div style="display: flex; flex-wrap: wrap; gap: 3px;">
-                                    <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Enrollment</span>
-                                    <span style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">EnrollmentStatus</span>
+                                    <span class="dm-clickable" onclick="openDataModel('Enrollment')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">Enrollment</span>
+                                    <span class="dm-clickable" onclick="openDataModel('EnrollmentStatus')" style="background: #c6f6d5; border: 1px solid #48bb78; color: #22543d; font-size: 12px; padding: 2px 6px; border-radius: 3px;">EnrollmentStatus</span>
                                 </div>
                             </div>
                             
@@ -3008,24 +3085,27 @@ ORDER BY date</pre></td>
                             </div>
                         </div>
                         
-                        <!-- Kafka Topics -->
+                        <!-- Kafka Topics - Event Publishing from REST APIs -->
                         <div style="background: #fffaf0; border: 1px dashed #ed8936; border-radius: 5px; padding: 8px; margin-top: 10px;">
-                            <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 6px;">📡 Kafka Topics:</div>
+                            <div style="font-size: 12px; font-weight: bold; color: #c05621; margin-bottom: 6px;">📡 Kafka Topics: <span style="font-weight: normal; color: #718096;">(published on POST/PATCH/DELETE)</span></div>
                             <div style="display: flex; flex-wrap: wrap; gap: 4px;">
-                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">campaign-events <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
-                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">offer-events <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
-                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">enrollment-events <span style="color: #276749; font-weight: bold;">(exactly-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">campaign.created <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">offer.activated <span style="color: #2b6cb0; font-weight: bold;">(at-least-once)</span></span>
+                                <span style="background: #feebc8; border: 1px solid #ed8936; color: #744210; font-size: 12px; padding: 3px 6px; border-radius: 3px;">enrollment.created <span style="color: #276749; font-weight: bold;">(exactly-once)</span></span>
                             </div>
                         </div>
                         
-                        <!-- Redis Cache -->
+                        <!-- Redis Cache - Caching + Idempotency -->
                         <div style="background: #fff5f5; border: 1px dashed #fc8181; border-radius: 5px; padding: 8px; margin-top: 8px;">
                             <div style="font-size: 12px; font-weight: bold; color: #c53030; margin-bottom: 6px;">⚡ Redis Cache:</div>
+                            <div style="font-size: 12px; color: #718096; margin-bottom: 4px;">Query Cache (GET responses):</div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px;">
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">campaigns:active <span style="color: #718096;">(TTL: 15m)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">offers:status:{s} <span style="color: #718096;">(TTL: 15m)</span></span>
+                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">enrollments:{custId} <span style="color: #718096;">(TTL: 5m)</span></span>
+                            </div>
+                            <div style="font-size: 12px; color: #718096; margin-bottom: 4px;">Idempotency Keys (at-least-once topics):</div>
                             <div style="display: flex; flex-wrap: wrap; gap: 4px;">
-                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">campaign:{id} <span style="color: #718096;">(TTL: 15m)</span></span>
-                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">offer:{id} <span style="color: #718096;">(TTL: 15m)</span></span>
-                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">eligibility:{odId} <span style="color: #718096;">(TTL: 15m)</span></span>
-                                <span style="background: #fed7d7; border: 1px solid #fc8181; color: #742a2a; font-size: 12px; padding: 3px 6px; border-radius: 3px;">enrollments:{odId} <span style="color: #718096;">(TTL: 5m)</span></span>
                                 <span style="background: #fbb6ce; border: 1px solid #d53f8c; color: #702459; font-size: 12px; padding: 3px 6px; border-radius: 3px;">idemp:campaign:{msgId} <span style="color: #718096;">(TTL: 7d)</span></span>
                                 <span style="background: #fbb6ce; border: 1px solid #d53f8c; color: #702459; font-size: 12px; padding: 3px 6px; border-radius: 3px;">idemp:offer:{msgId} <span style="color: #718096;">(TTL: 7d)</span></span>
                             </div>
@@ -3262,6 +3342,189 @@ ORDER BY date</pre></td>
             if (selectedContent) selectedContent.style.display = 'block';
             if (selectedTab) selectedTab.classList.add('active');
         }
+        
+        // Data Model Modal Functions
+        function openDataModel(modelName) {
+            document.getElementById('dm-modal-' + modelName).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeDataModel(modelName) {
+            document.getElementById('dm-modal-' + modelName).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function closeDataModelOnOverlay(event, modelName) {
+            if (event.target.classList.contains('dm-modal-overlay')) {
+                closeDataModel(modelName);
+            }
+        }
     </script>
+    
+    <!-- Data Model Modals -->
+    
+    <!-- Campaign Model -->
+    <div id="dm-modal-Campaign" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'Campaign')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 Campaign.java</span>
+                <button class="dm-modal-close" onclick="closeDataModel('Campaign')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"id"</span>: <span class="string">"camp_uuid"</span>,
+  <span class="key">"name"</span>: <span class="string">"Summer Rewards 2024"</span>,
+  <span class="key">"type"</span>: <span class="string">"CASHBACK"</span>,
+  <span class="key">"status"</span>: <span class="string">"ACTIVE"</span>,
+  <span class="key">"active"</span>: <span class="boolean">true</span>,
+  <span class="key">"startDate"</span>: <span class="string">"2024-06-01"</span>,
+  <span class="key">"endDate"</span>: <span class="string">"2024-08-31"</span>,
+  <span class="key">"createdDate"</span>: <span class="string">"2024-05-15T10:30:00Z"</span>,
+  
+  <span class="comment">// 🔗 Model Dependencies</span>
+  <span class="key">"offerIds"</span>: [<span class="string">"offer_001"</span>, <span class="string">"offer_002"</span>],  <span class="comment">// → Offer</span>
+  <span class="key">"budgetId"</span>: <span class="string">"budget_uuid"</span>,  <span class="comment">// → Budget</span>
+  <span class="key">"targetingRules"</span>: []  <span class="comment">// List&lt;TargetingRule&gt;</span>
+}</div>
+        </div>
+    </div>
+    
+    <!-- Budget Model -->
+    <div id="dm-modal-Budget" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'Budget')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 Budget.java</span>
+                <button class="dm-modal-close" onclick="closeDataModel('Budget')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"id"</span>: <span class="string">"budget_uuid"</span>,
+  <span class="key">"totalAmount"</span>: <span class="number">500000.00</span>,
+  <span class="key">"spentAmount"</span>: <span class="number">125000.00</span>,
+  <span class="key">"currency"</span>: <span class="string">"USD"</span>,
+  
+  <span class="comment">// 🔗 Model Dependencies</span>
+  <span class="key">"campaignId"</span>: <span class="string">"camp_uuid"</span>  <span class="comment">// → Campaign (parent)</span>
+}</div>
+        </div>
+    </div>
+    
+    <!-- TargetingRule Model -->
+    <div id="dm-modal-TargetingRule" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'TargetingRule')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 TargetingRule.java</span>
+                <button class="dm-modal-close" onclick="closeDataModel('TargetingRule')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"id"</span>: <span class="string">"rule_uuid"</span>,
+  <span class="key">"ruleType"</span>: <span class="string">"SEGMENT"</span>,
+  <span class="key">"criteria"</span>: <span class="string">"PREMIUM_MEMBERS"</span>,
+  <span class="key">"active"</span>: <span class="boolean">true</span>,
+  
+  <span class="comment">// 🔗 Model Dependencies</span>
+  <span class="key">"campaignId"</span>: <span class="string">"camp_uuid"</span>  <span class="comment">// → Campaign (parent)</span>
+}</div>
+        </div>
+    </div>
+    
+    <!-- Offer Model -->
+    <div id="dm-modal-Offer" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'Offer')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 Offer.java</span>
+                <button class="dm-modal-close" onclick="closeDataModel('Offer')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"id"</span>: <span class="string">"offer_uuid"</span>,
+  <span class="key">"name"</span>: <span class="string">"5% Coffee Cashback"</span>,
+  <span class="key">"code"</span>: <span class="string">"SUMMER2024_COFFEE"</span>,
+  <span class="key">"status"</span>: <span class="string">"ACTIVE"</span>,
+  <span class="key">"minSpend"</span>: <span class="number">25.00</span>,
+  <span class="key">"rewardAmount"</span>: <span class="number">5.00</span>,
+  <span class="key">"createdDate"</span>: <span class="string">"2024-05-20T14:00:00Z"</span>,
+  <span class="key">"deletedAt"</span>: <span class="boolean">null</span>,
+  <span class="key">"expiredAt"</span>: <span class="boolean">null</span>,
+  
+  <span class="comment">// 🔗 Model Dependencies</span>
+  <span class="key">"campaignId"</span>: <span class="string">"camp_uuid"</span>,  <span class="comment">// → Campaign</span>
+  <span class="key">"merchantIds"</span>: [<span class="string">"merch_001"</span>],  <span class="comment">// → Merchant[]</span>
+  <span class="key">"rewardRuleIds"</span>: [<span class="string">"reward_001"</span>]  <span class="comment">// → RewardRule[]</span>
+}</div>
+        </div>
+    </div>
+    
+    <!-- RewardRule Model -->
+    <div id="dm-modal-RewardRule" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'RewardRule')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 RewardRule.java</span>
+                <button class="dm-modal-close" onclick="closeDataModel('RewardRule')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"id"</span>: <span class="string">"reward_uuid"</span>,
+  <span class="key">"rewardType"</span>: <span class="string">"PERCENTAGE"</span>,
+  <span class="key">"value"</span>: <span class="number">5.0</span>,
+  <span class="key">"maxReward"</span>: <span class="number">50.00</span>,
+  
+  <span class="comment">// 🔗 Model Dependencies</span>
+  <span class="key">"offerId"</span>: <span class="string">"offer_uuid"</span>  <span class="comment">// → Offer (parent)</span>
+}</div>
+        </div>
+    </div>
+    
+    <!-- Merchant Model -->
+    <div id="dm-modal-Merchant" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'Merchant')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 Merchant.java</span>
+                <button class="dm-modal-close" onclick="closeDataModel('Merchant')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"id"</span>: <span class="string">"merchant_uuid"</span>,
+  <span class="key">"name"</span>: <span class="string">"Starbucks"</span>,
+  <span class="key">"mccCode"</span>: <span class="string">"5814"</span>,
+  <span class="key">"category"</span>: <span class="string">"RESTAURANT"</span>,
+  <span class="key">"active"</span>: <span class="boolean">true</span>,
+  
+  <span class="comment">// 🔗 Model Dependencies</span>
+  <span class="key">"offerIds"</span>: [<span class="string">"offer_001"</span>, <span class="string">"offer_002"</span>]  <span class="comment">// → Offer[] (many-to-many)</span>
+}</div>
+        </div>
+    </div>
+    
+    <!-- Enrollment Model -->
+    <div id="dm-modal-Enrollment" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'Enrollment')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 Enrollment.java</span>
+                <button class="dm-modal-close" onclick="closeDataModel('Enrollment')">✕</button>
+            </div>
+            <div class="dm-json">{
+  <span class="key">"id"</span>: <span class="string">"enroll_uuid"</span>,
+  <span class="key">"status"</span>: <span class="string">"ACTIVE"</span>,
+  <span class="key">"expired"</span>: <span class="boolean">false</span>,
+  <span class="key">"enrolledAt"</span>: <span class="string">"2024-06-01T09:15:00Z"</span>,
+  
+  <span class="comment">// 🔗 Model Dependencies</span>
+  <span class="key">"customerId"</span>: <span class="string">"cust_12345"</span>,  <span class="comment">// → Customer (external)</span>
+  <span class="key">"offerId"</span>: <span class="string">"offer_uuid"</span>  <span class="comment">// → Offer</span>
+}</div>
+        </div>
+    </div>
+    
+    <!-- EnrollmentStatus Model -->
+    <div id="dm-modal-EnrollmentStatus" class="dm-modal-overlay" onclick="closeDataModelOnOverlay(event, 'EnrollmentStatus')">
+        <div class="dm-modal">
+            <div class="dm-modal-header">
+                <span class="dm-modal-title">📄 EnrollmentStatus.java (Enum)</span>
+                <button class="dm-modal-close" onclick="closeDataModel('EnrollmentStatus')">✕</button>
+            </div>
+            <div class="dm-json"><span class="comment">// Enum values used in queries</span>
+<span class="key">ACTIVE</span>     <span class="comment">// findByStatusIs("ACTIVE")</span>
+<span class="key">PENDING</span>    <span class="comment">// findByStatusNot("PENDING")</span>
+<span class="key">EXPIRED</span>    <span class="comment">// removeByStatusAndExpiredTrue()</span>
+<span class="key">CANCELLED</span>  <span class="comment">// deleteByStatus("CANCELLED")</span>
+<span class="key">REDEEMED</span>   <span class="comment">// findByCustomerIdAndStatus()</span></div>
+        </div>
+    </div>
 </body>
 </html>
